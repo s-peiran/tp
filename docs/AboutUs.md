@@ -28,7 +28,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[portfolio](team/jonyeokj.md)]
 
 * Role: Documentation, Integration
-* Responsibilities: 
+* Responsibilities:
     - Responsible for the quality of various project documents.
     - In charge of versioning the code, and maintaining the code repository.
 

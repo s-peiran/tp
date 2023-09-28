@@ -36,12 +36,12 @@
 
 - **Example**: `contact -a Sarah`
 
-- **Acceptable Values**: 
+- **Acceptable Values**:
     - CONTACT_NAME: String, at least 2 characters long.
 
 - **Expected Outputs**:
     - Success: “Successfully added [CONTACT_NAME].”
-    - Failure: 
+    - Failure:
         - If the CONTACT_NAME already exists: “Error: Contact already exists.”
         - If invalid command format: "Error: Invalid command format."
 
@@ -55,7 +55,7 @@
 
 - **Example**: `contact -v Sarah`
 
-- **Acceptable Values**: 
+- **Acceptable Values**:
     - CONTACT_ID: Non-negative integer.
     - CONTACT_NAME: String, at least 2 characters long. Not case sensitive.
 
@@ -212,7 +212,7 @@
 - **Example**: `meeting -dm "Project Discussion" -p 5`
 
 - **Acceptable Values**:
-    - MEETING_ID: Non-negative integer. 
+    - MEETING_ID: Non-negative integer.
     - MEETING_NAME: String, at least 2 characters long. Not case sensitive.
     - CONTACT_ID: Non-negative integer.
     - CONTACT_NAME: String, at least 2 characters long. Not case sensitive.
@@ -233,11 +233,11 @@
 
 - **What it does**: Associates notes with a specific contact or meeting.
 
-- **Command Format**: 
+- **Command Format**:
     - For Contacts: `note -c CONTACT_ID or CONTACT_NAME -n NOTES`
     - For Meetings: `note -m MEETING_ID or MEETING_NAME -n NOTES`
 
-- **Examples**: 
+- **Examples**:
     - `note -c 5 -n "Has a dog named Benny"`
     - `note -m "Project Discussion" -n "Agenda: Discuss Q2 results"`
 
