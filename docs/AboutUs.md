@@ -19,15 +19,18 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Project Advisor
 
-### Jane Doe
+### Jonathan Yeo
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/jonyeokj.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[homepage](https://github.com/jonyeokj)]
+[[github](https://github.com/jonyeokj)]
+[[portfolio](team/jonyeokj.md)]
 
-* Role: Team Lead
-* Responsibilities: UI
+* Role: Documentation, Integration
+* Responsibilities: 
+    - Responsible for the quality of various project documents.
+    - In charge of versioning the code, and maintaining the code repository.
 
 ### Johnny Doe
 
