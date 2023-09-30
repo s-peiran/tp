@@ -19,15 +19,17 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Project Advisor
 
-### Jane Doe
+### Chia Yun Rong
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/chiayunrong.png" width="200px">
 
-[[github](http://github.com/johndoe)]
+[[github](https://github.com/chiayunrong)]
 [[portfolio](team/johndoe.md)]
 
-* Role: Team Lead
-* Responsibilities: UI
+* Role: Team lead, Testing
+* Responsibilities:
+    * Overall project coordination.
+    * Ensures the testing of the project is done properly and on time.
 
 ### Johnny Doe
 
