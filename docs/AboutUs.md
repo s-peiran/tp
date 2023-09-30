@@ -24,7 +24,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/chiayunrong.png" width="200px">
 
 [[github](https://github.com/chiayunrong)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/chiayunrong.md)]
 
 * Role: Team lead, Testing
 * Responsibilities:
