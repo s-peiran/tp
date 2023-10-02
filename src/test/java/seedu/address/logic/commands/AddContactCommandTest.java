@@ -23,6 +23,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.testutil.ContactBuilder;
 
 public class AddContactCommandTest {
@@ -156,6 +157,11 @@ public class AddContactCommandTest {
 
         @Override
         public void updateFilteredContactList(Predicate<Contact> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addMeeting(Meeting meeting) {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -8,6 +8,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.UniqueContactList;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.MeetingList;
 
 /**
  * Wraps all data at the address-book level
@@ -16,6 +18,8 @@ import seedu.address.model.contact.UniqueContactList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueContactList contacts;
+
+    private final MeetingList meetings;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,6 +30,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         contacts = new UniqueContactList();
+        meetings = new MeetingList();
     }
 
     public AddressBook() {}
@@ -93,6 +98,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeContact(Contact key) {
         contacts.remove(key);
+    }
+
+    /**
+     * Adds a meeting to Notenote.
+     */
+    public void addMeeting(Meeting meeting) {
+        meetings.add(meeting);
     }
 
     //// util methods

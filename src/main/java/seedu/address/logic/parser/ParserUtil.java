@@ -13,6 +13,10 @@ import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.meeting.Description;
+import seedu.address.model.meeting.Location;
+import seedu.address.model.meeting.Time;
+import seedu.address.model.meeting.Title;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -120,5 +124,55 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String title} into an {@code Title}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code title} is invalid.
+     */
+    public static Title parseTitle(String title) throws ParseException {
+        requireNonNull(title);
+        String trimmedTitle = title.trim();
+        if (!Title.isValidTitle(trimmedTitle)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+        return new Title(trimmedTitle);
+    }
+
+    /**
+     * Parses a {@code String time} into an {@code Time}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code time} is invalid.
+     */
+    public static Time parseTime(String time) throws ParseException {
+        String trimmedTime = time.trim();
+        if (!Time.isValidTime(trimmedTime)) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
+        }
+        return new Time(trimmedTime);
+    }
+
+    /**
+     * Parses a {@code String location} into an {@code Location}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code location} is invalid.
+     */
+    public static Location parseLocation(String location) throws ParseException {
+        String trimmedLocation = location.trim();
+        if (!Location.isValidLocation(trimmedLocation)) {
+            throw new ParseException(Location.MESSAGE_CONSTRAINTS);
+        }
+        return new Location(trimmedLocation);
+    }
+
+    /**
+     * Parses a {@code String description} into an {@code Description}.
+     */
+    public static Description parseDescription(String description) {
+        return new Description(description);
     }
 }
