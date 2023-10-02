@@ -1,151 +1,304 @@
 # User Guide
 
----
+[![CI Status](https://github.com/AY2324S1-CS2103-W14-2/tp/workflows/Java%20CI/badge.svg)](https://github.com/se-edu/addressbook-level3/actions)
+
+![Ui](docs/images/Ui.png)
 
 ## Table of Contents
 
 - [Contact Management](#contact-management)
-  - [Add a Contact](#add-a-contact)
-  - [View Contacts](#view-contacts)
+  - [Create New Contact](#create-new-contact)
+  - [View a Contact](#view-a-contact)
+  - [List All Contacts](#list-all-contacts)
   - [Delete a Contact](#delete-a-contact)
-- [Tagging and Categorization](#tagging-and-categorization)
-  - [Tag a Contact](#tag-a-contact)
+- [Meeting Management](#meeting-management)
+  - [Create a New Meeting](#create-a-new-meeting)
+  - [View a Meeting](#view-a-meeting)
+  - [List All Meetings](#list-all-meetings)
+  - [Delete a Meeting](#delete-a-meeting)
+  - [Add Contact to Meeting](#add-contact-to-meeting)
+  - [Delete Contact from Meeting](#delete-contact-from-meeting)
 - [Note-Taking](#note-taking)
-  - [Add Notes to Contacts](#add-notes-to-contacts)
-  - [Add Notes to Tags](#add-notes-to-tags)
+  - [Add Notes to a Contact or Meeting](#add-notes-to-a-contact-or-meeting)
+  - [Delete Notes from a Contact or Meeting](#delete-notes-from-a-contact-or-meeting)
 - [Miscellaneous](#miscellaneous)
-  - [View Commands](#view-commands)
+  - [View List of Available Commands](#view-list-of-available-commands)
 
 ---
 
-## Contact Management
+## Contact Management:
 
-### Add a Contact
+### Create New Contact
 
-- **What it does:** Adds a new contact to the application.
-  
-- **Command format:** `add contact NAME PHONE EMAIL`
-  
-- **Example:** `add contact John Doe 123456789 john@example.com`
-  
-- **Acceptable values:**
-  - **NAME:** Any combination of letters and spaces. Must be at least two characters long.
-  - **PHONE:** Any 9-digit number.
-  - **EMAIL:** A valid email format (e.g., `name@domain.com`).
-  
-- **Expected outputs (success):** A message confirming the contact has been added and details of the new contact.
-  
-- **Expected outputs (failure):** 
-  - If the NAME, PHONE, or EMAIL is missing: "Error: Missing [parameter]. Please provide [parameter]."
-  - If PHONE is not a 9-digit number: "Error: Invalid phone number format."
-  - If EMAIL is not in a valid format: "Error: Invalid email format."
+- **What it does**: Adds a new contact to the list.
 
-### View Contacts
+- **Command Format**: `contact -a CONTACT_NAME`
 
-- **What it does:** Displays a list of all contacts.
-  
-- **Command format:** `view contacts`
-  
-- **Example:** `view contacts`
-  
-- **Expected outputs (success):** A list of all saved contacts with their details.
-  
-- **Expected outputs (failure):** "Error: No contacts found."
+- **Example**: `contact -a Sarah`
+
+- **Acceptable Values**:
+    - CONTACT_NAME: String, at least 2 characters long.
+
+- **Expected Outputs**:
+    - Success: “Successfully added [CONTACT_NAME].”
+    - Failure:
+        - If the CONTACT_NAME already exists: “Error: Contact already exists.”
+        - If invalid command format: "Error: Invalid command format."
+
+---
+
+### View a Contact
+
+- **What it does**: Displays details of a specific contact.
+
+- **Command Format**: `contact -v CONTACT_ID or CONTACT_NAME`
+
+- **Example**: `contact -v Sarah`
+
+- **Acceptable Values**:
+    - CONTACT_ID: Non-negative integer.
+    - CONTACT_NAME: String, at least 2 characters long. Not case sensitive.
+
+- **Expected Outputs**:
+    - Success: "Displaying details for [CONTACT_NAME]."
+    - Failure:
+        - If the CONTACT_ID or CONTACT_NAME does not exist: "Error: Contact not found."
+        - If invalid command format: "Error: Invalid command format."
+
+---
+
+### List All Contacts
+
+- **What it does**: Shows all contacts in the list.
+
+- **Command Format**: `contact -l`
+
+- **Expected Outputs**:
+    - Success: List of all contacts.
+    - Failure:
+        - If no contacts are available: "Error: No contacts available."
+        - If invalid command format: "Error: Invalid command format."
+
+---
 
 ### Delete a Contact
 
-- **What it does:** Removes a contact based on the given ID.
-  
-- **Command format:** `delete contact CONTACT_ID`
-  
-- **Example:** `delete contact 3`
-  
-- **Acceptable values:**
-  - **CONTACT_ID:** A valid number corresponding to a contact.
-  
-- **Expected outputs (success):** "Successfully deleted [NAME of the contact]."
-  
-- **Expected outputs (failure):**
-  - If the CONTACT_ID does not exist: "Error: Contact not found."
-  - If the CONTACT_ID is not provided: "Error: Please provide a contact ID."
+- **What it does**: Removes a contact based on the given ID.
+
+- **Command Format**: `contact -d CONTACT_ID`
+
+- **Example**: `contact -d 3`
+
+- **Acceptable Values**:
+    - CONTACT_ID: Non-negative integer.
+
+- **Expected Outputs**:
+    - Success: "Successfully deleted [NAME of the contact] from the contact list."
+    - Failure:
+        - If the CONTACT_ID does not exist: "Error: Contact not found."
+        - If the CONTACT_ID is not provided: "Error: Please provide a contact ID."
+        - If invalid command format: "Error: Invalid command format."
 
 ---
 
-## Tagging and Categorization
+## Meeting Management:
 
-### Tag a Contact
+### Create a New Meeting
 
-- **What it does:** Tags a specific contact with a given tag name.
-  
-- **Command format:** `tag contact CONTACT_ID TAG_NAME`
-  
-- **Example:** `tag contact 2 Math`
-  
-- **Acceptable values:**
-  - **CONTACT_ID:** A valid number corresponding to a contact.
-  - **TAG_NAME:** Any combination of letters and spaces. Must be at least two characters long.
-  
-- **Expected outputs (success):** "Successfully tagged [NAME of the contact] with [TAG_NAME]."
-  
-- **Expected outputs (failure):**
-  - If the CONTACT_ID does not exist: "Error: Contact not found."
-  - If the TAG_NAME is not provided: "Error: Please provide a tag name."
+- **What it does**: Organizes a new meeting with optional notes and participants.
 
----
+- **Command Format**: `meeting -a MEETING_NAME [-n NOTES] [-p CONTACT_IDS]`
 
-## Note-Taking
+- **Example**: `meeting -a "Project Discussion" -n "Discussing milestones" -p 2,5,7`
 
-### Add Notes to Contacts
+- **Acceptable Values**:
+    - MEETING_NAME: String, at least 2 characters long.
+    - NOTES: String, at least 1 character long.
+    - CONTACT_IDS: Non-negative integers delimited by commas.
 
-- **What it does:** Adds a note to a specific contact.
-  
-- **Command format:** `add note CONTACT_ID NOTE_CONTENT`
-  
-- **Example:** `add note 1 Had a meeting on Monday.`
-  
-- **Acceptable values:**
-  - **CONTACT_ID:** A valid number corresponding to a contact.
-  - **NOTE_CONTENT:** Any text up to 500 characters.
-  
-- **Expected outputs (success):** "Successfully added note to [NAME of the contact]."
-  
-- **Expected outputs (failure):** 
-  - If the CONTACT_ID does not exist: "Error: Contact not found."
-  - If the NOTE_CONTENT is not provided: "Error: Please provide note content."
-
-### Add Notes to Tags
-
-- **What it does:** Adds a note to a specific tag.
-  
-- **Command format:** `add tag-note TAG_NAME NOTE_CONTENT`
-  
-- **Example:** `add tag-note Math Review next week's lesson.`
-  
-- **Acceptable values:**
-  - **TAG_NAME:** Any combination of letters and spaces. Must be at least two characters long.
-  - **NOTE_CONTENT:** Any text up to 500 characters.
-  
-- **Expected outputs (success):** "Successfully added note to [TAG_NAME] tag."
-  
-- **Expected outputs (failure):**
-  - If the TAG_NAME does not exist: "Error: Tag not found."
-  - If the NOTE_CONTENT is not provided: "Error: Please provide note content."
+- **Expected Outputs**:
+    - Success: "[MEETING_NAME] successfully added."
+    - Failure:
+        - If the MEETING_NAME already exists: "Error: Meeting already exists."
+        - If any of the CONTACT_IDS don't exist: "Error: One or more participants not found."
+        - If invalid command format: "Error: Invalid command format."
 
 ---
 
-## Miscellaneous
+### View a Meeting
 
-### View Commands
+- **What it does**: Displays details of a specific meeting.
 
-- **What it does:** Shows a list of all available commands.
-  
-- **Command format:** `help`
-  
-- **Example:** `help`
-  
-- **Expected outputs (success):** A list of all commands with brief descriptions.
-  
-- **Expected outputs (failure):** N/A
+- **Command Format**: `meeting -v MEETING_ID or MEETING_NAME`
+
+- **Example**: `meeting -v "Project Discussion"`
+
+- **Acceptable Values**:
+    - MEETING_ID: Non-negative integer.
+    - MEETING_NAME: String, at least 2 characters long. Not case sensitive.
+
+- **Expected Outputs**:
+    - Success: "Displaying details for [MEETING_NAME]."
+    - Failure:
+        - If the MEETING_ID or MEETING_NAME does not exist: "Error: Meeting not found."
+        - If invalid command format: "Error: Invalid command format."
 
 ---
 
+### List All Meetings
+
+- **What it does**: Shows a list of all meetings.
+
+- **Command Format**: `meeting -l`
+
+- **Expected Outputs**:
+    - Success: List of all meetings.
+    - Failure:
+        - If no meetings are found: "Error: No meetings found."
+        - If invalid command format: "Error: Invalid command format."
+
+---
+
+### Delete a Meeting
+
+- **What it does**: Cancels a meeting based on the given ID or name.
+
+- **Command Format**: `meeting -d MEETING_ID`
+
+- **Example**: `meeting -d "Project Discussion"`
+
+- **Acceptable Values**:
+    - MEETING_ID: Non-negative integer.
+
+- **Expected Outputs**:
+    - Success: "Successfully deleted [MEETING_NAME]."
+    - Failure:
+        - If the MEETING_ID does not exist: "Error: Meeting not found."
+        - If the MEETING_ID is not provided: "Error: Please specify a meeting."
+        - If invalid command format: "Error: Invalid command format."
+
+---
+
+### Add Contact to Meeting
+
+- **What it does**: Adds a contact to an existing meeting.
+
+- **Command Format**: `meeting -am MEETING_ID or MEETING_NAME -p CONTACT_ID or CONTACT_NAME`
+
+- **Example**: `meeting -am "Project Discussion" -p 5`
+
+- **Acceptable Values**:
+    - MEETING_ID: Non-negative integer.
+    - MEETING_NAME: String, at least 2 characters long. Not case sensitive.
+    - CONTACT_ID: Non-negative integer.
+    - CONTACT_NAME: String, at least 2 characters long. Not case sensitive.
+
+- **Expected Outputs**:
+    - Success: "Successfully added contact to [MEETING_NAME]."
+    - Failure:
+        - If the MEETING_ID or MEETING_NAME does not exist: "Error: Meeting not found."
+        - If the CONTACT_ID OR CONTACT_NAME does not exist: "Error: Contact not found."
+        - If duplicate MEETING_NAME or CONTACT_NAME: "Error: Multiple matching names found."
+        - If invalid command format: "Error: Invalid command format."
+
+---
+
+### Delete Contact from Meeting
+
+- **What it does**: Removes a contact from an existing meeting.
+
+- **Command Format**: `meeting -dm MEETING_ID or MEETING_NAME -p CONTACT_ID or CONTACT_NAME`
+
+- **Example**: `meeting -dm "Project Discussion" -p 5`
+
+- **Acceptable Values**:
+    - MEETING_ID: Non-negative integer.
+    - MEETING_NAME: String, at least 2 characters long. Not case sensitive.
+    - CONTACT_ID: Non-negative integer.
+    - CONTACT_NAME: String, at least 2 characters long. Not case sensitive.
+
+- **Expected Outputs**:
+    - Success: "Successfully removed contact from [MEETING_NAME]."
+    - Failure:
+        - If the MEETING_ID or MEETING_NAME does not exist: "Error: Meeting not found."
+        - If duplicate MEETING_NAME or CONTACT_NAME: "Error: Multiple matching names found."
+        - If the CONTACT_ID or CONTACT_NAME does not exist or isn't a part of the specified meeting: "Error: Contact not found or not part of the meeting."
+        - If invalid command format: "Error: Invalid command format."
+
+---
+
+## Note-Taking:
+
+### Add Notes to a Contact or Meeting
+
+- **What it does**: Associates notes with a specific contact or meeting.
+
+- **Command Format**:
+    - For Contacts: `note -c CONTACT_ID or CONTACT_NAME -n NOTES`
+    - For Meetings: `note -m MEETING_ID or MEETING_NAME -n NOTES`
+
+- **Examples**:
+    - `note -c 5 -n "Has a dog named Benny"`
+    - `note -m "Project Discussion" -n "Agenda: Discuss Q2 results"`
+
+- **Acceptable Values**:
+    - CONTACT_ID: Non-negative integer.
+    - CONTACT_NAME: String, at least 2 characters long. Not case sensitive.
+    - MEETING_ID: Non-negative integer.
+    - MEETING_NAME: String, at least 2 characters long. Not case sensitive.
+    - NOTES: String, at least 1 character long.
+
+- **Expected Outputs**:
+    - Success:
+        - "Successfully added note to contact [CONTACT_NAME]."
+        - "Successfully added note to [MEETING_NAME]."
+    - Failure:
+        - If the CONTACT_ID or CONTACT_NAME does not exist: "Error: Contact not found."
+        - If the MEETING_ID or MEETING_NAME does not exist: "Error: Meeting not found."
+        - If duplicate MEETING_NAME or CONTACT_NAME: "Error: Multiple matching names found."
+        - If the NOTES aren't provided: "Error: Please provide the note content."
+        - If invalid command format: "Error: Invalid command format."
+
+
+### Delete Notes from a Contact or Meeting
+
+- **What it does**: Removes specified notes from a contact or meeting.
+
+- **Command Format**:
+    - For Contacts: `note -dc CONTACT_ID -i NOTE_INDEX`
+    - For Meetings: `note -dm MEETING_ID or MEETING_NAME -i NOTE_INDEX`
+
+- **Examples**:
+    - `note -dc 5 -i 2`
+    - `note -dm "Project Discussion" -i 1`
+
+- **Acceptable Values**:
+    - CONTACT_ID: Non-negative integer.
+    - CONTACT_NAME: String, at least 2 characters long. Not case sensitive.
+    - MEETING_ID: Non-negative integer.
+    - MEETING_NAME: String, at least 2 characters long. Not case sensitive.
+    - NOTE_INDEX: Non-negative integer. Index of the note as displayed in the notes list of a contact or meeting.
+
+- **Expected Outputs**:
+    - Success:
+        - "Successfully deleted note from contact [CONTACT_NAME]."
+        - "Successfully deleted note from [MEETING_NAME]."
+    - Failure:
+        - If the CONTACT_ID or CONTACT_NAME does not exist: "Error: Contact not found."
+        - If the MEETING_ID or MEETING_NAME does not exist: "Error: Meeting not found."
+        - If duplicate MEETING_NAME or CONTACT_NAME: "Error: Multiple matching names found."
+        - If no note exists for the specified note index in the contact or meeting: "Error: No note found."
+        - If invalid command format: "Error: Invalid command format."
+
+---
+
+## Miscellaneous:
+
+### View List of Available Commands
+
+- **What it does**: Displays a list of available commands for the user.
+
+- **Command Format**: `help`
+
+- **Expected Outputs**:
+    - Success: Displays a pop-up window with a link to the user guide.

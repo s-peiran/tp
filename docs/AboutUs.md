@@ -31,6 +31,19 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
     * Overall project coordination.
     * Ensures the testing of the project is done properly and on time.
 
+### Jonathan Yeo
+
+<img src="images/jonyeokj.png" width="200px">
+
+[[homepage](https://github.com/jonyeokj)]
+[[github](https://github.com/jonyeokj)]
+[[portfolio](team/jonyeokj.md)]
+
+* Role: Documentation, Integration
+* Responsibilities:
+    - Responsible for the quality of various project documents.
+    - In charge of versioning the code, and maintaining the code repository.
+
 ### Johnny Doe
 
 <img src="images/johndoe.png" width="200px">
