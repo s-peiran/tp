@@ -19,6 +19,18 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Project Advisor
 
+### Chia Yun Rong
+
+<img src="images/chiayunrong.png" width="200px">
+
+[[github](https://github.com/chiayunrong)]
+[[portfolio](team/chiayunrong.md)]
+
+* Role: Team lead, Testing
+* Responsibilities:
+    * Overall project coordination.
+    * Ensures the testing of the project is done properly and on time.
+
 ### Jonathan Yeo
 
 <img src="images/jonyeokj.png" width="200px">
