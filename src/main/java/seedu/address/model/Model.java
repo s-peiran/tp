@@ -12,7 +12,7 @@ import seedu.address.model.contact.Contact;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Contact> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Contact> PREDICATE_SHOW_ALL_CONTACTS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

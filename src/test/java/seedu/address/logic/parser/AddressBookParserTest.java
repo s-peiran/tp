@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
 
 import java.util.Arrays;
 import java.util.List;
@@ -49,8 +49,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteContactCommand command = (DeleteContactCommand) parser.parseCommand(
-                DeleteContactCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteContactCommand(INDEX_FIRST_PERSON), command);
+                DeleteContactCommand.COMMAND_WORD + " " + INDEX_FIRST_CONTACT.getOneBased());
+        assertEquals(new DeleteContactCommand(INDEX_FIRST_CONTACT), command);
     }
 
     @Test
@@ -58,9 +58,9 @@ public class AddressBookParserTest {
         Contact contact = new ContactBuilder().build();
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder(contact).build();
         EditContactCommand command = (EditContactCommand) parser.parseCommand(
-                EditContactCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " "
+                EditContactCommand.COMMAND_WORD + " " + INDEX_FIRST_CONTACT.getOneBased() + " "
                         + ContactUtil.getEditContactDescriptorDetails(descriptor));
-        assertEquals(new EditContactCommand(INDEX_FIRST_PERSON, descriptor), command);
+        assertEquals(new EditContactCommand(INDEX_FIRST_CONTACT, descriptor), command);
     }
 
     @Test
