@@ -9,16 +9,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Project Advisor
-
 ### Chia Yun Rong
 
 <img src="images/chiayunrong.png" width="200px">
@@ -44,24 +34,18 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
     - Responsible for the quality of various project documents.
     - In charge of versioning the code, and maintaining the code repository.
 
-### Johnny Doe
+### She Peiran
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/s-peiran.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/s-peiran)] [[portfolio](team/s-peiran.md)]
 
-* Role: Developer
-* Responsibilities: Data
-
-### Jean Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Roles:
+    * Deliverables and Deadlines
+    * Scheduling and Tracking
+* Responsibilities:
+    * Ensure project deliverables are done on time and in the right format.
+    * In charge of defining, assigning, and tracking project tasks.
 
 ### Jacob Cuison
 
