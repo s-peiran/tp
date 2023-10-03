@@ -54,20 +54,13 @@ public class Messages {
      */
     public static String formatMeeting(Meeting meeting) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(meeting.getTitle());
-
-        if (meeting.getTime() != null) {
-            builder.append("; Time: ").append(meeting.getTime());
-        }
-
-        if (meeting.getLocation() != null) {
-            builder.append("; Location: ").append(meeting.getLocation());
-        }
-
-        if (meeting.getDescription() != null) {
-            builder.append("; Description: ").append(meeting.getDescription());
-        }
-
+        builder.append(meeting.getTitle())
+                .append("; Time: ")
+                .append(meeting.getTime())
+                .append("; Location: ")
+                .append(meeting.getLocation())
+                .append("; Description: ")
+                .append(meeting.getDescription());
         return builder.toString();
     }
 

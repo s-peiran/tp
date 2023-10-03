@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddContactCommand;
+import seedu.address.logic.commands.AddMeetingCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteContactCommand;
 import seedu.address.logic.commands.EditContactCommand;
@@ -25,9 +26,12 @@ import seedu.address.logic.commands.ListContactCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.NameContainsKeywordsPredicate;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.testutil.ContactBuilder;
 import seedu.address.testutil.ContactUtil;
 import seedu.address.testutil.EditContactDescriptorBuilder;
+import seedu.address.testutil.MeetingBuilder;
+
 
 public class AddressBookParserTest {
 
@@ -38,6 +42,19 @@ public class AddressBookParserTest {
         Contact contact = new ContactBuilder().build();
         AddContactCommand command = (AddContactCommand) parser.parseCommand(ContactUtil.getAddCommand(contact));
         assertEquals(new AddContactCommand(contact), command);
+    }
+
+    @Test
+    public void parseCommand_addMeeting() throws Exception {
+        Meeting meeting = new MeetingBuilder().build();
+        AddMeetingCommand expectedCommand = new AddMeetingCommand(meeting);
+        String userInput = AddMeetingCommand.COMMAND_WORD
+                + " title/" + MeetingBuilder.DEFAULT_TITLE
+                + " time/" + MeetingBuilder.DEFAULT_TIME
+                + " location/" + MeetingBuilder.DEFAULT_LOCATION
+                + " desc/" + MeetingBuilder.DEFAULT_DESCRIPTION;
+        AddMeetingCommand actualCommand = (AddMeetingCommand) parser.parseCommand(userInput);
+        assertEquals(expectedCommand, actualCommand);
     }
 
     @Test

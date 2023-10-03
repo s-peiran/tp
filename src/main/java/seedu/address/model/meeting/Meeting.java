@@ -7,7 +7,7 @@ import seedu.address.commons.util.ToStringBuilder;
 
 /**
  * Represents a Meeting in Notenote.
- * Guarantees: field values are validated, id and title are guaranteed to be present and not null.
+ * Guarantees: details are present and not null, field values are validated.
  */
 public class Meeting {
 
@@ -24,7 +24,7 @@ public class Meeting {
     private Description description;
 
     /**
-     * Only the title must be present and not null. The remaining fields can be null.
+     * Every field must be present and not null.
      */
     public Meeting(Title title, Time time, Location location, Description description) {
         this.id = nextId.getAndIncrement();

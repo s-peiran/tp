@@ -45,7 +45,7 @@ public class Time {
 
     @Override
     public String toString() {
-        return value.toString();
+        return value.format(FORMATTER);
     }
 
     @Override

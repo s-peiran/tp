@@ -25,6 +25,14 @@ public class MeetingList implements Iterable<Meeting> {
         internalList.add(toAdd);
     }
 
+    /**
+     * Checks if a given meeting exists in the list.
+     */
+    public boolean contains(Meeting toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::equals);
+    }
+
     @Override
     public Iterator<Meeting> iterator() {
         return internalList.iterator();

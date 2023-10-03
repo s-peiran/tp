@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalContacts.ALICE;
 import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMeetings.ALPHA;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -87,6 +88,17 @@ public class AddressBookTest {
     public void toStringMethod() {
         String expected = AddressBook.class.getCanonicalName() + "{contacts=" + addressBook.getContactList() + "}";
         assertEquals(expected, addressBook.toString());
+    }
+
+    @Test
+    public void hasMeeting_meetingInNotenote_returnsTrue() {
+        addressBook.addMeeting(ALPHA);
+        assertTrue(addressBook.hasMeeting(ALPHA));
+    }
+
+    @Test
+    public void hasMeeting_meetingNotInNotenote_returnsFalse() {
+        assertFalse(addressBook.hasMeeting(ALPHA));
     }
 
     /**

@@ -49,7 +49,12 @@ public class AddMeetingCommand extends Command {
         }
 
         AddMeetingCommand otherAddCommand = (AddMeetingCommand) other;
-        return toAdd.equals(otherAddCommand.toAdd);
+        boolean titleEquals = toAdd.getTitle().equals(otherAddCommand.toAdd.getTitle());
+        boolean timeEquals = toAdd.getTime().equals(otherAddCommand.toAdd.getTime());
+        boolean locationEquals = toAdd.getLocation().equals(otherAddCommand.toAdd.getLocation());
+        boolean descriptionEquals = toAdd.getDescription().equals(otherAddCommand.toAdd.getDescription());
+
+        return titleEquals && timeEquals && locationEquals && descriptionEquals;
     }
 
     @Override
