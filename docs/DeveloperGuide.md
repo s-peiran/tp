@@ -271,20 +271,28 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 | Priority | As a …​          | I can …​                                                                  | So that I can…​                                              |
 |----------|------------------|---------------------------------------------------------------------------|--------------------------------------------------------------|
+| `* * *`  | user             | create new contacts                                                       | keep track of my relationships                               |
 | `* * *`  | user             | create meetings cards                                                     | keep track of meeting details                                |
+| `* * *`  | user             | delete contacts                                                           | manage my contacts                                           |
 | `* * *`  | user             | see a list of contacts                                                    | keep track of the people I know                              |
 | `* * *`  | user             | delete notes for contacts                                                 | keep the notes updated for every contact                     |
 | `* * *`  | user             | create notes for contacts                                                 | keep track of information for each contact                   |
 | `* * *`  | user             | jot down pointers about our last interaction                              | for meaningful future conversations                          |
+| `* *`    | new user         | see a list of commands                                                    | learn more about how to use the product                      |
+| `* *`    | new user         | set up my profile                                                         | dates are accurately recorded                                |
+| `* *`    | user             | categorise contacts                                                       | organise them                                                |
 | `* *`    | user             | track the history of note-taking for each contact                         | have a chronological record of my notes                      |
 | `* *`    | user             | filter contacts based on collaboration frequency                          | identify frequent collaborators                              |
 | `* *`    | user             | attach a photo to a contact                                               | visually identify and remember my classmates                 |
 | `* *`    | user             | color-code my contacts based on different criteria                        | for a visual representation of my network                    |
 | `* *`    | user             | add hyperlinks or references to online resources within a contact's notes | have the convenience of one-click access to online materials |
 | `* *`    | user             | flag or star important contacts                                           | ensuring quick access during peak times                      |
+| `* *`    | busy user        | see a list of upcoming meetings and tasks for the day                     | know how to plan my day                                      |
 | `*`      | user             | set reminders for project deadlines with members                          | ensure timely submissions for project deadlines              |
+| `*`      | user             | set auto-reminders based on last interaction date                         | foster proactive communication                               |
 | `*`      | experienced user | encrypt my contact and meeting cards                                      | ensure the privacy and security of my data                   |
 | `*`      | experienced user | backup my contact and meeting cards                                       | ensure redundancy for my data                                |
+| `*`      | forgetful user   | see a list of the most recent actions I have performed                    | remember what I have added or deleted                        |
 
 *{More to be added}*
 
