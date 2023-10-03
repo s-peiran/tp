@@ -9,51 +9,50 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Chia Yun Rong
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/chiayunrong.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
+[[github](https://github.com/chiayunrong)]
+[[portfolio](team/chiayunrong.md)]
+
+* Role: Team lead, Testing
+* Responsibilities:
+    * Overall project coordination.
+    * Ensures the testing of the project is done properly and on time.
+
+### Jonathan Yeo
+
+<img src="images/jonyeokj.png" width="200px">
+
+[[homepage](https://github.com/jonyeokj)]
+[[github](https://github.com/jonyeokj)]
+[[portfolio](team/jonyeokj.md)]
+
+* Role: Documentation, Integration
+* Responsibilities:
+    - Responsible for the quality of various project documents.
+    - In charge of versioning the code, and maintaining the code repository.
+
+### She Peiran
+
+<img src="images/s-peiran.png" width="200px">
+
+[[github](http://github.com/s-peiran)] [[portfolio](team/s-peiran.md)]
+
+* Roles:
+    * Deliverables and Deadlines
+    * Scheduling and Tracking
+* Responsibilities:
+    * Ensure project deliverables are done on time and in the right format.
+    * In charge of defining, assigning, and tracking project tasks.
+
+### Jacob Cuison
+
+<img src="images/jacobcuison.png" width="200px">
+
+[[github](http://github.com/jacobcuison)]
 [[portfolio](team/johndoe.md)]
 
-* Role: Project Advisor
-
-### Jane Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Team Lead
-* Responsibilities: UI
-
-### Johnny Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Data
-
-### Jean Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
-
-### James Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: UI
+* Role: Code quality
+* Responsibilities: Looks after code quality, ensures adherence to coding standards, etc.

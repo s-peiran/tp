@@ -324,44 +324,74 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​          | I can …​                                                                  | So that I can…​                            |
+|----------|------------------|---------------------------------------------------------------------------|--------------------------------------------|
+| `* * *`  | user             | create meetings cards                                                     | keep track of meeting details              |
+| `* * *`  | user             | see a list of contacts                                                    | keep track of the people I know            |
+| `* * *`  | user             | delete notes for contacts                                                 | keep the notes updated for every contact   |
+| `* * *`  | user             | create notes for contacts                                                 | keep track of information for each contact |
+| `* * *`  | user             | reschedule meetings easily                                                | be flexible                                |
+| `* * *`  | user             | take notes about meetings                                                 | remeber key points of discussion           |
+| `* * *`  | user             | mark tasks as completed |  |
+|`* * *`  | user | I can create a new contact entry for my classmates | to store their details for group assignments |
+| `* *`    | user             | add hyperlinks or references to online resources within a contact's notes | have the convenience of one-click access to online materials |
+| `* *`    | user             | get an alert when a meeting is starting soon                              | I won't miss it                                              |
+| `* *`    | user | create follow-up action items                                             | keep track of important tasks                                |
+| `* *`    | user | set deadlines for action items                                            | ensure tasks are completed in a timely manner                |
+| `*`      | user | receive reminders/prompts when deadlines are closing in                   | remain on track with my deliverables                         |
+| `*`      | experienced user | encrypt my contact and meeting cards                                      | ensure the privacy and security of my data                   |
+| `*`      | experienced user | backup my contact and meeting cards                                       | ensure redundancy for my data                                |
+| `*`      | user | assign tasks to team members | delegate work efficiently |
 
 *{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified
-otherwise)
+(For all use cases below, the **System** is the `Notenote` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**UC01 - Create a meeting**
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person
+1. User requests to create a meeting specifying meeting name, notes, and contact(s).
+2. Notenote creates the meeting card.
+3. Notenote displays the newly created meeting card.
 
    Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. The request is in an improper format.
 
-  Use case ends.
-
-* 3a. The given index is invalid.
-
-    * 3a1. AddressBook shows an error message.
-
+    * 1a1. Notenote shows an error message.
+    * 1a2. User acknowledges the error message.
+    * 1a3. User request to create a meeting in the correct format.
       Use case resumes at step 2.
+
+* 1b. The specified contact(s) do/does not exist in Notenote.
+
+    * 1b1. Notenote shows an error message.
+    * 1b2. User acknowledges the error message.
+      Use case ends.
+
+**UC02 - take notes about meetings**
+
+**MSS**
+
+1. User selects a meeting and updates it with notes/comments/remarks.
+2. The meeting is updated with the given notes/comments/remarks.
+3. Notenote displays the meeting with the updated notes/comments/remarks.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. The specified meeting(s) do/does not exist in Notenote.
+
+    * 1a1. Notenote shows an error message.
+    * 1a2. User acknowledges the error message.
+  
+      Use case ends.
 
 *{More to be added}*
 
@@ -377,7 +407,6 @@ otherwise)
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private contact detail**: A contact detail that is not meant to be shared with others
 
 --------------------------------------------------------------------------------------------------------------------
 
