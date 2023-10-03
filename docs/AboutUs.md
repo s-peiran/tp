@@ -52,7 +52,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/jacobcuison.png" width="200px">
 
 [[github](http://github.com/jacobcuison)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/jacobcuison.md)]
 
 * Role: Code quality
 * Responsibilities: Looks after code quality, ensures adherence to coding standards, etc.
