@@ -132,7 +132,12 @@ public class ModelManager implements Model {
     @Override
     public void addMeeting(Meeting meeting) {
         addressBook.addMeeting(meeting);
-        //updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public boolean hasMeeting(Meeting meeting) {
+        requireNonNull(meeting);
+        return addressBook.hasMeeting(meeting);
     }
 
     @Override

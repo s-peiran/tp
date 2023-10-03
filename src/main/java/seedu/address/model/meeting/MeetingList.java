@@ -6,6 +6,8 @@ import java.util.Iterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
+
 
 /**
  * A list of meetings that does not allow nulls.
@@ -22,6 +24,9 @@ public class MeetingList implements Iterable<Meeting> {
      */
     public void add(Meeting toAdd) {
         requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateMeetingException();
+        }
         internalList.add(toAdd);
     }
 
@@ -36,6 +41,13 @@ public class MeetingList implements Iterable<Meeting> {
     @Override
     public Iterator<Meeting> iterator() {
         return internalList.iterator();
+    }
+
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Meeting> asUnmodifiableObservableList() {
+        return internalUnmodifiableList;
     }
 
     @Override

@@ -91,4 +91,9 @@ public interface Model {
      * Adds the given meeting.
      */
     void addMeeting(Meeting meeting);
+
+    /**
+     * Returns true if a meeting with the same id {@code meeting} exists in Notenote.
+     */
+    boolean hasMeeting(Meeting meeting);
 }

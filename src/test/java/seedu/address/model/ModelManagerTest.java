@@ -16,7 +16,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.contact.NameContainsKeywordsPredicate;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.MeetingBuilder;
 
 public class ModelManagerTest {
 
@@ -91,6 +93,19 @@ public class ModelManagerTest {
     @Test
     public void getFilteredContactList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredContactList().remove(0));
+    }
+
+    @Test
+    public void hasMeeting_personInNotenote_returnsTrue() {
+        Meeting meeting = new MeetingBuilder().build();
+        modelManager.addMeeting(meeting);
+        assertTrue(modelManager.hasMeeting(meeting));
+    }
+
+    @Test
+    public void hasMeeting_personNotInNotenote_returnsFalse() {
+        Meeting meeting = new MeetingBuilder().build();
+        assertFalse(modelManager.hasMeeting(meeting));
     }
 
     @Test
