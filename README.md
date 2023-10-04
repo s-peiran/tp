@@ -2,27 +2,31 @@
 
 [![CI Status](https://github.com/AY2324S1-CS2103-W14-2/tp/workflows/Java%20CI/badge.svg)](https://github.com/se-edu/addressbook-level3/actions)
 
+```
+This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
+```
+
 ![Ui](docs/images/Ui.png)
 
 ## Table of Contents
 
 - [Contact Management](#contact-management)
-  - [Create New Contact](#create-new-contact)
-  - [View a Contact](#view-a-contact)
-  - [List All Contacts](#list-all-contacts)
-  - [Delete a Contact](#delete-a-contact)
+    - [Create New Contact](#create-new-contact)
+    - [View a Contact](#view-a-contact)
+    - [List All Contacts](#list-all-contacts)
+    - [Delete a Contact](#delete-a-contact)
 - [Meeting Management](#meeting-management)
-  - [Create a New Meeting](#create-a-new-meeting)
-  - [View a Meeting](#view-a-meeting)
-  - [List All Meetings](#list-all-meetings)
-  - [Delete a Meeting](#delete-a-meeting)
-  - [Add Contact to Meeting](#add-contact-to-meeting)
-  - [Delete Contact from Meeting](#delete-contact-from-meeting)
+    - [Create a New Meeting](#create-a-new-meeting)
+    - [View a Meeting](#view-a-meeting)
+    - [List All Meetings](#list-all-meetings)
+    - [Delete a Meeting](#delete-a-meeting)
+    - [Add Contact to Meeting](#add-contact-to-meeting)
+    - [Delete Contact from Meeting](#delete-contact-from-meeting)
 - [Note-Taking](#note-taking)
-  - [Add Notes to a Contact or Meeting](#add-notes-to-a-contact-or-meeting)
-  - [Delete Notes from a Contact or Meeting](#delete-notes-from-a-contact-or-meeting)
+    - [Add Notes to a Contact or Meeting](#add-notes-to-a-contact-or-meeting)
+    - [Delete Notes from a Contact or Meeting](#delete-notes-from-a-contact-or-meeting)
 - [Miscellaneous](#miscellaneous)
-  - [View List of Available Commands](#view-list-of-available-commands)
+    - [View List of Available Commands](#view-list-of-available-commands)
 
 ---
 
@@ -222,7 +226,8 @@
     - Failure:
         - If the MEETING_ID or MEETING_NAME does not exist: "Error: Meeting not found."
         - If duplicate MEETING_NAME or CONTACT_NAME: "Error: Multiple matching names found."
-        - If the CONTACT_ID or CONTACT_NAME does not exist or isn't a part of the specified meeting: "Error: Contact not found or not part of the meeting."
+        - If the CONTACT_ID or CONTACT_NAME does not exist or isn't a part of the specified meeting: "Error: Contact not
+          found or not part of the meeting."
         - If invalid command format: "Error: Invalid command format."
 
 ---
@@ -258,7 +263,6 @@
         - If duplicate MEETING_NAME or CONTACT_NAME: "Error: Multiple matching names found."
         - If the NOTES aren't provided: "Error: Please provide the note content."
         - If invalid command format: "Error: Invalid command format."
-
 
 ### Delete Notes from a Contact or Meeting
 
