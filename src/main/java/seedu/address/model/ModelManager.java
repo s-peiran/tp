@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.meeting.Meeting;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -126,6 +127,17 @@ public class ModelManager implements Model {
     public void updateFilteredContactList(Predicate<Contact> predicate) {
         requireNonNull(predicate);
         filteredContacts.setPredicate(predicate);
+    }
+
+    @Override
+    public void addMeeting(Meeting meeting) {
+        addressBook.addMeeting(meeting);
+    }
+
+    @Override
+    public boolean hasMeeting(Meeting meeting) {
+        requireNonNull(meeting);
+        return addressBook.hasMeeting(meeting);
     }
 
     @Override

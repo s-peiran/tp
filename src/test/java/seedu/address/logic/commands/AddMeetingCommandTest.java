@@ -5,11 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalContacts.ALICE;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -18,72 +15,63 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.meeting.Meeting;
-import seedu.address.testutil.ContactBuilder;
+import seedu.address.testutil.MeetingBuilder;
 
-public class AddContactCommandTest {
+public class AddMeetingCommandTest {
 
     @Test
-    public void constructor_nullContact_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddContactCommand(null));
+    public void constructor_nullMeeting_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddMeetingCommand(null));
     }
 
     @Test
-    public void execute_contactAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingContactAdded modelStub = new ModelStubAcceptingContactAdded();
-        Contact validContact = new ContactBuilder().build();
+    public void execute_meetingAcceptedByModel_addSucessful() throws CommandException {
+        Meeting validMeeting = new MeetingBuilder().build();
+        ModelStubEmpty modelStubEmpty = new ModelStubEmpty();
 
-        CommandResult commandResult = new AddContactCommand(validContact).execute(modelStub);
+        CommandResult commandResult = new AddMeetingCommand(validMeeting).execute(modelStubEmpty);
 
-        assertEquals(String.format(AddContactCommand.MESSAGE_SUCCESS, Messages.format(validContact)),
+        assertEquals(String.format(AddMeetingCommand.MESSAGE_SUCCESS, Messages.formatMeeting(validMeeting)),
                 commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validContact), modelStub.contactsAdded);
-    }
-
-    @Test
-    public void execute_duplicateContact_throwsCommandException() {
-        Contact validContact = new ContactBuilder().build();
-        AddContactCommand addCommand = new AddContactCommand(validContact);
-        ModelStub modelStub = new ModelStubWithContact(validContact);
-
-        assertThrows(CommandException.class, AddContactCommand.MESSAGE_DUPLICATE_CONTACT, () ->
-                addCommand.execute(modelStub));
+        assertEquals(validMeeting, modelStubEmpty.getMeeting());
     }
 
     @Test
     public void equals() {
-        Contact alice = new ContactBuilder().withName("Alice").build();
-        Contact bob = new ContactBuilder().withName("Bob").build();
-        AddContactCommand addAliceCommand = new AddContactCommand(alice);
-        AddContactCommand addBobCommand = new AddContactCommand(bob);
+        Meeting validMeeting1 = new MeetingBuilder().build();
+        Meeting validMeeting2 = new MeetingBuilder().build();
+
+        AddMeetingCommand addM1Command = new AddMeetingCommand(validMeeting1);
+        AddMeetingCommand addM2Command = new AddMeetingCommand(validMeeting2);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addM1Command.equals(addM1Command));
 
-        // same values -> returns true
-        AddContactCommand addAliceCommandCopy = new AddContactCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        // same fields except id -> returns true
+        assertTrue(addM1Command.equals(addM2Command));
 
-        // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        // different type -> returns false
+        assertFalse(addM1Command.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
-
-        // different contact -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addM1Command.equals(null));
     }
 
     @Test
+
     public void toStringMethod() {
-        AddContactCommand addCommand = new AddContactCommand(ALICE);
-        String expected = AddContactCommand.class.getCanonicalName() + "{toAdd=" + ALICE + "}";
-        assertEquals(expected, addCommand.toString());
+        Meeting validMeeting = new MeetingBuilder().build();
+        AddMeetingCommand addMeetingCommand = new AddMeetingCommand(validMeeting);
+        String expected = AddMeetingCommand.class.getCanonicalName() + "{toAdd=" + validMeeting + "}";
+
+        String actual = addMeetingCommand.toString();
+
+        assertEquals(expected, actual);
     }
 
     /**
@@ -146,7 +134,7 @@ public class AddContactCommandTest {
         }
 
         @Override
-        public void setContact(Contact target, Contact editedContact) {
+        public void setContact(Contact target, Contact editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -172,45 +160,19 @@ public class AddContactCommandTest {
     }
 
     /**
-     * A Model stub that contains a single contact.
+     * A Model stub that contains a single person.
      */
-    private class ModelStubWithContact extends ModelStub {
-        private final Contact contact;
-
-        ModelStubWithContact(Contact contact) {
-            requireNonNull(contact);
-            this.contact = contact;
-        }
+    private class ModelStubEmpty extends AddMeetingCommandTest.ModelStub {
+        private Meeting meeting;
 
         @Override
-        public boolean hasContact(Contact contact) {
-            requireNonNull(contact);
-            return this.contact.isSameContact(contact);
+        public void addMeeting(Meeting meeting) {
+            requireNonNull(meeting);
+            this.meeting = meeting;
+        }
+
+        public Meeting getMeeting() {
+            return meeting;
         }
     }
-
-    /**
-     * A Model stub that always accept the contact being added.
-     */
-    private class ModelStubAcceptingContactAdded extends ModelStub {
-        final ArrayList<Contact> contactsAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasContact(Contact contact) {
-            requireNonNull(contact);
-            return contactsAdded.stream().anyMatch(contact::isSameContact);
-        }
-
-        @Override
-        public void addContact(Contact contact) {
-            requireNonNull(contact);
-            contactsAdded.add(contact);
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
-        }
-    }
-
 }
