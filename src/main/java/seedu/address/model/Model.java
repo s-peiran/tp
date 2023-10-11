@@ -14,6 +14,7 @@ import seedu.address.model.meeting.Meeting;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Contact> PREDICATE_SHOW_ALL_CONTACTS = unused -> true;
+    Predicate<Meeting> PREDICATE_SHOW_ALL_MEETINGS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -96,4 +97,13 @@ public interface Model {
      * Returns true if a meeting with the same id {@code meeting} exists in Notenote.
      */
     boolean hasMeeting(Meeting meeting);
+
+    /** Returns an unmodifiable view of the filtered contact list */
+    ObservableList<Meeting> getFilteredMeetingList();
+
+    /**
+     * Updates the filter of the filtered meeting list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredMeetingList(Predicate<Meeting> predicate);
 }

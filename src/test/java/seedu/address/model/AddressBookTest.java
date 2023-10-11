@@ -21,6 +21,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.testutil.ContactBuilder;
 
 public class AddressBookTest {
@@ -106,6 +107,7 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Contact> contacts = FXCollections.observableArrayList();
+        private final ObservableList<Meeting> meetings = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Contact> contacts) {
             this.contacts.setAll(contacts);
@@ -114,6 +116,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Contact> getContactList() {
             return contacts;
+        }
+
+        @Override
+        public ObservableList<Meeting> getMeetingList() {
+            return meetings;
         }
     }
 

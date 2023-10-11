@@ -20,7 +20,7 @@ class MessagesTest {
         Meeting meeting = new MeetingBuilder().build();
         String expectedMessage = MeetingBuilder.DEFAULT_TITLE
                 + "; Time: " + MeetingBuilder.DEFAULT_TIME
-                + "; Location: " + MeetingBuilder.DEFAULT_LOCATION
+                + "; Place: " + MeetingBuilder.DEFAULT_PLACE
                 + "; Description: " + MeetingBuilder.DEFAULT_DESCRIPTION;
 
         String actualMessage = Messages.formatMeeting(meeting);

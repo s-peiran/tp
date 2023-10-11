@@ -1,11 +1,15 @@
 package seedu.address.model.meeting;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.contact.exceptions.ContactNotFoundException;
+import seedu.address.model.contact.exceptions.DuplicateContactException;
 import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
 
 
@@ -50,6 +54,39 @@ public class MeetingList implements Iterable<Meeting> {
         return internalUnmodifiableList;
     }
 
+    /**
+     * Replaces the meeting {@code target} in the list with {@code editedMeeting}.
+     * {@code target} must exist in the list.
+     * The contact identity of {@code editedMeeting} must not be the same as another existing meeting in the list.
+     */
+    public void setMeeting(Meeting target, Meeting editedMeeting) {
+        requireAllNonNull(target, editedMeeting);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new ContactNotFoundException();
+        }
+
+        if (!target.isSameMeeting(editedMeeting) && contains(editedMeeting)) {
+            throw new DuplicateContactException();
+        }
+
+        internalList.set(index, editedMeeting);
+    }
+
+    /**
+     * Replaces the contents of this list with {@code meetings}.
+     * {@code meetings} must not contain duplicate meetings.
+     */
+    public void setMeetings(List<Meeting> meetings) {
+        requireAllNonNull(meetings);
+        if (!meetingsAreUnique(meetings)) {
+            throw new DuplicateContactException();
+        }
+
+        internalList.setAll(meetings);
+    }
+
     @Override
     public String toString() {
         return internalList.toString();
@@ -75,5 +112,18 @@ public class MeetingList implements Iterable<Meeting> {
         return internalList.hashCode();
     }
 
+    /**
+     * Returns true if {@code meetings} contains only unique meetings.
+     */
+    private boolean meetingsAreUnique(List<Meeting> meetings) {
+        for (int i = 0; i < meetings.size() - 1; i++) {
+            for (int j = i + 1; j < meetings.size(); j++) {
+                if (meetings.get(i).isSameMeeting(meetings.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
 }

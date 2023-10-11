@@ -27,7 +27,7 @@ public class ContactCard extends UiPart<Region> {
     public final Contact contact;
 
     @FXML
-    private HBox cardPane;
+    private HBox contactCardPane;
     @FXML
     private Label name;
     @FXML

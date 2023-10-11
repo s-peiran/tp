@@ -54,12 +54,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the meeting list with {@code meetings}.
+     * {@code meetings} must not contain duplicate meetings.
+     */
+    public void setMeetings(List<Meeting> meetings) {
+        this.meetings.setMeetings(meetings);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setContacts(newData.getContactList());
+        setMeetings(newData.getMeetingList());
     }
 
     //// contact-level operations
@@ -76,8 +85,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a contact to the address book.
      * The contact must not already exist in the address book.
      */
-    public void addContact(Contact p) {
-        contacts.add(p);
+    public void addContact(Contact c) {
+        contacts.add(c);
     }
 
     /**
@@ -104,7 +113,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a meeting to Notenote.
      */
     public void addMeeting(Meeting meeting) {
-        requireNonNull(meeting);
         meetings.add(meeting);
     }
 
@@ -122,12 +130,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("contacts", contacts)
+                .add("meetings", meetings)
                 .toString();
     }
 
     @Override
     public ObservableList<Contact> getContactList() {
         return contacts.asUnmodifiableObservableList();
+    }
+
+     @Override
+    public ObservableList<Meeting> getMeetingList() {
+        return meetings.asUnmodifiableObservableList();
     }
 
     @Override
@@ -142,7 +156,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         AddressBook otherAddressBook = (AddressBook) other;
-        return contacts.equals(otherAddressBook.contacts);
+        return contacts.equals(otherAddressBook.contacts) && meetings.equals(otherAddressBook.meetings);
     }
 
     @Override

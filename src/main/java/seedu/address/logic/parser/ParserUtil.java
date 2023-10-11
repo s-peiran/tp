@@ -14,7 +14,7 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.meeting.Description;
-import seedu.address.model.meeting.Location;
+import seedu.address.model.meeting.Place;
 import seedu.address.model.meeting.Time;
 import seedu.address.model.meeting.Title;
 import seedu.address.model.tag.Tag;
@@ -156,17 +156,17 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String location} into an {@code Location}.
+     * Parses a {@code String place} into an {@code Place}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code location} is invalid.
+     * @throws ParseException if the given {@code place} is invalid.
      */
-    public static Location parseLocation(String location) throws ParseException {
-        String trimmedLocation = location.trim();
-        if (!Location.isValidLocation(trimmedLocation)) {
-            throw new ParseException(Location.MESSAGE_CONSTRAINTS);
+    public static Place parsePlace(String place) throws ParseException {
+        String trimmedPlace = place.trim();
+        if (!Place.isValidPlace(trimmedPlace)) {
+            throw new ParseException(Place.MESSAGE_CONSTRAINTS);
         }
-        return new Location(trimmedLocation);
+        return new Place(trimmedPlace);
     }
 
     /**

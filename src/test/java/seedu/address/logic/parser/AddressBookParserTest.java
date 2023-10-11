@@ -51,7 +51,7 @@ public class AddressBookParserTest {
         String userInput = AddMeetingCommand.COMMAND_WORD
                 + " title/" + MeetingBuilder.DEFAULT_TITLE
                 + " time/" + MeetingBuilder.DEFAULT_TIME
-                + " location/" + MeetingBuilder.DEFAULT_LOCATION
+                + " place/" + MeetingBuilder.DEFAULT_PLACE
                 + " desc/" + MeetingBuilder.DEFAULT_DESCRIPTION;
         AddMeetingCommand actualCommand = (AddMeetingCommand) parser.parseCommand(userInput);
         assertEquals(expectedCommand, actualCommand);

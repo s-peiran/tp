@@ -19,18 +19,18 @@ public class Meeting {
 
     private Time time;
 
-    private Location location;
+    private Place place;
 
     private Description description;
 
     /**
      * Every field must be present and not null.
      */
-    public Meeting(Title title, Time time, Location location, Description description) {
+    public Meeting(Title title, Time time, Place place, Description description) {
         this.id = nextId.getAndIncrement();
         this.title = title;
         this.time = time;
-        this.location = location;
+        this.place = place;
         this.description = description;
     }
 
@@ -46,8 +46,8 @@ public class Meeting {
         return time;
     }
 
-    public Location getLocation() {
-        return location;
+    public Place getPlace() {
+        return place;
     }
 
     public Description getDescription() {
@@ -60,9 +60,22 @@ public class Meeting {
         .add("id", id)
         .add("title", title)
         .add("time", time)
-        .add("location", location)
+        .add("place", place)
         .add("description", description)
         .toString();
+    }
+
+    /**
+     * Returns true if both meetings have the same title.
+     * This defines a weaker notion of equality between two meetings.
+     */
+    public boolean isSameMeeting(Meeting otherMeeting) {
+        if (otherMeeting == this) {
+            return true;
+        }
+
+        return otherMeeting != null
+                && otherMeeting.getTitle().equals(getTitle());
     }
 
     @Override
@@ -83,7 +96,7 @@ public class Meeting {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(id, title, time, location, description);
+        return Objects.hash(id, title, time, place, description);
     }
 
 }

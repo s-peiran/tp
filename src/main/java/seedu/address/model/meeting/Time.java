@@ -18,7 +18,7 @@ public class Time {
 
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-    private final LocalDateTime value;
+    public final LocalDateTime value;
 
     /**
      * Constructs a {@code Time}.
@@ -29,6 +29,16 @@ public class Time {
         requireNonNull(time);
         checkArgument(isValidTime(time), MESSAGE_CONSTRAINTS);
         value = LocalDateTime.parse(time, FORMATTER);
+    }
+
+    /**
+     * Constructs a {@code Time}.
+     *
+     * @param time A valid meeting time.
+     */
+    public Time(LocalDateTime time) {
+        requireNonNull(time);
+        value = time;
     }
 
     /**
@@ -46,6 +56,11 @@ public class Time {
     @Override
     public String toString() {
         return value.format(FORMATTER);
+    }
+
+    public static Time fromString(String timeStr) {
+        LocalDateTime parsedDateTime = LocalDateTime.parse(timeStr, FORMATTER);
+        return new Time(parsedDateTime);
     }
 
     @Override

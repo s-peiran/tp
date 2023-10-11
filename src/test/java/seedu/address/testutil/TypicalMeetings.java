@@ -9,14 +9,14 @@ public class TypicalMeetings {
     public static final Meeting ALPHA = new MeetingBuilder()
             .withTitle("ALPHA")
             .withTime("23/10/2021 13:30")
-            .withLocation("Blah blah")
+            .withPlace("Blah blah")
             .withDescription("testDescriptini1234!@#$")
             .build();
 
     public static final Meeting BETA = new MeetingBuilder()
             .withTitle("BETA")
             .withTime("03/03/2003 03:30")
-            .withLocation("Blah blaasdfh")
+            .withPlace("Blah blaasdfh")
             .withDescription("tesgasdgadstDescriptini1234!@#$")
             .build();
 }

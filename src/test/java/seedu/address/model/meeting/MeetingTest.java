@@ -38,7 +38,7 @@ public class MeetingTest {
         //Meeting is a singleton. It could be more than 0 here as we create multiple meeting objects above.
         int id = meeting.getId();
         String expected = Meeting.class.getCanonicalName() + "{id=" + id + ", title=" + MeetingBuilder.DEFAULT_TITLE
-                + ", time=" + MeetingBuilder.DEFAULT_TIME + ", location=" + MeetingBuilder.DEFAULT_LOCATION
+                + ", time=" + MeetingBuilder.DEFAULT_TIME + ", place=" + MeetingBuilder.DEFAULT_PLACE
                 + ", description=" + MeetingBuilder.DEFAULT_DESCRIPTION + "}";
 
         assertEquals(expected, meeting.toString());
