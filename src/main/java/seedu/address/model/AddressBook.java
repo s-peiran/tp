@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
@@ -139,7 +140,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return contacts.asUnmodifiableObservableList();
     }
 
-     @Override
+    @Override
     public ObservableList<Meeting> getMeetingList() {
         return meetings.asUnmodifiableObservableList();
     }
@@ -161,6 +162,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public int hashCode() {
-        return contacts.hashCode();
+        return Objects.hash(contacts, meetings);
     }
 }

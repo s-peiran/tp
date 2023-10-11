@@ -90,7 +90,10 @@ public class Meeting {
         }
 
         Meeting otherMeeting = (Meeting) other;
-        return id == otherMeeting.id;
+        return title.equals(otherMeeting.title)
+               && time.equals(otherMeeting.time)
+               && place.equals(otherMeeting.place)
+               && description.equals(otherMeeting.description);
     }
 
     @Override

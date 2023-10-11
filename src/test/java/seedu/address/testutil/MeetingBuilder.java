@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
 import seedu.address.model.meeting.Description;
-import seedu.address.model.meeting.Place;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.Place;
 import seedu.address.model.meeting.Time;
 import seedu.address.model.meeting.Title;
 

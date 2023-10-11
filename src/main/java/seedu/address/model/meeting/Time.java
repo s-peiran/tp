@@ -23,7 +23,7 @@ public class Time {
     /**
      * Constructs a {@code Time}.
      *
-     * @param time A valid meeting time.
+     * @param time A valid meeting time String.
      */
     public Time(String time) {
         requireNonNull(time);
@@ -34,7 +34,7 @@ public class Time {
     /**
      * Constructs a {@code Time}.
      *
-     * @param time A valid meeting time.
+     * @param time A valid meeting time LocalDateTime.
      */
     public Time(LocalDateTime time) {
         requireNonNull(time);
@@ -58,6 +58,11 @@ public class Time {
         return value.format(FORMATTER);
     }
 
+    /**
+     * Converts time String to a time LocalDateTime.
+     *
+     * @param timeStr A valid meeting time.
+     */
     public static Time fromString(String timeStr) {
         LocalDateTime parsedDateTime = LocalDateTime.parse(timeStr, FORMATTER);
         return new Time(parsedDateTime);

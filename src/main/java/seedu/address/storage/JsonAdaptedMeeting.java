@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.contact.Name;
 import seedu.address.model.meeting.Description;
-import seedu.address.model.meeting.Place;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.Place;
 import seedu.address.model.meeting.Time;
 import seedu.address.model.meeting.Title;
 
@@ -77,7 +77,8 @@ class JsonAdaptedMeeting {
         final Place modelPlace = new Place(place);
 
         if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                Description.class.getSimpleName()));
         }
         final Description modelDescription = new Description(description);
 

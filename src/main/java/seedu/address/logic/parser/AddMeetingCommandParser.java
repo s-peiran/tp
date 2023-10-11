@@ -11,8 +11,8 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddMeetingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.meeting.Description;
-import seedu.address.model.meeting.Place;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.Place;
 import seedu.address.model.meeting.Time;
 import seedu.address.model.meeting.Title;
 

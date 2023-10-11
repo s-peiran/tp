@@ -48,4 +48,5 @@ public class MeetingCard extends UiPart<Region> {
         place.setText(meeting.getPlace().fullPlace);
         description.setText(meeting.getDescription().fullDescription);
     }
+
 }

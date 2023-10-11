@@ -42,5 +42,29 @@
     "email" : "anna@example.com",
     "address" : "4th street",
     "tags" : [ ]
+  } ],
+  "meetings" : [ {
+    "title" : "CS2103 Meeting",
+    "time" : "01/01/2023 00:00",
+    "place" : "Zoom",
+    "description" : ""
+  },
+  {
+    "title" : "GES2001 Meeting",
+    "time" : "01/01/2023 20:30",
+    "place" : "Discord",
+    "description" : "Project details"
+  },
+  {
+    "title" : "LAJ2101 Meeting",
+    "time" : "01/01/2023 16:00",
+    "place" : "Classroom A",
+    "description" : ""
+  },
+  {
+    "title" : "Date with Girlfriend",
+    "time" : "01/05/2023 18:00",
+    "place" : "Sentosa",
+    "description" : "Picnic with Sandwiches!"
   } ]
 }

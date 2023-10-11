@@ -17,11 +17,12 @@ import java.util.List;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.meeting.Meeting;
 
 /**
  * A utility class containing a list of {@code Contact} objects to be used in tests.
  */
-public class TypicalContacts {
+public class TypicalAddressBook {
 
     public static final Contact ALICE = new ContactBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
@@ -57,12 +58,37 @@ public class TypicalContacts {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalContacts() {} // prevents instantiation
+    public static final Meeting CS2103 = new MeetingBuilder()
+        .withTitle("CS2103 Meeting")
+        .withTime("01/01/2023 00:00")
+        .withPlace("Zoom")
+        .withDescription("")
+        .build();
+    public static final Meeting GES2001 = new MeetingBuilder()
+        .withTitle("GES2001 Meeting")
+        .withTime("01/01/2023 20:30")
+        .withPlace("Discord")
+        .withDescription("Project details")
+        .build();
+    public static final Meeting LAJ2101 = new MeetingBuilder()
+        .withTitle("LAJ2101 Meeting")
+        .withTime("01/01/2023 16:00")
+        .withPlace("Classroom A")
+        .withDescription("")
+        .build();
+    public static final Meeting GF = new MeetingBuilder()
+        .withTitle("Date with Girlfriend")
+        .withTime("01/05/2023 18:00")
+        .withPlace("Sentosa")
+        .withDescription("Picnic with Sandwiches!")
+        .build();
+
+    private TypicalAddressBook() {} // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical contacts.
      */
-    public static AddressBook getTypicalAddressBook() {
+    public static AddressBook getTypicalContactsAddressBook() {
         AddressBook ab = new AddressBook();
         for (Contact contact : getTypicalContacts()) {
             ab.addContact(contact);
@@ -70,7 +96,36 @@ public class TypicalContacts {
         return ab;
     }
 
+    /**
+     * Returns an {@code AddressBook} with all the typical meetings.
+     */
+    public static AddressBook getTypicalMeetingsAddressBook() {
+        AddressBook ab = new AddressBook();
+        for (Meeting meeting : getTypicalMeetings()) {
+            ab.addMeeting(meeting);
+        }
+        return ab;
+    }
+
+    /**
+     * Returns an {@code AddressBook} with all the typical contacts and meetings.
+     */
+    public static AddressBook getTypicalAddressBook() {
+        AddressBook ab = new AddressBook();
+        for (Contact contact : getTypicalContacts()) {
+            ab.addContact(contact);
+        }
+        for (Meeting meeting : getTypicalMeetings()) {
+            ab.addMeeting(meeting);
+        }
+        return ab;
+    }
+
     public static List<Contact> getTypicalContacts() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<Meeting> getTypicalMeetings() {
+        return new ArrayList<>(Arrays.asList(CS2103, GES2001, LAJ2101, GF));
     }
 }

@@ -13,11 +13,7 @@ public class MeetingTest {
     @Test
     public void equals() {
         Meeting m1 = new MeetingBuilder().build();
-        Meeting m2 = new MeetingBuilder().build();
-        Meeting m3 = new MeetingBuilder().withTitle("test title").build();
-
-        // same values -> returns false because id is different
-        assertFalse(m1.equals(m2));
+        Meeting m2 = new MeetingBuilder().withTitle("test title").build();
 
         // same object -> returns true
         assertTrue(m1.equals(m1));
@@ -29,7 +25,7 @@ public class MeetingTest {
         assertFalse(m1.equals(5));
 
         // different meeting -> returns false
-        assertFalse(m1.equals(m3));
+        assertFalse(m1.equals(m2));
     }
 
     @Test
