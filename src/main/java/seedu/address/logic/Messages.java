@@ -57,8 +57,8 @@ public class Messages {
         builder.append(meeting.getTitle())
                 .append("; Time: ")
                 .append(meeting.getTime())
-                .append("; Location: ")
-                .append(meeting.getLocation())
+                .append("; Place: ")
+                .append(meeting.getPlace())
                 .append("; Description: ")
                 .append(meeting.getDescription());
         return builder.toString();

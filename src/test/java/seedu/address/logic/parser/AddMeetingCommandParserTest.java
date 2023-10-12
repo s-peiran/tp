@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PLACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -25,7 +25,7 @@ public class AddMeetingCommandParserTest {
         AddMeetingCommand expectedCommand = new AddMeetingCommand(validMeeting);
         String userInput = " title/" + MeetingBuilder.DEFAULT_TITLE
                 + " time/" + MeetingBuilder.DEFAULT_TIME
-                + " location/" + MeetingBuilder.DEFAULT_LOCATION
+                + " place/" + MeetingBuilder.DEFAULT_PLACE
                 + " desc/" + MeetingBuilder.DEFAULT_DESCRIPTION;
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -34,7 +34,7 @@ public class AddMeetingCommandParserTest {
     @Test
     public void parse_titleMissing_failure() {
         String userInput = " time/" + MeetingBuilder.DEFAULT_TIME
-                + " location/" + MeetingBuilder.DEFAULT_LOCATION
+                + " place/" + MeetingBuilder.DEFAULT_PLACE
                 + " desc/" + MeetingBuilder.DEFAULT_DESCRIPTION;
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMeetingCommand.MESSAGE_USAGE);
         assertParseFailure(parser, userInput, expectedMessage);
@@ -44,17 +44,17 @@ public class AddMeetingCommandParserTest {
     public void parse_repeatedFields_failure() {
         String userInput = " title/" + MeetingBuilder.DEFAULT_TITLE
                 + " time/" + MeetingBuilder.DEFAULT_TIME
-                + " location/" + MeetingBuilder.DEFAULT_LOCATION
+                + " place/" + MeetingBuilder.DEFAULT_PLACE
                 + " desc/" + MeetingBuilder.DEFAULT_DESCRIPTION;
 
         String duplicateTitle = userInput + " title/" + MeetingBuilder.DEFAULT_TITLE;
         String duplicateTime = userInput + " time/" + MeetingBuilder.DEFAULT_TIME;
-        String duplicateLocation = userInput + " location/" + MeetingBuilder.DEFAULT_LOCATION;
+        String duplicatePlace = userInput + " place/" + MeetingBuilder.DEFAULT_PLACE;
         String duplicateDescription = userInput + " desc/" + MeetingBuilder.DEFAULT_DESCRIPTION;
 
         assertParseFailure(parser, duplicateTitle, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TITLE));
         assertParseFailure(parser, duplicateTime, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TIME));
-        assertParseFailure(parser, duplicateLocation, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_LOCATION));
+        assertParseFailure(parser, duplicatePlace, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PLACE));
         assertParseFailure(parser, duplicateDescription,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DESCRIPTION));
     }

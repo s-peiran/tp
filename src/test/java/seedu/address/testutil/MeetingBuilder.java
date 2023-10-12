@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
 import seedu.address.model.meeting.Description;
-import seedu.address.model.meeting.Location;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.Place;
 import seedu.address.model.meeting.Time;
 import seedu.address.model.meeting.Title;
 
@@ -15,7 +15,7 @@ public class MeetingBuilder {
 
     public static final String DEFAULT_TIME = "03/10/2023 19:00";
 
-    public static final String DEFAULT_LOCATION = "Zoom";
+    public static final String DEFAULT_PLACE = "Zoom";
 
     public static final String DEFAULT_DESCRIPTION = "No description";
 
@@ -23,7 +23,7 @@ public class MeetingBuilder {
 
     private Time time;
 
-    private Location location;
+    private Place place;
 
     private Description description;
 
@@ -33,7 +33,7 @@ public class MeetingBuilder {
     public MeetingBuilder() {
         title = new Title(DEFAULT_TITLE);
         time = new Time(DEFAULT_TIME);
-        location = new Location(DEFAULT_LOCATION);
+        place = new Place(DEFAULT_PLACE);
         description = new Description(DEFAULT_DESCRIPTION);
     }
 
@@ -54,10 +54,10 @@ public class MeetingBuilder {
     }
 
     /**
-     * Sets the {@code Location} of the {@code Meeting} that we are building.
+     * Sets the {@code Place} of the {@code Meeting} that we are building.
      */
-    public MeetingBuilder withLocation(String location) {
-        this.location = new Location(location);
+    public MeetingBuilder withPlace(String place) {
+        this.place = new Place(place);
         return this;
     }
 
@@ -70,6 +70,6 @@ public class MeetingBuilder {
     }
 
     public Meeting build() {
-        return new Meeting(title, time, location, description);
+        return new Meeting(title, time, place, description);
     }
 }

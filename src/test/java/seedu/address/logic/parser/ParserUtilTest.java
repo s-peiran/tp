@@ -19,7 +19,7 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.meeting.Description;
-import seedu.address.model.meeting.Location;
+import seedu.address.model.meeting.Place;
 import seedu.address.model.meeting.Time;
 import seedu.address.model.meeting.Title;
 import seedu.address.model.tag.Tag;
@@ -32,7 +32,7 @@ public class ParserUtilTest {
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_TITLE = "C@2103";
     private static final String INVALID_TIME = "1234";
-    private static final String INVALID_LOCATION = "LOC@TION";
+    private static final String INVALID_PLACE = "LOC@TION";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -42,7 +42,7 @@ public class ParserUtilTest {
     private static final String VALID_TAG_2 = "neighbour";
     private static final String VALID_TITLE = "CS2103";
     private static final String VALID_TIME = "01/01/2023 23:59";
-    private static final String VALID_LOCATION = "COM3";
+    private static final String VALID_PLACE = "COM3";
     private static final String DESCRIPTION = "BELLO I AM A MINION BEHEHEE 1234 !@#$";
 
     private static final String WHITESPACE = " \t\r\n";
@@ -254,32 +254,32 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseLocation_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseLocation((String) null));
+    public void parsePlace_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePlace((String) null));
     }
 
     @Test
-    public void parseLocation_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseLocation(INVALID_LOCATION));
+    public void parsePlace_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePlace(INVALID_PLACE));
     }
 
     @Test
-    public void parseLocation_validValue_returnsLocation() throws Exception {
-        Location expectedLocation = new Location(VALID_LOCATION);
-        Location actualLocation = ParserUtil.parseLocation(VALID_LOCATION);
-        assertEquals(expectedLocation, actualLocation);
+    public void parsePlace_validValue_returnsPlace() throws Exception {
+        Place expectedPlace = new Place(VALID_PLACE);
+        Place actualPlace = ParserUtil.parsePlace(VALID_PLACE);
+        assertEquals(expectedPlace, actualPlace);
     }
 
     @Test
-    public void parseLocation_validValueWithWhitespace_returnsLocation() throws Exception {
-        Location expectedLocation = new Location(VALID_LOCATION);
-        Location actualLocation = ParserUtil.parseLocation(" " + VALID_LOCATION + " ");
-        assertEquals(expectedLocation, actualLocation);
+    public void parsePlace_validValueWithWhitespace_returnsPlace() throws Exception {
+        Place expectedPlace = new Place(VALID_PLACE);
+        Place actualPlace = ParserUtil.parsePlace(" " + VALID_PLACE + " ");
+        assertEquals(expectedPlace, actualPlace);
     }
 
     @Test
     public void parseDescription_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseLocation((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePlace((String) null));
     }
 
     @Test

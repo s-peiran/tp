@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PLACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
@@ -11,8 +11,8 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddMeetingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.meeting.Description;
-import seedu.address.model.meeting.Location;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.Place;
 import seedu.address.model.meeting.Time;
 import seedu.address.model.meeting.Title;
 
@@ -27,21 +27,21 @@ public class AddMeetingCommandParser implements Parser<AddMeetingCommand> {
      */
     public AddMeetingCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_TIME, PREFIX_LOCATION,
+                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_TIME, PREFIX_PLACE,
                 PREFIX_DESCRIPTION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMeetingCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TITLE, PREFIX_TIME, PREFIX_LOCATION, PREFIX_DESCRIPTION);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TITLE, PREFIX_TIME, PREFIX_PLACE, PREFIX_DESCRIPTION);
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
         Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).orElse("03/10/2023 19:00"));
-        Location location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).orElse("Zoom"));
+        Place place = ParserUtil.parsePlace(argMultimap.getValue(PREFIX_PLACE).orElse("Zoom"));
         Description description =
                 ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).orElse("No description"));
 
-        Meeting meeting = new Meeting(title, time, location, description);
+        Meeting meeting = new Meeting(title, time, place, description);
         return new AddMeetingCommand(meeting);
     }
 

@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalContacts.ALICE;
-import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalMeetings.ALPHA;
+import static seedu.address.testutil.TypicalAddressBook.ALICE;
+import static seedu.address.testutil.TypicalAddressBook.CS2103;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -19,8 +19,10 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.testutil.ContactBuilder;
 
 public class AddressBookTest {
@@ -86,19 +88,22 @@ public class AddressBookTest {
 
     @Test
     public void toStringMethod() {
-        String expected = AddressBook.class.getCanonicalName() + "{contacts=" + addressBook.getContactList() + "}";
+        String expected = new ToStringBuilder(addressBook)
+                 .add("contacts", addressBook.getContactList())
+                 .add("meetings", addressBook.getMeetingList())
+                 .toString();
         assertEquals(expected, addressBook.toString());
     }
 
     @Test
     public void hasMeeting_meetingInNotenote_returnsTrue() {
-        addressBook.addMeeting(ALPHA);
-        assertTrue(addressBook.hasMeeting(ALPHA));
+        addressBook.addMeeting(CS2103);
+        assertTrue(addressBook.hasMeeting(CS2103));
     }
 
     @Test
     public void hasMeeting_meetingNotInNotenote_returnsFalse() {
-        assertFalse(addressBook.hasMeeting(ALPHA));
+        assertFalse(addressBook.hasMeeting(CS2103));
     }
 
     /**
@@ -106,6 +111,7 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Contact> contacts = FXCollections.observableArrayList();
+        private final ObservableList<Meeting> meetings = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Contact> contacts) {
             this.contacts.setAll(contacts);
@@ -114,6 +120,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Contact> getContactList() {
             return contacts;
+        }
+
+        @Override
+        public ObservableList<Meeting> getMeetingList() {
+            return meetings;
         }
     }
 

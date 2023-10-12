@@ -23,6 +23,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Contact> filteredContacts;
+    private final FilteredList<Meeting> filteredMeetings;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +36,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredContacts = new FilteredList<>(this.addressBook.getContactList());
+        filteredMeetings = new FilteredList<>(this.addressBook.getMeetingList());
     }
 
     public ModelManager() {
@@ -112,6 +114,18 @@ public class ModelManager implements Model {
         addressBook.setContact(target, editedContact);
     }
 
+    @Override
+    public void addMeeting(Meeting meeting) {
+        addressBook.addMeeting(meeting);
+        updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
+    }
+
+    @Override
+    public boolean hasMeeting(Meeting meeting) {
+        requireNonNull(meeting);
+        return addressBook.hasMeeting(meeting);
+    }
+
     //=========== Filtered Contact List Accessors =============================================================
 
     /**
@@ -124,20 +138,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Meeting> getFilteredMeetingList() {
+        return filteredMeetings;
+    }
+
+    @Override
     public void updateFilteredContactList(Predicate<Contact> predicate) {
         requireNonNull(predicate);
         filteredContacts.setPredicate(predicate);
     }
 
     @Override
-    public void addMeeting(Meeting meeting) {
-        addressBook.addMeeting(meeting);
-    }
-
-    @Override
-    public boolean hasMeeting(Meeting meeting) {
-        requireNonNull(meeting);
-        return addressBook.hasMeeting(meeting);
+    public void updateFilteredMeetingList(Predicate<Meeting> predicate) {
+        requireNonNull(predicate);
+        filteredMeetings.setPredicate(predicate);
     }
 
     @Override
@@ -154,7 +168,7 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredContacts.equals(otherModelManager.filteredContacts);
+                && filteredContacts.equals(otherModelManager.filteredContacts)
+                && filteredMeetings.equals(otherModelManager.filteredMeetings);
     }
-
 }
