@@ -13,7 +13,7 @@ import seedu.address.model.meeting.Meeting;
  */
 public class AddMeetingCommand extends Command {
 
-    public static final String COMMAND_WORD = "meeting";
+    public static final String COMMAND_WORD = "add meeting";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + "blahblah fill in later";
 
@@ -60,7 +60,7 @@ public class AddMeetingCommand extends Command {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-        .add("toAdd", toAdd)
-        .toString();
+                .add("toAdd", toAdd)
+                .toString();
     }
 }
