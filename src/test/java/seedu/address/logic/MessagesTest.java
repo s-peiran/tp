@@ -5,7 +5,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.meeting.Meeting;
+import seedu.address.logic.commands.model.meeting.Meeting;
 import seedu.address.testutil.MeetingBuilder;
 
 class MessagesTest {

@@ -7,6 +7,8 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.model.meeting.Description;
+
 public class DescriptionTest {
     @Test
     public void constructor_null_throwsNullPointerException() {

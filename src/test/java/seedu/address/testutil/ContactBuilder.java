@@ -3,13 +3,13 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.contact.Address;
-import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Email;
-import seedu.address.model.contact.Name;
-import seedu.address.model.contact.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
+import seedu.address.logic.commands.model.contact.Address;
+import seedu.address.logic.commands.model.contact.Contact;
+import seedu.address.logic.commands.model.contact.Email;
+import seedu.address.logic.commands.model.contact.Name;
+import seedu.address.logic.commands.model.contact.Phone;
+import seedu.address.logic.commands.model.tag.Tag;
+import seedu.address.logic.commands.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Contact objects.

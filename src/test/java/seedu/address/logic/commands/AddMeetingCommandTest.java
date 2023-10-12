@@ -15,11 +15,11 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.contact.Contact;
-import seedu.address.model.meeting.Meeting;
+import seedu.address.logic.commands.model.Model;
+import seedu.address.logic.commands.model.ReadOnlyAddressBook;
+import seedu.address.logic.commands.model.ReadOnlyUserPrefs;
+import seedu.address.logic.commands.model.contact.Contact;
+import seedu.address.logic.commands.model.meeting.Meeting;
 import seedu.address.testutil.MeetingBuilder;
 
 public class AddMeetingCommandTest {

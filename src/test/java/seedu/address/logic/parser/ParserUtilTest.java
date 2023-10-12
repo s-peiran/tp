@@ -13,16 +13,16 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.model.contact.Address;
+import seedu.address.logic.commands.model.contact.Email;
+import seedu.address.logic.commands.model.contact.Name;
+import seedu.address.logic.commands.model.contact.Phone;
+import seedu.address.logic.commands.model.meeting.Description;
+import seedu.address.logic.commands.model.meeting.Location;
+import seedu.address.logic.commands.model.meeting.Time;
+import seedu.address.logic.commands.model.meeting.Title;
+import seedu.address.logic.commands.model.tag.Tag;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.contact.Address;
-import seedu.address.model.contact.Email;
-import seedu.address.model.contact.Name;
-import seedu.address.model.contact.Phone;
-import seedu.address.model.meeting.Description;
-import seedu.address.model.meeting.Location;
-import seedu.address.model.meeting.Time;
-import seedu.address.model.meeting.Title;
-import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -55,7 +55,7 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+                -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 
     @Test

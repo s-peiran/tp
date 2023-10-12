@@ -8,7 +8,9 @@ import static seedu.address.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
+import seedu.address.logic.commands.model.meeting.Meeting;
+import seedu.address.logic.commands.model.meeting.MeetingList;
+import seedu.address.logic.commands.model.meeting.exceptions.DuplicateMeetingException;
 import seedu.address.testutil.MeetingBuilder;
 
 public class MeetingListTest {

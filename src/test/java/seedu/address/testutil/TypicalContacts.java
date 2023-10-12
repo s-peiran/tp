@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.contact.Contact;
+import seedu.address.logic.commands.model.AddressBook;
+import seedu.address.logic.commands.model.contact.Contact;
 
 /**
  * A utility class containing a list of {@code Contact} objects to be used in tests.

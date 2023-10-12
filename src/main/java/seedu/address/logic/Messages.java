@@ -4,9 +4,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import seedu.address.logic.commands.model.contact.Contact;
+import seedu.address.logic.commands.model.meeting.Meeting;
 import seedu.address.logic.parser.Prefix;
-import seedu.address.model.contact.Contact;
-import seedu.address.model.meeting.Meeting;
 
 /**
  * Container for user visible messages.
@@ -18,7 +18,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX = "The contact index provided is invalid";
     public static final String MESSAGE_CONTACTS_LISTED_OVERVIEW = "%1$d contacts listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
-                "Multiple values specified for the following single-valued field(s): ";
+            "Multiple values specified for the following single-valued field(s): ";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.model.contact.NameContainsKeywordsPredicate;
 import seedu.address.testutil.ContactBuilder;
 
 public class NameContainsKeywordsPredicateTest {

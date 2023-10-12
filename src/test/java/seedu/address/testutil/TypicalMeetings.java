@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.model.meeting.Meeting;
+import seedu.address.logic.commands.model.meeting.Meeting;
 
 /**
  * A utility class containing a list of {@code Meeting} objects to be used in tests.

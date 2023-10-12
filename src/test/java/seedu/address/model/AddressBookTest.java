@@ -19,8 +19,10 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.exceptions.DuplicateContactException;
+import seedu.address.logic.commands.model.AddressBook;
+import seedu.address.logic.commands.model.ReadOnlyAddressBook;
+import seedu.address.logic.commands.model.contact.Contact;
+import seedu.address.logic.commands.model.contact.exceptions.DuplicateContactException;
 import seedu.address.testutil.ContactBuilder;
 
 public class AddressBookTest {

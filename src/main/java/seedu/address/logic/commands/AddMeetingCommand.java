@@ -5,15 +5,15 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.meeting.Meeting;
+import seedu.address.logic.commands.model.Model;
+import seedu.address.logic.commands.model.meeting.Meeting;
 
 /**
  * Add a meeting to Notenote.
  */
 public class AddMeetingCommand extends Command {
 
-    public static final String COMMAND_WORD = "meeting";
+    public static final String COMMAND_WORD = "addm";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + "blahblah fill in later";
 
@@ -60,7 +60,7 @@ public class AddMeetingCommand extends Command {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-        .add("toAdd", toAdd)
-        .toString();
+                .add("toAdd", toAdd)
+                .toString();
     }
 }

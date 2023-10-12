@@ -8,15 +8,15 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.contact.Contact;
+import seedu.address.logic.commands.model.Model;
+import seedu.address.logic.commands.model.contact.Contact;
 
 /**
  * Deletes a contact identified using it's displayed index from the address book.
  */
 public class DeleteContactCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "delc";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the contact identified by the index number used in the displayed contact list.\n"

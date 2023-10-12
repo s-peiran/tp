@@ -1,10 +1,10 @@
 package seedu.address.testutil;
 
-import seedu.address.model.meeting.Description;
-import seedu.address.model.meeting.Location;
-import seedu.address.model.meeting.Meeting;
-import seedu.address.model.meeting.Time;
-import seedu.address.model.meeting.Title;
+import seedu.address.logic.commands.model.meeting.Description;
+import seedu.address.logic.commands.model.meeting.Location;
+import seedu.address.logic.commands.model.meeting.Meeting;
+import seedu.address.logic.commands.model.meeting.Time;
+import seedu.address.logic.commands.model.meeting.Title;
 
 /**
  * A utility class to help with building Person objects.

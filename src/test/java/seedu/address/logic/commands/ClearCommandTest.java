@@ -5,10 +5,10 @@ import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.address.logic.commands.model.AddressBook;
+import seedu.address.logic.commands.model.Model;
+import seedu.address.logic.commands.model.ModelManager;
+import seedu.address.logic.commands.model.UserPrefs;
 
 public class ClearCommandTest {
 

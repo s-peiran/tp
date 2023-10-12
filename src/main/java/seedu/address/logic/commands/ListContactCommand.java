@@ -1,16 +1,16 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
+import static seedu.address.logic.commands.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 
-import seedu.address.model.Model;
+import seedu.address.logic.commands.model.Model;
 
 /**
  * Lists all contacts in the address book to the user.
  */
 public class ListContactCommand extends Command {
 
-    public static final String COMMAND_WORD = "list";
+    public static final String COMMAND_WORD = "listc";
 
     public static final String MESSAGE_SUCCESS = "Listed all contacts";
 

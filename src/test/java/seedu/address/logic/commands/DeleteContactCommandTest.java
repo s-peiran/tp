@@ -14,10 +14,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.contact.Contact;
+import seedu.address.logic.commands.model.Model;
+import seedu.address.logic.commands.model.ModelManager;
+import seedu.address.logic.commands.model.UserPrefs;
+import seedu.address.logic.commands.model.contact.Contact;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for

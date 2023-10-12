@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
+import static seedu.address.logic.commands.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalContacts.ALICE;
 import static seedu.address.testutil.TypicalContacts.BENSON;
@@ -15,8 +15,11 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.contact.NameContainsKeywordsPredicate;
-import seedu.address.model.meeting.Meeting;
+import seedu.address.logic.commands.model.AddressBook;
+import seedu.address.logic.commands.model.ModelManager;
+import seedu.address.logic.commands.model.UserPrefs;
+import seedu.address.logic.commands.model.contact.NameContainsKeywordsPredicate;
+import seedu.address.logic.commands.model.meeting.Meeting;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.MeetingBuilder;
 

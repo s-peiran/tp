@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PLACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddMeetingCommand;
-import seedu.address.model.meeting.Meeting;
+import seedu.address.logic.commands.model.meeting.Meeting;
 import seedu.address.testutil.MeetingBuilder;
 
 public class AddMeetingCommandParserTest {
@@ -54,7 +54,7 @@ public class AddMeetingCommandParserTest {
 
         assertParseFailure(parser, duplicateTitle, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TITLE));
         assertParseFailure(parser, duplicateTime, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TIME));
-        assertParseFailure(parser, duplicateLocation, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_LOCATION));
+        assertParseFailure(parser, duplicateLocation, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PLACE));
         assertParseFailure(parser, duplicateDescription,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DESCRIPTION));
     }

@@ -1,12 +1,12 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -20,20 +20,20 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.contact.Address;
-import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Email;
-import seedu.address.model.contact.Name;
-import seedu.address.model.contact.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.logic.commands.model.Model;
+import seedu.address.logic.commands.model.contact.Address;
+import seedu.address.logic.commands.model.contact.Contact;
+import seedu.address.logic.commands.model.contact.Email;
+import seedu.address.logic.commands.model.contact.Name;
+import seedu.address.logic.commands.model.contact.Phone;
+import seedu.address.logic.commands.model.tag.Tag;
 
 /**
  * Edits the details of an existing contact in the address book.
  */
 public class EditContactCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "editc";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the contact identified "
             + "by the index number used in the displayed contact list. "
@@ -56,7 +56,7 @@ public class EditContactCommand extends Command {
     private final EditContactDescriptor editContactDescriptor;
 
     /**
-     * @param index of the contact in the filtered contact list to edit
+     * @param index                 of the contact in the filtered contact list to edit
      * @param editContactDescriptor details to edit the contact with
      */
     public EditContactCommand(Index index, EditContactDescriptor editContactDescriptor) {
@@ -139,7 +139,8 @@ public class EditContactCommand extends Command {
         private Address address;
         private Set<Tag> tags;
 
-        public EditContactDescriptor() {}
+        public EditContactDescriptor() {
+        }
 
         /**
          * Copy constructor.
