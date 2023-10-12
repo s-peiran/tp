@@ -3,9 +3,14 @@ package seedu.address.logic.commands;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_CONTACT;
+
+import java.util.List;
+
 import seedu.address.model.Model;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Note;
 
 /**
  * Changes the note of an existing contact in the address book.
@@ -14,37 +19,61 @@ public class AddNoteCommand extends Command {
 
     public static final String COMMAND_WORD = "note";
 
-    public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Remark: %2$s";
+    public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Note: %2$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the remark of the person identified "
+            + ": Edits the note of the person identified "
             + "by the index number used in the last person listing. "
-            + "Existing remark will be overwritten by the input.\n"
+            + "Existing note will be overwritten by the input.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "r/ [REMARK]\n"
+            + "contact/ [NOTE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + "r/ Likes to swim.";
+            + "contact/ Likes to swim.";
 
-    public static final String MESSAGE_NOT_IMPLEMENTED_YET =
-            "Remark command not implemented yet";
+    public static final String MESSAGE_ADD_NOTE_SUCCESS = "Added note to Person: %1$s";
+    public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Removed note from Person: %1$s";
 
     private final Index index;
-    private final String remark;
+    private final Note note;
 
     /**
-     * @param index of the person in the filtered person list to edit the remark
-     * @param remark of the person to be updated to
+     * @param index of the person in the filtered person list to edit the note
+     * @param note of the person to be updated to
      */
-    public AddNoteCommand(Index index, String remark) {
-        requireAllNonNull(index, remark);
+    public AddNoteCommand(Index index, Note note) {
+        requireAllNonNull(index, note);
 
         this.index = index;
-        this.remark = remark;
+        this.note = note;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        throw new CommandException(String.format(MESSAGE_ARGUMENTS, index.getOneBased(), remark));
+        List<Contact> lastShownList = model.getFilteredContactList();
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        }
+
+        Contact contactToEdit = lastShownList.get(index.getZeroBased());
+        Contact editedContact = new Contact(
+                contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
+                contactToEdit.getAddress(), contactToEdit.getTags(), note);
+
+        model.setContact(contactToEdit, editedContact);
+        model.updateFilteredContactList(Model.PREDICATE_SHOW_ALL_CONTACTS);
+
+        return new CommandResult(generateSuccessMessage(editedContact));
+    }
+
+    /**
+     * Generates a command execution success message based on whether
+     * the remark is added to or removed from
+     * {@code contactToEdit}.
+     */
+    private String generateSuccessMessage(Contact contactToEdit) {
+        String message = !note.value.isEmpty() ? MESSAGE_ADD_NOTE_SUCCESS : MESSAGE_DELETE_NOTE_SUCCESS;
+        return String.format(message, contactToEdit);
     }
 
     @Override
@@ -62,7 +91,7 @@ public class AddNoteCommand extends Command {
         // state check
         AddNoteCommand e = (AddNoteCommand) other;
         return index.equals(e.index)
-                && remark.equals(e.remark);
+                && note.equals(e.note);
     }
 
 }
