@@ -16,7 +16,10 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX = "The contact index provided is invalid";
+    public static final String MESSAGE_INVALID_MEETING_DISPLAYED_INDEX = "The meeting index provided is invalid";
     public static final String MESSAGE_CONTACTS_LISTED_OVERVIEW = "%1$d contacts listed!";
+    public static final String MESSAGE_MEETINGS_LISTED_OVERVIEW = "%1$d meetings listed!";
+    
     public static final String MESSAGE_DUPLICATE_FIELDS =
             "Multiple values specified for the following single-valued field(s): ";
 
@@ -35,7 +38,7 @@ public class Messages {
     /**
      * Formats the {@code contact} for display to the user.
      */
-    public static String format(Contact contact) {
+    public static String formatContact(Contact contact) {
         final StringBuilder builder = new StringBuilder();
         builder.append(contact.getName())
                 .append("; Phone: ")

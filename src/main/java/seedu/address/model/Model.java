@@ -89,6 +89,12 @@ public interface Model {
     void updateFilteredContactList(Predicate<Contact> predicate);
 
     /**
+     * Deletes the given meeting.
+     * The meeting must exist in the address book.
+     */
+    void deleteMeeting(Meeting target);
+
+    /**
      * Adds the given meeting.
      */
     void addMeeting(Meeting meeting);
