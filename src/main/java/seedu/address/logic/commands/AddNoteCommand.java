@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -17,8 +18,6 @@ import seedu.address.model.contact.Note;
 public class AddNoteCommand extends Command {
 
     public static final String COMMAND_WORD = "note";
-
-    public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Note: %2$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the note of the person identified "
@@ -92,5 +91,4 @@ public class AddNoteCommand extends Command {
         return index.equals(e.index)
                 && note.equals(e.note);
     }
-
 }
