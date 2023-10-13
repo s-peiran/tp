@@ -11,12 +11,12 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Note;
 
 /**
- * Parses input arguments and creates a new {@code RemarkCommand} object
+ * Parses input arguments and creates a new {@code AddNoteCommand} object
  */
 public class AddNoteCommandParser implements Parser<AddNoteCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the {@code RemarkCommand}
-     * and returns a {@code RemarkCommand} object for execution.
+     * Parses the given {@code String} of arguments in the context of the {@code AddNoteCommand}
+     * and returns a {@code AddNoteCommand} object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddNoteCommand parse(String args) throws ParseException {
@@ -30,8 +30,8 @@ public class AddNoteCommandParser implements Parser<AddNoteCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNoteCommand.MESSAGE_USAGE), ive);
         }
 
-        String remark = argMultimap.getValue(PREFIX_NOTE_CONTACT).orElse("");
+        String note = argMultimap.getValue(PREFIX_NOTE_CONTACT).orElse("");
 
-        return new AddNoteCommand(index, new Note(remark));
+        return new AddNoteCommand(index, new Note(note));
     }
 }

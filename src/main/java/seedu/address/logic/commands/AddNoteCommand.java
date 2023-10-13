@@ -67,7 +67,7 @@ public class AddNoteCommand extends Command {
 
     /**
      * Generates a command execution success message based on whether
-     * the remark is added to or removed from
+     * the note is added to or removed from
      * {@code contactToEdit}.
      */
     private String generateSuccessMessage(Contact contactToEdit) {

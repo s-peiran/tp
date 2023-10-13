@@ -3,7 +3,7 @@ package seedu.address.model.contact;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Contact's remark in the address book.
+ * Represents a Contact's note in the address book.
  * Guarantees: immutable; is always valid
  */
 public class Note {

@@ -24,35 +24,35 @@ import seedu.address.model.contact.Note;
 import seedu.address.testutil.ContactBuilder;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for RemarkCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for AddNoteCommand.
  */
 public class AddNoteCommandTest {
 
-    private static final String REMARK_STUB = "Some remark";
+    private static final String NOTE_STUB = "Some note";
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_addRemarkUnfilteredList_success() {
+    public void execute_addNoteUnfilteredList_success() {
         Contact firstPerson = model.getFilteredContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
-        Contact editedPerson = new ContactBuilder(firstPerson).withNote(REMARK_STUB).build();
+        Contact editedPerson = new ContactBuilder(firstPerson).withNote(NOTE_STUB).build();
 
-        AddNoteCommand remarkCommand = new AddNoteCommand(INDEX_FIRST_CONTACT, new Note(editedPerson.getNote().value));
+        AddNoteCommand addNoteCommand = new AddNoteCommand(INDEX_FIRST_CONTACT, new Note(editedPerson.getNote().value));
 
         String expectedMessage = String.format(AddNoteCommand.MESSAGE_ADD_NOTE_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(firstPerson, editedPerson);
 
-        assertCommandSuccess(remarkCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(addNoteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_deleteRemarkUnfilteredList_success() {
+    public void execute_deleteNoteUnfilteredList_success() {
         Contact firstPerson = model.getFilteredContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
         Contact editedPerson = new ContactBuilder(firstPerson).withNote("").build();
 
-        AddNoteCommand remarkCommand = new AddNoteCommand(INDEX_FIRST_CONTACT,
+        AddNoteCommand addNoteCommand = new AddNoteCommand(INDEX_FIRST_CONTACT,
                 new Note(editedPerson.getNote().toString()));
 
         String expectedMessage = String.format(AddNoteCommand.MESSAGE_DELETE_NOTE_SUCCESS, editedPerson);
@@ -60,7 +60,7 @@ public class AddNoteCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(firstPerson, editedPerson);
 
-        assertCommandSuccess(remarkCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(addNoteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -70,24 +70,24 @@ public class AddNoteCommandTest {
         Contact firstPerson = model.getFilteredContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
         Contact editedPerson = new ContactBuilder(model.getFilteredContactList()
                 .get(INDEX_FIRST_CONTACT.getZeroBased()))
-                .withNote(REMARK_STUB).build();
+                .withNote(NOTE_STUB).build();
 
-        AddNoteCommand remarkCommand = new AddNoteCommand(INDEX_FIRST_CONTACT, new Note(editedPerson.getNote().value));
+        AddNoteCommand addNoteCommand = new AddNoteCommand(INDEX_FIRST_CONTACT, new Note(editedPerson.getNote().value));
 
         String expectedMessage = String.format(AddNoteCommand.MESSAGE_ADD_NOTE_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(firstPerson, editedPerson);
 
-        assertCommandSuccess(remarkCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(addNoteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
-        AddNoteCommand remarkCommand = new AddNoteCommand(outOfBoundIndex, new Note(VALID_NOTE_BOB));
+        AddNoteCommand addNoteCommand = new AddNoteCommand(outOfBoundIndex, new Note(VALID_NOTE_BOB));
 
-        assertCommandFailure(remarkCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        assertCommandFailure(addNoteCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
 
     /**
@@ -101,9 +101,9 @@ public class AddNoteCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getContactList().size());
 
-        AddNoteCommand remarkCommand = new AddNoteCommand(outOfBoundIndex, new Note(VALID_NOTE_BOB));
+        AddNoteCommand addNoteCommand = new AddNoteCommand(outOfBoundIndex, new Note(VALID_NOTE_BOB));
 
-        assertCommandFailure(remarkCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        assertCommandFailure(addNoteCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
 
     @Test
@@ -129,7 +129,7 @@ public class AddNoteCommandTest {
         assertFalse(standardCommand.equals(new AddNoteCommand(INDEX_SECOND_CONTACT,
                 new Note(VALID_NOTE_AMY))));
 
-        // different remark -> returns false
+        // different note -> returns false
         assertFalse(standardCommand.equals(new AddNoteCommand(INDEX_FIRST_CONTACT,
                 new Note(VALID_NOTE_BOB))));
     }
