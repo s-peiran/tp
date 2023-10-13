@@ -49,10 +49,10 @@ public class AddressBookParserTest {
         Meeting meeting = new MeetingBuilder().build();
         AddMeetingCommand expectedCommand = new AddMeetingCommand(meeting);
         String userInput = AddMeetingCommand.COMMAND_WORD
-                + " title/" + MeetingBuilder.DEFAULT_TITLE
-                + " time/" + MeetingBuilder.DEFAULT_TIME
-                + " place/" + MeetingBuilder.DEFAULT_PLACE
-                + " desc/" + MeetingBuilder.DEFAULT_DESCRIPTION;
+                + " -title" + MeetingBuilder.DEFAULT_TITLE
+                + " -time" + MeetingBuilder.DEFAULT_TIME
+                + " -place" + MeetingBuilder.DEFAULT_PLACE
+                + " -desc" + MeetingBuilder.DEFAULT_DESCRIPTION;
         AddMeetingCommand actualCommand = (AddMeetingCommand) parser.parseCommand(userInput);
         assertEquals(expectedCommand, actualCommand);
     }
@@ -60,13 +60,13 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " -id 3") instanceof ClearCommand);
     }
 
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteContactCommand command = (DeleteContactCommand) parser.parseCommand(
-                DeleteContactCommand.COMMAND_WORD + " " + INDEX_FIRST_CONTACT.getOneBased());
+                DeleteContactCommand.COMMAND_WORD + " -id " + INDEX_FIRST_CONTACT.getOneBased());
         assertEquals(new DeleteContactCommand(INDEX_FIRST_CONTACT), command);
     }
 
@@ -74,42 +74,44 @@ public class AddressBookParserTest {
     public void parseCommand_edit() throws Exception {
         Contact contact = new ContactBuilder().build();
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder(contact).build();
-        EditContactCommand command = (EditContactCommand) parser.parseCommand(
-                EditContactCommand.COMMAND_WORD + " " + INDEX_FIRST_CONTACT.getOneBased() + " "
-                        + ContactUtil.getEditContactDescriptorDetails(descriptor));
+        String input = EditContactCommand.COMMAND_WORD + " -id " + INDEX_FIRST_CONTACT.getOneBased() + " "
+                + ContactUtil.getEditContactDescriptorDetails(descriptor);
+        EditContactCommand command = (EditContactCommand) parser.parseCommand(input);
+
         assertEquals(new EditContactCommand(INDEX_FIRST_CONTACT, descriptor), command);
     }
 
     @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " -id 3") instanceof ExitCommand);
     }
 
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindContactCommand command = (FindContactCommand) parser.parseCommand(
-                FindContactCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        String input = FindContactCommand.COMMAND_WORD + " -k " + keywords.stream().collect(Collectors.joining(" "));
+        FindContactCommand command = (FindContactCommand) parser.parseCommand(input);
+
         assertEquals(new FindContactCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " -id 3") instanceof HelpCommand);
     }
 
     @Test
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListContactCommand.COMMAND_WORD) instanceof ListContactCommand);
-        assertTrue(parser.parseCommand(ListContactCommand.COMMAND_WORD + " 3") instanceof ListContactCommand);
+        assertTrue(parser.parseCommand(ListContactCommand.COMMAND_WORD + " -id 3") instanceof ListContactCommand);
     }
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+                -> parser.parseCommand(""));
     }
 
     @Test
