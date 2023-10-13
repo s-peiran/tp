@@ -1,6 +1,9 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
+
+import java.util.NoSuchElementException;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteContactCommand;
@@ -20,13 +23,15 @@ public class DeleteCommandParser implements Parser<DeleteContactCommand> {
     public DeleteContactCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INDEX);
-        Index index = Index.fromOneBased(Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()));
-        // ParserUtil.parseIndex(args);
-        return new DeleteContactCommand(index);
-        /* } catch (ParseException pe) {
+        Index index;
+        try {
+            index = Index.fromOneBased(Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()));
+        } catch (NoSuchElementException e) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteContactCommand.MESSAGE_USAGE), pe);
-        } */
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteContactCommand.MESSAGE_USAGE), e);
+        }
+        return new DeleteContactCommand(index);
+
     }
 
 }

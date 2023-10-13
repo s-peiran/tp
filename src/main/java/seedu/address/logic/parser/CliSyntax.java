@@ -16,4 +16,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_PLACE = new Prefix("-place");
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("-desc");
     public static final Prefix PREFIX_INDEX = new Prefix("-id");
+    public static final Prefix PREFIX_KEYWORD = new Prefix("-k");
 }
