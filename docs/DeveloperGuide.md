@@ -314,39 +314,36 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​ | I can …​ | So that I can…​                                              |
-|--------|------------------|---------------------------------------------------------------------------|--------------------------------------------------------------|
-| `* * *` | user | create meetings cards | keep track of meeting details                                |
-| `* * *` | user | see a list of contacts | keep track of the people I know                              |
-| `* * *` | user | delete notes for contacts | keep the notes updated for every contact                     |
-| `* * *` | user | create notes for contacts | keep track of information for each contact                   |
-| `* * *` | user | reschedule meetings easily | be flexible                                                  |
-| `* * *` | user | take notes about meetings | remeber key points of discussion                             |
-| `* * *` | user | mark tasks as completed |
-|`* * *` | user | tag contacts based on subjects or courses | ensuring quick filtering by subject                          |
-| `* * *` | user | create new contacts | keep track of my relationships                               |
-| `* * *` | user | delete contacts | manage my contacts                                           |
-| `* *`  | user | add hyperlinks or references to online resources within a contact's notes | have the convenience of one-click access to online materials |
-| `* *`  | user | get an alert when a meeting is starting soon | I won't miss it                                              |
-| `* *`  | user | create follow-up action items | keep track of important tasks                                |
-| `* *`  | user | set deadlines for action items | ensure tasks are completed in a timely manner                |
-| `* *`  | user | filter contacts based on collaboration frequency | identify frequent collaborators                              |
-| `* *`  | user | attach a photo to a contact | visually identify and remember my classmates                 |
-| `* *`  | user | color-code my contacts based on different criteria | for a visual representation of my network                    |
-| `* *`  | user | flag or star important contacts | ensuring quick access during peak times                      |
-| `* *`   | new user | see a list of commands | learn more about how to use the product                      |
-| `* *`   | new user | set up my profile | dates are accurately recorded                                |
-| `* *`   | busy user | see a list of upcoming meetings and tasks for the day | know how to plan my day                                      |
-| `*`   | user | track the history of note-taking for each contact | have a chronological record of my notes                      |
-| `*`    | user | receive reminders/prompts when deadlines are closing in | remain on track with my deliverables                         |
-| `*`    | user | set reminders for project deadlines with members | ensure timely submissions for project deadlines              |
-| `*`    | experienced user | encrypt my contact and meeting cards | ensure the privacy and security of my data                   |
-| `*`    | experienced user | backup my contact and meeting cards | ensure redundancy for my data                                |
-| `*`    | user | assign tasks to team members | delegate work efficiently                                    |
-| `*`     | user | set auto-reminders based on last interaction date | foster proactive communication                               |
-| `*`     | forgetful user | see a list of the most recent actions I have performed | remember what I have added or deleted                        |
+| Priority | As a …​          | I can …​                                                      | So that I can…​                                              |
+|----------|------------------|---------------------------------------------------------------|--------------------------------------------------------------|
+| `* * *`  | user             | create meeting cards                                          | keep track of meeting details                                |
+| `* * *`  | user             | view my list of meetings                                      | see my upcoming meetings                                     |
+| `* * *`  | user             | edit my meeting cards                                         | make changes to the meeting                                  |
+| `* * *`  | user             | take notes about meetings                                     | remember key points of discussion                            |
+| `* * *`  | user             | delete a meeting                                              | remove unwanted meeting cards                                |
+| `* * *`  | user             | create contact cards                                          | keep track of a contact's details                            |
+| `* * *`  | user             | view my list of contacts                                      | keep track of the people I know                              |
+| `* * *`  | user             | edit my contact cards                                         | make changes to a contact's details                          |
+| `* * *`  | user             | delete contacts                                               | manage my contacts                                           |
+| `* * *`  | user             | create notes for contacts                                     | keep track of additional information for my contacts         |
+| `* *`    | user             | tag contacts                                                  | filter my contacts based on subjects or courses              |
+| `* *`    | user             | attach a photo to a contact                                   | visually identify and remember my classmates                 |
+| `* *`    | user             | color-code my contacts                                        | for a visual representation of my network                    |
+| `* *`    | new user         | see a list of commands                                        | learn more about how to use the application                  |
+| `* *`    | new user         | have a default timezone                                       | dates are accurately recorded in my timezone                 |
+| `* *`    | user             | pin important contacts                                        | find my important contacts quickly                           |
+| `* *`    | user             | see a list of upcoming meetings and tasks for the day         | know how to plan my day                                      |
+| `* *`    | user             | add hyperlinks or references to online resources within notes | have the convenience of one-click access to online materials |
+| `* *`    | forgetful user   | set a reminder for an upcoming meeting                        | I won't miss the meeting                                     |
+| `* *`    | user             | create follow-up action items within a meeting's notes        | keep track of important tasks for a meeting                  |
+| `* *`    | user             | set deadlines for action items                                | ensure action items are completed in a timely manner         |
+| `* *`    | user             | set reminders for action items                                | I won't forget the action items                              |
+| `* *`    | user             | view the edit history of my notes                             | backtrack on my note-taking changes                          |
+| `*`      | experienced user | encrypt my contact and meeting cards                          | ensure the privacy and security of my data                   |
+| `*`      | experienced user | backup my contact and meeting cards                           | ensure redundancy for my data                                |
+| `*`      | user             | filter contacts based on collaboration frequency              | identify frequent collaborators                              |
+| `*`      | forgetful user   | see a list of the most recent actions I have performed        | remember what I have added or deleted                        |
 
-*{More to be added}*
 
 ### Use cases
 
