@@ -14,6 +14,7 @@ import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
+import seedu.address.model.contact.Note;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -30,13 +31,15 @@ class JsonAdaptedContact {
     private final String address;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
+    private final String note;
+
     /**
      * Constructs a {@code JsonAdaptedContact} with the given contact details.
      */
     @JsonCreator
     public JsonAdaptedContact(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+            @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("note") String note) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -44,6 +47,7 @@ class JsonAdaptedContact {
         if (tags != null) {
             this.tags.addAll(tags);
         }
+        this.note = note;
     }
 
     /**
@@ -57,6 +61,7 @@ class JsonAdaptedContact {
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        note = source.getNote().value;
     }
 
     /**
@@ -103,7 +108,13 @@ class JsonAdaptedContact {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(contactTags);
-        return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+
+        if (note == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Note.class.getSimpleName()));
+        }
+        final Note modelNote = new Note(note);
+
+        return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelNote);
     }
 
 }

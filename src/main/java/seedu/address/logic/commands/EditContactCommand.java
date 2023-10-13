@@ -25,6 +25,7 @@ import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
+import seedu.address.model.contact.Note;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -100,8 +101,9 @@ public class EditContactCommand extends Command {
         Email updatedEmail = editContactDescriptor.getEmail().orElse(contactToEdit.getEmail());
         Address updatedAddress = editContactDescriptor.getAddress().orElse(contactToEdit.getAddress());
         Set<Tag> updatedTags = editContactDescriptor.getTags().orElse(contactToEdit.getTags());
+        Note note = new Note("");
 
-        return new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, note);
     }
 
     @Override
