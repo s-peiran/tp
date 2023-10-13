@@ -22,7 +22,7 @@ public class DeleteMeetingCommand extends Command {
             + ": Deletes the meeting identified by the index number used in the displayed meeting list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
-    
+
     public static final String MESSAGE_DELETE_MEETING_SUCCESS = "Deleted Meeting: %1$s";
 
     private final Index targetIndex;
@@ -48,8 +48,9 @@ public class DeleteMeetingCommand extends Command {
         }
 
         Meeting meetingToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteMeeting(meetingToDelete); // Ensure your model has this method.
-        return new CommandResult(String.format(MESSAGE_DELETE_MEETING_SUCCESS, Messages.formatMeeting(meetingToDelete)));
+        model.deleteMeeting(meetingToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_MEETING_SUCCESS,
+            Messages.formatMeeting(meetingToDelete)));
     }
 
     @Override
