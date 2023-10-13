@@ -23,10 +23,10 @@ public class AddMeetingCommandParserTest {
     public void parse_allFieldsPresent_success() {
         Meeting validMeeting = new MeetingBuilder().build();
         AddMeetingCommand expectedCommand = new AddMeetingCommand(validMeeting);
-        String userInput = " title/" + MeetingBuilder.DEFAULT_TITLE
-                + " time/" + MeetingBuilder.DEFAULT_TIME
-                + " place/" + MeetingBuilder.DEFAULT_PLACE
-                + " desc/" + MeetingBuilder.DEFAULT_DESCRIPTION;
+        String userInput = " -title" + MeetingBuilder.DEFAULT_TITLE
+                + " -time" + MeetingBuilder.DEFAULT_TIME
+                + " -place" + MeetingBuilder.DEFAULT_PLACE
+                + " -desc" + MeetingBuilder.DEFAULT_DESCRIPTION;
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -42,15 +42,15 @@ public class AddMeetingCommandParserTest {
 
     @Test
     public void parse_repeatedFields_failure() {
-        String userInput = " title/" + MeetingBuilder.DEFAULT_TITLE
-                + " time/" + MeetingBuilder.DEFAULT_TIME
-                + " place/" + MeetingBuilder.DEFAULT_PLACE
-                + " desc/" + MeetingBuilder.DEFAULT_DESCRIPTION;
+        String userInput = " -title" + MeetingBuilder.DEFAULT_TITLE
+                + " -time" + MeetingBuilder.DEFAULT_TIME
+                + " -place" + MeetingBuilder.DEFAULT_PLACE
+                + " -desc" + MeetingBuilder.DEFAULT_DESCRIPTION;
 
-        String duplicateTitle = userInput + " title/" + MeetingBuilder.DEFAULT_TITLE;
-        String duplicateTime = userInput + " time/" + MeetingBuilder.DEFAULT_TIME;
-        String duplicatePlace = userInput + " place/" + MeetingBuilder.DEFAULT_PLACE;
-        String duplicateDescription = userInput + " desc/" + MeetingBuilder.DEFAULT_DESCRIPTION;
+        String duplicateTitle = userInput + " -title" + MeetingBuilder.DEFAULT_TITLE;
+        String duplicateTime = userInput + " -time" + MeetingBuilder.DEFAULT_TIME;
+        String duplicatePlace = userInput + " -place" + MeetingBuilder.DEFAULT_PLACE;
+        String duplicateDescription = userInput + " -desc" + MeetingBuilder.DEFAULT_DESCRIPTION;
 
         assertParseFailure(parser, duplicateTitle, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TITLE));
         assertParseFailure(parser, duplicateTime, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TIME));

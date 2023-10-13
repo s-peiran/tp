@@ -34,7 +34,7 @@ import seedu.address.model.tag.Tag;
  */
 public class EditContactCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "edit contact";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the contact identified "
             + "by the index number used in the displayed contact list. "
@@ -57,7 +57,7 @@ public class EditContactCommand extends Command {
     private final EditContactDescriptor editContactDescriptor;
 
     /**
-     * @param index of the contact in the filtered contact list to edit
+     * @param index                 of the contact in the filtered contact list to edit
      * @param editContactDescriptor details to edit the contact with
      */
     public EditContactCommand(Index index, EditContactDescriptor editContactDescriptor) {
@@ -141,7 +141,8 @@ public class EditContactCommand extends Command {
         private Address address;
         private Set<Tag> tags;
 
-        public EditContactDescriptor() {}
+        public EditContactDescriptor() {
+        }
 
         /**
          * Copy constructor.
