@@ -3,15 +3,20 @@ package seedu.address.model.contact;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Person's remark in the address book.
+ * Represents a Contact's remark in the address book.
  * Guarantees: immutable; is always valid
  */
 public class Note {
     public final String value;
 
-    public Note(String remark) {
-        requireNonNull(remark);
-        value = remark;
+    /**
+     * Constructs a {@code Note}.
+     *
+     * @param note A valid note.
+     */
+    public Note(String note) {
+        requireNonNull(note);
+        value = note;
     }
 
     @Override
