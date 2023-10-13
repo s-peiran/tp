@@ -24,17 +24,19 @@ public class Contact {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Note note;
 
     /**
      * Every field must be present and not null.
      */
-    public Contact(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Contact(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Note note) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.note = note;
     }
 
     public Name getName() {
@@ -59,6 +61,10 @@ public class Contact {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public Note getNote() {
+        return note;
     }
 
     /**
@@ -111,6 +117,7 @@ public class Contact {
                 .add("email", email)
                 .add("address", address)
                 .add("tags", tags)
+                .add("note", note)
                 .toString();
     }
 

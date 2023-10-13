@@ -7,6 +7,7 @@ import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
+import seedu.address.model.contact.Note;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -26,6 +27,7 @@ public class ContactBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private Note note;
 
     /**
      * Creates a {@code ContactBuilder} with the default details.
@@ -88,9 +90,16 @@ public class ContactBuilder {
         this.email = new Email(email);
         return this;
     }
+    /**
+     * Sets the {@code Note} of the {@code Contact} that we are building.
+     */
+    public ContactBuilder withNote(String note) {
+        this.note = new Note(note);
+        return this;
+    }
 
     public Contact build() {
-        return new Contact(name, phone, email, address, tags);
+        return new Contact(name, phone, email, address, tags, note);
     }
 
 }
