@@ -117,14 +117,14 @@ public class MainWindow extends UiPart<Stage> {
         contactListPanel = new ContactListPanel(logic.getFilteredContactList());
         contactListPanelPlaceholder.getChildren().add(contactListPanel.getRoot());
 
-        meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList());
-        meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
+//        meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList());
+//        meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+//        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+//        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
