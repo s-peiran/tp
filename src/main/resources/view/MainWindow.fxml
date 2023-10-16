@@ -55,7 +55,12 @@
                 </padding>
                 <StackPane fx:id="contactListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
               </VBox>
-              <TextArea fx:id="textAreaPlaceholder" editable="false" styleClass="pane-with-border" minWidth="250" text="asdfasd"/>
+              <StackPane VBox.vgrow="NEVER" fx:id="noteDisplayPlaceholder" styleClass="pane-with-border" minWidth="250">
+                <padding>
+                  <Insets top="5" right="10" bottom="5" left="10" />
+                </padding>
+              </StackPane>
+
             </items>
           </SplitPane>
 

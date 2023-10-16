@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private MeetingListPanel meetingListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private NoteDisplay noteDisplay;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -52,7 +53,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane statusbarPlaceholder;
+    private StackPane noteDisplayPlaceholder;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -117,14 +118,14 @@ public class MainWindow extends UiPart<Stage> {
         contactListPanel = new ContactListPanel(logic.getFilteredContactList());
         contactListPanelPlaceholder.getChildren().add(contactListPanel.getRoot());
 
-//        meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList());
-//        meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
+        //meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList());
+        //meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-//        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-//        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        noteDisplay = new NoteDisplay();
+        noteDisplayPlaceholder.getChildren().add(noteDisplay.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -188,6 +189,8 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            logger.info("Note: " + commandResult.getNoteToDisplay());
+            noteDisplay.setNoteToDisplay(commandResult.getNoteToDisplay());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

@@ -30,7 +30,6 @@ public class ContactListPanel extends UiPart<Region> {
     }
 
     /**
-     * 
      * Custom {@code ListCell} that displays the graphics of a {@code Contact} using a {@code ContactCard}.
      */
     class ContactListViewCell extends ListCell<Contact> {
