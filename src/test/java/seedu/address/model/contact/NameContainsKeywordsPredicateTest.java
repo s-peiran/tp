@@ -35,7 +35,7 @@ public class NameContainsKeywordsPredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different contact -> returns false
+        // different predicate -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 
