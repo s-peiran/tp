@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 
 /**
- * Shows a Meeting identified using its id from the address book.
+ * Shows a Contact identified using its id from the address book.
  */
 public class ViewContactCommand extends Command {
 
