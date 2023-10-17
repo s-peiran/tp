@@ -1,10 +1,7 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.contact.Contact;
@@ -32,17 +29,7 @@ public class ContactCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
-    @FXML
-    private Label phone;
-    @FXML
-    private Label address;
-    @FXML
-    private Label email;
 
-    @FXML
-    private Label note;
-    @FXML
-    private FlowPane tags;
 
     /**
      * Creates a {@code ContactCode} with the given {@code Contact} and index to display.
@@ -52,12 +39,5 @@ public class ContactCard extends UiPart<Region> {
         this.contact = contact;
         id.setText(displayedIndex + ". ");
         name.setText(contact.getName().fullName);
-        phone.setText(contact.getPhone().value);
-        address.setText(contact.getAddress().value);
-        email.setText(contact.getEmail().value);
-        note.setText(contact.getNote().value);
-        contact.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 }

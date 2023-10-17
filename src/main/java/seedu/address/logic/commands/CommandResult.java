@@ -13,6 +13,8 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
+    private final String noteToDisplay;
+
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
@@ -22,8 +24,9 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, String noteToDisplay, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.noteToDisplay = noteToDisplay;
         this.showHelp = showHelp;
         this.exit = exit;
     }
@@ -32,12 +35,16 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
      */
-    public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+    public CommandResult(String feedbackToUser, String noteToDisplay) {
+        this(feedbackToUser, noteToDisplay, false, false);
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
+    }
+
+    public String getNoteToDisplay() {
+        return noteToDisplay;
     }
 
     public boolean isShowHelp() {
@@ -60,20 +67,25 @@ public class CommandResult {
         }
 
         CommandResult otherCommandResult = (CommandResult) other;
-        return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+        boolean eq = feedbackToUser.equals(otherCommandResult.feedbackToUser)
+                    && showHelp == otherCommandResult.showHelp
+                    && exit == otherCommandResult.exit;
+        if (noteToDisplay != null) {
+            eq = eq && noteToDisplay.equals(otherCommandResult.noteToDisplay);
+        }
+        return eq;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, noteToDisplay, showHelp, exit);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("feedbackToUser", feedbackToUser)
+                .add("noteToDisplay", noteToDisplay)
                 .add("showHelp", showHelp)
                 .add("exit", exit)
                 .toString();
