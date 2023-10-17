@@ -31,8 +31,8 @@ public class AddMeetingNoteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_NOTE_MEETING + " Likes to swim.";
 
-    public static final String MESSAGE_ADD_NOTE_SUCCESS = "Added note to Person: %1$s";
-    public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Removed note from Person: %1$s";
+    public static final String MESSAGE_ADD_NOTE_SUCCESS = "Added note to Meeting: %1$s";
+    public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Removed note from Meeting: %1$s";
 
     private final Index index;
     private final Note note;

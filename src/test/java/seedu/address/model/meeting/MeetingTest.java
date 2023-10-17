@@ -34,7 +34,7 @@ public class MeetingTest {
 
         String expected = Meeting.class.getCanonicalName() + "{title=" + MeetingBuilder.DEFAULT_TITLE
                 + ", time=" + MeetingBuilder.DEFAULT_TIME + ", place=" + MeetingBuilder.DEFAULT_PLACE
-                + ", description=" + MeetingBuilder.DEFAULT_DESCRIPTION + "}";
+                + ", description=" + MeetingBuilder.DEFAULT_DESCRIPTION + ", notes=[]}";
 
         assertEquals(expected, meeting.toString());
     }

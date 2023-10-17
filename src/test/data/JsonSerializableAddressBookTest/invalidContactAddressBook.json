@@ -3,12 +3,14 @@
     "name": "Hans Muster",
     "phone": "9482424",
     "email": "invalid@email!3e",
-    "address": "4th street"
+    "address": "4th street",
+    "notes" : [ ]
   } ],
   "meetings" : [ {
     "title" : "CS2103 Meeting",
     "time" : "2023-01-01 00:00",
     "place" : "",
-    "description" : ""
+    "description" : "",
+    "notes" : [ ]
   } ]
 }

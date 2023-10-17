@@ -5,24 +5,26 @@
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
     "tags": [ "friends" ],
-    "note" : "Likes Benson"
+    "notes" : [ "Likes Benson" ]
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "pauline@example.com",
     "address": "4th street",
     "tags": [ "friends" ],
-    "note" : "Likes Benson"
+    "notes" : [ "Likes Benson" ]
   } ],
   "meetings" : [ {
     "title" : "CS2103 Meeting",
     "time" : "01/01/2023 00:00",
     "place" : "Zoom",
-    "description" : ""
+    "description" : "",
+    "notes" : [ ]
   }, {
     "title" : "CS2103 Meeting",
     "time" : "01/01/2023 00:00",
     "place" : "Zoom",
-    "description" : ""
+    "description" : "",
+    "notes" : [ ]
   } ]
 }
