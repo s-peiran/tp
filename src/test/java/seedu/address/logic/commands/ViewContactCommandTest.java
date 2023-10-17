@@ -32,7 +32,7 @@ public class ViewContactCommandTest {
         String expectedMessage = String.format(ViewContactCommand.MESSAGE_VIEW_CONTACT_SUCCESS,
                 Messages.format(contactToDisplay));
 
-        assertCommandSuccess(viewContactCommand, model, expectedMessage, contactToDisplay.getNote().toString());
+        assertCommandSuccess(viewContactCommand, model, expectedMessage, contactToDisplay.getNotes().toString());
     }
 
     @Test
@@ -52,7 +52,7 @@ public class ViewContactCommandTest {
         String expectedMessage = String.format(ViewContactCommand.MESSAGE_VIEW_CONTACT_SUCCESS,
                 Messages.format(contactToDisplay));
 
-        assertCommandSuccess(viewContactCommand, model, expectedMessage, contactToDisplay.getNote().toString());
+        assertCommandSuccess(viewContactCommand, model, expectedMessage, contactToDisplay.getNotes().toString());
     }
 
     @Test

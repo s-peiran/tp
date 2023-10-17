@@ -1,11 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 
 import java.util.Collections;
@@ -44,7 +40,8 @@ public class EditContactCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG] "
+            + "[" + PREFIX_NOTE_CONTACT + "NOTE]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -101,9 +98,9 @@ public class EditContactCommand extends Command {
         Email updatedEmail = editContactDescriptor.getEmail().orElse(contactToEdit.getEmail());
         Address updatedAddress = editContactDescriptor.getAddress().orElse(contactToEdit.getAddress());
         Set<Tag> updatedTags = editContactDescriptor.getTags().orElse(contactToEdit.getTags());
-        Note note = new Note("");
+        Set<Note> updatedNotes = editContactDescriptor.getNotes().orElse(contactToEdit.getNotes());
 
-        return new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, note);
+        return new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedNotes);
     }
 
     @Override
@@ -140,6 +137,7 @@ public class EditContactCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
+        private Set<Note> notes;
 
         public EditContactDescriptor() {
         }
@@ -154,6 +152,7 @@ public class EditContactCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
+            setNotes(toCopy.notes);
         }
 
         /**
@@ -212,6 +211,23 @@ public class EditContactCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
+        /**
+         * Sets {@code notes} to this object's {@code notes}.
+         * A defensive copy of {@code notes} is used internally.
+         */
+        public void setNotes(Set<Note> notes) {
+            this.notes = (notes != null) ? new HashSet<>(notes) : null;
+        }
+
+        /**
+         * Returns an unmodifiable note set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code notes} is null.
+         */
+        public Optional<Set<Note>> getNotes() {
+            return (notes != null) ? Optional.of(Collections.unmodifiableSet(notes)) : Optional.empty();
+        }
+
         @Override
         public boolean equals(Object other) {
             if (other == this) {
@@ -228,7 +244,8 @@ public class EditContactCommand extends Command {
                     && Objects.equals(phone, otherEditContactDescriptor.phone)
                     && Objects.equals(email, otherEditContactDescriptor.email)
                     && Objects.equals(address, otherEditContactDescriptor.address)
-                    && Objects.equals(tags, otherEditContactDescriptor.tags);
+                    && Objects.equals(tags, otherEditContactDescriptor.tags)
+                    && Objects.equals(notes, otherEditContactDescriptor.notes);
         }
 
         @Override
@@ -239,6 +256,7 @@ public class EditContactCommand extends Command {
                     .add("email", email)
                     .add("address", address)
                     .add("tags", tags)
+                    .add("notes", notes)
                     .toString();
         }
     }

@@ -19,7 +19,7 @@ import seedu.address.model.tag.Tag;
  */
 public class SampleDataUtil {
 
-    public static final Note EMPTY_NOTE = new Note("");
+    public static Set<Note> EMPTY_NOTE = getNoteSet("");
     public static Contact[] getSampleContacts() {
         return new Contact[] {
             new Contact(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
@@ -55,4 +55,12 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
+    /**
+     * Returns a note set containing the list of strings given.
+     */
+    public static Set<Note> getNoteSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(Note::new)
+                .collect(Collectors.toSet());
+    }
 }

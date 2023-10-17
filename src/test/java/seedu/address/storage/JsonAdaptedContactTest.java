@@ -31,7 +31,9 @@ public class JsonAdaptedContactTest {
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
-    private static final String VALID_NOTE = BENSON.getNote().toString();
+    private static final List<JsonAdaptedNote> VALID_NOTE = BENSON.getNotes().stream()
+            .map(JsonAdaptedNote::new)
+            .collect(Collectors.toList());
 
     @Test
     public void toModelType_validContactDetails_returnsContact() throws Exception {

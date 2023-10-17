@@ -35,9 +35,9 @@ public class AddNoteCommandTest {
     @Test
     public void execute_addNoteUnfilteredList_success() {
         Contact firstPerson = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
-        Contact editedPerson = new ContactBuilder(firstPerson).withNote(NOTE_STUB).build();
+        Contact editedPerson = new ContactBuilder(firstPerson).withNotes(NOTE_STUB).build();
 
-        AddNoteCommand addNoteCommand = new AddNoteCommand(INDEX_FIRST, new Note(editedPerson.getNote().value));
+        AddNoteCommand addNoteCommand = new AddNoteCommand(INDEX_FIRST, new Note(editedPerson.getNotes().toString()));
 
         String expectedMessage = String.format(AddNoteCommand.MESSAGE_ADD_NOTE_SUCCESS, editedPerson);
 
@@ -50,10 +50,10 @@ public class AddNoteCommandTest {
     @Test
     public void execute_deleteNoteUnfilteredList_success() {
         Contact firstPerson = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
-        Contact editedPerson = new ContactBuilder(firstPerson).withNote("").build();
+        Contact editedPerson = new ContactBuilder(firstPerson).withNotes("").build();
 
         AddNoteCommand addNoteCommand = new AddNoteCommand(INDEX_FIRST,
-                new Note(editedPerson.getNote().toString()));
+                new Note(editedPerson.getNotes().toString()));
 
         String expectedMessage = String.format(AddNoteCommand.MESSAGE_DELETE_NOTE_SUCCESS, editedPerson);
 
@@ -70,9 +70,9 @@ public class AddNoteCommandTest {
         Contact firstPerson = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
         Contact editedPerson = new ContactBuilder(model.getFilteredContactList()
                 .get(INDEX_FIRST.getZeroBased()))
-                .withNote(NOTE_STUB).build();
+                .withNotes(NOTE_STUB).build();
 
-        AddNoteCommand addNoteCommand = new AddNoteCommand(INDEX_FIRST, new Note(editedPerson.getNote().value));
+        AddNoteCommand addNoteCommand = new AddNoteCommand(INDEX_FIRST, new Note(editedPerson.getNotes().toString()));
 
         String expectedMessage = String.format(AddNoteCommand.MESSAGE_ADD_NOTE_SUCCESS, editedPerson);
 

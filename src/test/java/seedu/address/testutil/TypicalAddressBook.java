@@ -30,44 +30,44 @@ public class TypicalAddressBook {
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
             .withTags("friends")
-            .withNote("Likes Benson")
+            .withNotes("Likes Benson")
             .build();
     public static final Contact BENSON = new ContactBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432")
             .withTags("owesMoney", "friends")
-            .withNote("Likes chicken").build();
+            .withNotes("Likes chicken", "Hates tiramisu").build();
     public static final Contact CARL = new ContactBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withAddress("wall street")
-            .withNote("Enjoys rom-coms").build();
+            .withNotes("Enjoys rom-coms").build();
     public static final Contact DANIEL = new ContactBuilder().withName("Daniel Meier").withPhone("87652533")
             .withEmail("cornelia@example.com").withAddress("10th street").withTags("friends")
-            .withNote("Hates football").build();
+            .withNotes("Hates football").build();
     public static final Contact ELLE = new ContactBuilder().withName("Elle Meyer").withPhone("9482224")
             .withEmail("werner@example.com").withAddress("michegan ave")
-            .withNote("Keyboard geek").build();
+            .withNotes("Keyboard geek").build();
     public static final Contact FIONA = new ContactBuilder().withName("Fiona Kunz").withPhone("9482427")
             .withEmail("lydia@example.com").withAddress("little tokyo")
-            .withNote("Gym rat").build();
+            .withNotes("Gym rat").build();
     public static final Contact GEORGE = new ContactBuilder().withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("4th street")
-            .withNote("Likes bread").build();
+            .withNotes("Likes bread").build();
 
     // Manually added
     public static final Contact HOON = new ContactBuilder().withName("Hoon Meier").withPhone("8482424")
             .withEmail("stefan@example.com").withAddress("little india")
-            .withNote("Likes chicken").build();
+            .withNotes("Likes chicken").build();
     public static final Contact IDA = new ContactBuilder().withName("Ida Mueller").withPhone("8482131")
             .withEmail("hans@example.com").withAddress("chicago ave")
-            .withNote("Likes chicken").build();
+            .withNotes("Likes chicken").build();
 
     // Manually added - Contact's details found in {@code CommandTestUtil}
     public static final Contact AMY = new ContactBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
             .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND)
-            .withNote(VALID_NOTE_AMY).build();
+            .withNotes(VALID_NOTE_AMY).build();
     public static final Contact BOB = new ContactBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
-            .withNote(VALID_NOTE_BOB)
+            .withNotes(VALID_NOTE_BOB)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
