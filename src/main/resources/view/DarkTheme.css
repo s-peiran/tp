@@ -151,6 +151,19 @@
     -fx-background-color: derive(#1d1d1d, 30%);
 }
 
+.text-area {
+    -fx-background-insets: 0;
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-text-fill: white;
+    -fx-font-size: 18pt;
+}
+
+.text-area .content {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-padding: 10px;
+    -fx-text-fill: white;
+}
+
 .result-display {
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
