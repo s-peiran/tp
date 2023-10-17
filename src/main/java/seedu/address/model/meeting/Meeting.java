@@ -1,8 +1,14 @@
 package seedu.address.model.meeting;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.note.Note;
 
 /**
  * Represents a Meeting in Notenote.
@@ -17,15 +23,18 @@ public class Meeting {
     private Place place;
 
     private Description description;
+    private Set<Note> notes = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Meeting(Title title, Time time, Place place, Description description) {
+    public Meeting(Title title, Time time, Place place, Description description, Set<Note> notes) {
+        requireAllNonNull(title, time, place, description, notes);
         this.title = title;
         this.time = time;
         this.place = place;
         this.description = description;
+        this.notes.addAll(notes);
     }
 
     public Title getTitle() {
@@ -43,6 +52,9 @@ public class Meeting {
     public Description getDescription() {
         return description;
     }
+    public Set<Note> getNotes() {
+        return Collections.unmodifiableSet(notes);
+    }
 
     @Override
     public String toString() {
@@ -51,6 +63,7 @@ public class Meeting {
         .add("time", time)
         .add("place", place)
         .add("description", description)
+        .add("notes", notes)
         .toString();
     }
 
@@ -69,7 +82,8 @@ public class Meeting {
         return title.equals(otherMeeting.title)
                && time.equals(otherMeeting.time)
                && place.equals(otherMeeting.place)
-               && description.equals(otherMeeting.description);
+               && description.equals(otherMeeting.description)
+               && notes.equals(otherMeeting.notes);
     }
 
     @Override

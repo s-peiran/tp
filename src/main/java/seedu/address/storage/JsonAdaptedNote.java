@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.contact.Note;
+import seedu.address.model.note.Note;
 
 /**
  * Jackson-friendly version of {@link Note}.

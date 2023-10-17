@@ -18,4 +18,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_INDEX = new Prefix("-id");
     public static final Prefix PREFIX_KEYWORD = new Prefix("-k");
     public static final Prefix PREFIX_NOTE_CONTACT = new Prefix("-c");
+    public static final Prefix PREFIX_NOTE_MEETING = new Prefix("-m");
 }

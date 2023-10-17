@@ -8,7 +8,9 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.exceptions.ContactNotFoundException;
+import seedu.address.model.contact.exceptions.DuplicateContactException;
 import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
 
 
@@ -39,6 +41,22 @@ public class MeetingList implements Iterable<Meeting> {
     public boolean contains(Meeting toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::equals);
+    }
+
+    /**
+     * Replaces the meeting {@code target} in the list with {@code editedMeeting}.
+     * {@code target} must exist in the list.
+     *
+     */
+    public void setContact(Contact target, Meeting editedMeeting) {
+        requireAllNonNull(target, editedMeeting);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new ContactNotFoundException();
+        }
+
+        internalList.set(index, editedMeeting);
     }
 
     @Override
