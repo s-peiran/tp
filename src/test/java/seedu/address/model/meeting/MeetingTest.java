@@ -31,9 +31,8 @@ public class MeetingTest {
     @Test
     public void toStringMethod() {
         Meeting meeting = new MeetingBuilder().build();
-        //Meeting is a singleton. It could be more than 0 here as we create multiple meeting objects above.
-        int id = meeting.getId();
-        String expected = Meeting.class.getCanonicalName() + "{id=" + id + ", title=" + MeetingBuilder.DEFAULT_TITLE
+
+        String expected = Meeting.class.getCanonicalName() + "{title=" + MeetingBuilder.DEFAULT_TITLE
                 + ", time=" + MeetingBuilder.DEFAULT_TIME + ", place=" + MeetingBuilder.DEFAULT_PLACE
                 + ", description=" + MeetingBuilder.DEFAULT_DESCRIPTION + "}";
 
