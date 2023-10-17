@@ -36,7 +36,8 @@ class JsonAdaptedMeeting {
      */
     @JsonCreator
     public JsonAdaptedMeeting(@JsonProperty("title") String title, @JsonProperty("time") String time,
-            @JsonProperty("place") String place, @JsonProperty("description") String description, @JsonProperty("notes") List<JsonAdaptedNote> notes) {
+            @JsonProperty("place") String place, @JsonProperty("description") String description,
+                              @JsonProperty("notes") List<JsonAdaptedNote> notes) {
         this.title = title;
         this.time = time;
         this.place = place;

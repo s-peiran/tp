@@ -10,8 +10,8 @@ import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
-import seedu.address.model.note.Note;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.note.Note;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -19,7 +19,7 @@ import seedu.address.model.tag.Tag;
  */
 public class SampleDataUtil {
 
-    public static Set<Note> EMPTY_NOTE = getNoteSet("");
+    private static final Set<Note> EMPTY_NOTE = getNoteSet("");
     public static Contact[] getSampleContacts() {
         return new Contact[] {
             new Contact(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),

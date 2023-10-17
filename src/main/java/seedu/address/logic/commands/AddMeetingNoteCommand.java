@@ -12,7 +12,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.contact.Contact;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.note.Note;
 
@@ -62,7 +61,8 @@ public class AddMeetingNoteCommand extends Command {
         mutableNotesList.add(note);
 
         Meeting editedMeeting = new Meeting(
-                meetingToEdit.getTitle(), meetingToEdit.getTime(), meetingToEdit.getPlace(), meetingToEdit.getDescription(), mutableNotesList);
+                meetingToEdit.getTitle(), meetingToEdit.getTime(), meetingToEdit.getPlace(),
+                meetingToEdit.getDescription(), mutableNotesList);
 
         model.setMeeting(meetingToEdit, editedMeeting);
         model.updateFilteredMeetingList(Model.PREDICATE_SHOW_ALL_MEETINGS);
