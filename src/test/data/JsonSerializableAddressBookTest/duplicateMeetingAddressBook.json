@@ -1,0 +1,13 @@
+{
+    "meetings" : [ {
+    "title" : "Test",
+    "time" : "01/01/2023 15:00",
+    "place" : "Discord",
+    "description" : "This is a description"
+  }, {
+    "title" : "Test",
+    "time" : "01/01/2023 15:00",
+    "place" : "Discord",
+    "description" : "This is a description"
+  } ]
+}

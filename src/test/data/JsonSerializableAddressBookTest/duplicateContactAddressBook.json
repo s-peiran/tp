@@ -13,16 +13,5 @@
     "address": "4th street",
     "tags": [ "friends" ],
     "note" : "Likes Benson"
-  } ],
-  "meetings" : [ {
-    "title" : "CS2103 Meeting",
-    "time" : "01/01/2023 00:00",
-    "place" : "Zoom",
-    "description" : ""
-  }, {
-    "title" : "CS2103 Meeting",
-    "time" : "01/01/2023 00:00",
-    "place" : "Zoom",
-    "description" : ""
   } ]
 }
