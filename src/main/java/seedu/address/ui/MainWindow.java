@@ -9,11 +9,13 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResult.ListType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -44,10 +46,10 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane contactListPanelPlaceholder;
+    private VBox contactListPanelPlaceholder;
 
     @FXML
-    private StackPane meetingListPanelPlaceholder;
+    private VBox meetingListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -116,10 +118,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         contactListPanel = new ContactListPanel(logic.getFilteredContactList());
-        contactListPanelPlaceholder.getChildren().add(contactListPanel.getRoot());
+        contactListPanelPlaceholder.getChildren().addAll(contactListPanel.getRoot());
 
-        //meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList());
-        //meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
+        meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList());
+        meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -171,12 +173,20 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public ContactListPanel getContactListPanel() {
-        return contactListPanel;
+    /**
+     * Displays the contact list and hides the meeting list.
+     */
+    public void showContactList() {
+        contactListPanelPlaceholder.setVisible(true);
+        meetingListPanelPlaceholder.setVisible(false);
     }
 
-    public MeetingListPanel getMeetingListPanel() {
-        return meetingListPanel;
+    /**
+     * Displays the meeting list and hides the contact list.
+     */
+    public void showMeetingList() {
+        contactListPanelPlaceholder.setVisible(false);
+        meetingListPanelPlaceholder.setVisible(true);
     }
 
     /**
@@ -198,6 +208,12 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.getListType() == ListType.CONTACTS) {
+                showContactList();
+            } else if (commandResult.getListType() == ListType.MEETINGS) {
+                showMeetingList();
             }
 
             return commandResult;

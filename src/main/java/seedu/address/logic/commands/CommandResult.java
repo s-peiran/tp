@@ -15,6 +15,13 @@ public class CommandResult {
 
     private final String noteToDisplay;
 
+    /** Type of list to be displayed on the GUI. */
+    public enum ListType {
+        CONTACTS, MEETINGS, NONE
+    }
+
+    private final ListType listType;
+
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
@@ -24,15 +31,33 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, String noteToDisplay, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, String noteToDisplay,
+            boolean showHelp, boolean exit, ListType listType) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.noteToDisplay = noteToDisplay;
         this.showHelp = showHelp;
         this.exit = exit;
+        this.listType = listType;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields,
+     * with listType set to its default value.
+     */
+    public CommandResult(String feedbackToUser, String noteToDisplay, boolean showHelp, boolean exit) {
+        this(feedbackToUser, noteToDisplay, showHelp, exit, ListType.NONE);
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser) {
+        this(feedbackToUser, null, false, false);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and {@code noteToDisplay},
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser, String noteToDisplay) {
@@ -55,6 +80,10 @@ public class CommandResult {
         return exit;
     }
 
+    public ListType getListType() {
+        return listType;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -69,7 +98,8 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         boolean eq = feedbackToUser.equals(otherCommandResult.feedbackToUser)
                     && showHelp == otherCommandResult.showHelp
-                    && exit == otherCommandResult.exit;
+                    && exit == otherCommandResult.exit
+                    && listType == otherCommandResult.listType;
         if (noteToDisplay != null) {
             eq = eq && noteToDisplay.equals(otherCommandResult.noteToDisplay);
         }
@@ -78,7 +108,7 @@ public class CommandResult {
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, noteToDisplay, showHelp, exit);
+        return Objects.hash(feedbackToUser, noteToDisplay, showHelp, exit, listType);
     }
 
     @Override
@@ -88,6 +118,7 @@ public class CommandResult {
                 .add("noteToDisplay", noteToDisplay)
                 .add("showHelp", showHelp)
                 .add("exit", exit)
+                .add("listType", listType)
                 .toString();
     }
 

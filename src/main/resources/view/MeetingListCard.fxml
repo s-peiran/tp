@@ -12,9 +12,9 @@
 <HBox id="meetingCardPane" fx:id="meetingCardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="50" />
     </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+    <VBox alignment="CENTER_LEFT" minHeight="50" GridPane.columnIndex="0">
       <padding>
         <Insets top="5" right="5" bottom="5" left="15" />
       </padding>
@@ -27,9 +27,6 @@
         </Label>
         <Label fx:id="title" text="\$first" styleClass="cell_big_label" />
       </HBox>
-      <Label fx:id="time" styleClass="cell_small_label" text="\$time" />
-      <Label fx:id="place" styleClass="cell_small_label" text="\$place" />
-      <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
     </VBox>
   </GridPane>
 </HBox>

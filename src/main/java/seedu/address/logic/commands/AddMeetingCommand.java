@@ -34,7 +34,7 @@ public class AddMeetingCommand extends Command {
         requireNonNull(model);
 
         model.addMeeting(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.formatMeeting(toAdd)), null);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.formatMeeting(toAdd)));
     }
 
     @Override
