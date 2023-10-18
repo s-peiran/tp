@@ -32,7 +32,7 @@ public class ViewMeetingCommandTest {
         String expectedMessage = String.format(ViewMeetingCommand.MESSAGE_VIEW_MEETING_SUCCESS,
                 Messages.formatMeeting(meetingToDisplay));
 
-        assertCommandSuccess(viewMeetingCommand, model, expectedMessage, meetingToDisplay.toString());
+        assertCommandSuccess(viewMeetingCommand, model, expectedMessage, meetingToDisplay.getNotes().toString());
     }
 
     @Test
@@ -52,7 +52,7 @@ public class ViewMeetingCommandTest {
         String expectedMessage = String.format(ViewMeetingCommand.MESSAGE_VIEW_MEETING_SUCCESS,
                 Messages.formatMeeting(meetingToDisplay));
 
-        assertCommandSuccess(viewMeetingCommand, model, expectedMessage, meetingToDisplay.toString());
+        assertCommandSuccess(viewMeetingCommand, model, expectedMessage, meetingToDisplay.getNotes().toString());
     }
 
     @Test

@@ -18,6 +18,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResult.ListType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.meeting.Meeting;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -35,6 +37,8 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private ContactListPanel contactListPanel;
     private MeetingListPanel meetingListPanel;
+    private ContactDetailPanel contactDetailPanel;
+    private MeetingDetailPanel meetingDetailPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private NoteDisplay noteDisplay;
@@ -50,6 +54,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private VBox meetingListPanelPlaceholder;
+
+    @FXML
+    private VBox contactDetailPanelPlaceholder;
+
+    @FXML
+    private VBox meetingDetailPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -122,6 +132,12 @@ public class MainWindow extends UiPart<Stage> {
 
         meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList());
         meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
+
+        contactDetailPanel = new ContactDetailPanel();
+        contactDetailPanelPlaceholder.getChildren().add(contactDetailPanel.getRoot());
+
+        meetingDetailPanel = new MeetingDetailPanel();
+        meetingDetailPanelPlaceholder.getChildren().add(meetingDetailPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -216,7 +232,26 @@ public class MainWindow extends UiPart<Stage> {
                 showMeetingList();
             }
 
+            if (commandResult.getContact().isPresent()) {
+                Contact displayedContact = commandResult.getContact().get();
+                contactDetailPanel.setContact(displayedContact);
+
+                contactDetailPanelPlaceholder.setVisible(true);
+                contactDetailPanelPlaceholder.setManaged(true);
+                meetingDetailPanelPlaceholder.setVisible(false);
+                meetingDetailPanelPlaceholder.setManaged(false);
+            } else if (commandResult.getMeeting().isPresent()) {
+                Meeting displayedMeeting = commandResult.getMeeting().get();
+                meetingDetailPanel.setMeeting(displayedMeeting);
+
+                contactDetailPanelPlaceholder.setVisible(false);
+                contactDetailPanelPlaceholder.setManaged(false);
+                meetingDetailPanelPlaceholder.setVisible(true);
+                meetingDetailPanelPlaceholder.setManaged(true);
+            }
+
             return commandResult;
+
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());

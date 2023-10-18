@@ -30,14 +30,14 @@ public class ListMeetingCommandTest {
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         CommandResult expectedCommandResult = new CommandResult(ListMeetingCommand.MESSAGE_SUCCESS,
-                null, false, false, ListType.MEETINGS);
+                ListType.MEETINGS);
         assertCommandSuccess(new ListMeetingCommand(), model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         CommandResult expectedCommandResult = new CommandResult(ListMeetingCommand.MESSAGE_SUCCESS,
-                null, false, false, ListType.MEETINGS);
+                ListType.MEETINGS);
         showMeetingAtIndex(model, INDEX_FIRST);
         assertCommandSuccess(new ListMeetingCommand(), model, expectedCommandResult, expectedModel);
     }

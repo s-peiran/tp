@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="meetingDetailPane" fx:id="meetingDetailPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10" />
+    </padding>
+    
+    <!-- Name -->
+    <Label fx:id="title" text="\$first" styleClass="cell_big_label" />
+        
+    <!-- Time -->
+    <VBox spacing="1">
+        <Label fx:id="time" styleClass="cell_small_label" text="\$time" />
+    </VBox>
+
+    <!-- Place -->
+    <VBox spacing="1">
+        <Label fx:id="place" styleClass="cell_small_label" text="\$place" />
+    </VBox>
+
+    <!-- Description -->
+    <VBox spacing="1">
+        <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
+    </VBox>
+</VBox>
