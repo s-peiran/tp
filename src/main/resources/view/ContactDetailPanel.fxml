@@ -9,13 +9,13 @@
     <padding>
         <Insets top="10" right="10" bottom="10" left="10" />
     </padding>
-    
+
     <!-- Name -->
     <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
-        
+
     <!-- Tags -->
     <FlowPane fx:id="tags" />
-        
+
     <!-- Phone -->
     <VBox spacing="1">
         <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />

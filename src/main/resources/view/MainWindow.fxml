@@ -89,7 +89,7 @@
                   <Label fx:id="meetingDetailHeader" text="Meeting Details" styleClass="label-header" maxWidth="Infinity"/>
                   <StackPane fx:id="meetingDetail" VBox.vgrow="ALWAYS"/>
                 </VBox>
-                
+
                 <!-- Notes Section -->
                 <StackPane VBox.vgrow="ALWAYS" fx:id="noteDisplayPlaceholder" styleClass="pane-with-border" minWidth="250"/>
               </VBox>

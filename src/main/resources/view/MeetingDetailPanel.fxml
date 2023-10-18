@@ -9,10 +9,10 @@
     <padding>
         <Insets top="10" right="10" bottom="10" left="10" />
     </padding>
-    
+
     <!-- Name -->
     <Label fx:id="title" text="\$first" styleClass="cell_big_label" />
-        
+
     <!-- Time -->
     <VBox spacing="1">
         <Label fx:id="time" styleClass="cell_small_label" text="\$time" />
