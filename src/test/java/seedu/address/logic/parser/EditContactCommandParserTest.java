@@ -205,4 +205,5 @@ public class EditContactCommandParserTest {
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
+
 }
