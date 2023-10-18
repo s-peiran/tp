@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.contact.exceptions.ContactNotFoundException;
 import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
+import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
 
 
 /**
@@ -31,6 +32,17 @@ public class MeetingList implements Iterable<Meeting> {
             throw new DuplicateMeetingException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Removes the equivalent contact from the list.
+     * The contact must exist in the list.
+     */
+    public void remove(Meeting toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new MeetingNotFoundException();
+        }
     }
 
     /**
