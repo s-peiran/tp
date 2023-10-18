@@ -73,7 +73,7 @@ public class AddressBookParser {
 
         case AddMeetingCommand.COMMAND_WORD:
             return new AddMeetingCommandParser().parse(arguments);
-            
+
         case ViewMeetingCommand.COMMAND_WORD:
             return new ViewMeetingCommandParser().parse(arguments);
 
