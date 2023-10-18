@@ -173,11 +173,17 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Displays the contact list and hides the meeting list.
+     */
     public void showContactList() {
         contactListPanelPlaceholder.setVisible(true);
         meetingListPanelPlaceholder.setVisible(false);
     }
-    
+
+    /**
+     * Displays the meeting list and hides the contact list.
+     */
     public void showMeetingList() {
         contactListPanelPlaceholder.setVisible(false);
         meetingListPanelPlaceholder.setVisible(true);

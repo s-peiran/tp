@@ -11,13 +11,14 @@ import seedu.address.commons.util.ToStringBuilder;
  */
 public class CommandResult {
 
-    public enum ListType {
-        CONTACTS, MEETINGS, NONE
-    }
-
     private final String feedbackToUser;
 
     private final String noteToDisplay;
+
+    /** Type of list to be displayed on the GUI. */
+    public enum ListType {
+        CONTACTS, MEETINGS, NONE
+    }
 
     private final ListType listType;
 
@@ -30,7 +31,7 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, String noteToDisplay, 
+    public CommandResult(String feedbackToUser, String noteToDisplay,
             boolean showHelp, boolean exit, ListType listType) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.noteToDisplay = noteToDisplay;
