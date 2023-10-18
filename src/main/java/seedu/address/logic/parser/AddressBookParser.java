@@ -21,6 +21,8 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindContactCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListContactCommand;
+import seedu.address.logic.commands.ViewContactCommand;
+import seedu.address.logic.commands.ViewMeetingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -60,6 +62,9 @@ public class AddressBookParser {
         case AddContactCommand.COMMAND_WORD:
             return new AddContactCommandParser().parse(arguments);
 
+        case ViewContactCommand.COMMAND_WORD:
+            return new ViewContactCommandParser().parse(arguments);
+
         case EditContactCommand.COMMAND_WORD:
             return new EditContactCommandParser().parse(arguments);
 
@@ -68,6 +73,9 @@ public class AddressBookParser {
 
         case AddMeetingCommand.COMMAND_WORD:
             return new AddMeetingCommandParser().parse(arguments);
+            
+        case ViewMeetingCommand.COMMAND_WORD:
+            return new ViewMeetingCommandParser().parse(arguments);
 
         case EditMeetingCommand.COMMAND_WORD:
             return new EditMeetingCommandParser().parse(arguments);

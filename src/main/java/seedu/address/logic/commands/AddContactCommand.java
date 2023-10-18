@@ -57,7 +57,7 @@ public class AddContactCommand extends Command {
         }
 
         model.addContact(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.formatContact(toAdd)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.formatContact(toAdd)), null);
     }
 
     @Override

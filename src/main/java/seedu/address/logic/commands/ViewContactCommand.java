@@ -12,22 +12,22 @@ import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 
 /**
- * Deletes a contact identified using it's displayed index from the address book.
+ * Shows a Contact identified using its id from the address book.
  */
-public class DeleteContactCommand extends Command {
+public class ViewContactCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete contact";
+    public static final String COMMAND_WORD = "view contact";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the contact identified by the index number used in the displayed contact list.\n"
+            + ": Shows the details of the contact identified by its id in the displayed contact list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " -id1";
 
-    public static final String MESSAGE_DELETE_CONTACT_SUCCESS = "Deleted Contact: %1$s";
+    public static final String MESSAGE_VIEW_CONTACT_SUCCESS = "Showing Contact Note: %1$s";
 
     private final Index targetIndex;
 
-    public DeleteContactCommand(Index targetIndex) {
+    public ViewContactCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -40,11 +40,10 @@ public class DeleteContactCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
         }
 
-        Contact contactToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteContact(contactToDelete);
+        Contact contactToDisplay = lastShownList.get(targetIndex.getZeroBased());
 
-        return new CommandResult(String.format(MESSAGE_DELETE_CONTACT_SUCCESS,
-            Messages.formatContact(contactToDelete)), null);
+        return new CommandResult(String.format(MESSAGE_VIEW_CONTACT_SUCCESS, Messages.format(contactToDisplay)),
+                contactToDisplay.getNote().toString());
     }
 
     @Override
@@ -54,18 +53,18 @@ public class DeleteContactCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DeleteContactCommand)) {
+        if (!(other instanceof ViewContactCommand)) {
             return false;
         }
 
-        DeleteContactCommand otherDeleteContactCommand = (DeleteContactCommand) other;
-        return targetIndex.equals(otherDeleteContactCommand.targetIndex);
+        ViewContactCommand otherViewContactCommand = (ViewContactCommand) other;
+        return targetIndex.equals(otherViewContactCommand.targetIndex);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("targetIndex", targetIndex)
-                .toString();
+        .add("targetIndex", targetIndex)
+        .toString();
     }
 }
