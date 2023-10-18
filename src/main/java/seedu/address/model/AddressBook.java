@@ -144,17 +144,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeMeeting(Meeting key) {
         meetings.remove(key);
     }
-    /**
-     * Replaces the given meeting {@code target} in the list with {@code editedMeeting}.
-     * {@code target} must exist in the address book.
-     * The contact identity of {@code editedMeeting} must not be the same as another existing meeting
-     * in the address book.
-     */
-    public void setMeeting(Meeting target, Meeting editedMeeting) {
-        requireNonNull(editedMeeting);
-
-        meetings.setMeeting(target, editedMeeting);
-    }
 
     //// util methods
 

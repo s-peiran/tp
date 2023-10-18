@@ -99,8 +99,6 @@ public interface Model {
      */
     void addMeeting(Meeting meeting);
 
-    void setMeeting(Meeting target, Meeting editedMeeting);
-
     /**
      * Replaces the given meeting {@code target} with {@code editedMeeting}.
      * {@code target} must exist in the address book.

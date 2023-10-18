@@ -42,13 +42,8 @@ public class ViewContactCommand extends Command {
 
         Contact contactToDisplay = lastShownList.get(targetIndex.getZeroBased());
 
-<<<<<<< HEAD
-        return new CommandResult(String.format(MESSAGE_VIEW_CONTACT_SUCCESS, Messages.format(contactToDisplay)),
-                contactToDisplay.getNotes().toString());
-=======
         return new CommandResult(String.format(MESSAGE_VIEW_CONTACT_SUCCESS, Messages.formatContact(contactToDisplay)),
-                contactToDisplay.getNote().toString());
->>>>>>> master
+                contactToDisplay.getNotes().toString());
     }
 
     @Override
