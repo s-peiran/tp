@@ -30,8 +30,8 @@ public class EditMeetingCommand extends Command {
 
     public static final String COMMAND_WORD = "edit meeting";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the contact identified "
-            + "by the index number used in the displayed contact list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the meeting identified "
+            + "by the index number used in the displayed meeting list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_TITLE + "TITLE] "
@@ -51,7 +51,7 @@ public class EditMeetingCommand extends Command {
 
     /**
      * @param index                 of the meeting in the filtered meeting list to edit
-     * @param editContactDescriptor details to edit the meeting with
+     * @param editMeetingDescriptor details to edit the meeting with
      */
     public EditMeetingCommand(Index index, EditMeetingDescriptor editMeetingDescriptor) {
         requireNonNull(index);
@@ -105,7 +105,7 @@ public class EditMeetingCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditContactCommand)) {
+        if (!(other instanceof EditMeetingCommand)) {
             return false;
         }
 
