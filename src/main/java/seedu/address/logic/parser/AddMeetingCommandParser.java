@@ -2,10 +2,12 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_MEETING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PLACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
+import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddMeetingCommand;
@@ -15,6 +17,7 @@ import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.Place;
 import seedu.address.model.meeting.Time;
 import seedu.address.model.meeting.Title;
+import seedu.address.model.note.Note;
 
 /**
  * Parses input arguments and creates a new AddMeetingCommand object
@@ -40,8 +43,8 @@ public class AddMeetingCommandParser implements Parser<AddMeetingCommand> {
         Place place = ParserUtil.parsePlace(argMultimap.getValue(PREFIX_PLACE).orElse("Zoom"));
         Description description =
                 ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).orElse("No description"));
-
-        Meeting meeting = new Meeting(title, time, place, description);
+        Set<Note> noteList = ParserUtil.parseNotes(argMultimap.getAllValues(PREFIX_NOTE_MEETING));
+        Meeting meeting = new Meeting(title, time, place, description, noteList);
         return new AddMeetingCommand(meeting);
     }
 

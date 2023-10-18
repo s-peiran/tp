@@ -7,9 +7,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEETINGS;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -22,6 +25,7 @@ import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.Place;
 import seedu.address.model.meeting.Time;
 import seedu.address.model.meeting.Title;
+import seedu.address.model.note.Note;
 
 /**
  * Edits the details of an existing meeting in the address book.
@@ -94,8 +98,9 @@ public class EditMeetingCommand extends Command {
         Time updatedTime = editMeetingDescriptor.getTime().orElse(meetingToEdit.getTime());
         Place updatedPlace = editMeetingDescriptor.getPlace().orElse(meetingToEdit.getPlace());
         Description updatedDescription = editMeetingDescriptor.getDescription().orElse(meetingToEdit.getDescription());
+        Set<Note> updatedNotes = editMeetingDescriptor.getNotes().orElse(meetingToEdit.getNotes());
 
-        return new Meeting(updatedTitle, updatedTime, updatedPlace, updatedDescription);
+        return new Meeting(updatedTitle, updatedTime, updatedPlace, updatedDescription, updatedNotes);
     }
 
     @Override
@@ -132,6 +137,8 @@ public class EditMeetingCommand extends Command {
         private Place place;
         private Description description;
 
+        private Set<Note> notes;
+
         public EditMeetingDescriptor() {
         }
 
@@ -143,6 +150,7 @@ public class EditMeetingCommand extends Command {
             setTime(toCopy.time);
             setPlace(toCopy.place);
             setDescription(toCopy.description);
+            setNotes(toCopy.notes);
         }
 
         /**
@@ -182,6 +190,22 @@ public class EditMeetingCommand extends Command {
 
         public Optional<Description> getDescription() {
             return Optional.ofNullable(description);
+        }
+        /**
+         * Sets {@code notes} to this object's {@code notes}.
+         * A defensive copy of {@code notes} is used internally.
+         */
+        public void setNotes(Set<Note> notes) {
+            this.notes = (notes != null) ? new HashSet<>(notes) : null;
+        }
+
+        /**
+         * Returns an unmodifiable note set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code notes} is null.
+         */
+        public Optional<Set<Note>> getNotes() {
+            return (notes != null) ? Optional.of(Collections.unmodifiableSet(notes)) : Optional.empty();
         }
 
         @Override

@@ -6,72 +6,76 @@
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
     "tags" : [ "friends" ],
-    "note" : "Likes Benson"
+    "notes" : [ ]
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
     "tags" : [ "owesMoney", "friends" ],
-    "note" : "Likes chicken"
+    "notes" : [ "Likes chicken", "Hates tiramisu" ]
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
     "email" : "heinz@example.com",
     "address" : "wall street",
     "tags" : [ ],
-    "note" : "Enjoys rom-coms"
+    "notes" : [ "Enjoys rom-coms" ]
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",
     "email" : "cornelia@example.com",
     "address" : "10th street",
     "tags" : [ "friends" ],
-    "note" : "Hates football"
+    "notes" : [ "Hates football" ]
   }, {
     "name" : "Elle Meyer",
     "phone" : "9482224",
     "email" : "werner@example.com",
     "address" : "michegan ave",
     "tags" : [ ],
-    "note" : "Keyboard geek"
+    "notes" : [ "Keyboard geek" ]
   }, {
     "name" : "Fiona Kunz",
     "phone" : "9482427",
     "email" : "lydia@example.com",
     "address" : "little tokyo",
     "tags" : [ ],
-    "note" : "Gym rat"
+    "notes" : [ "Gym rat" ]
   }, {
     "name" : "George Best",
     "phone" : "9482442",
     "email" : "anna@example.com",
     "address" : "4th street",
     "tags" : [ ],
-    "note" : "Likes bread"
+    "notes" : [ "Likes bread" ]
   } ],
   "meetings" : [ {
     "title" : "CS2103 Meeting",
     "time" : "01/01/2023 00:00",
     "place" : "Zoom",
-    "description" : ""
+    "description" : "",
+    "notes" : [ ]
   },
   {
     "title" : "GES2001 Meeting",
     "time" : "01/01/2023 20:30",
     "place" : "Discord",
-    "description" : "Project details"
+    "description" : "Project details",
+    "notes" : [ ]
   },
   {
     "title" : "LAJ2101 Meeting",
     "time" : "01/01/2023 16:00",
     "place" : "Classroom A",
-    "description" : ""
+    "description" : "",
+    "notes" : [ ]
   },
   {
     "title" : "Date with Girlfriend",
     "time" : "01/05/2023 18:00",
     "place" : "Sentosa",
-    "description" : "Picnic with Sandwiches!"
+    "description" : "Picnic with Sandwiches!",
+    "notes" : [ ]
   } ]
 }

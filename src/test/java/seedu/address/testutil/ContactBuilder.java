@@ -7,8 +7,8 @@ import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
-import seedu.address.model.contact.Note;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.note.Note;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -21,13 +21,14 @@ public class ContactBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_NOTE = "Some note";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
     private Set<Tag> tags;
-    private Note note;
+    private Set<Note> notes;
 
     /**
      * Creates a {@code ContactBuilder} with the default details.
@@ -38,6 +39,7 @@ public class ContactBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        notes = new HashSet<>();
     }
 
     /**
@@ -49,6 +51,7 @@ public class ContactBuilder {
         email = contactToCopy.getEmail();
         address = contactToCopy.getAddress();
         tags = new HashSet<>(contactToCopy.getTags());
+        notes = new HashSet<>(contactToCopy.getNotes());
     }
 
     /**
@@ -93,13 +96,13 @@ public class ContactBuilder {
     /**
      * Sets the {@code Note} of the {@code Contact} that we are building.
      */
-    public ContactBuilder withNote(String note) {
-        this.note = new Note(note);
+    public ContactBuilder withNotes(String ... notes) {
+        this.notes = SampleDataUtil.getNoteSet(notes);
         return this;
     }
 
     public Contact build() {
-        return new Contact(name, phone, email, address, tags, note);
+        return new Contact(name, phone, email, address, tags, notes);
     }
 
 }

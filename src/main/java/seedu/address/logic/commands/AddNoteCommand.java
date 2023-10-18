@@ -1,31 +1,35 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_CONTACT;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Note;
+import seedu.address.model.note.Note;
 
 /**
  * Changes the note of an existing contact in the address book.
  */
 public class AddNoteCommand extends Command {
 
-    public static final String COMMAND_WORD = "note";
+    public static final String COMMAND_WORD = "notec";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the note of the person identified "
-            + "by the index number used in the last person listing. "
+            + "by the index number used in the last contact listing. "
             + "Existing note will be overwritten by the input.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "contact/ [NOTE]\n"
+            + "Parameters: " + PREFIX_INDEX + " (must be a positive integer) "
+            + PREFIX_NOTE_CONTACT + " [NOTE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + "contact/ Likes to swim.";
+            + PREFIX_NOTE_CONTACT + " Likes to swim.";
 
     public static final String MESSAGE_ADD_NOTE_SUCCESS = "Added note to Person: %1$s";
     public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Removed note from Person: %1$s";
@@ -53,9 +57,13 @@ public class AddNoteCommand extends Command {
         }
 
         Contact contactToEdit = lastShownList.get(index.getZeroBased());
+
+        Set<Note> mutableNotesList = new HashSet<>(contactToEdit.getNotes());
+        mutableNotesList.add(note);
+
         Contact editedContact = new Contact(
                 contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
-                contactToEdit.getAddress(), contactToEdit.getTags(), note);
+                contactToEdit.getAddress(), contactToEdit.getTags(), mutableNotesList);
 
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(Model.PREDICATE_SHOW_ALL_CONTACTS);
@@ -69,7 +77,7 @@ public class AddNoteCommand extends Command {
      * {@code contactToEdit}.
      */
     private String generateSuccessMessage(Contact contactToEdit) {
-        String message = !note.value.isEmpty() ? MESSAGE_ADD_NOTE_SUCCESS : MESSAGE_DELETE_NOTE_SUCCESS;
+        String message = !note.note.isEmpty() ? MESSAGE_ADD_NOTE_SUCCESS : MESSAGE_DELETE_NOTE_SUCCESS;
         return String.format(message, contactToEdit);
     }
 

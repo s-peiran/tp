@@ -1,4 +1,4 @@
-package seedu.address.model.contact;
+package seedu.address.model.note;
 
 import static java.util.Objects.requireNonNull;
 
@@ -7,7 +7,7 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable; is always valid
  */
 public class Note {
-    public final String value;
+    public final String note;
 
     /**
      * Constructs a {@code Note}.
@@ -16,23 +16,23 @@ public class Note {
      */
     public Note(String note) {
         requireNonNull(note);
-        value = note;
+        this.note = note;
     }
 
     @Override
     public String toString() {
-        return value;
+        return '[' + note + ']';
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Note // instanceof handles nulls
-                && value.equals(((Note) other).value)); // state check
+                && note.equals(((Note) other).note)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return note.hashCode();
     }
 }

@@ -17,6 +17,7 @@ import seedu.address.model.meeting.Description;
 import seedu.address.model.meeting.Place;
 import seedu.address.model.meeting.Time;
 import seedu.address.model.meeting.Title;
+import seedu.address.model.note.Note;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -124,6 +125,30 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String note} into a {@code Note}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code note} is invalid.
+     */
+    public static Note parseNote(String note) throws ParseException {
+        requireNonNull(note);
+        String trimmedNote = note.trim();
+        return new Note(trimmedNote);
+    }
+
+    /**
+     * Parses {@code Collection<String> notes} into a {@code Set<Note>}.
+     */
+    public static Set<Note> parseNotes(Collection<String> notes) throws ParseException {
+        requireNonNull(notes);
+        final Set<Note> noteSet = new HashSet<>();
+        for (String note : notes) {
+            noteSet.add(parseNote(note));
+        }
+        return noteSet;
     }
 
     /**

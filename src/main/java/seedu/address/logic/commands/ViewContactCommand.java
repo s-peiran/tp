@@ -43,7 +43,7 @@ public class ViewContactCommand extends Command {
         Contact contactToDisplay = lastShownList.get(targetIndex.getZeroBased());
 
         return new CommandResult(String.format(MESSAGE_VIEW_CONTACT_SUCCESS, Messages.formatContact(contactToDisplay)),
-                contactToDisplay.getNote().toString());
+                contactToDisplay.getNotes().toString());
     }
 
     @Override

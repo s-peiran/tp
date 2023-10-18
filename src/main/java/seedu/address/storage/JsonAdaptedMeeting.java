@@ -1,5 +1,11 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,6 +15,7 @@ import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.Place;
 import seedu.address.model.meeting.Time;
 import seedu.address.model.meeting.Title;
+import seedu.address.model.note.Note;
 
 /**
  * Jackson-friendly version of {@link Meeting}.
@@ -21,17 +28,22 @@ class JsonAdaptedMeeting {
     private final String time;
     private final String place;
     private final String description;
+    private final List<JsonAdaptedNote> notes = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedMeeting} with the given meeting details.
      */
     @JsonCreator
     public JsonAdaptedMeeting(@JsonProperty("title") String title, @JsonProperty("time") String time,
-            @JsonProperty("place") String place, @JsonProperty("description") String description) {
+            @JsonProperty("place") String place, @JsonProperty("description") String description,
+                              @JsonProperty("notes") List<JsonAdaptedNote> notes) {
         this.title = title;
         this.time = time;
         this.place = place;
         this.description = description;
+        if (notes != null) {
+            this.notes.addAll(notes);
+        }
     }
 
     /**
@@ -42,6 +54,9 @@ class JsonAdaptedMeeting {
         time = source.getTime().toString();
         place = source.getPlace().fullPlace;
         description = source.getDescription().fullDescription;
+        notes.addAll(source.getNotes().stream()
+                .map(JsonAdaptedNote::new)
+                .collect(Collectors.toList()));;
     }
 
     /**
@@ -50,6 +65,11 @@ class JsonAdaptedMeeting {
      * @throws IllegalValueException if there were any data constraints violated in the adapted meeting.
      */
     public Meeting toModelType() throws IllegalValueException {
+        final List<Note> meetingNotes = new ArrayList<>();
+        for (JsonAdaptedNote note : notes) {
+            meetingNotes.add(note.toModelType());
+        }
+
         if (title == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
         }
@@ -81,7 +101,9 @@ class JsonAdaptedMeeting {
         }
         final Description modelDescription = new Description(description);
 
-        return new Meeting(modelTitle, modelTime, modelPlace, modelDescription);
+        final Set<Note> modelNotes = new HashSet<>(meetingNotes);
+
+        return new Meeting(modelTitle, modelTime, modelPlace, modelDescription, modelNotes);
     }
 
 }

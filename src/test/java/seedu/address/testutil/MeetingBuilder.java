@@ -1,10 +1,15 @@
 package seedu.address.testutil;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.address.model.meeting.Description;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.Place;
 import seedu.address.model.meeting.Time;
 import seedu.address.model.meeting.Title;
+import seedu.address.model.note.Note;
+import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Person objects.
@@ -26,6 +31,7 @@ public class MeetingBuilder {
     private Place place;
 
     private Description description;
+    private Set<Note> notes;
 
     /**
      * Creates a {@code MeetingBuilder} with the default details.
@@ -35,6 +41,7 @@ public class MeetingBuilder {
         time = new Time(DEFAULT_TIME);
         place = new Place(DEFAULT_PLACE);
         description = new Description(DEFAULT_DESCRIPTION);
+        notes = new HashSet<>();
     }
 
     /**
@@ -45,6 +52,7 @@ public class MeetingBuilder {
         time = meetingToCopy.getTime();
         place = meetingToCopy.getPlace();
         description = meetingToCopy.getDescription();
+        notes = new HashSet<>(meetingToCopy.getNotes());
     }
 
     /**
@@ -79,7 +87,15 @@ public class MeetingBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Notes} of the {@code Meeting} that we are building.
+     */
+    public MeetingBuilder withNotes(String ... notes) {
+        this.notes = SampleDataUtil.getNoteSet(notes);
+        return this;
+    }
+
     public Meeting build() {
-        return new Meeting(title, time, place, description);
+        return new Meeting(title, time, place, description, notes);
     }
 }
