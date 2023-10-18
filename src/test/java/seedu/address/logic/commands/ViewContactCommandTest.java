@@ -30,7 +30,7 @@ public class ViewContactCommandTest {
         Contact contactToDisplay = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
         ViewContactCommand viewContactCommand = new ViewContactCommand(INDEX_FIRST);
         String expectedMessage = String.format(ViewContactCommand.MESSAGE_VIEW_CONTACT_SUCCESS,
-                Messages.format(contactToDisplay));
+                Messages.formatContact(contactToDisplay));
 
         assertCommandSuccess(viewContactCommand, model, expectedMessage, contactToDisplay.getNotes().toString());
     }
@@ -50,7 +50,7 @@ public class ViewContactCommandTest {
         Contact contactToDisplay = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
         ViewContactCommand viewContactCommand = new ViewContactCommand(INDEX_FIRST);
         String expectedMessage = String.format(ViewContactCommand.MESSAGE_VIEW_CONTACT_SUCCESS,
-                Messages.format(contactToDisplay));
+                Messages.formatContact(contactToDisplay));
 
         assertCommandSuccess(viewContactCommand, model, expectedMessage, contactToDisplay.getNotes().toString());
     }

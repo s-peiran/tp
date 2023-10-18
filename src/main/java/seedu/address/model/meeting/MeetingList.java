@@ -8,9 +8,13 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+<<<<<<< HEAD
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.exceptions.ContactNotFoundException;
+=======
+>>>>>>> master
 import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
+import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
 
 
 /**
@@ -32,6 +36,17 @@ public class MeetingList implements Iterable<Meeting> {
             throw new DuplicateMeetingException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Removes the equivalent meeting from the list.
+     * The meeting must exist in the list.
+     */
+    public void remove(Meeting toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new MeetingNotFoundException();
+        }
     }
 
     /**
@@ -73,14 +88,14 @@ public class MeetingList implements Iterable<Meeting> {
     /**
      * Replaces the meeting {@code target} in the list with {@code editedMeeting}.
      * {@code target} must exist in the list.
-     * The contact identity of {@code editedMeeting} must not be the same as another existing meeting in the list.
+     * The meeting identity of {@code editedMeeting} must not be the same as another existing meeting in the list.
      */
     public void setMeeting(Meeting target, Meeting editedMeeting) {
         requireAllNonNull(target, editedMeeting);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new ContactNotFoundException();
+            throw new MeetingNotFoundException();
         }
 
         if (!target.equals(editedMeeting) && contains(editedMeeting)) {

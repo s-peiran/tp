@@ -56,6 +56,16 @@ public class MeetingBuilder {
     }
 
     /**
+     * Initializes the MeetingBuilder with the data of {@code meetingToCopy}.
+     */
+    public MeetingBuilder(Meeting meetingToCopy) {
+        title = meetingToCopy.getTitle();
+        time = meetingToCopy.getTime();
+        place = meetingToCopy.getPlace();
+        description = meetingToCopy.getDescription();
+    }
+
+    /**
      * Sets the {@code Title} of the {@code Meeting} that we are building.
      */
     public MeetingBuilder withTitle(String title) {

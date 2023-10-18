@@ -2,7 +2,19 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+<<<<<<< HEAD
 import static seedu.address.logic.parser.CliSyntax.*;
+=======
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PLACE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
+>>>>>>> master
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -18,6 +30,7 @@ import seedu.address.model.contact.NameContainsKeywordsPredicate;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.TitleContainsKeywordsPredicate;
 import seedu.address.testutil.EditContactDescriptorBuilder;
+import seedu.address.testutil.EditMeetingDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -37,6 +50,17 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    public static final String VALID_TITLE_ENG = "English";
+    public static final String VALID_TITLE_CHI = "Chinese";
+    public static final String VALID_TIME_ENG = "01/01/2023 00:00";
+    public static final String VALID_TIME_CHI = "01/01/2023 12:00";
+    public static final String VALID_PLACE_ENG = "Home";
+    public static final String VALID_PLACE_CHI = "School";
+    public static final String VALID_DESCRIPTION_ENG = "";
+    public static final String VALID_DESCRIPTION_CHI = "This is a description.";
+    public static final String VALID_NOTE_ENG = "Project";
+    public static final String VALID_NOTE_CHI = "Date";
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -48,17 +72,32 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
+    public static final String TITLE_DESC_ENG = " " + PREFIX_TITLE + VALID_TITLE_ENG;
+    public static final String TITLE_DESC_CHI = " " + PREFIX_TITLE + VALID_TITLE_CHI;
+    public static final String TIME_DESC_ENG = " " + PREFIX_TIME + VALID_TIME_ENG;
+    public static final String TIME_DESC_CHI = " " + PREFIX_TIME + VALID_TIME_CHI;
+    public static final String PLACE_DESC_ENG = " " + PREFIX_PLACE + VALID_PLACE_ENG;
+    public static final String PLACE_DESC_CHI = " " + PREFIX_PLACE + VALID_PLACE_CHI;
+    public static final String DESCRIPTION_DESC_ENG = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_ENG;
+    public static final String DESCRIPTION_DESC_CHI = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_CHI;
+
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
+    public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + "French&"; // '&' not allowed in titles
+    public static final String INVALID_TIME_DESC = " " + PREFIX_TIME + "1/1/2023 14:00"; // wrong date format
+    public static final String INVALID_PLACE_DESC = " " + PREFIX_PLACE + "Z00m@meeting"; // @ not allowed in place
+
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditContactCommand.EditContactDescriptor DESC_AMY;
     public static final EditContactCommand.EditContactDescriptor DESC_BOB;
+    public static final EditMeetingCommand.EditMeetingDescriptor DESC_ENG;
+    public static final EditMeetingCommand.EditMeetingDescriptor DESC_CHI;
 
     static {
         DESC_AMY = new EditContactDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -67,6 +106,10 @@ public class CommandTestUtil {
         DESC_BOB = new EditContactDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_ENG = new EditMeetingDescriptorBuilder().withTitle(VALID_TITLE_ENG)
+                .withTime(VALID_TIME_ENG).withPlace(VALID_PLACE_ENG).withDescription(VALID_DESCRIPTION_ENG).build();
+        DESC_CHI = new EditMeetingDescriptorBuilder().withTitle(VALID_TITLE_CHI)
+                .withTime(VALID_TIME_CHI).withPlace(VALID_PLACE_CHI).withDescription(VALID_DESCRIPTION_CHI).build();
     }
 
     /**

@@ -89,10 +89,24 @@ public interface Model {
     void updateFilteredContactList(Predicate<Contact> predicate);
 
     /**
+     * Deletes the given meeting.
+     * The meeting must exist in the address book.
+     */
+    void deleteMeeting(Meeting target);
+
+    /**
      * Adds the given meeting.
      */
     void addMeeting(Meeting meeting);
 
+    void setMeeting(Meeting target, Meeting editedMeeting);
+
+    /**
+     * Replaces the given meeting {@code target} with {@code editedMeeting}.
+     * {@code target} must exist in the address book.
+     * The meeting identity of {@code editedMeeting} must not be the same as another existing meeting
+     * in the address book.
+     */
     void setMeeting(Meeting target, Meeting editedMeeting);
 
     /**

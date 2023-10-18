@@ -109,11 +109,6 @@ public class AddMeetingCommandTest {
         }
 
         @Override
-        public void addContact(Contact contact) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -129,12 +124,37 @@ public class AddMeetingCommandTest {
         }
 
         @Override
+        public void addContact(Contact contact) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteContact(Contact target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setContact(Contact target, Contact editedPerson) {
+        public void setContact(Contact target, Contact editedContact) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasMeeting(Meeting meeting) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addMeeting(Meeting meeting) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteMeeting(Meeting target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMeeting(Meeting target, Meeting editedMeeting) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -157,6 +177,7 @@ public class AddMeetingCommandTest {
         public void updateFilteredMeetingList(Predicate<Meeting> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+<<<<<<< HEAD
 
         @Override
         public void addMeeting(Meeting meeting) {
@@ -172,6 +193,8 @@ public class AddMeetingCommandTest {
         public boolean hasMeeting(Meeting meeting) {
             throw new AssertionError("This method should not be called.");
         }
+=======
+>>>>>>> master
     }
 
     /**

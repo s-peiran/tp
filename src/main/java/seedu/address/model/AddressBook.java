@@ -111,6 +111,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a meeting given {@code meeting} exists in Notenote.
+     */
+    public boolean hasMeeting(Meeting meeting) {
+        requireNonNull(meeting);
+        return meetings.contains(meeting);
+    }
+
+    /**
      * Adds a meeting to Notenote.
      */
     public void addMeeting(Meeting meeting) {
@@ -118,11 +126,23 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Returns true if a meeting given {@code meeting} exists in Notenote.
+     * Replaces the given Meeting {@code target} in the list with {@code editedMeeting}.
+     * {@code target} must exist in the address book.
+     * The meeting identity of {@code editedMeeting} must not be the same as another existing meeting
+     * in the address book.
      */
-    public boolean hasMeeting(Meeting meeting) {
-        requireNonNull(meeting);
-        return meetings.contains(meeting);
+    public void setMeeting(Meeting target, Meeting editedMeeting) {
+        requireNonNull(editedMeeting);
+
+        meetings.setMeeting(target, editedMeeting);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeMeeting(Meeting key) {
+        meetings.remove(key);
     }
     /**
      * Replaces the given meeting {@code target} in the list with {@code editedMeeting}.

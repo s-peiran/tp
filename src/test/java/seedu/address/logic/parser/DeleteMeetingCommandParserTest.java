@@ -7,7 +7,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.DeleteContactCommand;
+import seedu.address.logic.commands.DeleteMeetingCommand;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -16,18 +16,18 @@ import seedu.address.logic.commands.DeleteContactCommand;
  * The path variation for those two cases occur inside the ParserUtil, and
  * therefore should be covered by the ParserUtilTest.
  */
-public class DeleteContactCommandParserTest {
+public class DeleteMeetingCommandParserTest {
 
-    private DeleteContactCommandParser parser = new DeleteContactCommandParser();
+    private DeleteMeetingCommandParser parser = new DeleteMeetingCommandParser();
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, " -id 1", new DeleteContactCommand(INDEX_FIRST));
+        assertParseSuccess(parser, " -id 1", new DeleteMeetingCommand(INDEX_FIRST));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteContactCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteMeetingCommand.MESSAGE_USAGE));
     }
 }

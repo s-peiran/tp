@@ -115,6 +115,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteMeeting(Meeting target) {
+        addressBook.removeMeeting(target);
+    }
+
+    @Override
     public void addMeeting(Meeting meeting) {
         addressBook.addMeeting(meeting);
         updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
