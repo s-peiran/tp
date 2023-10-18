@@ -28,9 +28,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CONTACT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CONTACT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
 
 import org.junit.jupiter.api.Test;
 
@@ -105,7 +105,7 @@ public class EditContactCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_CONTACT;
+        Index targetIndex = INDEX_SECOND;
         String userInput = " -id " + targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_DESC_HUSBAND
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
@@ -119,7 +119,7 @@ public class EditContactCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_CONTACT;
+        Index targetIndex = INDEX_FIRST;
         String userInput = " -id " + targetIndex.getOneBased() + PHONE_DESC_BOB + EMAIL_DESC_AMY;
 
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withPhone(VALID_PHONE_BOB)
@@ -132,7 +132,7 @@ public class EditContactCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // name
-        Index targetIndex = INDEX_THIRD_CONTACT;
+        Index targetIndex = INDEX_THIRD;
         String userInput = " -id " + targetIndex.getOneBased() + NAME_DESC_AMY;
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withName(VALID_NAME_AMY).build();
         EditContactCommand expectedCommand = new EditContactCommand(targetIndex, descriptor);
@@ -169,7 +169,7 @@ public class EditContactCommandParserTest {
         // AddCommandParserTest#parse_repeatedNonTagValue_failure()
 
         // valid followed by invalid
-        Index targetIndex = INDEX_FIRST_CONTACT;
+        Index targetIndex = INDEX_FIRST;
         String userInput = " -id " + targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
 
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE));
@@ -197,7 +197,7 @@ public class EditContactCommandParserTest {
 
     @Test
     public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_CONTACT;
+        Index targetIndex = INDEX_THIRD;
         String userInput = " -id " + targetIndex.getOneBased() + TAG_EMPTY;
 
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withTags().build();

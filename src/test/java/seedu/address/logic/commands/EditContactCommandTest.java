@@ -12,8 +12,8 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showContactAtIndex;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalContactsAddressBook;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CONTACT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +39,7 @@ public class EditContactCommandTest {
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Contact editedContact = new ContactBuilder().build();
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact).build();
-        EditContactCommand editContactCommand = new EditContactCommand(INDEX_FIRST_CONTACT, descriptor);
+        EditContactCommand editContactCommand = new EditContactCommand(INDEX_FIRST, descriptor);
 
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_CONTACT_SUCCESS,
                 Messages.formatContact(editedContact));
@@ -74,9 +74,9 @@ public class EditContactCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditContactCommand editContactCommand = new EditContactCommand(INDEX_FIRST_CONTACT,
+        EditContactCommand editContactCommand = new EditContactCommand(INDEX_FIRST,
                 new EditContactDescriptor());
-        Contact editedContact = model.getFilteredContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
+        Contact editedContact = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
 
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_CONTACT_SUCCESS,
                 Messages.formatContact(editedContact));
@@ -88,11 +88,11 @@ public class EditContactCommandTest {
 
     @Test
     public void execute_filteredList_success() {
-        showContactAtIndex(model, INDEX_FIRST_CONTACT);
+        showContactAtIndex(model, INDEX_FIRST);
 
-        Contact contactInFilteredList = model.getFilteredContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
+        Contact contactInFilteredList = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
         Contact editedContact = new ContactBuilder(contactInFilteredList).withName(VALID_NAME_BOB).build();
-        EditContactCommand editContactCommand = new EditContactCommand(INDEX_FIRST_CONTACT,
+        EditContactCommand editContactCommand = new EditContactCommand(INDEX_FIRST,
                 new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_CONTACT_SUCCESS,
@@ -106,20 +106,20 @@ public class EditContactCommandTest {
 
     @Test
     public void execute_duplicateContactUnfilteredList_failure() {
-        Contact firstContact = model.getFilteredContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
+        Contact firstContact = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder(firstContact).build();
-        EditContactCommand editContactCommand = new EditContactCommand(INDEX_SECOND_CONTACT, descriptor);
+        EditContactCommand editContactCommand = new EditContactCommand(INDEX_SECOND, descriptor);
 
         assertCommandFailure(editContactCommand, model, EditContactCommand.MESSAGE_DUPLICATE_CONTACT);
     }
 
     @Test
     public void execute_duplicateContactFilteredList_failure() {
-        showContactAtIndex(model, INDEX_FIRST_CONTACT);
+        showContactAtIndex(model, INDEX_FIRST);
 
         // edit contact in filtered list into a duplicate in address book
-        Contact contactInList = model.getAddressBook().getContactList().get(INDEX_SECOND_CONTACT.getZeroBased());
-        EditContactCommand editContactCommand = new EditContactCommand(INDEX_FIRST_CONTACT,
+        Contact contactInList = model.getAddressBook().getContactList().get(INDEX_SECOND.getZeroBased());
+        EditContactCommand editContactCommand = new EditContactCommand(INDEX_FIRST,
                 new EditContactDescriptorBuilder(contactInList).build());
 
         assertCommandFailure(editContactCommand, model, EditContactCommand.MESSAGE_DUPLICATE_CONTACT);
@@ -140,8 +140,8 @@ public class EditContactCommandTest {
      */
     @Test
     public void execute_invalidContactIndexFilteredList_failure() {
-        showContactAtIndex(model, INDEX_FIRST_CONTACT);
-        Index outOfBoundIndex = INDEX_SECOND_CONTACT;
+        showContactAtIndex(model, INDEX_FIRST);
+        Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getContactList().size());
 
@@ -153,11 +153,11 @@ public class EditContactCommandTest {
 
     @Test
     public void equals() {
-        final EditContactCommand standardCommand = new EditContactCommand(INDEX_FIRST_CONTACT, DESC_AMY);
+        final EditContactCommand standardCommand = new EditContactCommand(INDEX_FIRST, DESC_AMY);
 
         // same values -> returns true
         EditContactDescriptor copyDescriptor = new EditContactDescriptor(DESC_AMY);
-        EditContactCommand commandWithSameValues = new EditContactCommand(INDEX_FIRST_CONTACT, copyDescriptor);
+        EditContactCommand commandWithSameValues = new EditContactCommand(INDEX_FIRST, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -170,10 +170,10 @@ public class EditContactCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditContactCommand(INDEX_SECOND_CONTACT, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditContactCommand(INDEX_SECOND, DESC_AMY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditContactCommand(INDEX_FIRST_CONTACT, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditContactCommand(INDEX_FIRST, DESC_BOB)));
     }
 
     @Test

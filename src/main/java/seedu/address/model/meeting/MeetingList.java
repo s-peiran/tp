@@ -9,7 +9,6 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.contact.exceptions.ContactNotFoundException;
-import seedu.address.model.contact.exceptions.DuplicateContactException;
 import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
 import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
 
@@ -79,8 +78,8 @@ public class MeetingList implements Iterable<Meeting> {
             throw new ContactNotFoundException();
         }
 
-        if (!target.isSameMeeting(editedMeeting) && contains(editedMeeting)) {
-            throw new DuplicateContactException();
+        if (!target.equals(editedMeeting) && contains(editedMeeting)) {
+            throw new DuplicateMeetingException();
         }
 
         internalList.set(index, editedMeeting);
@@ -93,7 +92,7 @@ public class MeetingList implements Iterable<Meeting> {
     public void setMeetings(List<Meeting> meetings) {
         requireAllNonNull(meetings);
         if (!meetingsAreUnique(meetings)) {
-            throw new DuplicateContactException();
+            throw new DuplicateMeetingException();
         }
 
         internalList.setAll(meetings);
@@ -130,7 +129,7 @@ public class MeetingList implements Iterable<Meeting> {
     private boolean meetingsAreUnique(List<Meeting> meetings) {
         for (int i = 0; i < meetings.size() - 1; i++) {
             for (int j = i + 1; j < meetings.size(); j++) {
-                if (meetings.get(i).isSameMeeting(meetings.get(j))) {
+                if (meetings.get(i).equals(meetings.get(j))) {
                     return false;
                 }
             }

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddContactCommand;
 import seedu.address.logic.commands.AddMeetingCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -23,6 +24,8 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindContactCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListContactCommand;
+import seedu.address.logic.commands.ViewContactCommand;
+import seedu.address.logic.commands.ViewMeetingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.NameContainsKeywordsPredicate;
@@ -38,10 +41,18 @@ public class AddressBookParserTest {
     private final AddressBookParser parser = new AddressBookParser();
 
     @Test
-    public void parseCommand_add() throws Exception {
+    public void parseCommand_addContact() throws Exception {
         Contact contact = new ContactBuilder().build();
         AddContactCommand command = (AddContactCommand) parser.parseCommand(ContactUtil.getAddCommand(contact));
         assertEquals(new AddContactCommand(contact), command);
+    }
+
+    @Test
+    public void parseCommand_viewContact() throws Exception {
+        ViewContactCommand expectedCommand = new ViewContactCommand(Index.fromOneBased(1));
+        String userInput = ViewContactCommand.COMMAND_WORD + " -id1";
+        ViewContactCommand actualCommand = (ViewContactCommand) parser.parseCommand(userInput);
+        assertEquals(expectedCommand, actualCommand);
     }
 
     @Test
@@ -58,6 +69,14 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_viewMeeting() throws Exception {
+        ViewMeetingCommand expectedCommand = new ViewMeetingCommand(Index.fromOneBased(1));
+        String userInput = ViewMeetingCommand.COMMAND_WORD + " -id1";
+        ViewMeetingCommand actualCommand = (ViewMeetingCommand) parser.parseCommand(userInput);
+        assertEquals(expectedCommand, actualCommand);
+    }
+
+    @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " -id 3") instanceof ClearCommand);
@@ -66,19 +85,19 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteContactCommand command = (DeleteContactCommand) parser.parseCommand(
-                DeleteContactCommand.COMMAND_WORD + " -id " + INDEX_FIRST_CONTACT.getOneBased());
-        assertEquals(new DeleteContactCommand(INDEX_FIRST_CONTACT), command);
+                DeleteContactCommand.COMMAND_WORD + " -id " + INDEX_FIRST.getOneBased());
+        assertEquals(new DeleteContactCommand(INDEX_FIRST), command);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
         Contact contact = new ContactBuilder().build();
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder(contact).build();
-        String input = EditContactCommand.COMMAND_WORD + " -id " + INDEX_FIRST_CONTACT.getOneBased() + " "
+        String input = EditContactCommand.COMMAND_WORD + " -id " + INDEX_FIRST.getOneBased() + " "
                 + ContactUtil.getEditContactDescriptorDetails(descriptor);
         EditContactCommand command = (EditContactCommand) parser.parseCommand(input);
 
-        assertEquals(new EditContactCommand(INDEX_FIRST_CONTACT, descriptor), command);
+        assertEquals(new EditContactCommand(INDEX_FIRST, descriptor), command);
     }
 
     @Test
