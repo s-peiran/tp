@@ -8,12 +8,13 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.CommandResult.ListType;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for ListContactCommand.
  */
 public class ListContactCommandTest {
 
@@ -28,12 +29,16 @@ public class ListContactCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListContactCommand(), model, ListContactCommand.MESSAGE_SUCCESS, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(ListContactCommand.MESSAGE_SUCCESS,
+                null, false, false, ListType.CONTACTS);
+        assertCommandSuccess(new ListContactCommand(), model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
+        CommandResult expectedCommandResult = new CommandResult(ListContactCommand.MESSAGE_SUCCESS,
+                null, false, false, ListType.CONTACTS);
         showContactAtIndex(model, INDEX_FIRST);
-        assertCommandSuccess(new ListContactCommand(), model, ListContactCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListContactCommand(), model, expectedCommandResult, expectedModel);
     }
 }

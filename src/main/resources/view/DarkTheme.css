@@ -18,10 +18,12 @@
 }
 
 .label-header {
-    -fx-font-size: 32pt;
+    -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-opacity: 1;
+    -fx-padding: 20px 20px;
+    -fx-background-color: #2A2A2A;
 }
 
 .text-field {
