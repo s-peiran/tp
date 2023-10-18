@@ -69,7 +69,7 @@
                   <StackPane fx:id="meetingList"/>
                 </VBox>
               </StackPane>
-        
+
               <!-- Note Display on the Right Pane -->
               <StackPane VBox.vgrow="NEVER" fx:id="noteDisplayPlaceholder" styleClass="pane-with-border" minWidth="250">
                 <padding>
