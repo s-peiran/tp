@@ -73,7 +73,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 - **What it does**: Shows all contacts in the list.
 
-- **Command Format**: `list contact`
+- **Command Format**: `list contacts`
 
 - **Expected Outputs**:
     - Success: List of all contacts.
@@ -128,7 +128,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 - **What it does**: Displays details of a specific meeting.
 
-- **Command Format**: `view meeting [MEETING_ID or MEETING_NAME]`
+- **Command Format**: `view meeting -[MEETING_ID or MEETING_NAME]`
 
 - **Example**: `view meeting Project Discussion`
 
@@ -161,7 +161,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 - **What it does**: Cancels a meeting based on the given ID or name.
 
-- **Command Format**: `delete meeting MEETING_ID`
+- **Command Format**: `delete meeting -MEETING_ID`
 
 - **Example**: `delete meeting Project Discussion`
 
@@ -229,12 +229,12 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 - **What it does**: Associates notes with a specific contact or meeting.
 
 - **Command Format**:
-    - For Contacts: `add note to contact -id CONTACT_ID_or_CONTACT_NAME -note NOTES`
-    - For Meetings: `add note to meeting -id MEETING_ID_or_MEETING_NAME -note NOTES`
+    - For Contacts: `add contact note -id CONTACT_ID_or_CONTACT_NAME -note NOTES`
+    - For Meetings: `add meeting note -id MEETING_ID_or_MEETING_NAME -note NOTES`
 
 - **Examples**:
-    - `add note to contact -id 5 -note Has a dog named Benny`
-    - `add note to meeting -id Project Discussion -note Agenda: Discuss Q2 results`
+    - `add contact note -id 5 -note Has a dog named Benny`
+    - `add meeting note -id Project Discussion -note Agenda: Discuss Q2 results`
 
 - **Acceptable Values**:
     - CONTACT_ID: Non-negative integer.
@@ -259,12 +259,12 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 - **What it does**: Removes specified notes from a contact or meeting.
 
 - **Command Format**:
-    - For Contacts: `delete note from contact -id CONTACT_ID_or_CONTACT_NAME -index NOTE_INDEX`
-    - For Meetings: `delete note from meeting -id MEETING_ID_or_MEETING_NAME -index NOTE_INDEX`
+    - For Contacts: `delete contact note -id CONTACT_ID_or_CONTACT_NAME -index NOTE_INDEX`
+    - For Meetings: `delete meeting note -id MEETING_ID_or_MEETING_NAME -index NOTE_INDEX`
 
 - **Examples**:
-    - `delete note from contact -id 5 -index 2`
-    - `delete note from meeting -id Project Discussion -index 1`
+    - `delete contact note -id 5 -index 2`
+    - `delete meeting note -id Project Discussion -index 1`
 
 - **Acceptable Values**:
     - CONTACT_ID: Non-negative integer.
