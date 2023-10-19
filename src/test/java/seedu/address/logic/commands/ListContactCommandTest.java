@@ -30,14 +30,14 @@ public class ListContactCommandTest {
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         CommandResult expectedCommandResult = new CommandResult(ListContactCommand.MESSAGE_SUCCESS,
-                null, false, false, ListType.CONTACTS);
+                ListType.CONTACTS);
         assertCommandSuccess(new ListContactCommand(), model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         CommandResult expectedCommandResult = new CommandResult(ListContactCommand.MESSAGE_SUCCESS,
-                null, false, false, ListType.CONTACTS);
+                ListType.CONTACTS);
         showContactAtIndex(model, INDEX_FIRST);
         assertCommandSuccess(new ListContactCommand(), model, expectedCommandResult, expectedModel);
     }

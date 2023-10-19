@@ -70,12 +70,29 @@
                 </VBox>
               </StackPane>
 
-              <!-- Note Display on the Right Pane -->
-              <StackPane VBox.vgrow="NEVER" fx:id="noteDisplayPlaceholder" styleClass="pane-with-border" minWidth="250">
-                <padding>
-                  <Insets top="5" right="10" bottom="5" left="10" />
-                </padding>
-              </StackPane>
+              <!-- Details and Note Display on the Right Pane -->
+              <VBox fx:id="detailsPlaceholder" styleClass="pane-with-border" minWidth="250" VBox.vgrow="ALWAYS">
+                <!-- Contacts Details Section -->
+                <VBox fx:id="contactDetailPanelPlaceholder" alignment="TOP_CENTER" visible="false" managed="true" VBox.vgrow="ALWAYS">
+                  <padding>
+                    <Insets top="10" right="10" bottom="10" left="10" />
+                  </padding>
+                  <Label fx:id="contactDetailHeader" text="Contact Details" styleClass="label-header" maxWidth="Infinity"/>
+                  <StackPane fx:id="contactDetail" VBox.vgrow="ALWAYS"/>
+                </VBox>
+
+                <!-- Meeting Details Section -->
+                <VBox fx:id="meetingDetailPanelPlaceholder" alignment="TOP_CENTER" visible="false" managed="false" VBox.vgrow="ALWAYS">
+                  <padding>
+                    <Insets top="10" right="10" bottom="10" left="10" />
+                  </padding>
+                  <Label fx:id="meetingDetailHeader" text="Meeting Details" styleClass="label-header" maxWidth="Infinity"/>
+                  <StackPane fx:id="meetingDetail" VBox.vgrow="ALWAYS"/>
+                </VBox>
+
+                <!-- Notes Section -->
+                <StackPane VBox.vgrow="ALWAYS" fx:id="noteDisplayPlaceholder" styleClass="pane-with-border" minWidth="250"/>
+              </VBox>
             </items>
           </SplitPane>
         </children>

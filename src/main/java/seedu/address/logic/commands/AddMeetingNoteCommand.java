@@ -67,7 +67,7 @@ public class AddMeetingNoteCommand extends Command {
         model.setMeeting(meetingToEdit, editedMeeting);
         model.updateFilteredMeetingList(Model.PREDICATE_SHOW_ALL_MEETINGS);
 
-        return new CommandResult(generateSuccessMessage(editedMeeting), null);
+        return new CommandResult(generateSuccessMessage(editedMeeting));
     }
 
     /**
