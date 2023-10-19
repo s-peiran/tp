@@ -20,7 +20,7 @@ import seedu.address.model.note.Note;
  */
 public class AddNoteCommand extends Command {
 
-    public static final String COMMAND_WORD = "notec";
+    public static final String COMMAND_WORD = "add contact note";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the note of the person identified "
@@ -39,7 +39,7 @@ public class AddNoteCommand extends Command {
 
     /**
      * @param index of the person in the filtered person list to edit the note
-     * @param note of the person to be updated to
+     * @param note  of the person to be updated to
      */
     public AddNoteCommand(Index index, Note note) {
         requireAllNonNull(index, note);
