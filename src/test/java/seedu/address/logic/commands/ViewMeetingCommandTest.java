@@ -31,8 +31,9 @@ public class ViewMeetingCommandTest {
         ViewMeetingCommand viewMeetingCommand = new ViewMeetingCommand(INDEX_FIRST);
         String expectedMessage = String.format(ViewMeetingCommand.MESSAGE_VIEW_MEETING_SUCCESS,
                 Messages.formatMeeting(meetingToDisplay));
+        String expectedNote = meetingToDisplay.getNotes().toString().replace("[", "").replace("]", "");
 
-        assertCommandSuccess(viewMeetingCommand, model, expectedMessage, meetingToDisplay.getNotes().toString());
+        assertCommandSuccess(viewMeetingCommand, model, expectedMessage, expectedNote);
     }
 
     @Test
@@ -51,8 +52,9 @@ public class ViewMeetingCommandTest {
         ViewMeetingCommand viewMeetingCommand = new ViewMeetingCommand(INDEX_FIRST);
         String expectedMessage = String.format(ViewMeetingCommand.MESSAGE_VIEW_MEETING_SUCCESS,
                 Messages.formatMeeting(meetingToDisplay));
+        String expectedNote = meetingToDisplay.getNotes().toString().replace("[", "").replace("]", "");
 
-        assertCommandSuccess(viewMeetingCommand, model, expectedMessage, meetingToDisplay.getNotes().toString());
+        assertCommandSuccess(viewMeetingCommand, model, expectedMessage, expectedNote);
     }
 
     @Test

@@ -21,7 +21,7 @@ public class Note {
 
     @Override
     public String toString() {
-        return '[' + note + ']';
+        return note;
     }
 
     @Override
