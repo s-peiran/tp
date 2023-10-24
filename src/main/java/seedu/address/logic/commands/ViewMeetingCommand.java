@@ -21,9 +21,9 @@ public class ViewMeetingCommand extends Command {
     public static final String COMMAND_WORD = "view meeting";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Shows the details of the meeting identified by its id in the displayed meeting list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " -id1";
+        + ": Shows the details of the meeting identified by its id in the displayed meeting list.\n"
+        + "Parameters: INDEX (must be a positive integer)\n"
+        + "Example: " + COMMAND_WORD + " -id1";
 
     public static final String MESSAGE_VIEW_MEETING_SUCCESS = "Showing Meeting: %1$s";
 
@@ -54,9 +54,8 @@ public class ViewMeetingCommand extends Command {
         }
 
         //todo: change display to note when it is implemented
-        return new CommandResult(String.format(MESSAGE_VIEW_MEETING_SUCCESS + "\n"
-                        + Messages.formatMeetingContacts(meetingToDisplay),
-                Messages.formatMeeting(meetingToDisplay)), meetingToDisplay, sb.toString());
+        return new CommandResult(String.format(MESSAGE_VIEW_MEETING_SUCCESS,
+            Messages.formatMeeting(meetingToDisplay)), meetingToDisplay, sb.toString());
 
     }
 
@@ -78,7 +77,7 @@ public class ViewMeetingCommand extends Command {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("targetIndex", targetIndex)
-                .toString();
+            .add("targetIndex", targetIndex)
+            .toString();
     }
 }

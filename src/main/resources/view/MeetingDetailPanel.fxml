@@ -5,26 +5,32 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox id="meetingDetailPane" fx:id="meetingDetailPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox id="meetingDetailPane" fx:id="meetingDetailPane" xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1">
     <padding>
-        <Insets top="10" right="10" bottom="10" left="10" />
+        <Insets top="10" right="10" bottom="10" left="10"/>
     </padding>
 
     <!-- Name -->
-    <Label fx:id="title" text="\$first" styleClass="cell_big_label" />
+    <Label fx:id="title" text="\$first" styleClass="cell_big_label" style="-fx-text-fill: white;"/>
 
     <!-- Time -->
     <VBox spacing="1">
-        <Label fx:id="time" styleClass="cell_small_label" text="\$time" />
+        <Label fx:id="time" styleClass="cell_small_label" text="\$time" style="-fx-text-fill: white;"/>
     </VBox>
 
     <!-- Place -->
     <VBox spacing="1">
-        <Label fx:id="place" styleClass="cell_small_label" text="\$place" />
+        <Label fx:id="place" styleClass="cell_small_label" text="\$place" style="-fx-text-fill: white;"/>
     </VBox>
 
     <!-- Description -->
     <VBox spacing="1">
-        <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
+        <Label fx:id="description" styleClass="cell_small_label" text="\$description" style="-fx-text-fill: white;"/>
+    </VBox>
+
+    <!-- Contacts -->
+    <VBox spacing="1">
+        <Label fx:id="contacts" styleClass="cell_small_label" text="\$contacts" style="-fx-text-fill: white;"/>
     </VBox>
 </VBox>
