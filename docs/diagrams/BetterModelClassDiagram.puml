@@ -12,11 +12,14 @@ UniqueTagList -[hidden]down- UniqueContactList
 UniqueTagList -right-> "*" Tag
 UniqueContactList -right-> Contact
 
-Person -up-> "*" Tag
+Contact -up-> "*" Tag
 
 Contact *--> Name
 Contact *--> Phone
 Contact *--> Email
 Contact *--> Address
+<<<<<<< HEAD
 Contact *--> "*" Note
+=======
+>>>>>>> master
 @enduml

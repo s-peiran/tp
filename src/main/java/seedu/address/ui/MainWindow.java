@@ -9,13 +9,17 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResult.ListType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.meeting.Meeting;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -31,9 +35,13 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private ContactListPanel contactListPanel;
+    private MeetingListPanel meetingListPanel;
+    private ContactDetailPanel contactDetailPanel;
+    private MeetingDetailPanel meetingDetailPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private NoteDisplay noteDisplay;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,13 +50,22 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private VBox contactListPanelPlaceholder;
+
+    @FXML
+    private VBox meetingListPanelPlaceholder;
+
+    @FXML
+    private VBox contactDetailPanelPlaceholder;
+
+    @FXML
+    private VBox meetingDetailPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane statusbarPlaceholder;
+    private StackPane noteDisplayPlaceholder;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -110,14 +127,23 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        contactListPanel = new ContactListPanel(logic.getFilteredContactList());
+        contactListPanelPlaceholder.getChildren().addAll(contactListPanel.getRoot());
+
+        meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList());
+        meetingListPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
+
+        contactDetailPanel = new ContactDetailPanel();
+        contactDetailPanelPlaceholder.getChildren().add(contactDetailPanel.getRoot());
+
+        meetingDetailPanel = new MeetingDetailPanel();
+        meetingDetailPanelPlaceholder.getChildren().add(meetingDetailPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        noteDisplay = new NoteDisplay();
+        noteDisplayPlaceholder.getChildren().add(noteDisplay.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -163,8 +189,20 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    /**
+     * Displays the contact list and hides the meeting list.
+     */
+    public void showContactList() {
+        contactListPanelPlaceholder.setVisible(true);
+        meetingListPanelPlaceholder.setVisible(false);
+    }
+
+    /**
+     * Displays the meeting list and hides the contact list.
+     */
+    public void showMeetingList() {
+        contactListPanelPlaceholder.setVisible(false);
+        meetingListPanelPlaceholder.setVisible(true);
     }
 
     /**
@@ -177,6 +215,8 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            logger.info("Note: " + commandResult.getNoteToDisplay());
+            noteDisplay.setNoteToDisplay(commandResult.getNoteToDisplay());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -186,11 +226,37 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.getListType() == ListType.CONTACTS) {
+                showContactList();
+            } else if (commandResult.getListType() == ListType.MEETINGS) {
+                showMeetingList();
+            }
+
+            if (commandResult.getContact().isPresent()) {
+                Contact displayedContact = commandResult.getContact().get();
+                contactDetailPanel.setContact(displayedContact);
+
+                contactDetailPanelPlaceholder.setVisible(true);
+                contactDetailPanelPlaceholder.setManaged(true);
+                meetingDetailPanelPlaceholder.setVisible(false);
+                meetingDetailPanelPlaceholder.setManaged(false);
+            } else if (commandResult.getMeeting().isPresent()) {
+                Meeting displayedMeeting = commandResult.getMeeting().get();
+                meetingDetailPanel.setMeeting(displayedMeeting);
+
+                contactDetailPanelPlaceholder.setVisible(false);
+                contactDetailPanelPlaceholder.setManaged(false);
+                meetingDetailPanelPlaceholder.setVisible(true);
+                meetingDetailPanelPlaceholder.setManaged(true);
+            }
+
             return commandResult;
+
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
     }
+
 }

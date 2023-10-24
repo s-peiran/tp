@@ -5,7 +5,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
-import seedu.address.model.person.Person;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.meeting.Meeting;
 
 /**
  * Container for user visible messages.
@@ -14,10 +15,12 @@ public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
-    public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
+    public static final String MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX = "The contact index provided is invalid";
+    public static final String MESSAGE_INVALID_MEETING_DISPLAYED_INDEX = "The meeting index provided is invalid";
+    public static final String MESSAGE_CONTACTS_LISTED_OVERVIEW = "%1$d contacts listed!";
+    public static final String MESSAGE_MEETINGS_LISTED_OVERVIEW = "%1$d meetings listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
-                "Multiple values specified for the following single-valued field(s): ";
+            "Multiple values specified for the following single-valued field(s): ";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -32,19 +35,34 @@ public class Messages {
     }
 
     /**
-     * Formats the {@code person} for display to the user.
+     * Formats the {@code contact} for display to the user.
      */
-    public static String format(Person person) {
+    public static String formatContact(Contact contact) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(person.getName())
+        builder.append(contact.getName())
                 .append("; Phone: ")
-                .append(person.getPhone())
+                .append(contact.getPhone())
                 .append("; Email: ")
-                .append(person.getEmail())
+                .append(contact.getEmail())
                 .append("; Address: ")
-                .append(person.getAddress())
+                .append(contact.getAddress())
                 .append("; Tags: ");
-        person.getTags().forEach(builder::append);
+        contact.getTags().forEach(builder::append);
+        return builder.toString();
+    }
+
+    /**
+     * Formats the {@code meeting} for display to the user.
+     */
+    public static String formatMeeting(Meeting meeting) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(meeting.getTitle())
+                .append("; Time: ")
+                .append(meeting.getTime())
+                .append("; Place: ")
+                .append(meeting.getPlace())
+                .append("; Description: ")
+                .append(meeting.getDescription());
         return builder.toString();
     }
 

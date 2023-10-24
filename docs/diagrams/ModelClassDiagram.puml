@@ -43,7 +43,10 @@ Contact *--> Phone
 Contact *--> Email
 Contact *--> Address
 Contact *--> "*" Tag
+<<<<<<< HEAD
 Contact *--> "*" Note
+=======
+>>>>>>> master
 
 Contact -[hidden]up--> I
 UniqueContactList -[hidden]right-> I

@@ -1,197 +1,298 @@
+# User Guide
+
+Notenote is a desktop meeting note-taking application that allows users to efficiently record notes for their contact.
+Notenote provide tools for organizing and categorizing contacts in a systematic and easy-to-navigate structure.
+
+## Table of Contents
+
+- [Contact Management](#contact-management)
+    - [Create New Contact](#create-new-contact)
+    - [View a Contact](#view-a-contact)
+    - [List All Contacts](#list-all-contacts)
+    - [Delete a Contact](#delete-a-contact)
+- [Meeting Management](#meeting-management)
+    - [Create a New Meeting](#create-a-new-meeting)
+    - [View a Meeting](#view-a-meeting)
+    - [List All Meetings](#list-all-meetings)
+    - [Delete a Meeting](#delete-a-meeting)
+    - [Add Contact to Meeting](#add-contact-to-meeting)
+    - [Delete Contact from Meeting](#delete-contact-from-meeting)
+- [Note-Taking](#note-taking)
+    - [Add Notes to a Contact or Meeting](#add-notes-to-a-contact-or-meeting)
+    - [Delete Notes from a Contact or Meeting](#delete-notes-from-a-contact-or-meeting)
+- [Miscellaneous](#miscellaneous)
+    - [View List of Available Commands](#view-list-of-available-commands)
+
 ---
-layout: page
-title: User Guide
+
+## Contact Management:
+
+### Create New Contact
+
+- **What it does**: Adds a new contact to the list.
+
+- **Command Format**: `add contact -n CONTACT_NAME -p PHONE_NUMBER -e EMAIL_ADDRESS -a RESIDENTIAL_ADDRESS [-t TAGS]`
+
+- **Example**: `add contact -n Sarah Woo -p 82775346 -e sarah.woo@gmail.com -a Blk227 Sims Drive`
+
+- **Acceptable Values**:
+    - CONTACT_NAME: String, at least 2 characters long.
+
+- **Expected Outputs**:
+    - Success: “Successfully added [CONTACT_NAME].”
+    - Failure:
+        - If the CONTACT_NAME already exists: `This contact already exists in the address book`
+        - If invalid command format: `Invalid command format!
+          add contact: Adds a contact to the address book. Parameters: -n NAME -p PHONE -e EMAIL -a ADDRESS [-tTAG]... Example: add contact -n John Doe -p 98765432 -e johnd@example.com -a 311, Clementi Ave 2, #02-25 -t friends -t owesMoney`
+
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+### View a Contact
 
-* Table of Contents
-{:toc}
+- **What it does**: Displays details of a specific contact.
 
---------------------------------------------------------------------------------------------------------------------
+- **Command Format**: `view contact -[CONTACT_ID or CONTACT_NAME]`
 
-## Quick start
+- **Example**: `view contact -Sarah`
 
-1. Ensure you have Java `11` or above installed in your Computer.
+- **Acceptable Values**:
+    - CONTACT_ID: Non-negative integer.
+    - CONTACT_NAME: String, at least 2 characters long. Not case sensitive.
 
-1. Download the latest `addressbook.jar` from [here](https://github.com/se-edu/addressbook-level3/releases).
+- **Expected Outputs**:
+    - Success: "Displaying details for [CONTACT_NAME]."
+    - Failure:
+        - If the CONTACT_ID or CONTACT_NAME does not exist: `Contact not found!`
+        - If invalid command
+          format: `Invalid command format! view contact: View a contact to the address book. Parameters: -[CONTACT_ID or CONTACT_NAME]
+          Example: view contact -Sarah`
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+---
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+### List All Contacts
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
-   Some example commands you can try:
+- **What it does**: Shows all contacts in the list.
 
-   * `list` : Lists all contacts.
+- **Command Format**: `list contacts`
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+- **Expected Outputs**:
+    - Success: List of all contacts.
+    - Failure:
+        - If no contacts are available: `No contacts available.`
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+---
 
-   * `clear` : Deletes all contacts.
+### Delete a Contact
 
-   * `exit` : Exits the app.
+- **What it does**: Removes a contact based on the given ID.
 
-1. Refer to the [Features](#features) below for details of each command.
+- **Command Format**: `delete contact -id [CONTACT_ID]`
 
---------------------------------------------------------------------------------------------------------------------
+- **Example**: `delete contact -id 3`
 
-## Features
+- **Acceptable Values**:
+    - CONTACT_ID: Non-negative integer.
 
-<div markdown="block" class="alert alert-info">
+- **Expected Outputs**:
+    - Success: "Successfully deleted [NAME of the contact] from the contact list."
+    - Failure:
+        - If the CONTACT_ID does not exist: `Contact not found.`
+        - If the CONTACT_ID is not provided: `Please provide a contact ID.`
 
-**:information_source: Notes about the command format:**<br>
+---
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+## Meeting Management:
 
-* Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+### Create a New Meeting
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+- **What it does**: Organizes a new meeting with optional notes and contacts.
 
-* Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+- **Command Format**: `add meeting -title MEETING_NAME -time DD/MM/YYYY HH:MM -place LOCATION[-desc DESCRIPTION]`
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+- **Example**: `add meeting -title Project Discussion -time 03/10/2023 15:00 -place Terrace -desc Discussing milestones`
 
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-</div>
+- **Acceptable Values**:
+    - MEETING_NAME: String, at least 2 characters long.
+    - NOTES: String, at least 1 character long.
+    - CONTACT_IDS: Non-negative integers delimited by commas.
 
-### Viewing help : `help`
+- **Expected Outputs**:
+    - Success: "[MEETING_NAME] successfully added."
+    - Failure:
+        - If the MEETING_NAME already exists: `Meeting already exists.`
+        - If invalid command format: `Invalid command format`
 
-Shows a message explaning how to access the help page.
+---
 
-![help message](images/helpMessage.png)
+### View a Meeting
 
-Format: `help`
+- **What it does**: Displays details of a specific meeting.
 
+- **Command Format**: `view meeting -[MEETING_ID or MEETING_NAME]`
 
-### Adding a person: `add`
+- **Example**: `view meeting Project Discussion`
 
-Adds a person to the address book.
+- **Acceptable Values**:
+    - MEETING_ID: Non-negative integer.
+    - MEETING_NAME: String, at least 2 characters long. Not case sensitive.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+- **Expected Outputs**:
+    - Success: "Displaying details for [MEETING_NAME]."
+    - Failure:
+        - If the MEETING_ID or MEETING_NAME does not exist: `Meeting not found`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
-</div>
+---
 
-Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+### List All Meetings
 
-### Listing all persons : `list`
+- **What it does**: Shows a list of all meetings.
 
-Shows a list of all persons in the address book.
+- **Command Format**: `list meetings`
 
-Format: `list`
+- **Expected Outputs**:
+    - Success: List of all meetings.
+    - Failure:
+        - If no meetings are found: `No meetings found`
+        - If invalid command format: `Invalid command format`
 
-### Editing a person : `edit`
+---
 
-Edits an existing person in the address book.
+### Delete a Meeting
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+- **What it does**: Cancels a meeting based on the given ID or name.
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+- **Command Format**: `delete meeting -MEETING_ID`
 
-Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+- **Example**: `delete meeting Project Discussion`
 
-### Locating persons by name: `find`
+- **Acceptable Values**:
+    - MEETING_ID: Non-negative integer.
+    - MEETING_NAME: String, at least 2 characters long.
+- **Expected Outputs**:
+    - Success: "Successfully deleted [MEETING_NAME]."
+    - Failure:
+        - If the MEETING_ID does not exist: `Meeting not found`
+        - If the MEETING_ID is not provided: `Please specify a meeting`
+        - If invalid command format: `Invalid command format`
 
-Finds persons whose names contain any of the given keywords.
+---
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+### Add Contact to Meeting
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+- **What it does**: Adds a contact to an existing meeting as a participant.
 
-Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+- **Command Format**: `add contact to meeting -n CONTACT_NAME -title MEETING_NAME`
 
-### Deleting a person : `delete`
+- **Example**: `add contact to meeting -n Sarah Woo -title Project Discussion`
 
-Deletes the specified person from the address book.
+- **Acceptable Values**:
+    - MEETING_NAME: String, at least 2 characters long. Not case sensitive.
+    - CONTACT_NAME: String, at least 2 characters long. Not case sensitive.
 
-Format: `delete INDEX`
+- **Expected Outputs**:
+    - Success: "Successfully added contact to [MEETING_NAME]."
+    - Failure:
+        - If the MEETING_NAME does not exist: `Meeting not found`
+        - If the CONTACT_NAME does not exist: `Contact not found`
+        - If invalid command format: `Invalid command format!
+          add contact to meeting: Adds a contact to an existing meeting. Parameters: -n CONTACT_NAME -title MEETING_NAME Example: add contact to meeting -n Sarah Woo -title Project Discussion`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+---
 
-Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+### Delete Contact from Meeting
 
-### Clearing all entries : `clear`
+- **What it does**: Removes a contact from an existing meeting.
 
-Clears all entries from the address book.
+- **Command Format**: `delete contact from meeting -n CONTACT_NAME -title MEETING_NAME`
 
-Format: `clear`
+- **Example**: `delete contact from meeting -n Sarah Woo -title Project Discussion`
 
-### Exiting the program : `exit`
+- **Acceptable Values**:
+    - MEETING_NAME: String, at least 2 characters long. Not case sensitive.
+    - CONTACT_NAME: String, at least 2 characters long. Not case sensitive.
 
-Exits the program.
+- **Expected Outputs**:
+    - Success: "Successfully removed contact from [MEETING_NAME]."
+    - Failure:
+        - If the MEETING_NAME does not exist: `Meeting not found`
+        - If the CONTACT_NAME does not exist or isn't a part of the specified
+          meeting: `Contact not found or not part of the meeting`
+        - If invalid command format: `Invalid command format!
+          delete contact from meeting: Removes a contact from an existing meeting. Parameters: -n CONTACT_NAME -title MEETING_NAME Example: delete contact from meeting -n Sarah Woo -title Project Discussion`
 
-Format: `exit`
+---
 
-### Saving the data
+## Note-Taking:
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+### Add Notes to a Contact or Meeting
 
-### Editing the data file
+- **What it does**: Associates notes with a specific contact or meeting.
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+- **Command Format**:
+    - For Contacts: `add contact note -id CONTACT_ID_or_CONTACT_NAME -note NOTES`
+    - For Meetings: `add meeting note -id MEETING_ID_or_MEETING_NAME -note NOTES`
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
-</div>
+- **Examples**:
+    - `add contact note -id 5 -note Has a dog named Benny`
+    - `add meeting note -id Project Discussion -note Agenda: Discuss Q2 results`
 
-### Archiving data files `[coming in v2.0]`
+- **Acceptable Values**:
+    - CONTACT_ID: Non-negative integer.
+    - CONTACT_NAME: String, at least 2 characters long. Not case sensitive.
+    - MEETING_ID: Non-negative integer.
+    - MEETING_NAME: String, at least 2 characters long. Not case sensitive.
+    - NOTES: String, at least 1 character long.
 
-_Details coming soon ..._
+- **Expected Outputs**:
+    - Success:
+        - "Successfully added note to contact [CONTACT_NAME]."
+        - "Successfully added note to [MEETING_NAME]."
+    - Failure:
+        - If the CONTACT_ID or CONTACT_NAME does not exist: `Contact not found`
+        - If the MEETING_ID or MEETING_NAME does not exist: `Meeting not found`
+        - If the NOTES aren't provided:  `Please provide the note content`
+        - If invalid command format: `Invalid command format!
+          add note to contact: Add notes to contact Parameters: -id CONTACT_ID_or_CONTACT_NAME -note NOTES Example: add note to contact -id 5 -note Has a dog named Benny`
 
---------------------------------------------------------------------------------------------------------------------
+### Delete Notes from a Contact or Meeting
 
-## FAQ
+- **What it does**: Removes specified notes from a contact or meeting.
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+- **Command Format**:
+    - For Contacts: `delete contact note -id CONTACT_ID_or_CONTACT_NAME -index NOTE_INDEX`
+    - For Meetings: `delete meeting note -id MEETING_ID_or_MEETING_NAME -index NOTE_INDEX`
 
---------------------------------------------------------------------------------------------------------------------
+- **Examples**:
+    - `delete contact note -id 5 -index 2`
+    - `delete meeting note -id Project Discussion -index 1`
 
-## Known issues
+- **Acceptable Values**:
+    - CONTACT_ID: Non-negative integer.
+    - CONTACT_NAME: String, at least 2 characters long. Not case sensitive.
+    - MEETING_ID: Non-negative integer.
+    - MEETING_NAME: String, at least 2 characters long. Not case sensitive.
+    - NOTE_INDEX: Non-negative integer. Index of the note as displayed in the notes list of a contact or meeting.
 
-1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
+- **Expected Outputs**:
+    - Success:
+        - "Successfully deleted note from contact [CONTACT_NAME]."
+        - "Successfully deleted note from [MEETING_NAME]."
+    - Failure:
+        - If the CONTACT_ID or CONTACT_NAME does not exist: `Contact not found`
+        - If the MEETING_ID or MEETING_NAME does not exist: `Meeting not found`
+        - If no note exists for the specified note index in the contact or meeting: `No note found`
+        - If invalid command format: `Invalid command format!
+          delete note from contact: Remove notes from contact Parameters: -id CONTACT_ID_or_CONTACT_NAME -index INDEX Example: delete note from contact -id 5 -index 1`
 
---------------------------------------------------------------------------------------------------------------------
+---
 
-## Command summary
+## Miscellaneous:
 
-Action | Format, Examples
---------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List** | `list`
-**Help** | `help`
+### View List of Available Commands
+
+- **What it does**: Displays a list of available commands for the user.
+
+- **Command Format**: `help`
+
+- **Expected Outputs**:
+    - Success: Displays a pop-up window with a link to the user guide.
