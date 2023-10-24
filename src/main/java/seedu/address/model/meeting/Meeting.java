@@ -2,12 +2,14 @@ package seedu.address.model.meeting;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.note.Note;
 
 /**
@@ -24,17 +26,20 @@ public class Meeting {
 
     private Description description;
     private Set<Note> notes = new HashSet<>();
+    private ArrayList<Contact> participants = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Meeting(Title title, Time time, Place place, Description description, Set<Note> notes) {
-        requireAllNonNull(title, time, place, description, notes);
+    public Meeting(Title title, Time time, Place place, Description description,
+                   Set<Note> notes, ArrayList<Contact> contacts) {
+        requireAllNonNull(title, time, place, description, notes, contacts);
         this.title = title;
         this.time = time;
         this.place = place;
         this.description = description;
         this.notes.addAll(notes);
+        this.participants.addAll(contacts);
     }
 
     public Title getTitle() {
@@ -57,6 +62,10 @@ public class Meeting {
         return Collections.unmodifiableSet(notes);
     }
 
+    public ArrayList<Contact> getContacts() {
+        return new ArrayList<>(Collections.unmodifiableList(participants));
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -65,6 +74,7 @@ public class Meeting {
                 .add("place", place)
                 .add("description", description)
                 .add("notes", notes)
+                .add("contacts", participants)
                 .toString();
     }
 
@@ -84,7 +94,8 @@ public class Meeting {
                 && time.equals(otherMeeting.time)
                 && place.equals(otherMeeting.place)
                 && description.equals(otherMeeting.description)
-                && notes.equals(otherMeeting.notes);
+                && notes.equals(otherMeeting.notes)
+                && participants.equals(otherMeeting.participants);
     }
 
     @Override

@@ -62,7 +62,7 @@ public class AddMeetingNoteCommand extends Command {
 
         Meeting editedMeeting = new Meeting(
                 meetingToEdit.getTitle(), meetingToEdit.getTime(), meetingToEdit.getPlace(),
-                meetingToEdit.getDescription(), mutableNotesList);
+                meetingToEdit.getDescription(), mutableNotesList, meetingToEdit.getContacts());
 
         model.setMeeting(meetingToEdit, editedMeeting);
         model.updateFilteredMeetingList(Model.PREDICATE_SHOW_ALL_MEETINGS);

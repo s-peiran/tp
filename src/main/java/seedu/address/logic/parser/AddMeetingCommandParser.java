@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PLACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -26,12 +27,13 @@ public class AddMeetingCommandParser implements Parser<AddMeetingCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddMeetingCommand
      * and returns an AddMeetingCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddMeetingCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_TIME, PREFIX_PLACE,
-                PREFIX_DESCRIPTION);
+                        PREFIX_DESCRIPTION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMeetingCommand.MESSAGE_USAGE));
@@ -44,7 +46,7 @@ public class AddMeetingCommandParser implements Parser<AddMeetingCommand> {
         Description description =
                 ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).orElse("No description"));
         Set<Note> noteList = ParserUtil.parseNotes(argMultimap.getAllValues(PREFIX_NOTE_MEETING));
-        Meeting meeting = new Meeting(title, time, place, description, noteList);
+        Meeting meeting = new Meeting(title, time, place, description, noteList, new ArrayList<>());
         return new AddMeetingCommand(meeting);
     }
 

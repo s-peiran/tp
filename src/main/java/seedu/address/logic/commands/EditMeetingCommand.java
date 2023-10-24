@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEETINGS;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -20,6 +21,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.meeting.Description;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.Place;
@@ -84,7 +86,7 @@ public class EditMeetingCommand extends Command {
         model.setMeeting(meetingToEdit, editedMeeting);
         model.updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
         return new CommandResult(String.format(MESSAGE_EDIT_MEETING_SUCCESS,
-            Messages.formatMeeting(editedMeeting)));
+                Messages.formatMeeting(editedMeeting)));
     }
 
     /**
@@ -99,8 +101,8 @@ public class EditMeetingCommand extends Command {
         Place updatedPlace = editMeetingDescriptor.getPlace().orElse(meetingToEdit.getPlace());
         Description updatedDescription = editMeetingDescriptor.getDescription().orElse(meetingToEdit.getDescription());
         Set<Note> updatedNotes = editMeetingDescriptor.getNotes().orElse(meetingToEdit.getNotes());
-
-        return new Meeting(updatedTitle, updatedTime, updatedPlace, updatedDescription, updatedNotes);
+        ArrayList<Contact> updatedContacts = editMeetingDescriptor.getContacts().orElse(meetingToEdit.getContacts());
+        return new Meeting(updatedTitle, updatedTime, updatedPlace, updatedDescription, updatedNotes, updatedContacts);
     }
 
     @Override
@@ -138,6 +140,7 @@ public class EditMeetingCommand extends Command {
         private Description description;
 
         private Set<Note> notes;
+        private ArrayList<Contact> contacts;
 
         public EditMeetingDescriptor() {
         }
@@ -151,6 +154,7 @@ public class EditMeetingCommand extends Command {
             setPlace(toCopy.place);
             setDescription(toCopy.description);
             setNotes(toCopy.notes);
+            setContacts(toCopy.contacts);
         }
 
         /**
@@ -191,6 +195,7 @@ public class EditMeetingCommand extends Command {
         public Optional<Description> getDescription() {
             return Optional.ofNullable(description);
         }
+
         /**
          * Sets {@code notes} to this object's {@code notes}.
          * A defensive copy of {@code notes} is used internally.
@@ -206,6 +211,16 @@ public class EditMeetingCommand extends Command {
          */
         public Optional<Set<Note>> getNotes() {
             return (notes != null) ? Optional.of(Collections.unmodifiableSet(notes)) : Optional.empty();
+        }
+
+        public void setContacts(ArrayList<Contact> contacts) {
+            this.contacts = (contacts != null) ? new ArrayList<>(contacts) : null;
+        }
+
+        public Optional<ArrayList<Contact>> getContacts() {
+            return (contacts != null)
+                    ? Optional.of(new ArrayList<Contact>(Collections.unmodifiableList(contacts)))
+                    : Optional.empty();
         }
 
         @Override

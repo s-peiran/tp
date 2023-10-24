@@ -54,8 +54,9 @@ public class ViewMeetingCommand extends Command {
         }
 
         //todo: change display to note when it is implemented
-        return new CommandResult(String.format(MESSAGE_VIEW_MEETING_SUCCESS, Messages.formatMeeting(meetingToDisplay)),
-                meetingToDisplay, sb.toString());
+        return new CommandResult(String.format(MESSAGE_VIEW_MEETING_SUCCESS + "\n"
+                        + Messages.formatMeetingContacts(meetingToDisplay),
+                Messages.formatMeeting(meetingToDisplay)), meetingToDisplay, sb.toString());
 
     }
 

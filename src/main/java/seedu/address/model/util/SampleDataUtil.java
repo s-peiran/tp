@@ -20,13 +20,14 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
 
     private static final Set<Note> EMPTY_NOTE = getNoteSet("");
+
     public static Contact[] getSampleContacts() {
-        return new Contact[] {
+        return new Contact[]{
             new Contact(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"), getTagSet("friends"), EMPTY_NOTE),
             new Contact(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                    getTagSet("colleagues", "friends"), EMPTY_NOTE),
+                getTagSet("colleagues", "friends"), EMPTY_NOTE),
             new Contact(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
                 new Address("Blk 11 Ang Mo Kio Street 74, #11-04"), getTagSet("neighbours"), EMPTY_NOTE),
             new Contact(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
@@ -51,8 +52,8 @@ public class SampleDataUtil {
      */
     public static Set<Tag> getTagSet(String... strings) {
         return Arrays.stream(strings)
-                .map(Tag::new)
-                .collect(Collectors.toSet());
+            .map(Tag::new)
+            .collect(Collectors.toSet());
     }
 
     /**
@@ -60,7 +61,7 @@ public class SampleDataUtil {
      */
     public static Set<Note> getNoteSet(String... strings) {
         return Arrays.stream(strings)
-                .map(Note::new)
-                .collect(Collectors.toSet());
+            .map(Note::new)
+            .collect(Collectors.toSet());
     }
 }
