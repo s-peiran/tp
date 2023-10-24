@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import static seedu.address.model.util.SampleDataUtil.getNoteSet;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +13,6 @@ import seedu.address.model.meeting.Place;
 import seedu.address.model.meeting.Time;
 import seedu.address.model.meeting.Title;
 import seedu.address.model.note.Note;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Person objects.
@@ -96,7 +97,7 @@ public class MeetingBuilder {
      * Sets the {@code Notes} of the {@code Meeting} that we are building.
      */
     public MeetingBuilder withNotes(String... notes) {
-        this.notes = SampleDataUtil.getNoteSet(notes);
+        this.notes = getNoteSet(notes);
         return this;
     }
 

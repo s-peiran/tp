@@ -3,6 +3,7 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+import seedu.address.logic.Messages;
 import seedu.address.model.meeting.Meeting;
 
 /**
@@ -24,6 +25,9 @@ public class MeetingDetailPanel extends UiPart<Region> {
     @FXML
     private Label description;
 
+    @FXML
+    private Label contacts;
+
     public MeetingDetailPanel() {
         super(FXML);
     }
@@ -33,6 +37,7 @@ public class MeetingDetailPanel extends UiPart<Region> {
         time.setText(meeting.getTime().toString());
         place.setText(meeting.getPlace().toString());
         description.setText(meeting.getDescription().toString());
+        contacts.setText(Messages.formatMeetingContacts(meeting));
     }
 
 }

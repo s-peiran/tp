@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
@@ -20,15 +19,15 @@ public class DeleteContactFromMeetingCommand extends Command {
     public static final String COMMAND_WORD = "delete contact from meeting";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Removes the participants to the meeting identified "
-            + "by the name of the contact. "
-            + "Parameters: " + PREFIX_NAME
-            + " [CONTACT NAME] "
-            + PREFIX_TITLE + " [MEETING NAME]\n"
-            + "Example: " + COMMAND_WORD + PREFIX_NAME
-            + " Sarah Woo " + PREFIX_TITLE + " Project Discussion";
+        + ": Removes the participants to the meeting identified "
+        + "by the name of the contact. "
+        + "Parameters: " + PREFIX_NAME
+        + " [CONTACT NAME] "
+        + PREFIX_TITLE + " [MEETING NAME]\n"
+        + "Example: " + COMMAND_WORD + PREFIX_NAME
+        + " Sarah Woo " + PREFIX_TITLE + " Project Discussion";
 
-    public static final String MESSAGE_DELETE_CONTACT_SUCCESS = "Removed contact '%s' from Meeting '%s' \n%s";
+    public static final String MESSAGE_DELETE_CONTACT_SUCCESS = "Removed contact '%s' from Meeting '%s'";
     public static final String MESSAGE_CONTACT_NOT_FOUND = "The person specified is not created";
     public static final String MESSAGE_MEETING_NOT_FOUND = "The meeting specified is not created";
 
@@ -74,17 +73,18 @@ public class DeleteContactFromMeetingCommand extends Command {
         if (!contactFound) {
             throw new CommandException(MESSAGE_CONTACT_NOT_FOUND);
         }
+        assert listOfContacts.contains(contact);
         listOfContacts.remove(contact);
 
         Meeting editedMeeting = new Meeting(
-                meetingToEdit.getTitle(), meetingToEdit.getTime(), meetingToEdit.getPlace(),
-                meetingToEdit.getDescription(), meetingToEdit.getNotes(), listOfContacts);
+            meetingToEdit.getTitle(), meetingToEdit.getTime(), meetingToEdit.getPlace(),
+            meetingToEdit.getDescription(), meetingToEdit.getNotes(), listOfContacts);
 
         model.setMeeting(meetingToEdit, editedMeeting);
         model.updateFilteredMeetingList(Model.PREDICATE_SHOW_ALL_MEETINGS);
 
         return new CommandResult(String.format(MESSAGE_DELETE_CONTACT_SUCCESS,
-                contactName, meetingTitle, Messages.formatMeetingContacts(editedMeeting)));
+            contactName, meetingTitle));
     }
 
     public String getContactName() {
