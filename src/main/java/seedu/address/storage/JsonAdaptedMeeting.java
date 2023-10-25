@@ -61,12 +61,12 @@ class JsonAdaptedMeeting {
         place = source.getPlace().fullPlace;
         description = source.getDescription().fullDescription;
         notes.addAll(source.getNotes().stream()
-                .map(JsonAdaptedNote::new)
-                .collect(Collectors.toList()));
+            .map(JsonAdaptedNote::new)
+            .collect(Collectors.toList()));
         ;
         contacts.addAll(source.getContacts().stream()
-                .map(JsonAdaptedContact::new)
-                .collect(Collectors.toList()));
+            .map(JsonAdaptedContact::new)
+            .collect(Collectors.toList()));
     }
 
     /**
@@ -76,12 +76,12 @@ class JsonAdaptedMeeting {
      */
     public Meeting toModelType() throws IllegalValueException {
         final List<Note> meetingNotes = new ArrayList<>();
-        final List<Contact> participants = new ArrayList<>();
+        final List<Contact> contactList = new ArrayList<>();
         for (JsonAdaptedNote note : notes) {
             meetingNotes.add(note.toModelType());
         }
         for (JsonAdaptedContact c : contacts) {
-            participants.add(c.toModelType());
+            contactList.add(c.toModelType());
         }
 
         if (title == null) {
@@ -111,12 +111,12 @@ class JsonAdaptedMeeting {
 
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Description.class.getSimpleName()));
+                Description.class.getSimpleName()));
         }
         final Description modelDescription = new Description(description);
 
         final Set<Note> modelNotes = new HashSet<>(meetingNotes);
-        final ArrayList<Contact> modelContacts = new ArrayList<>(participants);
+        final ArrayList<Contact> modelContacts = new ArrayList<>(contactList);
 
         return new Meeting(modelTitle, modelTime, modelPlace, modelDescription, modelNotes, modelContacts);
     }

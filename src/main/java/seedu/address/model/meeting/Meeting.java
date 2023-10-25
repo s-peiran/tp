@@ -26,7 +26,7 @@ public class Meeting {
 
     private Description description;
     private Set<Note> notes = new HashSet<>();
-    private ArrayList<Contact> participants = new ArrayList<>();
+    private ArrayList<Contact> contacts = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
@@ -39,11 +39,15 @@ public class Meeting {
         this.place = place;
         this.description = description;
         this.notes.addAll(notes);
-        this.participants.addAll(contacts);
+        this.contacts.addAll(contacts);
     }
 
     public Title getTitle() {
         return title;
+    }
+
+    public String getTitleString() {
+        return title.toString();
     }
 
     public Time getTime() {
@@ -63,19 +67,19 @@ public class Meeting {
     }
 
     public ArrayList<Contact> getContacts() {
-        return new ArrayList<>(Collections.unmodifiableList(participants));
+        return new ArrayList<>(Collections.unmodifiableList(contacts));
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("title", title)
-                .add("time", time)
-                .add("place", place)
-                .add("description", description)
-                .add("notes", notes)
-                .add("contacts", participants)
-                .toString();
+            .add("title", title)
+            .add("time", time)
+            .add("place", place)
+            .add("description", description)
+            .add("notes", notes)
+            .add("contacts", contacts)
+            .toString();
     }
 
     @Override
@@ -91,11 +95,11 @@ public class Meeting {
 
         Meeting otherMeeting = (Meeting) other;
         return title.equals(otherMeeting.title)
-                && time.equals(otherMeeting.time)
-                && place.equals(otherMeeting.place)
-                && description.equals(otherMeeting.description)
-                && notes.equals(otherMeeting.notes)
-                && participants.equals(otherMeeting.participants);
+            && time.equals(otherMeeting.time)
+            && place.equals(otherMeeting.place)
+            && description.equals(otherMeeting.description)
+            && notes.equals(otherMeeting.notes)
+            && contacts.equals(otherMeeting.contacts);
     }
 
     @Override

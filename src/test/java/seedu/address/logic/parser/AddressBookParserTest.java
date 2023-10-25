@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import java.util.Arrays;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddContactCommand;
+import seedu.address.logic.commands.AddContactToMeetingCommand;
 import seedu.address.logic.commands.AddMeetingCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteContactCommand;
@@ -27,6 +29,9 @@ import seedu.address.logic.commands.ListContactCommand;
 import seedu.address.logic.commands.ViewContactCommand;
 import seedu.address.logic.commands.ViewMeetingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.NameContainsKeywordsPredicate;
 import seedu.address.model.meeting.Meeting;
@@ -38,6 +43,7 @@ import seedu.address.testutil.MeetingBuilder;
 
 public class AddressBookParserTest {
 
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private final AddressBookParser parser = new AddressBookParser();
 
     @Test
@@ -60,10 +66,10 @@ public class AddressBookParserTest {
         Meeting meeting = new MeetingBuilder().build();
         AddMeetingCommand expectedCommand = new AddMeetingCommand(meeting);
         String userInput = AddMeetingCommand.COMMAND_WORD
-                + " -title" + MeetingBuilder.DEFAULT_TITLE
-                + " -time" + MeetingBuilder.DEFAULT_TIME
-                + " -place" + MeetingBuilder.DEFAULT_PLACE
-                + " -desc" + MeetingBuilder.DEFAULT_DESCRIPTION;
+            + " -title" + MeetingBuilder.DEFAULT_TITLE
+            + " -time" + MeetingBuilder.DEFAULT_TIME
+            + " -place" + MeetingBuilder.DEFAULT_PLACE
+            + " -desc" + MeetingBuilder.DEFAULT_DESCRIPTION;
         AddMeetingCommand actualCommand = (AddMeetingCommand) parser.parseCommand(userInput);
         assertEquals(expectedCommand, actualCommand);
     }
@@ -77,6 +83,17 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_addContactToMeeting() throws Exception {
+        Meeting meeting = new MeetingBuilder().build();
+        Contact contact = new ContactBuilder().build();
+        String userInput = "add contact to meeting -n " + contact.getNameString() + " -title" + meeting.getTitleString();
+        AddContactToMeetingCommand expectedCommand = new AddContactToMeetingCommand(
+            meeting.getTitleString(), contact.getNameString());
+        AddContactToMeetingCommand actualCommand = (AddContactToMeetingCommand) parser.parseCommand(userInput);
+        assertEquals(expectedCommand, actualCommand);
+    }
+
+    @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " -id 3") instanceof ClearCommand);
@@ -85,7 +102,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteContactCommand command = (DeleteContactCommand) parser.parseCommand(
-                DeleteContactCommand.COMMAND_WORD + " -id " + INDEX_FIRST.getOneBased());
+            DeleteContactCommand.COMMAND_WORD + " -id " + INDEX_FIRST.getOneBased());
         assertEquals(new DeleteContactCommand(INDEX_FIRST), command);
     }
 
@@ -94,7 +111,7 @@ public class AddressBookParserTest {
         Contact contact = new ContactBuilder().build();
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder(contact).build();
         String input = EditContactCommand.COMMAND_WORD + " -id " + INDEX_FIRST.getOneBased() + " "
-                + ContactUtil.getEditContactDescriptorDetails(descriptor);
+            + ContactUtil.getEditContactDescriptorDetails(descriptor);
         EditContactCommand command = (EditContactCommand) parser.parseCommand(input);
 
         assertEquals(new EditContactCommand(INDEX_FIRST, descriptor), command);
@@ -130,7 +147,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-                -> parser.parseCommand(""));
+            -> parser.parseCommand(""));
     }
 
     @Test

@@ -53,7 +53,7 @@ public class DeleteContactFromMeetingCommand extends Command {
         Meeting meetingToEdit = null;
         boolean meetingFound = false;
         for (Meeting m : meetingList) {
-            if (m.getTitle().toString().equals(meetingTitle)) {
+            if (m.getTitleString().equals(meetingTitle)) {
                 meetingToEdit = m;
                 meetingFound = true;
                 break;
@@ -65,7 +65,7 @@ public class DeleteContactFromMeetingCommand extends Command {
         ArrayList<Contact> listOfContacts = new ArrayList<>(meetingToEdit.getContacts());
         boolean contactFound = false;
         for (Contact c : listOfContacts) {
-            if (c.getName().toString().equals(contactName)) {
+            if (c.getNameString().equals(contactName)) {
                 contact = c;
                 contactFound = true;
             }

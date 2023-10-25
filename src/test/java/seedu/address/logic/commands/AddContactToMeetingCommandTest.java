@@ -21,10 +21,10 @@ class AddContactToMeetingCommandTest {
     void execute_validInputs_success() throws CommandException {
         Contact validContact = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
         Meeting validMeeting = model.getFilteredMeetingList().get(INDEX_FIRST.getZeroBased());
-        AddContactToMeetingCommand command = new AddContactToMeetingCommand(validMeeting.getTitle().toString(),
-            validContact.getName().toString());
+        AddContactToMeetingCommand command = new AddContactToMeetingCommand(validMeeting.getTitleString(),
+            validContact.getNameString());
         CommandResult expectedCommandResult = new CommandResult(String.format("Added contact '%s' to Meeting '%s'",
-            validContact.getName().toString(), validMeeting.getTitle().toString()));
+            validContact.getNameString(), validMeeting.getTitleString()));
         CommandResult result = command.execute(model);
         assertEquals(expectedCommandResult, result);
 

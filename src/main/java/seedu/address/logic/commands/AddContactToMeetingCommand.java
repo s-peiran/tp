@@ -53,7 +53,7 @@ public class AddContactToMeetingCommand extends Command {
         Meeting meetingToEdit = null;
         boolean contactFound = false;
         for (Contact c : contactList) {
-            if (c.getName().toString().equals(contactName)) {
+            if (c.getNameString().equals(contactName)) {
                 contact = c;
                 contactFound = true;
                 break;
@@ -64,7 +64,7 @@ public class AddContactToMeetingCommand extends Command {
         }
         boolean meetingFound = false;
         for (Meeting m : meetingList) {
-            if (m.getTitle().toString().equals(meetingTitle)) {
+            if (m.getTitleString().equals(meetingTitle)) {
                 meetingToEdit = m;
                 meetingFound = true;
                 break;
@@ -73,7 +73,6 @@ public class AddContactToMeetingCommand extends Command {
         if (!meetingFound) {
             throw new CommandException(MESSAGE_MEETING_NOT_FOUND);
         }
-
         ArrayList<Contact> listOfContacts = new ArrayList<>(meetingToEdit.getContacts());
         listOfContacts.add(contact);
 
