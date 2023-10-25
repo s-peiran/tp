@@ -2,12 +2,14 @@ package seedu.address.model.meeting;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.note.Note;
 
 /**
@@ -24,21 +26,28 @@ public class Meeting {
 
     private Description description;
     private Set<Note> notes = new HashSet<>();
+    private ArrayList<Contact> contacts = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Meeting(Title title, Time time, Place place, Description description, Set<Note> notes) {
-        requireAllNonNull(title, time, place, description, notes);
+    public Meeting(Title title, Time time, Place place, Description description,
+                   Set<Note> notes, ArrayList<Contact> contacts) {
+        requireAllNonNull(title, time, place, description, notes, contacts);
         this.title = title;
         this.time = time;
         this.place = place;
         this.description = description;
         this.notes.addAll(notes);
+        this.contacts.addAll(contacts);
     }
 
     public Title getTitle() {
         return title;
+    }
+
+    public String getTitleString() {
+        return title.toString();
     }
 
     public Time getTime() {
@@ -57,15 +66,20 @@ public class Meeting {
         return Collections.unmodifiableSet(notes);
     }
 
+    public ArrayList<Contact> getContacts() {
+        return new ArrayList<>(Collections.unmodifiableList(contacts));
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("title", title)
-                .add("time", time)
-                .add("place", place)
-                .add("description", description)
-                .add("notes", notes)
-                .toString();
+            .add("title", title)
+            .add("time", time)
+            .add("place", place)
+            .add("description", description)
+            .add("notes", notes)
+            .add("contacts", contacts)
+            .toString();
     }
 
     @Override
@@ -81,10 +95,11 @@ public class Meeting {
 
         Meeting otherMeeting = (Meeting) other;
         return title.equals(otherMeeting.title)
-                && time.equals(otherMeeting.time)
-                && place.equals(otherMeeting.place)
-                && description.equals(otherMeeting.description)
-                && notes.equals(otherMeeting.notes);
+            && time.equals(otherMeeting.time)
+            && place.equals(otherMeeting.place)
+            && description.equals(otherMeeting.description)
+            && notes.equals(otherMeeting.notes)
+            && contacts.equals(otherMeeting.contacts);
     }
 
     @Override

@@ -1,15 +1,18 @@
 package seedu.address.testutil;
 
+import static seedu.address.model.util.SampleDataUtil.getNoteSet;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.contact.Contact;
 import seedu.address.model.meeting.Description;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.Place;
 import seedu.address.model.meeting.Time;
 import seedu.address.model.meeting.Title;
 import seedu.address.model.note.Note;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Person objects.
@@ -32,6 +35,7 @@ public class MeetingBuilder {
 
     private Description description;
     private Set<Note> notes;
+    private ArrayList<Contact> contacts;
 
     /**
      * Creates a {@code MeetingBuilder} with the default details.
@@ -42,6 +46,7 @@ public class MeetingBuilder {
         place = new Place(DEFAULT_PLACE);
         description = new Description(DEFAULT_DESCRIPTION);
         notes = new HashSet<>();
+        contacts = new ArrayList<>();
     }
 
     /**
@@ -53,6 +58,7 @@ public class MeetingBuilder {
         place = meetingToCopy.getPlace();
         description = meetingToCopy.getDescription();
         notes = new HashSet<>(meetingToCopy.getNotes());
+        contacts = new ArrayList<>(meetingToCopy.getContacts());
     }
 
     /**
@@ -90,12 +96,12 @@ public class MeetingBuilder {
     /**
      * Sets the {@code Notes} of the {@code Meeting} that we are building.
      */
-    public MeetingBuilder withNotes(String ... notes) {
-        this.notes = SampleDataUtil.getNoteSet(notes);
+    public MeetingBuilder withNotes(String... notes) {
+        this.notes = getNoteSet(notes);
         return this;
     }
 
     public Meeting build() {
-        return new Meeting(title, time, place, description, notes);
+        return new Meeting(title, time, place, description, notes, contacts);
     }
 }

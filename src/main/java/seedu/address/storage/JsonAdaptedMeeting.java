@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.meeting.Description;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.Place;
@@ -29,20 +30,25 @@ class JsonAdaptedMeeting {
     private final String place;
     private final String description;
     private final List<JsonAdaptedNote> notes = new ArrayList<>();
+    private final List<JsonAdaptedContact> contacts = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedMeeting} with the given meeting details.
      */
     @JsonCreator
     public JsonAdaptedMeeting(@JsonProperty("title") String title, @JsonProperty("time") String time,
-            @JsonProperty("place") String place, @JsonProperty("description") String description,
-                              @JsonProperty("notes") List<JsonAdaptedNote> notes) {
+                              @JsonProperty("place") String place, @JsonProperty("description") String description,
+                              @JsonProperty("notes") List<JsonAdaptedNote> notes,
+                              @JsonProperty("contacts") List<JsonAdaptedContact> contacts) {
         this.title = title;
         this.time = time;
         this.place = place;
         this.description = description;
         if (notes != null) {
             this.notes.addAll(notes);
+        }
+        if (contacts != null) {
+            this.contacts.addAll(contacts);
         }
     }
 
@@ -55,8 +61,12 @@ class JsonAdaptedMeeting {
         place = source.getPlace().fullPlace;
         description = source.getDescription().fullDescription;
         notes.addAll(source.getNotes().stream()
-                .map(JsonAdaptedNote::new)
-                .collect(Collectors.toList()));;
+            .map(JsonAdaptedNote::new)
+            .collect(Collectors.toList()));
+        ;
+        contacts.addAll(source.getContacts().stream()
+            .map(JsonAdaptedContact::new)
+            .collect(Collectors.toList()));
     }
 
     /**
@@ -66,8 +76,12 @@ class JsonAdaptedMeeting {
      */
     public Meeting toModelType() throws IllegalValueException {
         final List<Note> meetingNotes = new ArrayList<>();
+        final List<Contact> contactList = new ArrayList<>();
         for (JsonAdaptedNote note : notes) {
             meetingNotes.add(note.toModelType());
+        }
+        for (JsonAdaptedContact c : contacts) {
+            contactList.add(c.toModelType());
         }
 
         if (title == null) {
@@ -102,8 +116,9 @@ class JsonAdaptedMeeting {
         final Description modelDescription = new Description(description);
 
         final Set<Note> modelNotes = new HashSet<>(meetingNotes);
+        final ArrayList<Contact> modelContacts = new ArrayList<>(contactList);
 
-        return new Meeting(modelTitle, modelTime, modelPlace, modelDescription, modelNotes);
+        return new Meeting(modelTitle, modelTime, modelPlace, modelDescription, modelNotes, modelContacts);
     }
 
 }

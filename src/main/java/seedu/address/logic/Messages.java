@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -66,4 +67,18 @@ public class Messages {
         return builder.toString();
     }
 
+    /**
+     * Formats the {@code contacts in a meeting} for display to the user.
+     */
+    public static String formatMeetingContacts(Meeting meeting) {
+        final StringBuilder builder = new StringBuilder();
+        ArrayList<Contact> contactList = new ArrayList<>(meeting.getContacts());
+        for (Contact c : contactList) {
+            builder.append(c.getName().toString() + ", ");
+        }
+        if (builder.length() > 0) {
+            builder.deleteCharAt(builder.length() - 2);
+        }
+        return "Contacts: " + builder.toString();
+    }
 }
