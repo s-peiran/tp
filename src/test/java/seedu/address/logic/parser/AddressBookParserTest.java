@@ -86,7 +86,8 @@ public class AddressBookParserTest {
     public void parseCommand_addContactToMeeting() throws Exception {
         Meeting meeting = new MeetingBuilder().build();
         Contact contact = new ContactBuilder().build();
-        String userInput = "add contact to meeting -n " + contact.getNameString() + " -title" + meeting.getTitleString();
+        String userInput = "add contact to meeting -n " + contact.getNameString()
+            + " -title" + meeting.getTitleString();
         AddContactToMeetingCommand expectedCommand = new AddContactToMeetingCommand(
             meeting.getTitleString(), contact.getNameString());
         AddContactToMeetingCommand actualCommand = (AddContactToMeetingCommand) parser.parseCommand(userInput);
