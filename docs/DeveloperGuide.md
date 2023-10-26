@@ -325,6 +325,38 @@ Step 4. The user starts to type the command `add mee` and then presses the up or
 
 Step 5. The user can then cycle through the two commands by pressing the up or down arrow key. The commands will be displayed in the command input box in reverse chronological order.
 
+### [Implemented] Mode feature
+
+#### Context
+
+At the time when this feature was implemented, the commands within the application were split into 3 broad categories: Commands for contacts, commands for meetings, and general commands.
+
+However, users had to specify each command in entirety without regard for which category the command belonged to. For example when adding a contact to a meeting, the user had to type `add contact to meeting -name ContactName -title MeetingName`.
+
+This format was too lengthy and it seemed highly likely that when a user is interacting with a specific category of commands, they would interact with it more often than the other categories. For example when a user adds a meeting, it more likely that the user follows up with adding contacts or notes to the meeting as compared to other functions of the application.
+
+To improve upon this, a mode feature was implemented so that users can be either in the `contact mode` or `meeting mode` and when a command is run it will automatically be translated into the respective contact or meeting command. So instead of typing `add contact to meeting`, the user could instead type `add contact` while running in the `meeting mode`.
+
+### Implementation
+
+Firstly, in order to keep track of the current mode the application is running in, the Model interface and the ModelManager implementation had to be modified to keep track of what is now known as ModeType, which is an Enum and as of now can only be `CONTACTS` or `MEETINGS`. The general commands such as exit, help and mode itself does not need a ModeType because such commands can be run while in any ModeType. Additionally, the default ModeType when initializing a ModelManager is `CONTACTS` for no particular reason.
+
+Secondly, the Mode command itself is implemented where upon executing the command, the model will update its `FilteredContactList` or `FilteredMeetingList` to show the user the entire contact or meeting list respectively.
+
+Thirdly, all affected commands had to have their formats changed to suit the new style of running under a certain context.
+
+Lastly, the AddressBookParser had to be modified to accomodate the new modes and command formats.
+
+### Design considerations:
+
+Alternative 1 (current choice): Implement the mode command as a standalone without arguments
+* Pros: Easy to implement. User can easily toggle between `CONTACTS` and `MEETINGS` ModeType.
+* Cons: Less extensible by developers if in the future there are new ModeTypes.
+
+Alternative 2: Implement the mode command with arguemnts e.g `mode -type CONTACTS`
+* Pros: Easily extensible by developers, can just add a new enum for a new ModeType.
+* Cons: More troublesome to implement. Harder to use for the users.
+
 #### Design Considerations:
 
 **Aspect: How the command history and auto-complete feature is implemented:**
