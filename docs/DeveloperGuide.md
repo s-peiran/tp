@@ -300,6 +300,45 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
+### \[Proposed\] Command History and Auto-Complete Feature
+
+#### Proposed Implementation
+
+The proposed command history and auto-complete mechanism is facilitated by `CommandHistory`. It extends `Notenote` with a command history, stored internally as `commandList`. Additionally, it implements the following operations:
+
+* `CommandHistory#addCommand(String command)` - Adds the executed command to the command history.
+* `CommandHistory#getFilteredCommands(String input)` - Retrieves a list of commands from the command history that starts with the given input.
+
+These operations are exposed in the `Model` interface as `Model#addCommandHistory(String command)` and `Model#getFilteredCommandHistory(String input)` respectively.
+
+When the user presses the up or down arrow key, the `UI` will call `Model#getFilteredCommandHistory(String input)`, where `input` is the current text in the command input box. The retrieved list of commands will be displayed in the command input box, allowing the user to cycle through the commands by continuing to press the up or down arrow key.
+
+Given below is an example usage scenario and how the command history and auto-complete mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `CommandHistory` will be initialized as an empty list.
+
+Step 2. The user executes the command `add meeting -title Project Meeting -time 01/01/2023 12:00 -place Zoom`. The command calls `Model#addCommandHistory(String command)`, causing the executed command to be saved in the `commandList`.
+
+Step 3. The user then executes the command `add meeting -title Tutorial -time 01/01/2023 13:00 -place Discord`. This command is also saved in the `commandList`.
+
+Step 4. The user starts to type the command `add mee` and then presses the up or down arrow key. The `UI` will call `Model#getFilteredCommandHistory(String input)`, which retrieves the list of commands starting with `add mee` from the `commandList`. In this case, it will retrieve the two previous commands.
+
+Step 5. The user can then cycle through the two commands by pressing the up or down arrow key. The commands will be displayed in the command input box in reverse chronological order.
+
+#### Design Considerations:
+
+**Aspect: How the command history and auto-complete feature is implemented:**
+
+* **Alternative 1: Store Commands as Strings**
+  * Implementation: Save each command as a string in a list. When the user presses the up or down arrow key, retrieve the commands that start with the current input.
+  * Pros: Simple to implement; easy to retrieve commands.
+  * Cons: May include unnecessary information if the command has multiple parameters.
+
+* **Alternative 2: Store Commands as Objects**
+  * Implementation: Save each command as an object that includes the command type and its parameters. Implement a method to convert the command object to a string for display. When the user presses the up or down arrow key, retrieve the command objects that match the current input and convert them to strings for display.
+  * Pros: Allows for more flexible retrieval and display of commands; can easily extend functionality in the future.
+  * Cons: More complex implementation; requires additional processing to convert command objects to strings for display.
+
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
@@ -381,7 +420,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. Notenote creates the meeting card.
 3. Notenote displays the newly created meeting card.
 
-   Use case ends.
+    Use case ends.
 
 **Extensions**
 
@@ -389,14 +428,57 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     * 1a1. Notenote shows an error message.
     * 1a2. User request to create a meeting in the correct format.
+
       Use case resumes at step 2.
 
 * 1b. The specified contact(s) do/does not exist in Notenote.
 
     * 1b1. Notenote shows an error message.
-      Use case ends.
 
-**UC02 - Take notes about meetings**
+        Use case ends.
+
+**UC02 - Delete a meeting**
+
+**MSS**
+
+1. User requests to delete a meeting specifying meeting index.
+2. Notenote validates the provided index, retrieves the corresponding meeting, and deletes it.
+3. Notenote confirms the deletion and updates the display.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The request is in an improper format.
+
+    * <ins>(Refer to UC01, 1a)</ins>
+
+* 1b. The specified meeting index is invalid or does not exist in Notenote.
+
+    * <ins>(Refer to UC01, 1b)</ins>
+
+
+**UC03 - Edit a meeting**
+
+**MSS**
+
+1. User requests to edit a meeting specifying meeting index and changes to be made (e.g., meeting title, time, etc.).
+2. Notenote validates the provided index, retrieves the corresponding meeting, and applies the requested changes.
+3. Notenote saves the changes and displays the updated meeting card.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The request is in an improper format.
+
+    * <ins>(Refer to UC01, 1a)</ins>
+
+* 1b. The specified meeting index is invalid or does not exist in Notenote.
+
+    * <ins>(Refer to UC01, 1b)</ins>
+
+**UC04 - Take notes about meetings**
 
 **MSS**
 
@@ -404,7 +486,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. The meeting is updated with the given notes/comments/remarks.
 3. Notenote displays the meeting with the updated notes/comments/remarks.
 
-   Use case ends.
+    Use case ends.
 
 **Extensions**
 
@@ -415,15 +497,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**UC03 - Add additional contacts to a meeting **
+**UC05 - Add additional contacts to a meeting**
 
 **MSS**
 
-1. User <ins>creates a meeting (UC01) .</ins> 
+1. User <ins>creates a meeting (UC01) .</ins>
 2. User requests to add contacts to the meeting.
 3. Notenote displays the details of the meeting with the newly added contact.
 
-   Use case ends.
+    Use case ends.
 
 **Extensions**
 
@@ -431,12 +513,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     * 2a1. Notenote shows an error message.
     * 2a2. User request to add contacts to the meeting in the correct format.
+
       Use case resumes at step 3.
 
 * 2b. The specified contact(s)/meeting do/does not exist in Notenote.
 
     * 2b1. Notenote shows an error message.
     * 2b2. User requests to add contacts with existing contact(s)/meeting.
+
       Use case resumes at step 3.
 
 *{More to be added}*
@@ -445,8 +529,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2. Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
-3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be
-   able to accomplish most of the tasks faster using commands than using the mouse.
+3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 *{More to be added}*
 
