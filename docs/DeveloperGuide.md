@@ -325,6 +325,20 @@ Step 4. The user starts to type the command `add mee` and then presses the up or
 
 Step 5. The user can then cycle through the two commands by pressing the up or down arrow key. The commands will be displayed in the command input box in reverse chronological order.
 
+#### Design Considerations:
+
+**Aspect: How the command history and auto-complete feature is implemented:**
+
+* **Alternative 1: Store Commands as Strings**
+    * Implementation: Save each command as a string in a list. When the user presses the up or down arrow key, retrieve the commands that start with the current input.
+    * Pros: Simple to implement; easy to retrieve commands.
+    * Cons: May include unnecessary information if the command has multiple parameters.
+
+* **Alternative 2: Store Commands as Objects**
+    * Implementation: Save each command as an object that includes the command type and its parameters. Implement a method to convert the command object to a string for display. When the user presses the up or down arrow key, retrieve the command objects that match the current input and convert them to strings for display.
+    * Pros: Allows for more flexible retrieval and display of commands; can easily extend functionality in the future.
+    * Cons: More complex implementation; requires additional processing to convert command objects to strings for display.
+
 ### [Implemented] Mode feature
 
 #### Context
@@ -353,23 +367,9 @@ Alternative 1 (current choice): Implement the mode command as a standalone witho
 * Pros: Easy to implement. User can easily toggle between `CONTACTS` and `MEETINGS` ModeType.
 * Cons: Less extensible by developers if in the future there are new ModeTypes.
 
-Alternative 2: Implement the mode command with arguemnts e.g `mode -type CONTACTS`
+Alternative 2: Implement the mode command with arguments e.g `mode -type CONTACTS`
 * Pros: Easily extensible by developers, can just add a new enum for a new ModeType.
 * Cons: More troublesome to implement. Harder to use for the users.
-
-#### Design Considerations:
-
-**Aspect: How the command history and auto-complete feature is implemented:**
-
-* **Alternative 1: Store Commands as Strings**
-  * Implementation: Save each command as a string in a list. When the user presses the up or down arrow key, retrieve the commands that start with the current input.
-  * Pros: Simple to implement; easy to retrieve commands.
-  * Cons: May include unnecessary information if the command has multiple parameters.
-
-* **Alternative 2: Store Commands as Objects**
-  * Implementation: Save each command as an object that includes the command type and its parameters. Implement a method to convert the command object to a string for display. When the user presses the up or down arrow key, retrieve the command objects that match the current input and convert them to strings for display.
-  * Pros: Allows for more flexible retrieval and display of commands; can easily extend functionality in the future.
-  * Cons: More complex implementation; requires additional processing to convert command objects to strings for display.
 
 ### [Proposed] Note Feature
 
