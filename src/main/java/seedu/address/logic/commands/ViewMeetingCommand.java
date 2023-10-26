@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -11,7 +11,6 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
-import seedu.address.model.note.Note;
 
 /**
  * Shows a Meeting identified using its id from the address book.
@@ -21,9 +20,9 @@ public class ViewMeetingCommand extends Command {
     public static final String COMMAND_WORD = "view";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Shows the details of the meeting identified by its id in the displayed meeting list.\n"
-        + "Parameters: INDEX (must be a positive integer)\n"
-        + "Example: " + COMMAND_WORD + " -id1";
+            + ": Shows the details of the meeting identified by its id in the displayed meeting list.\n"
+            + "Parameters: " + PREFIX_INDEX + " INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " -id 1";
 
     public static final String MESSAGE_VIEW_MEETING_SUCCESS = "Showing Meeting: %1$s";
 
@@ -44,19 +43,11 @@ public class ViewMeetingCommand extends Command {
 
         Meeting meetingToDisplay = lastShownList.get(targetIndex.getZeroBased());
 
-        StringBuilder sb = new StringBuilder();
-        Set<Note> setNotes = meetingToDisplay.getNotes();
-        for (Note notes : setNotes) {
-            sb.append(notes.toString() + "\n");
-        }
-        if (sb.length() > 0) {
-            sb.setLength(sb.length() - 1);
-        }
+        String meetingNotes = meetingToDisplay.getNoteString();
 
         //todo: change display to note when it is implemented
         return new CommandResult(String.format(MESSAGE_VIEW_MEETING_SUCCESS,
-            Messages.formatMeeting(meetingToDisplay)), meetingToDisplay, sb.toString());
-
+                Messages.formatMeeting(meetingToDisplay)), meetingToDisplay, meetingNotes);
     }
 
     @Override
@@ -77,7 +68,7 @@ public class ViewMeetingCommand extends Command {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-            .add("targetIndex", targetIndex)
-            .toString();
+                .add("targetIndex", targetIndex)
+                .toString();
     }
 }

@@ -27,7 +27,7 @@ public class AddMeetingNoteCommand extends Command {
             + "by the index number used in the last meeting listing. "
             + "Parameters: " + PREFIX_INDEX + " (must be a positive integer) "
             + PREFIX_NOTE_MEETING + " [NOTE]\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + " 1 "
             + PREFIX_NOTE_MEETING + " Likes to swim.";
 
     public static final String MESSAGE_ADD_NOTE_SUCCESS = "Added note to Meeting: %1$s";
@@ -67,7 +67,8 @@ public class AddMeetingNoteCommand extends Command {
         model.setMeeting(meetingToEdit, editedMeeting);
         model.updateFilteredMeetingList(Model.PREDICATE_SHOW_ALL_MEETINGS);
 
-        return new CommandResult(generateSuccessMessage(editedMeeting));
+        return new CommandResult(generateSuccessMessage(editedMeeting), editedMeeting.getNoteString(),
+                false, false, null, editedMeeting, CommandResult.ListType.MEETINGS);
     }
 
     /**

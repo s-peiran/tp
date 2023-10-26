@@ -9,7 +9,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showContactAtIndex;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalContactsAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
@@ -19,7 +18,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.CommandResult.ListType;
 import seedu.address.logic.commands.EditContactCommand.EditContactDescriptor;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -36,22 +37,22 @@ public class EditContactCommandTest {
     private Model model = new ModelManager(getTypicalContactsAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
+    public void execute_allFieldsSpecifiedUnfilteredList_success() throws CommandException {
         Contact editedContact = new ContactBuilder().build();
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder(editedContact).build();
         EditContactCommand editContactCommand = new EditContactCommand(INDEX_FIRST, descriptor);
 
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_CONTACT_SUCCESS,
                 Messages.formatContact(editedContact));
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, editedContact.getNoteString(),
+                false, false, editedContact, null, ListType.CONTACTS);
+        CommandResult result = editContactCommand.execute(model);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setContact(model.getFilteredContactList().get(0), editedContact);
-
-        assertCommandSuccess(editContactCommand, model, expectedMessage, expectedModel);
+        assertEquals(expectedCommandResult, result);
     }
 
     @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() {
+    public void execute_someFieldsSpecifiedUnfilteredList_success() throws CommandException {
         Index indexLastContact = Index.fromOneBased(model.getFilteredContactList().size());
         Contact lastContact = model.getFilteredContactList().get(indexLastContact.getZeroBased());
 
@@ -66,14 +67,15 @@ public class EditContactCommandTest {
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_CONTACT_SUCCESS,
                 Messages.formatContact(editedContact));
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setContact(lastContact, editedContact);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, editedContact.getNoteString(), false,
+                false, editedContact, null, ListType.CONTACTS);
 
-        assertCommandSuccess(editContactCommand, model, expectedMessage, expectedModel);
+        CommandResult result = editContactCommand.execute(model);
+        assertEquals(expectedCommandResult, result);
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
+    public void execute_noFieldSpecifiedUnfilteredList_success() throws CommandException {
         EditContactCommand editContactCommand = new EditContactCommand(INDEX_FIRST,
                 new EditContactDescriptor());
         Contact editedContact = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
@@ -82,12 +84,15 @@ public class EditContactCommandTest {
                 Messages.formatContact(editedContact));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, editedContact.getNoteString(), false,
+                false, editedContact, null, ListType.CONTACTS);
+        CommandResult result = editContactCommand.execute(model);
 
-        assertCommandSuccess(editContactCommand, model, expectedMessage, expectedModel);
+        assertEquals(expectedCommandResult, result);
     }
 
     @Test
-    public void execute_filteredList_success() {
+    public void execute_filteredList_success() throws CommandException {
         showContactAtIndex(model, INDEX_FIRST);
 
         Contact contactInFilteredList = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
@@ -97,11 +102,10 @@ public class EditContactCommandTest {
 
         String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_CONTACT_SUCCESS,
                 Messages.formatContact(editedContact));
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setContact(model.getFilteredContactList().get(0), editedContact);
-
-        assertCommandSuccess(editContactCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, editedContact.getNoteString(), false,
+                false, editedContact, null, ListType.CONTACTS);
+        CommandResult result = editContactCommand.execute(model);
+        assertEquals(expectedCommandResult, result);
     }
 
     @Test

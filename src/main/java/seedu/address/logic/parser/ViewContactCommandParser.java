@@ -3,8 +3,6 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 
-import java.util.NoSuchElementException;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ViewContactCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -26,9 +24,9 @@ public class ViewContactCommandParser implements Parser<ViewContactCommand> {
         Index index;
         try {
             index = Index.fromOneBased(Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()));
-        } catch (NoSuchElementException e) {
+        } catch (Exception e) {
             throw new ParseException(
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewContactCommand.MESSAGE_USAGE), e);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewContactCommand.MESSAGE_USAGE), e);
         }
         return new ViewContactCommand(index);
     }

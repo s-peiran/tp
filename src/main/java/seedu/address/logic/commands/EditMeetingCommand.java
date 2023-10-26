@@ -19,6 +19,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.CommandResult.ListType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
@@ -40,13 +41,13 @@ public class EditMeetingCommand extends Command {
             + "by the index number used in the displayed meeting list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_TITLE + "TITLE] "
-            + "[" + PREFIX_TIME + "TIME] "
-            + "[" + PREFIX_PLACE + "PLACE] "
-            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]...\n"
+            + "[" + PREFIX_TITLE + " TITLE] "
+            + "[" + PREFIX_TIME + " TIME] "
+            + "[" + PREFIX_PLACE + " PLACE] "
+            + "[" + PREFIX_DESCRIPTION + " DESCRIPTION]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PLACE + "Zoom "
-            + PREFIX_DESCRIPTION + "Discuss Project Details";
+            + PREFIX_PLACE + " Zoom "
+            + PREFIX_DESCRIPTION + " Discuss Project Details";
 
     public static final String MESSAGE_EDIT_MEETING_SUCCESS = "Edited Meeting: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -86,7 +87,7 @@ public class EditMeetingCommand extends Command {
         model.setMeeting(meetingToEdit, editedMeeting);
         model.updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
         return new CommandResult(String.format(MESSAGE_EDIT_MEETING_SUCCESS,
-                Messages.formatMeeting(editedMeeting)));
+                Messages.formatMeeting(editedMeeting)), null, false, false, null, editedMeeting, ListType.MEETINGS);
     }
 
     /**

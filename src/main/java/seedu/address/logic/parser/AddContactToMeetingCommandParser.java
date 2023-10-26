@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
@@ -23,7 +24,11 @@ public class AddContactToMeetingCommandParser implements Parser<AddContactToMeet
 
         String contactName = argMultimap.getValue(PREFIX_NAME).orElse("");
         String meetingTitle = argMultimap.getValue(PREFIX_TITLE).orElse("");
-
+        boolean raiseException = contactName.length() < 1 || meetingTitle.length() < 1;
+        if (raiseException) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddContactToMeetingCommand.MESSAGE_USAGE));
+        }
         return new AddContactToMeetingCommand(meetingTitle, contactName);
     }
 }

@@ -19,13 +19,13 @@ public class DeleteContactFromMeetingCommand extends Command {
     public static final String COMMAND_WORD = "delete contact";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Removes the participants to the meeting identified "
-        + "by the name of the contact. "
-        + "Parameters: " + PREFIX_NAME
-        + " [CONTACT NAME] "
-        + PREFIX_TITLE + " [MEETING NAME]\n"
-        + "Example: " + COMMAND_WORD + PREFIX_NAME
-        + " Sarah Woo " + PREFIX_TITLE + " Project Discussion";
+            + ": Removes the participants to the meeting identified "
+            + "by the name of the contact. "
+            + "Parameters: " + PREFIX_NAME
+            + " [CONTACT NAME] "
+            + PREFIX_TITLE + " [MEETING NAME]\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME
+            + " Sarah Woo " + PREFIX_TITLE + " Project Discussion";
 
     public static final String MESSAGE_DELETE_CONTACT_SUCCESS = "Removed contact '%s' from Meeting '%s'";
     public static final String MESSAGE_CONTACT_NOT_FOUND = "The person specified is not created";
@@ -77,14 +77,15 @@ public class DeleteContactFromMeetingCommand extends Command {
         listOfContacts.remove(contact);
 
         Meeting editedMeeting = new Meeting(
-            meetingToEdit.getTitle(), meetingToEdit.getTime(), meetingToEdit.getPlace(),
-            meetingToEdit.getDescription(), meetingToEdit.getNotes(), listOfContacts);
+                meetingToEdit.getTitle(), meetingToEdit.getTime(), meetingToEdit.getPlace(),
+                meetingToEdit.getDescription(), meetingToEdit.getNotes(), listOfContacts);
 
         model.setMeeting(meetingToEdit, editedMeeting);
         model.updateFilteredMeetingList(Model.PREDICATE_SHOW_ALL_MEETINGS);
 
         return new CommandResult(String.format(MESSAGE_DELETE_CONTACT_SUCCESS,
-            contactName, meetingTitle));
+                contactName, meetingTitle), null, false, false,
+                null, editedMeeting, CommandResult.ListType.MEETINGS);
     }
 
     public String getContactName() {
