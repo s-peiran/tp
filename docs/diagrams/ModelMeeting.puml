@@ -1,0 +1,36 @@
+@startuml
+!include style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Meetings as MeetingPackage <<Rectangle>> {
+Class MeetingList
+Class Meeting
+Class Title
+Class Time
+Class Place
+Class Desc
+Class Contact
+Class Note
+}
+
+MeetingList --> "~* all" Meeting
+Meeting *--> Title
+Meeting *--> Time
+Meeting *--> Place
+Meeting *--> Desc
+Meeting *--> "*" Note
+Meeting *--> "*" Contact
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> MeetingList
+
+Title -[hidden]right-> Time
+Time -[hidden]right-> Place
+Place -[hidden]right-> Desc
+Desc -[hidden]right-> Note
+Note -[hidden]right-> Contact
+
+@enduml

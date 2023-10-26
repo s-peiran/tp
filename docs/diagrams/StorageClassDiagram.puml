@@ -40,9 +40,6 @@ JsonAddressBookStorage .up.|> AddressBookStorage
 JsonAddressBookStorage ..> JsonSerializableAddressBook
 JsonSerializableAddressBook --> "*" JsonAdaptedContact
 JsonAdaptedContact --> "*" JsonAdaptedTag
-<<<<<<< HEAD
 JsonAdaptedContact --> "*" JsonAdaptedNote
-=======
 
->>>>>>> master
 @enduml

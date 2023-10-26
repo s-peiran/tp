@@ -66,8 +66,13 @@ dependencies {
 }
 
 shadowJar {
-    archiveFileName = 'addressbook.jar'
+    archiveFileName = 'NoteNote.jar'
 }
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 
 defaultTasks 'clean', 'test'
 
