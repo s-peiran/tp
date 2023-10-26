@@ -371,6 +371,40 @@ Alternative 2: Implement the mode command with arguments e.g `mode -type CONTACT
 * Pros: Easily extensible by developers, can just add a new enum for a new ModeType.
 * Cons: More troublesome to implement. Harder to use for the users.
 
+### [Proposed] Note Feature
+
+#### Context
+
+Note-taking is the fundamental feature behind our app. It is critical for our users to be able to efficiently record
+notes for contacts and meetings.
+
+The full implementation of the feature will include creating, reading, and deleting notes. A possible extension is
+giving users the ability to edit previous notes, but that is outside the scope of our project for now.
+
+### Implementation (Add Notes)
+
+A new `Note` class is created, which stores the contents of the note as a string. The `Contact`/`Meeting` model is then updated
+to include a new `notes` attribute of type `ArrayList<Note>`.
+
+To distinguish between adding notes to contacts and meetings, 2 separate Command classes are created, namely 
+`AddNoteCommand` (for contacts) and `AddMeetingNoteCommand` (for meetings). These classes will then call 
+their respective parser classes, to get the arguments passed in by the user. The arguments include the
+index of the target contact/meeting and the note itself.
+
+When the respective commands are executed, Notenote will get the indexed contact/meeting object from
+the Model's `FilteredContactList`/`FilteredMeetingList`. Internally, the model will duplicate the existing list of notes
+and append the additional note.
+
+Then, a new `Contact`/`Meeting` will be created with identical attributes as the original, with the exception of the
+updated `notes` list. The model is then updated with this new `Contact`/`Meeting`, and the filtered list is
+updated as well.
+
+### Design Considerations
+
+* **Alternative 1: store `notes` attribute in `Contact` model as `Set<Note>`**
+  * Pros: Simpler to implement (similar to `Tag` implementation).
+  * Cons: Notes will appear in an arbitrary order, rather than chronologically.
+
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
