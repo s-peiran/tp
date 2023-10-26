@@ -25,15 +25,29 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ---
 
+### Mode
+- **What it does**: Toggles the mode of the application between "contacts" and "meetings". 
+    The application defaults to the "contacts" mode. The mode of the application determines the
+    context in which the following commands are executed upon:
+  1. add 
+  2. list
+
+- **Command Format**: `mode`
+
+- **Expected Outputs**:
+    - “Application mode set: [CURRENT_MODE].”
+
+---
+
 ## Contact Management:
 
 ### Create New Contact
 
-- **What it does**: Adds a new contact to the list.
+- **What it does**: Adds a new contact to the list when in the "contacts" mode.
 
-- **Command Format**: `add contact -n CONTACT_NAME -p PHONE_NUMBER -e EMAIL_ADDRESS -a RESIDENTIAL_ADDRESS [-t TAGS]`
+- **Command Format**: `add -n CONTACT_NAME -p PHONE_NUMBER -e EMAIL_ADDRESS -a RESIDENTIAL_ADDRESS [-t TAGS]`
 
-- **Example**: `add contact -n Sarah Woo -p 82775346 -e sarah.woo@gmail.com -a Blk227 Sims Drive`
+- **Example**: `add -n Sarah Woo -p 82775346 -e sarah.woo@gmail.com -a Blk227 Sims Drive`
 
 - **Acceptable Values**:
     - CONTACT_NAME: String, at least 2 characters long.
@@ -49,11 +63,11 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### View a Contact
 
-- **What it does**: Displays details of a specific contact.
+- **What it does**: Displays details of a specific contact when in the "contacts" mode.
 
-- **Command Format**: `view contact -[CONTACT_ID or CONTACT_NAME]`
+- **Command Format**: `view -[CONTACT_ID or CONTACT_NAME]`
 
-- **Example**: `view contact -Sarah`
+- **Example**: `view -Sarah`
 
 - **Acceptable Values**:
     - CONTACT_ID: Non-negative integer.
@@ -71,9 +85,9 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### List All Contacts
 
-- **What it does**: Shows all contacts in the list.
+- **What it does**: Shows all contacts in the list when in the "contacts" mode.
 
-- **Command Format**: `list contacts`
+- **Command Format**: `list`
 
 - **Expected Outputs**:
     - Success: List of all contacts.
@@ -84,11 +98,11 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### Delete a Contact
 
-- **What it does**: Removes a contact based on the given ID.
+- **What it does**: Removes a contact based on the given ID when in the "contacts" mode.
 
-- **Command Format**: `delete contact -id [CONTACT_ID]`
+- **Command Format**: `delete -id [CONTACT_ID]`
 
-- **Example**: `delete contact -id 3`
+- **Example**: `delete -id 3`
 
 - **Acceptable Values**:
     - CONTACT_ID: Non-negative integer.
@@ -105,11 +119,11 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### Create a New Meeting
 
-- **What it does**: Organizes a new meeting with optional notes and contacts.
+- **What it does**: Organizes a new meeting with optional notes and contacts when in the "meetings" mode.
 
-- **Command Format**: `add meeting -title MEETING_NAME -time DD/MM/YYYY HH:MM -place LOCATION[-desc DESCRIPTION]`
+- **Command Format**: `add -title MEETING_NAME -time DD/MM/YYYY HH:MM -place LOCATION[-desc DESCRIPTION]`
 
-- **Example**: `add meeting -title Project Discussion -time 03/10/2023 15:00 -place Terrace -desc Discussing milestones`
+- **Example**: `add -title Project Discussion -time 03/10/2023 15:00 -place Terrace -desc Discussing milestones`
 
 - **Acceptable Values**:
     - MEETING_NAME: String, at least 2 characters long.
@@ -126,11 +140,11 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### View a Meeting
 
-- **What it does**: Displays details of a specific meeting.
+- **What it does**: Displays details of a specific meeting when in the "meetings" mode.
 
-- **Command Format**: `view meeting -[MEETING_ID or MEETING_NAME]`
+- **Command Format**: `view -[MEETING_ID or MEETING_NAME]`
 
-- **Example**: `view meeting Project Discussion`
+- **Example**: `view Project Discussion`
 
 - **Acceptable Values**:
     - MEETING_ID: Non-negative integer.
@@ -145,9 +159,9 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### List All Meetings
 
-- **What it does**: Shows a list of all meetings.
+- **What it does**: Shows a list of all meetings when in the "meetings" mode.
 
-- **Command Format**: `list meetings`
+- **Command Format**: `list`
 
 - **Expected Outputs**:
     - Success: List of all meetings.
@@ -159,11 +173,11 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### Delete a Meeting
 
-- **What it does**: Cancels a meeting based on the given ID or name.
+- **What it does**: Cancels a meeting based on the given ID or name  when in the "meetings" mode.
 
-- **Command Format**: `delete meeting -MEETING_ID`
+- **Command Format**: `delete -MEETING_ID`
 
-- **Example**: `delete meeting Project Discussion`
+- **Example**: `delete Project Discussion`
 
 - **Acceptable Values**:
     - MEETING_ID: Non-negative integer.
@@ -179,11 +193,11 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### Add Contact to Meeting
 
-- **What it does**: Adds a contact to an existing meeting as a participant.
+- **What it does**: Adds a contact to an existing meeting as a participant when in the "meetings" mode.
 
-- **Command Format**: `add contact to meeting -n CONTACT_NAME -title MEETING_NAME`
+- **Command Format**: `add contact -n CONTACT_NAME -title MEETING_NAME`
 
-- **Example**: `add contact to meeting -n Sarah Woo -title Project Discussion`
+- **Example**: `add contact -n Sarah Woo -title Project Discussion`
 
 - **Acceptable Values**:
     - MEETING_NAME: String, at least 2 characters long. Not case sensitive.
@@ -201,11 +215,11 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### Delete Contact from Meeting
 
-- **What it does**: Removes a contact from an existing meeting.
+- **What it does**: Removes a contact from an existing meeting when in the "meetings" mode.
 
-- **Command Format**: `delete contact from meeting -n CONTACT_NAME -title MEETING_NAME`
+- **Command Format**: `delete contact -n CONTACT_NAME -title MEETING_NAME`
 
-- **Example**: `delete contact from meeting -n Sarah Woo -title Project Discussion`
+- **Example**: `delete contact -n Sarah Woo -title Project Discussion`
 
 - **Acceptable Values**:
     - MEETING_NAME: String, at least 2 characters long. Not case sensitive.
@@ -226,15 +240,15 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### Add Notes to a Contact or Meeting
 
-- **What it does**: Associates notes with a specific contact or meeting.
+- **What it does**: Associates notes with a specific contact or meeting
 
 - **Command Format**:
-    - For Contacts: `add contact note -id CONTACT_ID_or_CONTACT_NAME -note NOTES`
-    - For Meetings: `add meeting note -id MEETING_ID_or_MEETING_NAME -note NOTES`
+    - For Contacts when in "contacts" mode: `add note -id CONTACT_ID_or_CONTACT_NAME -c NOTES`
+    - For Meetings when in "Meetings" mode: `add note -id MEETING_ID_or_MEETING_NAME -m NOTES`
 
 - **Examples**:
-    - `add contact note -id 5 -note Has a dog named Benny`
-    - `add meeting note -id Project Discussion -note Agenda: Discuss Q2 results`
+    - `add note -id 5 -note Has a dog named Benny`
+    - `add note -id Project Discussion -note Agenda: Discuss Q2 results`
 
 - **Acceptable Values**:
     - CONTACT_ID: Non-negative integer.
@@ -259,12 +273,12 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 - **What it does**: Removes specified notes from a contact or meeting.
 
 - **Command Format**:
-    - For Contacts: `delete contact note -id CONTACT_ID_or_CONTACT_NAME -index NOTE_INDEX`
-    - For Meetings: `delete meeting note -id MEETING_ID_or_MEETING_NAME -index NOTE_INDEX`
+    - For Contacts when in "contacts" mode: `delete note -id CONTACT_ID_or_CONTACT_NAME -index NOTE_INDEX`
+    - For Meetings when in "Meetings" mode: `delete note -id MEETING_ID_or_MEETING_NAME -index NOTE_INDEX`
 
 - **Examples**:
-    - `delete contact note -id 5 -index 2`
-    - `delete meeting note -id Project Discussion -index 1`
+    - `delete note -id 5 -index 2`
+    - `delete note -id Project Discussion -index 1`
 
 - **Acceptable Values**:
     - CONTACT_ID: Non-negative integer.

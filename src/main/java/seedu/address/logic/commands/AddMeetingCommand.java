@@ -1,6 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_MEETING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PLACE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -13,9 +18,21 @@ import seedu.address.model.meeting.Meeting;
  */
 public class AddMeetingCommand extends Command {
 
-    public static final String COMMAND_WORD = "add meeting";
+    public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + "blahblah fill in later";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a meeting to the address book. "
+            + "Parameters: "
+            + PREFIX_TITLE + "TITLE "
+            + PREFIX_TIME + "TIME "
+            + PREFIX_PLACE + "PLACE "
+            + PREFIX_DESCRIPTION + "DESCRIPTION "
+            + PREFIX_NOTE_MEETING + "NOTE"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_TITLE + " Project Discussion "
+            + PREFIX_TIME + " 03/10/2023 15:00 "
+            + PREFIX_PLACE + " Terrace "
+            + PREFIX_DESCRIPTION + " Discussing milestones "
+            + PREFIX_NOTE_MEETING + "test note 1";
 
     public static final String MESSAGE_SUCCESS = "New meeting added: %1$s";
 

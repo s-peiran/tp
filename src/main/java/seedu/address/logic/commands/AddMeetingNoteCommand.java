@@ -20,7 +20,7 @@ import seedu.address.model.note.Note;
  */
 public class AddMeetingNoteCommand extends Command {
 
-    public static final String COMMAND_WORD = "add meeting note";
+    public static final String COMMAND_WORD = "add note";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the note of the meeting identified "
