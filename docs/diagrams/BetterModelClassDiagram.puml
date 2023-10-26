@@ -18,8 +18,5 @@ Contact *--> Name
 Contact *--> Phone
 Contact *--> Email
 Contact *--> Address
-<<<<<<< HEAD
 Contact *--> "*" Note
-=======
->>>>>>> master
 @enduml

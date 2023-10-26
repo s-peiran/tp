@@ -21,8 +21,15 @@ Class Phone
 Class Tag
 Class Note
 
+
 Class I #FFFFFF
+
+package Meetings <<Rectangle>> {
+Class HiddenLogic #FFFFFF
 }
+}
+
+
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
@@ -37,16 +44,14 @@ ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniqueContactList
+AddressBook *--> "1" Meetings
 UniqueContactList --> "~* all" Contact
 Contact *--> Name
 Contact *--> Phone
 Contact *--> Email
 Contact *--> Address
 Contact *--> "*" Tag
-<<<<<<< HEAD
 Contact *--> "*" Note
-=======
->>>>>>> master
 
 Contact -[hidden]up--> I
 UniqueContactList -[hidden]right-> I
