@@ -14,8 +14,6 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddContactCommand;
 import seedu.address.logic.commands.AddContactToMeetingCommand;
