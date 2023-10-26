@@ -15,6 +15,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.Model.ModeType;
 import seedu.address.model.contact.NameContainsKeywordsPredicate;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.testutil.AddressBookBuilder;
@@ -106,6 +107,13 @@ public class ModelManagerTest {
     public void hasMeeting_personNotInNotenote_returnsFalse() {
         Meeting meeting = new MeetingBuilder().build();
         assertFalse(modelManager.hasMeeting(meeting));
+    }
+
+    @Test
+    public void changeMode_togglesMode() {
+        ModeType currentMode = modelManager.getMode();
+        modelManager.changeMode();
+        assertFalse(currentMode == modelManager.getMode());
     }
 
     @Test

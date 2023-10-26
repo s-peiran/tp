@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddContactCommand;
 import seedu.address.logic.commands.AddContactToMeetingCommand;
@@ -26,6 +28,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindContactCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListContactCommand;
+import seedu.address.logic.commands.ModeCommand;
 import seedu.address.logic.commands.ViewContactCommand;
 import seedu.address.logic.commands.ViewMeetingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -153,6 +156,13 @@ public class AddressBookParserTest {
         assertTrue(parser.parseCommand(ListContactCommand.COMMAND_WORD, model) instanceof ListContactCommand);
         assertTrue(parser.parseCommand(ListContactCommand.COMMAND_WORD + " -id 3", model)
                 instanceof ListContactCommand);
+    }
+
+    @Test
+    public void parseCommand_mode() throws Exception {
+        assertTrue(parser.parseCommand(ModeCommand.COMMAND_WORD, model) instanceof ModeCommand);
+        assertTrue(parser.parseCommand(ModeCommand.COMMAND_WORD + " -id 3", model)
+                instanceof ModeCommand);
     }
 
     @Test
