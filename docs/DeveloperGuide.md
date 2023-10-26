@@ -434,7 +434,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 1b. The specified contact(s) do/does not exist in Notenote.
 
     * 1b1. Notenote shows an error message.
-        
+
         Use case ends.
 
 **UC02 - Delete a meeting**
@@ -445,7 +445,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. Notenote validates the provided index, retrieves the corresponding meeting, and deletes it.
 3. Notenote confirms the deletion and updates the display.
 
-   Use case ends.
+    Use case ends.
 
 **Extensions**
 
@@ -466,7 +466,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. Notenote validates the provided index, retrieves the corresponding meeting, and applies the requested changes.
 3. Notenote saves the changes and displays the updated meeting card.
 
-   Use case ends.
+    Use case ends.
 
 **Extensions**
 
@@ -486,7 +486,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. The meeting is updated with the given notes/comments/remarks.
 3. Notenote displays the meeting with the updated notes/comments/remarks.
 
-   Use case ends.
+    Use case ends.
 
 **Extensions**
 
@@ -501,11 +501,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User <ins>creates a meeting (UC01) .</ins> 
+1. User <ins>creates a meeting (UC01) .</ins>
 2. User requests to add contacts to the meeting.
 3. Notenote displays the details of the meeting with the newly added contact.
 
-   Use case ends.
+    Use case ends.
 
 **Extensions**
 
@@ -513,14 +513,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     * 2a1. Notenote shows an error message.
     * 2a2. User request to add contacts to the meeting in the correct format.
-      
+
       Use case resumes at step 3.
 
 * 2b. The specified contact(s)/meeting do/does not exist in Notenote.
 
     * 2b1. Notenote shows an error message.
     * 2b2. User requests to add contacts with existing contact(s)/meeting.
-      
+
       Use case resumes at step 3.
 
 *{More to be added}*
@@ -529,8 +529,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2. Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
-3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be
-   able to accomplish most of the tasks faster using commands than using the mouse.
+3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 *{More to be added}*
 
