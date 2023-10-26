@@ -388,17 +388,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 1a. The request is in an improper format.
 
     * 1a1. Notenote shows an error message.
-    * 1a2. User acknowledges the error message.
-    * 1a3. User request to create a meeting in the correct format.
+    * 1a2. User request to create a meeting in the correct format.
       Use case resumes at step 2.
 
 * 1b. The specified contact(s) do/does not exist in Notenote.
 
     * 1b1. Notenote shows an error message.
-    * 1b2. User acknowledges the error message.
       Use case ends.
 
-**UC02 - take notes about meetings**
+**UC02 - Take notes about meetings**
 
 **MSS**
 
@@ -416,6 +414,30 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1a2. User acknowledges the error message.
 
       Use case ends.
+
+**UC03 - Add additional contacts to a meeting **
+
+**MSS**
+
+1. User <ins>creates a meeting (UC01) .</ins> 
+2. User requests to add contacts to the meeting.
+3. Notenote displays the details of the meeting with the newly added contact.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The request is in an improper format.
+
+    * 2a1. Notenote shows an error message.
+    * 2a2. User request to add contacts to the meeting in the correct format.
+      Use case resumes at step 3.
+
+* 2b. The specified contact(s)/meeting do/does not exist in Notenote.
+
+    * 2b1. Notenote shows an error message.
+    * 2b2. User requests to add contacts with existing contact(s)/meeting.
+      Use case resumes at step 3.
 
 *{More to be added}*
 
@@ -467,11 +489,11 @@ testers are expected to do more *exploratory* testing.
 
     1. Prerequisites: List all contacts using the `list` command. Multiple contacts in the list.
 
-    1. Test case: `delete 1`<br>
+    1. Test case: `delete -id 1`<br>
        Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
        Timestamp in the status bar is updated.
 
-    1. Test case: `delete 0`<br>
+    1. Test case: `delete -id 0`<br>
        Expected: No contact is deleted. Error details shown in the status message. Status bar remains the same.
 
     1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
