@@ -18,8 +18,7 @@ import seedu.address.model.note.Note;
  */
 public class ViewContactCommand extends Command {
 
-    public static final String COMMAND_WORD = "view contact";
-
+    public static final String COMMAND_WORD = "view";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Shows the details of the contact identified by its id in the displayed contact list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"

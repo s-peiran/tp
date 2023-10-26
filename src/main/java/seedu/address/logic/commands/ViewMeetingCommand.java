@@ -18,7 +18,7 @@ import seedu.address.model.note.Note;
  */
 public class ViewMeetingCommand extends Command {
 
-    public static final String COMMAND_WORD = "view meeting";
+    public static final String COMMAND_WORD = "view";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Shows the details of the meeting identified by its id in the displayed meeting list.\n"

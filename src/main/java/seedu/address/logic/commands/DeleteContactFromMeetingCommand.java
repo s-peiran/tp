@@ -16,7 +16,7 @@ import seedu.address.model.meeting.Meeting;
  * Deletes a contact from a meeting identified using it's name
  */
 public class DeleteContactFromMeetingCommand extends Command {
-    public static final String COMMAND_WORD = "delete contact from meeting";
+    public static final String COMMAND_WORD = "delete contact";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Removes the participants to the meeting identified "

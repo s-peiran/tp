@@ -20,7 +20,7 @@ import seedu.address.model.note.Note;
  */
 public class AddNoteCommand extends Command {
 
-    public static final String COMMAND_WORD = "add contact note";
+    public static final String COMMAND_WORD = "add note";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the note of the person identified "
