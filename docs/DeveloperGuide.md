@@ -300,6 +300,111 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
+### \[Proposed\] Command History and Auto-Complete Feature
+
+#### Proposed Implementation
+
+The proposed command history and auto-complete mechanism is facilitated by `CommandHistory`. It extends `Notenote` with a command history, stored internally as `commandList`. Additionally, it implements the following operations:
+
+* `CommandHistory#addCommand(String command)` - Adds the executed command to the command history.
+* `CommandHistory#getFilteredCommands(String input)` - Retrieves a list of commands from the command history that starts with the given input.
+
+These operations are exposed in the `Model` interface as `Model#addCommandHistory(String command)` and `Model#getFilteredCommandHistory(String input)` respectively.
+
+When the user presses the up or down arrow key, the `UI` will call `Model#getFilteredCommandHistory(String input)`, where `input` is the current text in the command input box. The retrieved list of commands will be displayed in the command input box, allowing the user to cycle through the commands by continuing to press the up or down arrow key.
+
+Given below is an example usage scenario and how the command history and auto-complete mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `CommandHistory` will be initialized as an empty list.
+
+Step 2. The user executes the command `add meeting -title Project Meeting -time 01/01/2023 12:00 -place Zoom`. The command calls `Model#addCommandHistory(String command)`, causing the executed command to be saved in the `commandList`.
+
+Step 3. The user then executes the command `add meeting -title Tutorial -time 01/01/2023 13:00 -place Discord`. This command is also saved in the `commandList`.
+
+Step 4. The user starts to type the command `add mee` and then presses the up or down arrow key. The `UI` will call `Model#getFilteredCommandHistory(String input)`, which retrieves the list of commands starting with `add mee` from the `commandList`. In this case, it will retrieve the two previous commands.
+
+Step 5. The user can then cycle through the two commands by pressing the up or down arrow key. The commands will be displayed in the command input box in reverse chronological order.
+
+#### Design Considerations:
+
+**Aspect: How the command history and auto-complete feature is implemented:**
+
+* **Alternative 1: Store Commands as Strings**
+    * Implementation: Save each command as a string in a list. When the user presses the up or down arrow key, retrieve the commands that start with the current input.
+    * Pros: Simple to implement; easy to retrieve commands.
+    * Cons: May include unnecessary information if the command has multiple parameters.
+
+* **Alternative 2: Store Commands as Objects**
+    * Implementation: Save each command as an object that includes the command type and its parameters. Implement a method to convert the command object to a string for display. When the user presses the up or down arrow key, retrieve the command objects that match the current input and convert them to strings for display.
+    * Pros: Allows for more flexible retrieval and display of commands; can easily extend functionality in the future.
+    * Cons: More complex implementation; requires additional processing to convert command objects to strings for display.
+
+### [Implemented] Mode feature
+
+#### Context
+
+At the time when this feature was implemented, the commands within the application were split into 3 broad categories: Commands for contacts, commands for meetings, and general commands.
+
+However, users had to specify each command in entirety without regard for which category the command belonged to. For example when adding a contact to a meeting, the user had to type `add contact to meeting -name ContactName -title MeetingName`.
+
+This format was too lengthy and it seemed highly likely that when a user is interacting with a specific category of commands, they would interact with it more often than the other categories. For example when a user adds a meeting, it more likely that the user follows up with adding contacts or notes to the meeting as compared to other functions of the application.
+
+To improve upon this, a mode feature was implemented so that users can be either in the `contact mode` or `meeting mode` and when a command is run it will automatically be translated into the respective contact or meeting command. So instead of typing `add contact to meeting`, the user could instead type `add contact` while running in the `meeting mode`.
+
+### Implementation
+
+Firstly, in order to keep track of the current mode the application is running in, the Model interface and the ModelManager implementation had to be modified to keep track of what is now known as ModeType, which is an Enum and as of now can only be `CONTACTS` or `MEETINGS`. The general commands such as exit, help and mode itself does not need a ModeType because such commands can be run while in any ModeType. Additionally, the default ModeType when initializing a ModelManager is `CONTACTS` for no particular reason.
+
+Secondly, the Mode command itself is implemented where upon executing the command, the model will update its `FilteredContactList` or `FilteredMeetingList` to show the user the entire contact or meeting list respectively.
+
+Thirdly, all affected commands had to have their formats changed to suit the new style of running under a certain context.
+
+Lastly, the AddressBookParser had to be modified to accomodate the new modes and command formats.
+
+### Design considerations:
+
+Alternative 1 (current choice): Implement the mode command as a standalone without arguments
+* Pros: Easy to implement. User can easily toggle between `CONTACTS` and `MEETINGS` ModeType.
+* Cons: Less extensible by developers if in the future there are new ModeTypes.
+
+Alternative 2: Implement the mode command with arguments e.g `mode -type CONTACTS`
+* Pros: Easily extensible by developers, can just add a new enum for a new ModeType.
+* Cons: More troublesome to implement. Harder to use for the users.
+
+### [Proposed] Note Feature
+
+#### Context
+
+Note-taking is the fundamental feature behind our app. It is critical for our users to be able to efficiently record
+notes for contacts and meetings.
+
+The full implementation of the feature will include creating, reading, and deleting notes. A possible extension is
+giving users the ability to edit previous notes, but that is outside the scope of our project for now.
+
+### Implementation (Add Notes)
+
+A new `Note` class is created, which stores the contents of the note as a string. The `Contact`/`Meeting` model is then updated
+to include a new `notes` attribute of type `ArrayList<Note>`.
+
+To distinguish between adding notes to contacts and meetings, 2 separate Command classes are created, namely 
+`AddNoteCommand` (for contacts) and `AddMeetingNoteCommand` (for meetings). These classes will then call 
+their respective parser classes, to get the arguments passed in by the user. The arguments include the
+index of the target contact/meeting and the note itself.
+
+When the respective commands are executed, Notenote will get the indexed contact/meeting object from
+the Model's `FilteredContactList`/`FilteredMeetingList`. Internally, the model will duplicate the existing list of notes
+and append the additional note.
+
+Then, a new `Contact`/`Meeting` will be created with identical attributes as the original, with the exception of the
+updated `notes` list. The model is then updated with this new `Contact`/`Meeting`, and the filtered list is
+updated as well.
+
+### Design Considerations
+
+* **Alternative 1: store `notes` attribute in `Contact` model as `Set<Note>`**
+  * Pros: Simpler to implement (similar to `Tag` implementation).
+  * Cons: Notes will appear in an arbitrary order, rather than chronologically.
+
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
@@ -381,24 +486,65 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. Notenote creates the meeting card.
 3. Notenote displays the newly created meeting card.
 
-   Use case ends.
+    Use case ends.
 
 **Extensions**
 
 * 1a. The request is in an improper format.
 
     * 1a1. Notenote shows an error message.
-    * 1a2. User acknowledges the error message.
-    * 1a3. User request to create a meeting in the correct format.
+    * 1a2. User request to create a meeting in the correct format.
+
       Use case resumes at step 2.
 
 * 1b. The specified contact(s) do/does not exist in Notenote.
 
     * 1b1. Notenote shows an error message.
-    * 1b2. User acknowledges the error message.
-      Use case ends.
 
-**UC02 - take notes about meetings**
+        Use case ends.
+
+**UC02 - Delete a meeting**
+
+**MSS**
+
+1. User requests to delete a meeting specifying meeting index.
+2. Notenote validates the provided index, retrieves the corresponding meeting, and deletes it.
+3. Notenote confirms the deletion and updates the display.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The request is in an improper format.
+
+    * <ins>(Refer to UC01, 1a)</ins>
+
+* 1b. The specified meeting index is invalid or does not exist in Notenote.
+
+    * <ins>(Refer to UC01, 1b)</ins>
+
+
+**UC03 - Edit a meeting**
+
+**MSS**
+
+1. User requests to edit a meeting specifying meeting index and changes to be made (e.g., meeting title, time, etc.).
+2. Notenote validates the provided index, retrieves the corresponding meeting, and applies the requested changes.
+3. Notenote saves the changes and displays the updated meeting card.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The request is in an improper format.
+
+    * <ins>(Refer to UC01, 1a)</ins>
+
+* 1b. The specified meeting index is invalid or does not exist in Notenote.
+
+    * <ins>(Refer to UC01, 1b)</ins>
+
+**UC04 - Take notes about meetings**
 
 **MSS**
 
@@ -406,7 +552,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. The meeting is updated with the given notes/comments/remarks.
 3. Notenote displays the meeting with the updated notes/comments/remarks.
 
-   Use case ends.
+    Use case ends.
 
 **Extensions**
 
@@ -417,14 +563,39 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
+**UC05 - Add additional contacts to a meeting**
+
+**MSS**
+
+1. User <ins>creates a meeting (UC01) .</ins>
+2. User requests to add contacts to the meeting.
+3. Notenote displays the details of the meeting with the newly added contact.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The request is in an improper format.
+
+    * 2a1. Notenote shows an error message.
+    * 2a2. User request to add contacts to the meeting in the correct format.
+
+      Use case resumes at step 3.
+
+* 2b. The specified contact(s)/meeting do/does not exist in Notenote.
+
+    * 2b1. Notenote shows an error message.
+    * 2b2. User requests to add contacts with existing contact(s)/meeting.
+
+      Use case resumes at step 3.
+
 *{More to be added}*
 
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2. Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
-3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be
-   able to accomplish most of the tasks faster using commands than using the mouse.
+3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 *{More to be added}*
 
@@ -467,11 +638,11 @@ testers are expected to do more *exploratory* testing.
 
     1. Prerequisites: List all contacts using the `list` command. Multiple contacts in the list.
 
-    1. Test case: `delete 1`<br>
+    1. Test case: `delete -id 1`<br>
        Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
        Timestamp in the status bar is updated.
 
-    1. Test case: `delete 0`<br>
+    1. Test case: `delete -id 0`<br>
        Expected: No contact is deleted. Error details shown in the status message. Status bar remains the same.
 
     1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
