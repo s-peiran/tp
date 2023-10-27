@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showContactAtIndex;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalContactsAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
@@ -13,8 +14,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.CommandResult.ListType;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -27,15 +26,14 @@ public class ViewContactCommandTest {
     private Model model = new ModelManager(getTypicalContactsAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_validIndexUnfilteredList_success() throws CommandException {
+    public void execute_validIndexUnfilteredList_success() {
         Contact contactToDisplay = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
         ViewContactCommand viewContactCommand = new ViewContactCommand(INDEX_FIRST);
         String expectedMessage = String.format(ViewContactCommand.MESSAGE_VIEW_CONTACT_SUCCESS,
                 Messages.formatContact(contactToDisplay));
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, contactToDisplay.getNoteString(),
-                false, false, contactToDisplay, null, ListType.NONE);
-        CommandResult result = viewContactCommand.execute(model);
-        assertEquals(expectedCommandResult, result);
+        String expectedNote = contactToDisplay.getNoteString();
+
+        assertCommandSuccess(viewContactCommand, model, expectedMessage, expectedNote);
     }
 
     @Test
@@ -47,17 +45,16 @@ public class ViewContactCommandTest {
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() throws CommandException {
+    public void execute_validIndexFilteredList_success() {
         showContactAtIndex(model, INDEX_FIRST);
 
         Contact contactToDisplay = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
         ViewContactCommand viewContactCommand = new ViewContactCommand(INDEX_FIRST);
         String expectedMessage = String.format(ViewContactCommand.MESSAGE_VIEW_CONTACT_SUCCESS,
                 Messages.formatContact(contactToDisplay));
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, contactToDisplay.getNoteString(),
-                false, false, contactToDisplay, null, ListType.NONE);
-        CommandResult result = viewContactCommand.execute(model);
-        assertEquals(expectedCommandResult, result);
+        String expectedNote = contactToDisplay.getNoteString();
+
+        assertCommandSuccess(viewContactCommand, model, expectedMessage, expectedNote);
     }
 
     @Test

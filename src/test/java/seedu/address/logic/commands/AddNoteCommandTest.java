@@ -1,11 +1,11 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showContactAtIndex;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.CommandResult.ListType;
-import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -34,18 +34,21 @@ public class AddNoteCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_addNoteUnfilteredList_success() throws CommandException {
+    public void execute_addNoteUnfilteredList_success() {
         Contact firstPerson = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
         Contact editedPerson = new ContactBuilder(firstPerson).withNotes(NOTE_STUB).build();
-        model.setContact(firstPerson, editedPerson);
+
         AddNoteCommand addNoteCommand = new AddNoteCommand(INDEX_FIRST, new Note(NOTE_STUB));
 
         String expectedMessage = String.format(AddNoteCommand.MESSAGE_ADD_NOTE_SUCCESS, editedPerson);
 
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setContact(firstPerson, editedPerson);
+
         CommandResult expectedCommandResult = new CommandResult(expectedMessage,
                 editedPerson.getNoteString(), false, false, editedPerson, null, ListType.CONTACTS);
-        CommandResult result = addNoteCommand.execute(model);
-        assertEquals(expectedCommandResult, result);
+
+        assertCommandSuccess(addNoteCommand, model, expectedCommandResult, expectedModel);
     }
 
     // Delete functionality has not been implemented yet
@@ -66,23 +69,25 @@ public class AddNoteCommandTest {
     //    }
 
     @Test
-    public void execute_filteredList_success() throws CommandException {
+    public void execute_filteredList_success() {
         showContactAtIndex(model, INDEX_FIRST);
 
         Contact firstPerson = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
         Contact editedPerson = new ContactBuilder(model.getFilteredContactList()
                 .get(INDEX_FIRST.getZeroBased()))
                 .withNotes(NOTE_STUB).build();
-        model.setContact(firstPerson, editedPerson);
 
         AddNoteCommand addNoteCommand = new AddNoteCommand(INDEX_FIRST, new Note(NOTE_STUB));
 
         String expectedMessage = String.format(AddNoteCommand.MESSAGE_ADD_NOTE_SUCCESS, editedPerson);
 
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, editedPerson.getNoteString(), false,
-                false, editedPerson, null, ListType.CONTACTS);
-        CommandResult result = addNoteCommand.execute(model);
-        assertEquals(expectedCommandResult, result);
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setContact(firstPerson, editedPerson);
+
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                editedPerson.getNoteString(), false, false, editedPerson, null, ListType.CONTACTS);
+
+        assertCommandSuccess(addNoteCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showMeetingAtIndex;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalMeetingsAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
@@ -13,8 +14,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.CommandResult.ListType;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -27,16 +26,14 @@ public class ViewMeetingCommandTest {
     private Model model = new ModelManager(getTypicalMeetingsAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_validIndexUnfilteredList_success() throws CommandException {
+    public void execute_validIndexUnfilteredList_success() {
         Meeting meetingToDisplay = model.getFilteredMeetingList().get(INDEX_FIRST.getZeroBased());
         ViewMeetingCommand viewMeetingCommand = new ViewMeetingCommand(INDEX_FIRST);
         String expectedMessage = String.format(ViewMeetingCommand.MESSAGE_VIEW_MEETING_SUCCESS,
                 Messages.formatMeeting(meetingToDisplay));
+        String expectedNote = meetingToDisplay.getNoteString();
 
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, meetingToDisplay.getNoteString(),
-                false, false, null, meetingToDisplay, ListType.NONE);
-        CommandResult result = viewMeetingCommand.execute(model);
-        assertEquals(expectedCommandResult, result);
+        assertCommandSuccess(viewMeetingCommand, model, expectedMessage, expectedNote);
     }
 
     @Test
@@ -48,18 +45,16 @@ public class ViewMeetingCommandTest {
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() throws CommandException {
+    public void execute_validIndexFilteredList_success() {
         showMeetingAtIndex(model, INDEX_FIRST);
 
         Meeting meetingToDisplay = model.getFilteredMeetingList().get(INDEX_FIRST.getZeroBased());
         ViewMeetingCommand viewMeetingCommand = new ViewMeetingCommand(INDEX_FIRST);
         String expectedMessage = String.format(ViewMeetingCommand.MESSAGE_VIEW_MEETING_SUCCESS,
                 Messages.formatMeeting(meetingToDisplay));
+        String expectedNote = meetingToDisplay.getNoteString();
 
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, meetingToDisplay.getNoteString(),
-                false, false, null, meetingToDisplay, ListType.NONE);
-        CommandResult result = viewMeetingCommand.execute(model);
-        assertEquals(expectedCommandResult, result);
+        assertCommandSuccess(viewMeetingCommand, model, expectedMessage, expectedNote);
     }
 
     @Test

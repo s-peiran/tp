@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_ENG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_CHI;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_CHI;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showMeetingAtIndex;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalMeetingsAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
@@ -19,7 +20,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.CommandResult.ListType;
 import seedu.address.logic.commands.EditMeetingCommand.EditMeetingDescriptor;
-import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -35,7 +36,7 @@ public class EditMeetingCommandTest {
     private Model model = new ModelManager(getTypicalMeetingsAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() throws CommandException {
+    public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Meeting editedMeeting = new MeetingBuilder().build();
         EditMeetingDescriptor descriptor = new EditMeetingDescriptorBuilder(editedMeeting).build();
         EditMeetingCommand editMeetingCommand = new EditMeetingCommand(INDEX_FIRST, descriptor);
@@ -43,15 +44,18 @@ public class EditMeetingCommandTest {
         String expectedMessage = String.format(EditMeetingCommand.MESSAGE_EDIT_MEETING_SUCCESS,
                 Messages.formatMeeting(editedMeeting));
 
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setMeeting(model.getFilteredMeetingList().get(0), editedMeeting);
+
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, editedMeeting.getNoteString(),
                 false, false, null, editedMeeting, ListType.MEETINGS);
-        CommandResult result = editMeetingCommand.execute(model);
-        assertEquals(expectedCommandResult, result);
+
+        assertCommandSuccess(editMeetingCommand, model, expectedCommandResult, expectedModel);
     }
 
 
     @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() throws CommandException {
+    public void execute_someFieldsSpecifiedUnfilteredList_success() {
         Index indexLastMeeting = Index.fromOneBased(model.getFilteredMeetingList().size());
         Meeting lastMeeting = model.getFilteredMeetingList().get(indexLastMeeting.getZeroBased());
 
@@ -65,15 +69,17 @@ public class EditMeetingCommandTest {
         String expectedMessage = String.format(EditMeetingCommand.MESSAGE_EDIT_MEETING_SUCCESS,
                 Messages.formatMeeting(editedMeeting));
 
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setMeeting(lastMeeting, editedMeeting);
+
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, editedMeeting.getNoteString(),
                 false, false, null, editedMeeting, ListType.MEETINGS);
 
-        CommandResult result = editMeetingCommand.execute(model);
-        assertEquals(expectedCommandResult, result);
+        assertCommandSuccess(editMeetingCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() throws CommandException {
+    public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditMeetingCommand editMeetingCommand = new EditMeetingCommand(INDEX_FIRST,
                 new EditMeetingDescriptor());
         Meeting editedMeeting = model.getFilteredMeetingList().get(INDEX_FIRST.getZeroBased());
@@ -81,14 +87,16 @@ public class EditMeetingCommandTest {
         String expectedMessage = String.format(EditMeetingCommand.MESSAGE_EDIT_MEETING_SUCCESS,
                 Messages.formatMeeting(editedMeeting));
 
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, editedMeeting.getNoteString(),
                 false, false, null, editedMeeting, ListType.MEETINGS);
-        CommandResult result = editMeetingCommand.execute(model);
-        assertEquals(expectedCommandResult, result);
+
+        assertCommandSuccess(editMeetingCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
-    public void execute_filteredList_success() throws CommandException {
+    public void execute_filteredList_success() {
         showMeetingAtIndex(model, INDEX_FIRST);
 
         Meeting meetingInFilteredList = model.getFilteredMeetingList().get(INDEX_FIRST.getZeroBased());
@@ -98,10 +106,14 @@ public class EditMeetingCommandTest {
 
         String expectedMessage = String.format(EditMeetingCommand.MESSAGE_EDIT_MEETING_SUCCESS,
                 Messages.formatMeeting(editedMeeting));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setMeeting(model.getFilteredMeetingList().get(0), editedMeeting);
+
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, editedMeeting.getNoteString(),
                 false, false, null, editedMeeting, ListType.MEETINGS);
-        CommandResult result = editMeetingCommand.execute(model);
-        assertEquals(expectedCommandResult, result);
+
+        assertCommandSuccess(editMeetingCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test

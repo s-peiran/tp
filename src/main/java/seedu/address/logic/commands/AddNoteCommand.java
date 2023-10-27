@@ -68,7 +68,7 @@ public class AddNoteCommand extends Command {
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(Model.PREDICATE_SHOW_ALL_CONTACTS);
 
-        return new CommandResult(generateSuccessMessage(editedContact), contactToEdit.getNoteString(),
+        return new CommandResult(generateSuccessMessage(editedContact), editedContact.getNoteString(),
                 false, false, editedContact, null, CommandResult.ListType.CONTACTS);
     }
 

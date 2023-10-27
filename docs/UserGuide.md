@@ -28,12 +28,6 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### Mode
 
-- **What it does**: Toggles the mode of the application between "contacts" and "meetings". The application defaults to
-  the "contacts" mode. The mode of the application determines the context in which the following commands are executed
-  upon:
-    1. add
-    2. list
-
 - **Command Format**: `mode`
 
 - **Expected Outputs**:
