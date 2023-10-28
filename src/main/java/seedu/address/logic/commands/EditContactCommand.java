@@ -48,8 +48,8 @@ public class EditContactCommand extends Command {
             + "[" + PREFIX_TAG + "TAG] "
             + "[" + PREFIX_NOTE_CONTACT + "NOTE]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_PHONE + " 91234567 "
+            + PREFIX_EMAIL + " johndoe@example.com";
 
     public static final String MESSAGE_EDIT_CONTACT_SUCCESS = "Edited Contact: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -90,7 +90,8 @@ public class EditContactCommand extends Command {
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
 
         return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS,
-            Messages.formatContact(editedContact)));
+                Messages.formatContact(editedContact)), editedContact.getNoteString(), false,
+                false, editedContact, null, CommandResult.ListType.CONTACTS);
     }
 
     /**

@@ -31,7 +31,7 @@ public class ViewContactCommandTest {
         ViewContactCommand viewContactCommand = new ViewContactCommand(INDEX_FIRST);
         String expectedMessage = String.format(ViewContactCommand.MESSAGE_VIEW_CONTACT_SUCCESS,
                 Messages.formatContact(contactToDisplay));
-        String expectedNote = contactToDisplay.getNotes().toString().replace("[", "").replace("]", "");
+        String expectedNote = contactToDisplay.getNoteString();
 
         assertCommandSuccess(viewContactCommand, model, expectedMessage, expectedNote);
     }
@@ -52,7 +52,7 @@ public class ViewContactCommandTest {
         ViewContactCommand viewContactCommand = new ViewContactCommand(INDEX_FIRST);
         String expectedMessage = String.format(ViewContactCommand.MESSAGE_VIEW_CONTACT_SUCCESS,
                 Messages.formatContact(contactToDisplay));
-        String expectedNote = contactToDisplay.getNotes().toString().replace("[", "").replace("]", "");
+        String expectedNote = contactToDisplay.getNoteString();
 
         assertCommandSuccess(viewContactCommand, model, expectedMessage, expectedNote);
     }

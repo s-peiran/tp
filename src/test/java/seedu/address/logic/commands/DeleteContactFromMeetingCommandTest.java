@@ -26,14 +26,15 @@ class DeleteContactFromMeetingCommandTest {
         ArrayList<Contact> listOfContacts = new ArrayList<>();
         listOfContacts.add(validContact);
         Meeting editedMeeting = new Meeting(
-            validMeeting.getTitle(), validMeeting.getTime(), validMeeting.getPlace(),
-            validMeeting.getDescription(), validMeeting.getNotes(), listOfContacts);
+                validMeeting.getTitle(), validMeeting.getTime(), validMeeting.getPlace(),
+                validMeeting.getDescription(), validMeeting.getNotes(), listOfContacts);
         model.setMeeting(validMeeting, editedMeeting);
         model.updateFilteredMeetingList(Model.PREDICATE_SHOW_ALL_MEETINGS);
         DeleteContactFromMeetingCommand command = new DeleteContactFromMeetingCommand(editedMeeting.getTitle()
-            .toString(), validContact.getNameString());
+                .toString(), validContact.getNameString());
         CommandResult expectedCommandResult = new CommandResult(String.format("Removed contact '%s' from Meeting '%s'",
-            validContact.getNameString(), editedMeeting.getTitleString()));
+                validContact.getNameString(), editedMeeting.getTitleString()), null,
+                false, false, validContact, validMeeting, CommandResult.ListType.MEETINGS);
         CommandResult result = command.execute(model);
         assertEquals(expectedCommandResult, result);
     }

@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -11,7 +10,6 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.note.Note;
 
 /**
  * Shows a Contact identified using its id from the address book.
@@ -22,7 +20,7 @@ public class ViewContactCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Shows the details of the contact identified by its id in the displayed contact list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " -id1";
+            + "Example: " + COMMAND_WORD + " -id 1";
 
     public static final String MESSAGE_VIEW_CONTACT_SUCCESS = "Showing Contact Note: %1$s";
 
@@ -43,17 +41,8 @@ public class ViewContactCommand extends Command {
 
         Contact contactToDisplay = lastShownList.get(targetIndex.getZeroBased());
 
-        StringBuilder sb = new StringBuilder();
-        Set<Note> setNotes = contactToDisplay.getNotes();
-        for (Note notes : setNotes) {
-            sb.append(notes.toString() + "\n");
-        }
-        if (sb.length() > 0) {
-            sb.setLength(sb.length() - 1);
-        }
-
         return new CommandResult(String.format(MESSAGE_VIEW_CONTACT_SUCCESS, Messages.formatContact(contactToDisplay)),
-                contactToDisplay, sb.toString());
+                contactToDisplay, contactToDisplay.getNoteString());
     }
 
     @Override

@@ -15,6 +15,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
     - [View a Meeting](#view-a-meeting)
     - [List All Meetings](#list-all-meetings)
     - [Delete a Meeting](#delete-a-meeting)
+    - [Edit a Meeting](#edit-a-meeting)
     - [Add Contact to Meeting](#add-contact-to-meeting)
     - [Delete Contact from Meeting](#delete-contact-from-meeting)
 - [Note-Taking](#note-taking)
@@ -26,11 +27,12 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 ---
 
 ### Mode
-- **What it does**: Toggles the mode of the application between "contacts" and "meetings".
-    The application defaults to the "contacts" mode. The mode of the application determines the
-    context in which the following commands are executed upon:
-  1. add
-  2. list
+
+- **What it does**: Toggles the mode of the application between "contacts" and "meetings". The application defaults to
+  the "contacts" mode. The mode of the application determines the context in which the following commands are executed
+  upon:
+    1. add
+    2. list
 
 - **Command Format**: `mode`
 
@@ -93,6 +95,24 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
     - Success: List of all contacts.
     - Failure:
         - If no contacts are available: `No contacts available.`
+
+---
+
+### Editing A Contact
+
+- **What it does**: Edits an existing person in the address book.
+
+- **Command Format**: `edit -id INDEX -n CONTACT_NAME -p PHONE_NUMBER -e EMAIL_ADDRESS -a RESIDENTIAL_ADDRESS [-t TAGS]`
+
+- **Example**: `edit -id 3 -p 90649923`
+
+- **Expected Outputs**:
+  -
+  Success: `Edited Contact: Alex Yeoh; Phone: 90649923; Email: alex.yeoh@gmail.com; Address: Blk 30 Geylang Street 29; Tags: `
+    - Failure:
+        - If the MEETING_ID does not exist: `The contact index provided is invalid`
+        - If invalid command format: `Invalid command format!
+          edit: Edits the details of the contact identified by the index number used in the displayed contact list. Existing values will be overwritten by the input values. Parameters: INDEX (must be a positive integer) [-nNAME] [-pPHONE] [-eEMAIL] [-aADDRESS] [-tTAG] [-cNOTE]... Example: edit 1 -p91234567 -ejohndoe@example.com`
 
 ---
 
@@ -173,7 +193,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### Delete a Meeting
 
-- **What it does**: Cancels a meeting based on the given ID or name  when in the "meetings" mode.
+- **What it does**: Cancels a meeting based on the given ID or name when in the "meetings" mode.
 
 - **Command Format**: `delete -MEETING_ID`
 
@@ -188,6 +208,26 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
         - If the MEETING_ID does not exist: `Meeting not found`
         - If the MEETING_ID is not provided: `Please specify a meeting`
         - If invalid command format: `Invalid command format`
+
+---
+
+### Edit A Meeting
+
+- **What it does** Edits the details of an existing meeting in the address book.
+
+- **Command Format**: `edit -MEETING_ID -title MEETING_NAME -time DD/MM/YYYY HH:MM -place LOCATION[-desc DESCRIPTION]`
+
+- **Example**: `edit -id 1 -title Strategy Planning -time 03/10/2023 16:00 -place u-town -desc Discuss prodcut strategy`
+
+- **Acceptable Values**:
+    - MEETING_ID: Non-negative integer.
+    - MEETING_NAME: String, at least 2 characters long.
+- **Expected Outputs**:
+    - Success: "Edited Meeting [MEETING_NAME]."
+    - Failure:
+        - If the MEETING_ID does not exist: `The meeting index provided is invalid`
+        - If invalid command format: `Invalid command format!
+          edit: Edits the details of the meeting identified by the index number used in the displayed meeting list. Existing values will be overwritten by the input values. Parameters: INDEX (must be a positive integer) [-titleTITLE] [-timeTIME] [-placePLACE] [-descDESCRIPTION]... Example: edit 1 -placeZoom -descDiscuss Project Details`
 
 ---
 

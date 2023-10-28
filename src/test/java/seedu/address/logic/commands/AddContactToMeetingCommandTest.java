@@ -6,6 +6,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.CommandResult.ListType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -22,9 +23,10 @@ class AddContactToMeetingCommandTest {
         Contact validContact = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
         Meeting validMeeting = model.getFilteredMeetingList().get(INDEX_FIRST.getZeroBased());
         AddContactToMeetingCommand command = new AddContactToMeetingCommand(validMeeting.getTitleString(),
-            validContact.getNameString());
+                validContact.getNameString());
         CommandResult expectedCommandResult = new CommandResult(String.format("Added contact '%s' to Meeting '%s'",
-            validContact.getNameString(), validMeeting.getTitleString()));
+                validContact.getNameString(), validMeeting.getTitleString()), null, false, false,
+                validContact, validMeeting, ListType.MEETINGS);
         CommandResult result = command.execute(model);
         assertEquals(expectedCommandResult, result);
 
