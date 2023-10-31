@@ -45,8 +45,8 @@ public class MeetingBuilder {
         time = new Time(DEFAULT_TIME);
         place = new Place(DEFAULT_PLACE);
         description = new Description(DEFAULT_DESCRIPTION);
-        notes = new HashSet<>();
-        contacts = new ArrayList<>();
+        notes = new HashSet<Note>();
+        contacts = new ArrayList<Contact>();
     }
 
     /**

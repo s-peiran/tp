@@ -31,8 +31,9 @@ public class AddMeetingCommandParser implements Parser<AddMeetingCommand> {
      */
     public AddMeetingCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_TIME, PREFIX_PLACE,
-                        PREFIX_DESCRIPTION);
+            ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_TIME, PREFIX_PLACE,
+                PREFIX_DESCRIPTION, PREFIX_NOTE_MEETING);
+        boolean test = argMultimap.getPreamble().isEmpty();
         if (!ArgumentMultimap.arePrefixesPresent(argMultimap, PREFIX_TITLE) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMeetingCommand.MESSAGE_USAGE));
         }
@@ -42,7 +43,7 @@ public class AddMeetingCommandParser implements Parser<AddMeetingCommand> {
         Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).orElse("03/10/2023 19:00"));
         Place place = ParserUtil.parsePlace(argMultimap.getValue(PREFIX_PLACE).orElse("Zoom"));
         Description description =
-                ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).orElse("No description"));
+            ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).orElse("No description"));
         Set<Note> noteList = ParserUtil.parseNotes(argMultimap.getAllValues(PREFIX_NOTE_MEETING));
         Meeting meeting = new Meeting(title, time, place, description, noteList, new ArrayList<>());
         return new AddMeetingCommand(meeting);

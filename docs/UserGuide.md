@@ -87,12 +87,13 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### List All Contacts
 
-- **What it does**: Shows all contacts in the list when in the "contacts" mode.
+- **What it does**: Shows all contacts in the list when in the "contacts" mode. All fields after list are optional
+  arguments.
 
-- **Command Format**: `list`
+- **Command Format**: `list -n [NAME] -p [PHONE] -e [EMAIL] -a [ADDRESS] -t [TAG] -c [NOTE]`
 
 - **Expected Outputs**:
-    - Success: List of all contacts.
+    - Success: `%d contacts listed`
     - Failure:
         - If no contacts are available: `No contacts available.`
 
@@ -179,12 +180,13 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### List All Meetings
 
-- **What it does**: Shows a list of all meetings when in the "meetings" mode.
+- **What it does**: Shows a list of all meetings when in the "meetings" mode. All arguments after `list` are optional
+  arguments.
 
-- **Command Format**: `list`
+- **Command Format**: `list -title [TITLE] -time [TIME] -place [PLACE] -desc [DESCRIPTION] -m [NOTE]`
 
 - **Expected Outputs**:
-    - Success: List of all meetings.
+    - Success: `%d Meetings Listed!`
     - Failure:
         - If no meetings are found: `No meetings found`
         - If invalid command format: `Invalid command format`

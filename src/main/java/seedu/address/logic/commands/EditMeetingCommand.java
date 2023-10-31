@@ -38,16 +38,16 @@ public class EditMeetingCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the meeting identified "
-            + "by the index number used in the displayed meeting list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_TITLE + " TITLE] "
-            + "[" + PREFIX_TIME + " TIME] "
-            + "[" + PREFIX_PLACE + " PLACE] "
-            + "[" + PREFIX_DESCRIPTION + " DESCRIPTION]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PLACE + " Zoom "
-            + PREFIX_DESCRIPTION + " Discuss Project Details";
+        + "by the index number used in the displayed meeting list. "
+        + "Existing values will be overwritten by the input values.\n"
+        + "Parameters: INDEX (must be a positive integer) "
+        + "[" + PREFIX_TITLE + " TITLE] "
+        + "[" + PREFIX_TIME + " TIME] "
+        + "[" + PREFIX_PLACE + " PLACE] "
+        + "[" + PREFIX_DESCRIPTION + " DESCRIPTION]...\n"
+        + "Example: " + COMMAND_WORD + " 1 "
+        + PREFIX_PLACE + " Zoom "
+        + PREFIX_DESCRIPTION + " Discuss Project Details";
 
     public static final String MESSAGE_EDIT_MEETING_SUCCESS = "Edited Meeting: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -87,7 +87,7 @@ public class EditMeetingCommand extends Command {
         model.setMeeting(meetingToEdit, editedMeeting);
         model.updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
         return new CommandResult(String.format(MESSAGE_EDIT_MEETING_SUCCESS,
-                Messages.formatMeeting(editedMeeting)), null, false, false, null, editedMeeting, ListType.MEETINGS);
+            Messages.formatMeeting(editedMeeting)), "", false, false, null, editedMeeting, ListType.MEETINGS);
     }
 
     /**
@@ -119,15 +119,15 @@ public class EditMeetingCommand extends Command {
 
         EditMeetingCommand otherEditMeetingCommand = (EditMeetingCommand) other;
         return index.equals(otherEditMeetingCommand.index)
-                && editMeetingDescriptor.equals(otherEditMeetingCommand.editMeetingDescriptor);
+            && editMeetingDescriptor.equals(otherEditMeetingCommand.editMeetingDescriptor);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("index", index)
-                .add("editMeetingDescriptor", editMeetingDescriptor)
-                .toString();
+            .add("index", index)
+            .add("editMeetingDescriptor", editMeetingDescriptor)
+            .toString();
     }
 
     /**
@@ -220,8 +220,8 @@ public class EditMeetingCommand extends Command {
 
         public Optional<ArrayList<Contact>> getContacts() {
             return (contacts != null)
-                    ? Optional.of(new ArrayList<Contact>(Collections.unmodifiableList(contacts)))
-                    : Optional.empty();
+                ? Optional.of(new ArrayList<Contact>(Collections.unmodifiableList(contacts)))
+                : Optional.empty();
         }
 
         @Override
@@ -237,19 +237,19 @@ public class EditMeetingCommand extends Command {
 
             EditMeetingDescriptor otherEditMeetingDescriptor = (EditMeetingDescriptor) other;
             return Objects.equals(title, otherEditMeetingDescriptor.title)
-                    && Objects.equals(time, otherEditMeetingDescriptor.time)
-                    && Objects.equals(place, otherEditMeetingDescriptor.place)
-                    && Objects.equals(description, otherEditMeetingDescriptor.description);
+                && Objects.equals(time, otherEditMeetingDescriptor.time)
+                && Objects.equals(place, otherEditMeetingDescriptor.place)
+                && Objects.equals(description, otherEditMeetingDescriptor.description);
         }
 
         @Override
         public String toString() {
             return new ToStringBuilder(this)
-                    .add("title", title)
-                    .add("time", time)
-                    .add("place", place)
-                    .add("description", description)
-                    .toString();
+                .add("title", title)
+                .add("time", time)
+                .add("place", place)
+                .add("description", description)
+                .toString();
         }
     }
 }

@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.CommandResult.ListType;
+import seedu.address.logic.parser.ListContactCommandParser;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -28,17 +30,19 @@ public class ListContactCommandTest {
     }
 
     @Test
-    public void execute_listIsNotFiltered_showsSameList() {
+    public void execute_listIsNotFiltered_showsSameList() throws ParseException {
         CommandResult expectedCommandResult = new CommandResult(ListContactCommand.MESSAGE_SUCCESS,
-                ListType.CONTACTS);
-        assertCommandSuccess(new ListContactCommand(), model, expectedCommandResult, expectedModel);
+            ListType.CONTACTS);
+        ListContactCommand actualCommand = new ListContactCommandParser().parse("list");
+        assertCommandSuccess(actualCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
-    public void execute_listIsFiltered_showsEverything() {
+    public void execute_listIsFiltered_showsEverything() throws ParseException {
         CommandResult expectedCommandResult = new CommandResult(ListContactCommand.MESSAGE_SUCCESS,
-                ListType.CONTACTS);
+            ListType.CONTACTS);
+        ListContactCommand actualCommand = new ListContactCommandParser().parse("list");
         showContactAtIndex(model, INDEX_FIRST);
-        assertCommandSuccess(new ListContactCommand(), model, expectedCommandResult, expectedModel);
+        assertCommandSuccess(actualCommand, model, expectedCommandResult, expectedModel);
     }
 }

@@ -83,7 +83,7 @@ public class Meeting {
         if (sb.length() > 0) {
             sb.setLength(sb.length() - 1);
         } else {
-            return null;
+            return "";
         }
         return sb.toString();
     }
@@ -91,13 +91,13 @@ public class Meeting {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("title", title)
-                .add("time", time)
-                .add("place", place)
-                .add("description", description)
-                .add("notes", notes)
-                .add("contacts", contacts)
-                .toString();
+            .add("title", title)
+            .add("time", time)
+            .add("place", place)
+            .add("description", description)
+            .add("notes", notes)
+            .add("contacts", contacts)
+            .toString();
     }
 
     @Override
@@ -113,11 +113,11 @@ public class Meeting {
 
         Meeting otherMeeting = (Meeting) other;
         return title.equals(otherMeeting.title)
-                && time.equals(otherMeeting.time)
-                && place.equals(otherMeeting.place)
-                && description.equals(otherMeeting.description)
-                && notes.equals(otherMeeting.notes)
-                && contacts.equals(otherMeeting.contacts);
+            && time.equals(otherMeeting.time)
+            && place.equals(otherMeeting.place)
+            && description.equals(otherMeeting.description)
+            && notes.equals(otherMeeting.notes)
+            && contacts.equals(otherMeeting.contacts);
     }
 
     @Override

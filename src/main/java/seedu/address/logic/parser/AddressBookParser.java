@@ -101,7 +101,7 @@ public class AddressBookParser {
                 return new FindCommandParser().parse(arguments);
 
             case ListContactCommand.COMMAND_WORD:
-                return new ListContactCommand();
+                return new ListContactCommandParser().parse(arguments);
 
             case AddNoteCommand.COMMAND_WORD:
                 return new AddNoteCommandParser().parse(arguments);
@@ -133,7 +133,7 @@ public class AddressBookParser {
                 return new DeleteContactFromMeetingCommandParser().parse(arguments);
 
             case ListMeetingCommand.COMMAND_WORD:
-                return new ListMeetingCommand();
+                return new ListMeetingCommandParser().parse(arguments);
 
             case AddMeetingNoteCommand.COMMAND_WORD:
                 return new AddMeetingNoteCommandParser().parse(arguments);

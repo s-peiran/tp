@@ -14,7 +14,7 @@ import java.time.format.DateTimeParseException;
 public class Time {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Time should match the exact format of dd/MM/yyyy HH:mm";
+        "Time should match the exact format of dd/MM/yyyy HH:mm";
 
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
@@ -66,6 +66,10 @@ public class Time {
     public static Time fromString(String timeStr) {
         LocalDateTime parsedDateTime = LocalDateTime.parse(timeStr, FORMATTER);
         return new Time(parsedDateTime);
+    }
+
+    public LocalDateTime getValue() {
+        return value;
     }
 
     @Override
