@@ -68,6 +68,20 @@ public class Contact {
         return Collections.unmodifiableSet(tags);
     }
 
+    public String getTagString() {
+        StringBuilder sb = new StringBuilder();
+        Set<Tag> setTags = getTags();
+        for (Tag tags : setTags) {
+            sb.append(tags.toString() + " ");
+        }
+        if (sb.length() > 0) {
+            sb.setLength(sb.length() - 1);
+        } else {
+            return "";
+        }
+        return sb.toString();
+    }
+
     public Set<Note> getNotes() {
         return Collections.unmodifiableSet(notes);
     }
@@ -81,7 +95,7 @@ public class Contact {
         if (sb.length() > 0) {
             sb.setLength(sb.length() - 1);
         } else {
-            return null;
+            return "";
         }
         return sb.toString();
     }
@@ -96,7 +110,7 @@ public class Contact {
         }
 
         return otherContact != null
-                && otherContact.getName().equals(getName());
+            && otherContact.getName().equals(getName());
     }
 
     /**
@@ -116,11 +130,11 @@ public class Contact {
 
         Contact otherContact = (Contact) other;
         return name.equals(otherContact.name)
-                && phone.equals(otherContact.phone)
-                && email.equals(otherContact.email)
-                && address.equals(otherContact.address)
-                && tags.equals(otherContact.tags)
-                && notes.equals(otherContact.notes);
+            && phone.equals(otherContact.phone)
+            && email.equals(otherContact.email)
+            && address.equals(otherContact.address)
+            && tags.equals(otherContact.tags)
+            && notes.equals(otherContact.notes);
     }
 
     @Override
@@ -132,13 +146,13 @@ public class Contact {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("name", name)
-                .add("phone", phone)
-                .add("email", email)
-                .add("address", address)
-                .add("tags", tags)
-                .add("notes", notes)
-                .toString();
+            .add("name", name)
+            .add("phone", phone)
+            .add("email", email)
+            .add("address", address)
+            .add("tags", tags)
+            .add("notes", notes)
+            .toString();
     }
 
 }

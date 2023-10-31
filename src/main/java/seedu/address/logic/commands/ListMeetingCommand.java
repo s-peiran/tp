@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEETINGS;
 
-import seedu.address.logic.commands.CommandResult.ListType;
+import seedu.address.logic.Messages;
 import seedu.address.model.Model;
+import seedu.address.model.meeting.MeetingFilterPredicate;
 
 /**
  * Lists all meetings in the address book to the user.
@@ -15,11 +15,17 @@ public class ListMeetingCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all meetings.";
 
+    private final MeetingFilterPredicate predicate;
+
+    public ListMeetingCommand(MeetingFilterPredicate predicate) {
+        this.predicate = predicate;
+    }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
-        return new CommandResult(MESSAGE_SUCCESS, ListType.MEETINGS);
+        model.updateFilteredMeetingList(predicate);
+        return new CommandResult(String.format(Messages.MESSAGE_MEETINGS_LISTED_OVERVIEW,
+            model.getFilteredMeetingList().size()));
     }
 }
