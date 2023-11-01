@@ -14,6 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.note.Note;
+import seedu.address.ui.AppState;
 
 /**
  * Changes the note of an existing contact in the address book.
@@ -68,8 +69,10 @@ public class AddNoteCommand extends Command {
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(Model.PREDICATE_SHOW_ALL_CONTACTS);
 
-        return new CommandResult(generateSuccessMessage(editedContact), editedContact.getNoteString(),
-                false, false, editedContact, null, CommandResult.ListType.CONTACTS);
+        AppState appState = AppState.getInstance();
+        appState.setContact(editedContact);
+
+        return new CommandResult(generateSuccessMessage(editedContact), false, false);
     }
 
     /**

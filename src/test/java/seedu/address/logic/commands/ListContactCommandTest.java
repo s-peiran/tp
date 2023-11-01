@@ -8,7 +8,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.CommandResult.ListType;
 import seedu.address.logic.parser.ListContactCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -31,16 +30,14 @@ public class ListContactCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() throws ParseException {
-        CommandResult expectedCommandResult = new CommandResult(ListContactCommand.MESSAGE_SUCCESS,
-            ListType.CONTACTS);
+        CommandResult expectedCommandResult = new CommandResult(ListContactCommand.MESSAGE_SUCCESS);
         ListContactCommand actualCommand = new ListContactCommandParser().parse("list");
         assertCommandSuccess(actualCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() throws ParseException {
-        CommandResult expectedCommandResult = new CommandResult(ListContactCommand.MESSAGE_SUCCESS,
-            ListType.CONTACTS);
+        CommandResult expectedCommandResult = new CommandResult(ListContactCommand.MESSAGE_SUCCESS);
         ListContactCommand actualCommand = new ListContactCommandParser().parse("list");
         showContactAtIndex(model, INDEX_FIRST);
         assertCommandSuccess(actualCommand, model, expectedCommandResult, expectedModel);

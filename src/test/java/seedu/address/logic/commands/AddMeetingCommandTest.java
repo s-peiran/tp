@@ -177,16 +177,6 @@ public class AddMeetingCommandTest {
         public void updateFilteredMeetingList(Predicate<Meeting> predicate) {
             throw new AssertionError("This method should not be called.");
         }
-
-        @Override
-        public ModeType getMode() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void changeMode() {
-            throw new AssertionError("This method should not be called.");
-        }
     }
 
     /**

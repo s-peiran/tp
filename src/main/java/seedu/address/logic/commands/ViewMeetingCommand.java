@@ -11,6 +11,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.ui.AppState;
 
 /**
  * Shows a Meeting identified using its id from the address book.
@@ -43,11 +44,12 @@ public class ViewMeetingCommand extends Command {
 
         Meeting meetingToDisplay = lastShownList.get(targetIndex.getZeroBased());
 
-        String meetingNotes = meetingToDisplay.getNoteString();
+        AppState appState = AppState.getInstance();
+        appState.setMeeting(meetingToDisplay);
 
         //todo: change display to note when it is implemented
         return new CommandResult(String.format(MESSAGE_VIEW_MEETING_SUCCESS,
-                Messages.formatMeeting(meetingToDisplay)), meetingToDisplay, meetingNotes);
+                Messages.formatMeeting(meetingToDisplay)));
     }
 
     @Override

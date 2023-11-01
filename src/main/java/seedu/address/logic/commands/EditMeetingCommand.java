@@ -19,7 +19,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.CommandResult.ListType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
@@ -29,6 +28,7 @@ import seedu.address.model.meeting.Place;
 import seedu.address.model.meeting.Time;
 import seedu.address.model.meeting.Title;
 import seedu.address.model.note.Note;
+import seedu.address.ui.AppState;
 
 /**
  * Edits the details of an existing meeting in the address book.
@@ -86,8 +86,12 @@ public class EditMeetingCommand extends Command {
 
         model.setMeeting(meetingToEdit, editedMeeting);
         model.updateFilteredMeetingList(PREDICATE_SHOW_ALL_MEETINGS);
+
+        AppState appState = AppState.getInstance();
+        appState.setMeeting(editedMeeting);
+
         return new CommandResult(String.format(MESSAGE_EDIT_MEETING_SUCCESS,
-            Messages.formatMeeting(editedMeeting)), "", false, false, null, editedMeeting, ListType.MEETINGS);
+            Messages.formatMeeting(editedMeeting)), false, false);
     }
 
     /**

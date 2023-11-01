@@ -29,8 +29,8 @@ import seedu.address.logic.commands.ModeCommand;
 import seedu.address.logic.commands.ViewContactCommand;
 import seedu.address.logic.commands.ViewMeetingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-import seedu.address.model.Model.ModeType;
+import seedu.address.ui.AppState;
+import seedu.address.ui.AppState.ModeType;
 
 /**
  * Parses user input.
@@ -50,12 +50,13 @@ public class AddressBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput, Model model) throws ParseException {
+    public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
-        final Model.ModeType mode = model.getMode();
+        AppState appState = AppState.getInstance();
+        final ModeType mode = appState.getModeType();
         final String commandWord = matcher.group("commandWord").trim();
         final String arguments = " " + matcher.group("arguments");
 

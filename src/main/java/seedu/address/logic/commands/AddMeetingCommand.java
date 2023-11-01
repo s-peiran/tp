@@ -12,6 +12,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.ui.AppState;
 
 /**
  * Add a meeting to Notenote.
@@ -51,6 +52,10 @@ public class AddMeetingCommand extends Command {
         requireNonNull(model);
 
         model.addMeeting(toAdd);
+
+        AppState appState = AppState.getInstance();
+        appState.setMeeting(toAdd);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.formatMeeting(toAdd)));
     }
 

@@ -19,7 +19,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.CommandResult.ListType;
 import seedu.address.logic.commands.EditContactCommand.EditContactDescriptor;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -48,8 +47,7 @@ public class EditContactCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(model.getFilteredContactList().get(0), editedContact);
 
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, editedContact.getNoteString(),
-                false, false, editedContact, null, ListType.CONTACTS);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false);
 
         assertCommandSuccess(editContactCommand, model, expectedCommandResult, expectedModel);
     }
@@ -73,8 +71,7 @@ public class EditContactCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(lastContact, editedContact);
 
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, editedContact.getNoteString(),
-                false, false, editedContact, null, ListType.CONTACTS);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false);
 
         assertCommandSuccess(editContactCommand, model, expectedCommandResult, expectedModel);
     }
@@ -90,8 +87,7 @@ public class EditContactCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, editedContact.getNoteString(),
-                false, false, editedContact, null, ListType.CONTACTS);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false);
 
         assertCommandSuccess(editContactCommand, model, expectedCommandResult, expectedModel);
     }
@@ -111,8 +107,7 @@ public class EditContactCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(model.getFilteredContactList().get(0), editedContact);
 
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, editedContact.getNoteString(),
-                false, false, editedContact, null, ListType.CONTACTS);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false);
 
         assertCommandSuccess(editContactCommand, model, expectedCommandResult, expectedModel);
     }

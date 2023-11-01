@@ -14,6 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.note.Note;
+import seedu.address.ui.AppState;
 
 /**
  * Changes the note of an existing meeting in the address book.
@@ -67,8 +68,10 @@ public class AddMeetingNoteCommand extends Command {
         model.setMeeting(meetingToEdit, editedMeeting);
         model.updateFilteredMeetingList(Model.PREDICATE_SHOW_ALL_MEETINGS);
 
-        return new CommandResult(generateSuccessMessage(editedMeeting), editedMeeting.getNoteString(),
-                false, false, null, editedMeeting, CommandResult.ListType.MEETINGS);
+        AppState appState = AppState.getInstance();
+        appState.setMeeting(editedMeeting);
+
+        return new CommandResult(generateSuccessMessage(editedMeeting), false, false);
     }
 
     /**
