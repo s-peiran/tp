@@ -29,6 +29,7 @@ import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.note.Note;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.AppState;
 
 /**
  * Edits the details of an existing contact in the address book.
@@ -89,9 +90,11 @@ public class EditContactCommand extends Command {
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
 
+        AppState appState = AppState.getInstance();
+        appState.setContact(editedContact);
+
         return new CommandResult(String.format(MESSAGE_EDIT_CONTACT_SUCCESS,
-                Messages.formatContact(editedContact)), editedContact.getNoteString(), false,
-                false, editedContact, null, CommandResult.ListType.CONTACTS);
+                Messages.formatContact(editedContact)), false, false);
     }
 
     /**

@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.commands.CommandResult.ListType;
 import seedu.address.model.Model;
 import seedu.address.model.contact.ContactFilterPredicate;
 
@@ -21,11 +20,11 @@ public class ListContactCommand extends Command {
         this.predicate = predicate;
     }
 
-
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredContactList(predicate);
-        return new CommandResult(MESSAGE_SUCCESS, ListType.CONTACTS);
+
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }

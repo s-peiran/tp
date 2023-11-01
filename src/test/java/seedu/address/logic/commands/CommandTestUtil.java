@@ -143,7 +143,7 @@ public class CommandTestUtil {
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
             String expectedNote) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, expectedNote);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);

@@ -11,6 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.ui.AppState;
 
 /**
  * Deletes a contact from a meeting identified using it's name
@@ -48,7 +49,6 @@ public class DeleteContactFromMeetingCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         List<Meeting> meetingList = model.getFilteredMeetingList();
-        List<Contact> contactList = model.getFilteredContactList();
         Contact contact = null;
         Meeting meetingToEdit = null;
         boolean meetingFound = false;
@@ -83,9 +83,11 @@ public class DeleteContactFromMeetingCommand extends Command {
         model.setMeeting(meetingToEdit, editedMeeting);
         model.updateFilteredMeetingList(Model.PREDICATE_SHOW_ALL_MEETINGS);
 
+        AppState appState = AppState.getInstance();
+        appState.setMeeting(editedMeeting);
+
         return new CommandResult(String.format(MESSAGE_DELETE_CONTACT_SUCCESS,
-                contactName, meetingTitle), null, false, false,
-                null, editedMeeting, CommandResult.ListType.MEETINGS);
+                contactName, meetingTitle), false, false);
     }
 
     public String getContactName() {

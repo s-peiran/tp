@@ -10,6 +10,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
+import seedu.address.ui.AppState;
 
 /**
  * Shows a Contact identified using its id from the address book.
@@ -41,8 +42,11 @@ public class ViewContactCommand extends Command {
 
         Contact contactToDisplay = lastShownList.get(targetIndex.getZeroBased());
 
-        return new CommandResult(String.format(MESSAGE_VIEW_CONTACT_SUCCESS, Messages.formatContact(contactToDisplay)),
-                contactToDisplay, contactToDisplay.getNoteString());
+        AppState appState = AppState.getInstance();
+        appState.setContact(contactToDisplay);
+
+        return new CommandResult(String.format(MESSAGE_VIEW_CONTACT_SUCCESS,
+            Messages.formatContact(contactToDisplay)));
     }
 
     @Override

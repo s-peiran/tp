@@ -16,11 +16,6 @@ public interface Model {
     Predicate<Contact> PREDICATE_SHOW_ALL_CONTACTS = unused -> true;
     Predicate<Meeting> PREDICATE_SHOW_ALL_MEETINGS = unused -> true;
 
-    /** List of modes that the application can be in. */
-    public enum ModeType {
-        CONTACTS, MEETINGS
-    }
-
     public final String MESSAGE_CONSTRAINTS = "Mode type should be either contacts or meetings";
 
     /**
@@ -127,8 +122,4 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredMeetingList(Predicate<Meeting> predicate);
-
-    ModeType getMode();
-
-    void changeMode();
 }

@@ -33,8 +33,7 @@ class DeleteContactFromMeetingCommandTest {
         DeleteContactFromMeetingCommand command = new DeleteContactFromMeetingCommand(editedMeeting.getTitle()
                 .toString(), validContact.getNameString());
         CommandResult expectedCommandResult = new CommandResult(String.format("Removed contact '%s' from Meeting '%s'",
-                validContact.getNameString(), editedMeeting.getTitleString()), null,
-                false, false, validContact, validMeeting, CommandResult.ListType.MEETINGS);
+                validContact.getNameString(), editedMeeting.getTitleString()), false, false);
         CommandResult result = command.execute(model);
         assertEquals(expectedCommandResult, result);
     }

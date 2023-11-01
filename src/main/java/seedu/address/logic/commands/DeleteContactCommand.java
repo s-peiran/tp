@@ -11,6 +11,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
+import seedu.address.ui.AppState;
 
 /**
  * Deletes a contact identified using it's displayed index from the address book.
@@ -43,6 +44,9 @@ public class DeleteContactCommand extends Command {
 
         Contact contactToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteContact(contactToDelete);
+
+        AppState appState = AppState.getInstance();
+        appState.deleteContact(contactToDelete);
 
         return new CommandResult(String.format(MESSAGE_DELETE_CONTACT_SUCCESS,
                 Messages.formatContact(contactToDelete)));

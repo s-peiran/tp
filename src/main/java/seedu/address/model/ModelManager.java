@@ -24,7 +24,6 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Contact> filteredContacts;
     private final FilteredList<Meeting> filteredMeetings;
-    private ModeType mode;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,9 +37,6 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredContacts = new FilteredList<>(this.addressBook.getContactList());
         filteredMeetings = new FilteredList<>(this.addressBook.getMeetingList());
-        // Mode always initialized to contact. Can change this to an enum later on.
-        this.mode = ModeType.CONTACTS;
-
     }
 
     public ModelManager() {
@@ -166,20 +162,6 @@ public class ModelManager implements Model {
     public void updateFilteredMeetingList(Predicate<Meeting> predicate) {
         requireNonNull(predicate);
         filteredMeetings.setPredicate(predicate);
-    }
-
-    @Override
-    public ModeType getMode() {
-        return mode;
-    }
-
-    @Override
-    public void changeMode() {
-        if (mode == ModeType.CONTACTS) {
-            mode = ModeType.MEETINGS;
-        } else {
-            mode = ModeType.CONTACTS;
-        }
     }
 
     @Override

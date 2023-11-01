@@ -13,6 +13,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
+import seedu.address.ui.AppState;
 
 /**
  * Adds a contact to the address book.
@@ -59,6 +60,10 @@ public class AddContactCommand extends Command {
         }
 
         model.addContact(toAdd);
+
+        AppState appState = AppState.getInstance();
+        appState.setContact(toAdd);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.formatContact(toAdd)));
     }
 

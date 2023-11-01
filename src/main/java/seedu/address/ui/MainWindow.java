@@ -15,11 +15,11 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.CommandResult.ListType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.ui.AppState.ListType;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -215,8 +215,6 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            logger.info("Note: " + commandResult.getNoteToDisplay());
-            noteDisplay.setNoteToDisplay(commandResult.getNoteToDisplay());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -226,28 +224,38 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.getListType() == ListType.CONTACTS) {
+            AppState appState = AppState.getInstance();
+
+            ListType listType = appState.getListType();
+            if (listType == ListType.CONTACTS) {
                 showContactList();
-            } else if (commandResult.getListType() == ListType.MEETINGS) {
+            } else if (listType == ListType.MEETINGS) {
                 showMeetingList();
             }
 
-            if (commandResult.getContact().isPresent()) {
-                Contact displayedContact = commandResult.getContact().get();
+            if (appState.isContactPresent()) {
+                Contact displayedContact = appState.getContact();
                 contactDetailPanel.setContact(displayedContact);
+                noteDisplay.setNoteToDisplay(displayedContact.getNoteString());
 
                 contactDetailPanelPlaceholder.setVisible(true);
                 contactDetailPanelPlaceholder.setManaged(true);
                 meetingDetailPanelPlaceholder.setVisible(false);
                 meetingDetailPanelPlaceholder.setManaged(false);
-            } else if (commandResult.getMeeting().isPresent()) {
-                Meeting displayedMeeting = commandResult.getMeeting().get();
+            } else if (appState.isMeetingPresent()) {
+                Meeting displayedMeeting = appState.getMeeting();
                 meetingDetailPanel.setMeeting(displayedMeeting);
+                noteDisplay.setNoteToDisplay(displayedMeeting.getNoteString());
 
                 contactDetailPanelPlaceholder.setVisible(false);
                 contactDetailPanelPlaceholder.setManaged(false);
                 meetingDetailPanelPlaceholder.setVisible(true);
                 meetingDetailPanelPlaceholder.setManaged(true);
+            } else {
+                contactDetailPanelPlaceholder.setVisible(false);
+                contactDetailPanelPlaceholder.setManaged(true);
+                meetingDetailPanelPlaceholder.setVisible(false);
+                meetingDetailPanelPlaceholder.setManaged(false);
             }
 
             return commandResult;

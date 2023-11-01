@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.CommandResult.ListType;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -45,8 +44,7 @@ public class AddNoteCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(firstPerson, editedPerson);
 
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
-                editedPerson.getNoteString(), false, false, editedPerson, null, ListType.CONTACTS);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false);
 
         assertCommandSuccess(addNoteCommand, model, expectedCommandResult, expectedModel);
     }
@@ -84,8 +82,7 @@ public class AddNoteCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(firstPerson, editedPerson);
 
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
-                editedPerson.getNoteString(), false, false, editedPerson, null, ListType.CONTACTS);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false);
 
         assertCommandSuccess(addNoteCommand, model, expectedCommandResult, expectedModel);
     }

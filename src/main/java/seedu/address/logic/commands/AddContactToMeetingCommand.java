@@ -11,6 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.ui.AppState;
 
 /**
  * Adds a contact to a meeting.
@@ -83,9 +84,11 @@ public class AddContactToMeetingCommand extends Command {
         model.setMeeting(meetingToEdit, editedMeeting);
         model.updateFilteredMeetingList(Model.PREDICATE_SHOW_ALL_MEETINGS);
 
+        AppState appState = AppState.getInstance();
+        appState.setMeeting(editedMeeting);
+
         return new CommandResult(String.format(MESSAGE_ADD_CONTACT_SUCCESS,
-                contactName, meetingTitle), null, false, false,
-                null, editedMeeting, CommandResult.ListType.MEETINGS);
+                contactName, meetingTitle), false, false);
     }
 
     public String getContactName() {

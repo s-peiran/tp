@@ -11,6 +11,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.ui.AppState;
 
 /**
  * Deletes a meeting identified using it's displaced index from the address book.
@@ -51,6 +52,10 @@ public class DeleteMeetingCommand extends Command {
 
         Meeting meetingToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteMeeting(meetingToDelete);
+
+        AppState appState = AppState.getInstance();
+        appState.deleteMeeting(meetingToDelete);
+
         return new CommandResult(String.format(MESSAGE_DELETE_MEETING_SUCCESS,
             Messages.formatMeeting(meetingToDelete)));
     }
