@@ -33,17 +33,18 @@ public class AddMeetingCommandParser implements Parser<AddMeetingCommand> {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_TIME, PREFIX_PLACE,
                 PREFIX_DESCRIPTION, PREFIX_NOTE_MEETING);
-        boolean test = argMultimap.getPreamble().isEmpty();
-        if (!ArgumentMultimap.arePrefixesPresent(argMultimap, PREFIX_TITLE) || !argMultimap.getPreamble().isEmpty()) {
+
+        if (!ArgumentMultimap.arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_TIME, PREFIX_PLACE,
+                PREFIX_DESCRIPTION) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMeetingCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TITLE, PREFIX_TIME, PREFIX_PLACE, PREFIX_DESCRIPTION);
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
-        Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).orElse("03/10/2023 19:00"));
-        Place place = ParserUtil.parsePlace(argMultimap.getValue(PREFIX_PLACE).orElse("Zoom"));
+        Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
+        Place place = ParserUtil.parsePlace(argMultimap.getValue(PREFIX_PLACE).get());
         Description description =
-            ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).orElse("No description"));
+            ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Set<Note> noteList = ParserUtil.parseNotes(argMultimap.getAllValues(PREFIX_NOTE_MEETING));
         Meeting meeting = new Meeting(title, time, place, description, noteList, new ArrayList<>());
         return new AddMeetingCommand(meeting);
