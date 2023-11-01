@@ -23,7 +23,6 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with all specified fields.
      *
      * @param feedbackToUser The feedback message to be shown to the user.
-     * @param noteToDisplay The note associated with the command result.
      * @param showHelp Boolean indicating if help information should be shown.
      * @param exit Boolean indicating if the application should exit.
      */
