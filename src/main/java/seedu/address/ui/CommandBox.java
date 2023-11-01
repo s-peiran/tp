@@ -52,10 +52,9 @@ public class CommandBox extends UiPart<Region> {
             return;
         }
 
-        // Prevent accidental duplicate command entries
-        if (commandHistory.isEmpty() || !commandHistory.get(commandHistory.size() - 1).equals(commandText)) {
-            commandHistory.add(commandText);
-        }
+        // Prevent accidental duplicate command entries and pop commandText to the front
+        commandHistory.remove(commandText);
+        commandHistory.add(commandText);
 
         currentHistoryPointer = commandHistory.size();
         hasStartedHistoryNavigation = false;
