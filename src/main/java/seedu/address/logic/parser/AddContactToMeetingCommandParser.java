@@ -21,7 +21,7 @@ public class AddContactToMeetingCommandParser implements Parser<AddContactToMeet
     public AddContactToMeetingCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TITLE);
-
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_TITLE);
         String contactName = argMultimap.getValue(PREFIX_NAME).orElse("");
         String meetingTitle = argMultimap.getValue(PREFIX_TITLE).orElse("");
         boolean raiseException = contactName.length() < 1 || meetingTitle.length() < 1;

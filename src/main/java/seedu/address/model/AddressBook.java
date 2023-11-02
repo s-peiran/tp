@@ -90,6 +90,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addContact(Contact c) {
         contacts.add(c);
+        contacts.sort();
+    }
+
+    public void sortContacts() {
+        contacts.sort();
     }
 
     /**
@@ -117,7 +122,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasMeeting(Meeting meeting) {
         requireNonNull(meeting);
-        return meetings.contains(meeting);
+
+        return meetings.checkDuplicate(meeting);
     }
 
     /**
@@ -125,6 +131,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addMeeting(Meeting meeting) {
         meetings.add(meeting);
+        meetings.sort();
+    }
+
+    public void sortMeetings() {
+        meetings.sort();
     }
 
     /**

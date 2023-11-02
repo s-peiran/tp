@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
  * Represents a Contact in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Contact {
+public class Contact implements Comparable<Contact> {
 
     // Identity fields
     private final Name name;
@@ -111,7 +111,7 @@ public class Contact {
         }
 
         return otherContact != null
-            && otherContact.getName().equals(getName());
+                && otherContact.getName().equals(getName());
     }
 
     /**
@@ -131,11 +131,17 @@ public class Contact {
 
         Contact otherContact = (Contact) other;
         return name.equals(otherContact.name)
-            && phone.equals(otherContact.phone)
-            && email.equals(otherContact.email)
-            && address.equals(otherContact.address)
-            && tags.equals(otherContact.tags)
-            && notes.equals(otherContact.notes);
+                && phone.equals(otherContact.phone)
+                && email.equals(otherContact.email)
+                && address.equals(otherContact.address)
+                && tags.equals(otherContact.tags)
+                && notes.equals(otherContact.notes);
+    }
+
+    @Override
+    public int compareTo(Contact other) {
+        Name otherName = other.name;
+        return this.name.toString().compareTo(otherName.toString());
     }
 
     @Override
@@ -147,13 +153,13 @@ public class Contact {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-            .add("name", name)
-            .add("phone", phone)
-            .add("email", email)
-            .add("address", address)
-            .add("tags", tags)
-            .add("notes", notes)
-            .toString();
+                .add("name", name)
+                .add("phone", phone)
+                .add("email", email)
+                .add("address", address)
+                .add("tags", tags)
+                .add("notes", notes)
+                .toString();
     }
 
 }

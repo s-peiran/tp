@@ -12,7 +12,9 @@ import seedu.address.model.meeting.Meeting;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Contact> PREDICATE_SHOW_ALL_CONTACTS = unused -> true;
     Predicate<Meeting> PREDICATE_SHOW_ALL_MEETINGS = unused -> true;
 
@@ -53,7 +55,9 @@ public interface Model {
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyAddressBook getAddressBook();
 
     /**
@@ -81,11 +85,14 @@ public interface Model {
      */
     void setContact(Contact target, Contact editedContact);
 
-    /** Returns an unmodifiable view of the filtered contact list */
+    /**
+     * Returns an unmodifiable view of the filtered contact list
+     */
     ObservableList<Contact> getFilteredContactList();
 
     /**
      * Updates the filter of the filtered contact list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredContactList(Predicate<Contact> predicate);
@@ -114,11 +121,20 @@ public interface Model {
      */
     boolean hasMeeting(Meeting meeting);
 
-    /** Returns an unmodifiable view of the filtered contact list */
+    /**
+     * Returns an unmodifiable view of the filtered contact list
+     */
     ObservableList<Meeting> getFilteredMeetingList();
+
+    /* Sorts the uniqueContactList in lexicographical order */
+    void sortContacts();
+
+    /* Sorts the uniqueContactList in chronological order */
+    void sortMeetings();
 
     /**
      * Updates the filter of the filtered meeting list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredMeetingList(Predicate<Meeting> predicate);

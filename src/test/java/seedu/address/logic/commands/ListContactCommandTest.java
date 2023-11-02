@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showContactAtIndex;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalContactsAddressBook;
@@ -30,14 +31,14 @@ public class ListContactCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() throws ParseException {
-        CommandResult expectedCommandResult = new CommandResult(ListContactCommand.MESSAGE_SUCCESS);
+        CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 7));
         ListContactCommand actualCommand = new ListContactCommandParser().parse("list");
         assertCommandSuccess(actualCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() throws ParseException {
-        CommandResult expectedCommandResult = new CommandResult(ListContactCommand.MESSAGE_SUCCESS);
+        CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 7));
         ListContactCommand actualCommand = new ListContactCommandParser().parse("list");
         showContactAtIndex(model, INDEX_FIRST);
         assertCommandSuccess(actualCommand, model, expectedCommandResult, expectedModel);

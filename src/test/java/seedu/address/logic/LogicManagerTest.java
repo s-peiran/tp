@@ -70,7 +70,8 @@ public class LogicManagerTest {
     @Test
     public void execute_validCommand_success() throws Exception {
         String listCommand = ListContactCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListContactCommand.MESSAGE_SUCCESS, model);
+        assertCommandSuccess(listCommand, String.format(Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW,
+                0), model);
     }
 
     @Test
