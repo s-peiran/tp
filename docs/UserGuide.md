@@ -28,12 +28,14 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### Mode
 
-- **What it does**: Toggles the mode of the application between "contacts" and "meetings". The application defaults to
+- **What it does**: Toggles the mode of the application between `contacts` and `meetings`. The application defaults to
   the "contacts" mode. The mode of the application determines the context in which the following commands are executed
-  upon:
-    1. add
-    2. note
-    3. list
+  upon for example performing an `add` command in `contacts` mode will add a contact while using an `add` command in `meetings` mode will add a meeting.
+  The following commands are affected by the mode of the application:
+    1. `add`
+    2. `edit` 
+    3. `note`
+    4. `list`
 
 - **Command Format**: `mode`
 
@@ -46,92 +48,103 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### Create New Contact
 
-- **What it does**: Adds a new contact to the list when in the "contacts" mode.
+- **What it does**: Adds a new contact to the list when in the `contacts` mode.
 
 - **Command Format**: `add n/CONTACT_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/RESIDENTIAL_ADDRESS [t/TAGS]`
 
 - **Example**: `add n/Sarah Woo p/82775346 e/sarah.woo@gmail.com a/Blk227 Sims Drive`
 
 - **Acceptable Values**:
-    - CONTACT_NAME: String, at least 2 characters long.
+    - CONTACT_NAME: String, alphanumeric values and at least 2 characters long.
+    - PHONE_NUMBER: Integers, at least 3 digits long.
+    - EMAIL_ADDRESS: String, any valid email address.
+    - RESIDENTIAL_ADDRESS: String, any value.
+    - TAGS: String, alphanumeric values.
 
 - **Expected Outputs**:
-    - Success: “Successfully added [CONTACT_NAME].”
+    - Success: "Successfully added [CONTACT_NAME];Phone:[PHONE_NUMBER];Email:[EMAIL_ADDRESS];Address:[RESIDENTIAL_ADDRESS];Tags:[TAGS]."
     - Failure:
         - If the CONTACT_NAME already exists: `This contact already exists in the address book`
         - If invalid command format: `Invalid command format!
           add: Adds a contact to the address book. Parameters: n/ NAME p/ PHONE e/ EMAIL a/ ADDRESS [t/ TAG]...
           Example: add n/ John Doe p/ 98765432 e/ johnd@example.com a/ 311, Clementi Ave 2, #02-25 t/ friends t/ owesMoney`
+        - If multiple values specified for a parameter: `Multiple values specified for the following single-valued field(s): [Parameters]`
+        - If unacceptable parameter values: Appropriate error message returned.
 ---
 
 ### View a Contact
 
-- **What it does**: Displays details of a specific contact when in the "contacts" mode.
+- **What it does**: Displays details of a specific contact when in the `contacts` mode.
 
-- **Command Format**: `view id/[CONTACT_ID]`
+- **Command Format**: `view id/CONTACT_ID`
 
 - **Example**: `view id/1`
 
 - **Acceptable Values**:
-    - CONTACT_ID: Non-negative integer.
-    - CONTACT_NAME: String, at least 2 characters long. Not case sensitive.
+    - CONTACT_ID: Positive integer. Must be a value that exists in the contact list.
 
 - **Expected Outputs**:
-    - Success: "Displaying details for [CONTACT_NAME]."
+    - Success: "Showing Contact Note: [CONTACT_NAME];Phone:[PHONE_NUMBER];Email:[EMAIL_ADDRESS];Address:[RESIDENTIAL_ADDRESS];Tags:[TAGS]."
     - Failure:
-        - If the CONTACT_ID or CONTACT_NAME does not exist: `The contact index provided is invalid`
+        - If the positive CONTACT_ID does not exist: `The contact index provided is invalid`
         - If invalid command format: `Invalid command format!
           view: Shows the details of the contact identified by its id in the displayed contact list.
-          Parameters: INDEX (must be a positive integer)
+          Parameters: id/ CONTACT_ID (must be a positive integer)
           Example: view id/ 1`
 
 ---
 
 ### List All Contacts
 
-- **What it does**: Shows all contacts in the list when in the "contacts" mode. All fields after list are optional
+- **What it does**: Shows all contacts in the list when in the `contacts` mode. All fields after list are optional
   arguments.
 
 - **Command Format**: `list n/[NAME] p/[PHONE] e/[EMAIL] a/[ADDRESS] t/[TAG] c/[NOTE]`
 
 - **Expected Outputs**:
-    - Success: `%d contacts listed`
-    - Failure:
-        - If no contacts are available: `No contacts available.`
+    - Success: `Listed all contacts.`
+    - Failure: If no valid parameter provided, list all contacts.
 
 ---
 
 ### Editing A Contact
 
-- **What it does**: Edits an existing person in the address book.
+- **What it does**: Edits an existing person in the address book when in the `contacts` mode.
 
-- **Command Format**: `edit id/INDEX n/CONTACT_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/RESIDENTIAL_ADDRESS [t/TAGS]`
+- **Command Format**: `edit id/CONTACT_ID n/CONTACT_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/RESIDENTIAL_ADDRESS [t/TAGS]`
 
 - **Example**: `edit id/3 p/90649923`
-
+- 
+- **Acceptable Values**:
+    - CONTACT_ID: Positive integer. Must be a value that exists in the contact list.
+    - CONTACT_NAME: String, alphanumeric values and at least 2 characters long.
+    - PHONE_NUMBER: Integers, at least 3 digits long.
+    - EMAIL_ADDRESS: String, any valid email address.
+    - RESIDENTIAL_ADDRESS: String, any value.
+    - TAGS: String, alphanumeric values.
+ 
 - **Expected Outputs**:
-    - Success: "Edited Contact: [Details of CONTACT]"
-    - Failure:
-        - If the CONTACT_ID does not exist: `The contact index provided is invalid`
-        - If no field to edit is specified: `At least one field to edit must be provided.`
-        - If invalid command format: `Invalid command format!
-          edit: Edits the details of the contact identified by the index number used in the displayed contact list. Existing values will be overwritten by the input values. Parameters: INDEX (must be a positive integer) [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [c/NOTE]... Example: edit 1 p/91234567 -ejohndoe@example.com`
-
+  - Success: "Edited Contact: [CONTACT_NAME];Phone:[PHONE_NUMBER];Email:[EMAIL_ADDRESS];Address:[RESIDENTIAL_ADDRESS];Tags:[TAGS]."
+  - Failure:
+      - If no field to edit is specified: `At least one field to edit must be provided.`
+      - If the CONTACT_ID does not exist: `The contact index provided is invalid`
+      - If multiple values specified for a parameter: `Multiple values specified for the following single-valued field(s): [Parameters]`
+      - If unacceptable parameter values: Appropriate error message returned.
 ---
 
 ### Delete a Contact
 
-- **What it does**: Removes a contact based on the given ID when in the "contacts" mode.
+- **What it does**: Removes a contact based on the given ID when in the `contacts` mode.
 
-- **Command Format**: `delete id/[CONTACT_ID]`
+- **Command Format**: `delete id/CONTACT_ID`
 
 - **Example**: `delete id/3`
 
 - **Acceptable Values**:
-    - CONTACT_ID: Non-negative integer.
+    - CONTACT_ID: Positive integer. Must be a value that exists in the contact list.
 
 - **Expected Outputs**:
-    - Success: "Deleted Contact: [Details of CONTACT]."
+    - Success: "Deleted Contact: [CONTACT_NAME];Phone:[PHONE_NUMBER];Email:[EMAIL_ADDRESS];Address:[RESIDENTIAL_ADDRESS];Tags:[TAGS]."
     - Failure:
         - If the CONTACT_ID does not exist: `The contact index provided is invalid`
         - If the command is invalid: `Invalid command format!
@@ -145,58 +158,62 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### Create a New Meeting
 
-- **What it does**: Organizes a new meeting with optional notes and contacts when in the "meetings" mode.
+- **What it does**: Creates a new meeting when in the `meetings` mode.
 
-- **Command Format**: `add title/MEETING_NAME time/DD/MM/YYYY HH:MM place/OCATION [desc/DESCRIPTION]`
+- **Command Format**: `add m/MEETING_NAME time/TIME place/LOCATION [desc/DESCRIPTION]`
 
-- **Example**: `add title/Project Discussion time/03/10/2023 15:00 place/Terrace desc/Discussing milestones`
+- **Example**: `add m/ Project Discussion t/ 03/10/2023 15:00 p/ Terrace d/ Discussing mileston`
 
 - **Acceptable Values**:
-    - MEETING_NAME: String, at least 2 characters long.
-    - NOTES: String, at least 1 character long.
-    - CONTACT_IDS: Non-negative integers delimited by commas.
+    - MEETING_NAME: String, alphanumeric values and at least 1 character long.
+    - TIME: Follow the `DD/MM/YYYY HH:MM` format
+    - LOCATION: String, alphanumeric values and at least 1 character long.
+    - DESCRIPTION: String, any value.
 
 - **Expected Outputs**:
-    - Success: "[MEETING_NAME] successfully added."
+    - Success: "New meeting added: [MEETING_NAME];Time:[TIME];Place:[LOCATION];Description:[DESCRIPTION]"
     - Failure:
         - If the MEETING_NAME already exists: `Meeting already exists.`
-        - If invalid command format: `Invalid command format`
+        - If invalid command format: `Invalid command format!
+          add: Adds a meeting to the address book. Parameters: m/ TITLE t/ TIME p/ PLACE d/ DESCRIPTION
+          Example: add m/ Project Discussion t/ 03/10/2023 15:00 p/ Terrace d/ Discussing milestones`
+        - If multiple values specified for a parameter: `Multiple values specified for the following single-valued field(s): [Parameters]`
+        - If unacceptable parameter values: Appropriate error message returned.
 
 ---
 
 ### View a Meeting
 
-- **What it does**: Displays details of a specific meeting when in the "meetings" mode.
+- **What it does**: Displays details of a specific meeting when in the `meetings` mode.
 
-- **Command Format**: `view id/[MEETING_ID]`
+- **Command Format**: `view id/MEETING_ID`
 
-- **Example**: `view Project Discussion`
+- **Example**: `view id/1`
 
 - **Acceptable Values**:
-    - MEETING_ID: Non-negative integer.
-    - MEETING_NAME: String, at least 2 characters long. Not case sensitive.
+    - MEETING_ID: Positive integer. Must be a value that exists in the meeting list.
 
 - **Expected Outputs**:
-    - Success: "Displaying details for [MEETING_NAME]."
+    - Success: "Showing Meeting: [MEETING_NAME];Time:[TIME];Place:[LOCATION];Description:[DESCRIPTION]"
     - Failure:
-        - If the MEETING_ID or MEETING_NAME does not exist: `Meeting not found`
+        - If the MEETING_ID does not exist: `The meeting index provided is invalid`
+        - If the command is invalid: `Invalid command format!
+          view: Shows the details of the meeting identified by its id in the displayed meeting list.
+          Parameters: id/ INDEX (must be a positive integer)
+          Example: view id/ 1`
 
 ---
 
 ### List All Meetings
 
-- **What it does**: Shows a list of all meetings when in the "meetings" mode. All arguments after `list` are optional
+- **What it does**: Shows a list of all meetings when in the `meetings` mode. All arguments after `list` are optional
   arguments.
 
 - **Command Format**: `list title/[TITLE] time/[TIME] place/[PLACE] desc/[DESCRIPTION] m/[NOTE]`
 
 - **Expected Outputs**:
-    - Success: `%d Meetings Listed!`
-    - Failure:
-        - If no meetings are found: `No meetings found`
-        - If invalid command format: `Invalid command format`
-
----
+    - Success: `%d meetings Listed!`
+    - Failure: If no valid parameter provided, list all meetings.
 
 ### Delete a Meeting
 
@@ -207,7 +224,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 - **Example**: `delete id/1`
 
 - **Acceptable Values**:
-    - MEETING_ID: Non-negative integer.
+    - MEETING_ID: Positive integer. Must be a value that exists in the meeting list.
 - **Expected Outputs**:
     - Success: "Successfully deleted [MEETING_NAME]."
     - Failure:
@@ -218,35 +235,43 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### Edit A Meeting
 
-- **What it does** Edits the details of an existing meeting in the address book.
+- **What it does** Edits the details of an existing meeting in the address book when in the `meetings` mode.
 
-- **Command Format**: `edit id/MEETING_ID [m/MEETING_NAME] [t/DD/MM/YYYY HH:MM] [p/LOCATION] [d/DESCRIPTION]`
+- **Command Format**: `edit id/MEETING_ID [m/MEETING_NAME] [t/TIME] [p/LOCATION] [d/DESCRIPTION]`
 
 - **Example**: `edit id/1 p/COM3`
 
 - **Acceptable Values**:
-    - MEETING_ID: Non-negative integer.
-    - MEETING_NAME: String, at least 2 characters long.
+    - MEETING_ID: Positive integer. Must be a value that exists in the meeting list.
+    - MEETING_NAME: String, alphanumeric values and at least 1 character long.
+    - TIME: Follow the `DD/MM/YYYY HH:MM` format
+    - LOCATION: String, alphanumeric values and at least 1 character long.
+    - DESCRIPTION: String, any value.
 - **Expected Outputs**:
-    - Success: "Edited Meeting [Details of MEETING]."
+    - Success: "Edited Meeting [MEETING_NAME];Time:[TIME];Place:[LOCATION];Description:[DESCRIPTION]"
     - Failure:
         - If the MEETING_ID does not exist: `The meeting index provided is invalid`
         - If invalid command format: `Invalid command format!
-          edit: Edits the details of the meeting identified by the index number used in the displayed meeting list. Existing values will be overwritten by the input values. Parameters: INDEX (must be a positive integer) [title/TITLE] [time/TIME] [place/PLACE] [desc/DESCRIPTION]... Example: edit id/1 place/Zoom desc/Discuss Project Details`
+          edit: Edits the details of the meeting identified by the index number used in the displayed meeting list. Existing values will be overwritten by the input values.
+          Parameters: INDEX (must be a positive integer) [m/ TITLE] [t/ TIME] [p/ PLACE] [d/ DESCRIPTION]...
+          Example: edit 1 p/ Zoom d/ Discuss Project Details`
+        - If no parameters provided: `At least one field to edit must be provided.`
+        - If multiple values specified for a parameter: `Multiple values specified for the following single-valued field(s): [Parameters]`
+        - If unacceptable parameter values: Appropriate error message returned.
 
 ---
 
 ### Add Contact to Meeting
 
-- **What it does**: Adds a contact to an existing meeting as a participant when in the "meetings" mode.
+- **What it does**: Adds a contact to an existing meeting as a participant when in the `meetings` mode.
 
 - **Command Format**: `addcontact n/CONTACT_NAME m/MEETING_NAME`
 
 - **Example**: `addcontact n/Sarah Woo m/Project Discussion`
 
 - **Acceptable Values**:
-    - MEETING_NAME: String, at least 2 characters long. Not case sensitive.
-    - CONTACT_NAME: String, at least 2 characters long. Not case sensitive.
+    - MEETING_NAME: String, must exist in meeting list.
+    - CONTACT_NAME: String, must exist in contact list.
 
 - **Expected Outputs**:
     - Success: "Added contact '[CONTACT_NAME]' to Meeting '[MEETING_NAME]'."
@@ -260,7 +285,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### Delete Contact from Meeting
 
-- **What it does**: Removes a contact from an existing meeting when in the "meetings" mode.
+- **What it does**: Removes a contact from an existing meeting when in the `meetings` mode.
 
 - **Command Format**: `deletecontact n/CONTACT_NAME m/MEETING_NAME`
 
