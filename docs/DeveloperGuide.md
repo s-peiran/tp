@@ -384,7 +384,7 @@ giving users the ability to edit previous notes, but that is outside the scope o
 ### Implementation (Add Notes)
 
 A new `Note` class is created, which stores the contents of the note as a string. The `Contact`/`Meeting` model is then updated
-to include a new `notes` attribute of type `ArrayList<Note>`.
+to include a new `notes` attribute of type `HashSet<Note>`.
 
 To distinguish between adding notes to contacts and meetings, 2 separate Command classes are created, namely 
 `AddNoteCommand` (for contacts) and `AddMeetingNoteCommand` (for meetings). These classes will then call 
@@ -398,6 +398,20 @@ and append the additional note.
 Then, a new `Contact`/`Meeting` will be created with identical attributes as the original, with the exception of the
 updated `notes` list. The model is then updated with this new `Contact`/`Meeting`, and the filtered list is
 updated as well.
+
+### Implementation (Delete Notes)
+
+Within each `Note` class, there is a `noteID` field which is stored as an `int`. `noteID` is assigned based on the total number
+of notes in the system i.e. if there are 5 notes in the app now, the next note will have a `noteID` of 6. In this manner, each
+Note thus has a unique `noteID`.
+
+Once again, there are separate commands for deleting notes from contacts and from meetings. The relationship between the Command
+and respective Parser classes is similar to the one described for adding Notes.
+
+In terms of execution, a user will pass the `noteID` of the Note to be deleted as an argument. Notenote will then iterate through
+the HashSet, and when a Note's `noteID` matches the one specified by the user, will remove the Note from the HashSet accordingly.
+
+The `Contact`/`Meeting` model will then be updated with the new HashSet of Notes.
 
 ### Design Considerations
 
