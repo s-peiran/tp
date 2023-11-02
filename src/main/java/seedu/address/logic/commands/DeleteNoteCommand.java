@@ -34,11 +34,13 @@ public class DeleteNoteCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + " 1 "
             + PREFIX_NOTE_ID + " 1.";
 
-    public static final String MESSAGE_ADD_NOTE_SUCCESS = "Added note to Contact: %1$s";
+
+    public static final String MESSAGE_DELETE_NOTE_FAILURE = "Failed to remove note from Contact: %1$s";
     public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Removed note from Contact: %1$s";
 
     private final Index index;
     private final int noteID;
+    private boolean isSuccessful = false;
 
     /**
      * @param index of the person in the filtered person list to edit the note
@@ -67,6 +69,7 @@ public class DeleteNoteCommand extends Command {
             Note note = iterator.next();
             if (note.getNoteID() == noteID) {
                 iterator.remove();
+                isSuccessful = true;
             }
         }
 
@@ -95,7 +98,7 @@ public class DeleteNoteCommand extends Command {
      * {@code meetingToEdit}.
      */
     private String generateSuccessMessage(Contact contactToEdit) {
-        String message = MESSAGE_DELETE_NOTE_SUCCESS;
+        String message = isSuccessful ? MESSAGE_DELETE_NOTE_SUCCESS : MESSAGE_DELETE_NOTE_FAILURE;
         return String.format(message, contactToEdit);
     }
 
