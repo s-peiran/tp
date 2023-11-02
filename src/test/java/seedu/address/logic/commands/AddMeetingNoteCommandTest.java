@@ -2,7 +2,11 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showMeetingAtIndex;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
@@ -86,7 +90,8 @@ public class AddMeetingNoteCommandTest {
     @Test
     public void execute_invalidMeetingIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredMeetingList().size() + 1);
-        AddMeetingNoteCommand addMeetingNoteCommand = new AddMeetingNoteCommand(outOfBoundIndex, new Note(VALID_NOTE_BOB));
+        AddMeetingNoteCommand addMeetingNoteCommand = new AddMeetingNoteCommand(outOfBoundIndex,
+                new Note(VALID_NOTE_BOB));
 
         assertCommandFailure(addMeetingNoteCommand, model, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX);
     }
@@ -102,7 +107,8 @@ public class AddMeetingNoteCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getMeetingList().size());
 
-        AddMeetingNoteCommand addMeetingNoteCommand = new AddMeetingNoteCommand(outOfBoundIndex, new Note(VALID_NOTE_BOB));
+        AddMeetingNoteCommand addMeetingNoteCommand = new AddMeetingNoteCommand(outOfBoundIndex,
+                new Note(VALID_NOTE_BOB));
 
         assertCommandFailure(addMeetingNoteCommand, model, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX);
     }

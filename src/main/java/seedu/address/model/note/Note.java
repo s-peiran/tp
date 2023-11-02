@@ -7,7 +7,7 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable; is always valid
  */
 public class Note {
-    public static int ID = 1;
+    private static int noteCount = 1;
     public final String note;
     public final int noteID;
 
@@ -19,7 +19,7 @@ public class Note {
     public Note(String note) {
         requireNonNull(note);
         this.note = note;
-        this.noteID = ID++;
+        this.noteID = noteCount++;
     }
 
     public int getNoteID() {

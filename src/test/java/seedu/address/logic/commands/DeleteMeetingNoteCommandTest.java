@@ -2,7 +2,10 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MEETING_NOTEID;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showMeetingAtIndex;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
@@ -32,7 +35,8 @@ public class DeleteMeetingNoteCommandTest {
         Meeting firstMeeting = model.getFilteredMeetingList().get(INDEX_FIRST.getZeroBased());
         Meeting editedMeeting = new MeetingBuilder(firstMeeting).withNotes().build();
 
-        DeleteMeetingNoteCommand deleteMeetingNoteCommand = new DeleteMeetingNoteCommand(INDEX_FIRST, VALID_MEETING_NOTEID);
+        DeleteMeetingNoteCommand deleteMeetingNoteCommand = new DeleteMeetingNoteCommand(INDEX_FIRST,
+                VALID_MEETING_NOTEID);
 
         String expectedMessage = String.format(DeleteMeetingNoteCommand.MESSAGE_DELETE_NOTE_SUCCESS, editedMeeting);
 
@@ -53,7 +57,8 @@ public class DeleteMeetingNoteCommandTest {
                 .get(INDEX_FIRST.getZeroBased()))
                 .withNotes().build();
 
-        DeleteMeetingNoteCommand deleteMeetingNoteCommand = new DeleteMeetingNoteCommand(INDEX_FIRST, VALID_MEETING_NOTEID);
+        DeleteMeetingNoteCommand deleteMeetingNoteCommand = new DeleteMeetingNoteCommand(INDEX_FIRST,
+                VALID_MEETING_NOTEID);
 
         String expectedMessage = String.format(DeleteMeetingNoteCommand.MESSAGE_DELETE_NOTE_SUCCESS, editedMeeting);
 
@@ -68,7 +73,8 @@ public class DeleteMeetingNoteCommandTest {
     @Test
     public void execute_invalidMeetingIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredMeetingList().size() + 1);
-        DeleteMeetingNoteCommand deleteMeetingNoteCommand = new DeleteMeetingNoteCommand(outOfBoundIndex, VALID_MEETING_NOTEID);
+        DeleteMeetingNoteCommand deleteMeetingNoteCommand = new DeleteMeetingNoteCommand(outOfBoundIndex,
+                VALID_MEETING_NOTEID);
 
         assertCommandFailure(deleteMeetingNoteCommand, model, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX);
     }
@@ -84,7 +90,8 @@ public class DeleteMeetingNoteCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getMeetingList().size());
 
-        DeleteMeetingNoteCommand deleteMeetingNoteCommand = new DeleteMeetingNoteCommand(outOfBoundIndex, VALID_MEETING_NOTEID);
+        DeleteMeetingNoteCommand deleteMeetingNoteCommand = new DeleteMeetingNoteCommand(outOfBoundIndex,
+                VALID_MEETING_NOTEID);
 
         assertCommandFailure(deleteMeetingNoteCommand, model, Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX);
     }
