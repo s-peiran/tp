@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_MEETING;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -58,7 +59,7 @@ public class AddMeetingNoteCommand extends Command {
 
         Meeting meetingToEdit = lastShownList.get(index.getZeroBased());
 
-        Set<Note> mutableNotesList = new HashSet<>(meetingToEdit.getNotes());
+        Set<Note> mutableNotesList = new LinkedHashSet<>(meetingToEdit.getNotes());
         mutableNotesList.add(note);
 
         Meeting editedMeeting = new Meeting(

@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_MEETING;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -60,7 +61,7 @@ public class DeleteMeetingNoteCommand extends Command {
 
         Meeting meetingToEdit = lastShownList.get(index.getZeroBased());
 
-        Set<Note> mutableNotesList = new HashSet<>(meetingToEdit.getNotes());
+        Set<Note> mutableNotesList = new LinkedHashSet<>(meetingToEdit.getNotes());
         Iterator<Note> iterator = mutableNotesList.iterator();
         while (iterator.hasNext()) {
             Note note = iterator.next();
@@ -69,7 +70,7 @@ public class DeleteMeetingNoteCommand extends Command {
             }
         }
 
-        HashSet<Note> newNoteSet = new HashSet<>();
+        LinkedHashSet<Note> newNoteSet = new LinkedHashSet<>();
         iterator = mutableNotesList.iterator();
         while (iterator.hasNext()) {
             newNoteSet.add(iterator.next());

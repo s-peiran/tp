@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -145,7 +146,7 @@ public class ParserUtil {
      */
     public static Set<Note> parseNotes(Collection<String> notes) throws ParseException {
         requireNonNull(notes);
-        final Set<Note> noteSet = new HashSet<>();
+        final Set<Note> noteSet = new LinkedHashSet<>();
         for (String note : notes) {
             noteSet.add(parseNote(note));
         }

@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_CONTACT;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -59,7 +60,7 @@ public class AddNoteCommand extends Command {
 
         Contact contactToEdit = lastShownList.get(index.getZeroBased());
 
-        Set<Note> mutableNotesList = new HashSet<>(contactToEdit.getNotes());
+        Set<Note> mutableNotesList = new LinkedHashSet<>(contactToEdit.getNotes());
         mutableNotesList.add(note);
 
         Contact editedContact = new Contact(

@@ -11,6 +11,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -227,7 +228,7 @@ public class EditContactCommand extends Command {
          * A defensive copy of {@code notes} is used internally.
          */
         public void setNotes(Set<Note> notes) {
-            this.notes = (notes != null) ? new HashSet<>(notes) : null;
+            this.notes = (notes != null) ? new LinkedHashSet<>(notes) : null;
         }
 
         /**
