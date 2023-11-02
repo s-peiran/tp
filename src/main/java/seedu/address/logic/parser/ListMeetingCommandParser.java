@@ -1,6 +1,11 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PLACE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.Arrays;
 import java.util.List;
