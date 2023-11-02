@@ -22,6 +22,9 @@ public class DeleteMeetingCommandParser implements Parser<DeleteMeetingCommand> 
     public DeleteMeetingCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_INDEX);
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_INDEX);
+
         Index index;
         try {
             if (Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()) == 0) {
