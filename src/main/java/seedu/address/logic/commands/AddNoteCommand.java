@@ -28,7 +28,7 @@ public class AddNoteCommand extends Command {
             + "by the index number used in the last contact listing.\n"
             + "Parameters: " + PREFIX_INDEX + " (must be a positive integer) "
             + PREFIX_NOTE + " [NOTE]\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + " 1 "
             + PREFIX_NOTE + " Likes to swim.";
 
     public static final String MESSAGE_ADD_NOTE_SUCCESS = "Added note to Person: %1$s";
