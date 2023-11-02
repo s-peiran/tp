@@ -1,7 +1,6 @@
 package seedu.address.model.meeting;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -32,9 +31,9 @@ public class MeetingFilterPredicate implements Predicate<Meeting> {
 
     @Override
     public boolean test(Meeting meeting) {
-        boolean title = (titleKeywords.size() == 1 && titleKeywords.get(0).isEmpty())
-            || titleKeywords.stream().anyMatch(keyword -> Arrays.stream(meeting.getTitle().fullTitle.split("\\s+"))
-            .anyMatch(word -> word.equalsIgnoreCase(keyword)));
+        boolean title = (titleKeywords.size() == 1 && titleKeywords.get(0)
+            .isEmpty()) || titleKeywords.stream().anyMatch(keyword -> meeting.getTitle()
+            .fullTitle.toLowerCase().contains(keyword.toLowerCase()));
         // writing of stream assisted by chatGPT
         boolean chrono = false;
         Time meetingTime = meeting.getTime();
@@ -59,15 +58,14 @@ public class MeetingFilterPredicate implements Predicate<Meeting> {
         } else if (!timeStart.equals("") && !timeEnd.equals("")) {
             chrono = case4.get();
         }
-        boolean place = (placeKeywords.size() == 1 && placeKeywords.get(0).isEmpty())
-            || placeKeywords.stream().anyMatch(keyword -> Arrays.stream(meeting.getPlace().fullPlace.split("\\s+"))
-            .anyMatch(word -> word.equalsIgnoreCase(keyword)));
-        boolean description = (descriptionKeywords.size() == 1 && descriptionKeywords.get(0).isEmpty())
-            || descriptionKeywords.stream().anyMatch(keyword -> Arrays.stream(meeting.getDescription().fullDescription
-            .split("\\s+")).anyMatch(word -> word.equalsIgnoreCase(keyword)));
+        boolean place = (placeKeywords.size() == 1 && placeKeywords.get(0).isEmpty()) || placeKeywords.stream()
+            .anyMatch(keyword -> meeting.getPlace().fullPlace.toLowerCase().contains(keyword.toLowerCase()));
+        boolean description = (descriptionKeywords.size() == 1 && descriptionKeywords.get(0)
+            .isEmpty()) || descriptionKeywords.stream().anyMatch(keyword -> meeting.getDescription()
+            .fullDescription.toLowerCase().contains(keyword.toLowerCase()));
         boolean note = (noteListKeywords.size() == 1 && noteListKeywords.get(0).isEmpty())
-            || noteListKeywords.stream().anyMatch(keyword -> Arrays.stream(meeting.getNoteString().split("\\s+"))
-            .anyMatch(word -> word.equalsIgnoreCase(keyword)));
+            || noteListKeywords.stream().anyMatch(keyword -> meeting.getNoteString()
+            .toLowerCase().contains(keyword.toLowerCase()));
         return title && chrono && place && description && note;
     }
 
