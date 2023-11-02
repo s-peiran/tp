@@ -307,6 +307,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
         - If the CONTACT_ID or CONTACT_NAME does not exist: `Contact not found`
         - If the MEETING_ID or MEETING_NAME does not exist: `Meeting not found`
         - If the NOTES aren't provided:  `Please provide the note content`
+        - If the NOTES already exists for a given contact/meeting: `Error: duplicate notes`
         - If invalid command format: `Invalid command format!
           add note to contact: Add notes to contact Parameters: -id CONTACT_ID_or_CONTACT_NAME -note NOTES Example: add note to contact -id 5 -note Has a dog named Benny`
 
@@ -316,7 +317,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 - **Command Format**:
     - For Contacts when in "contacts" mode: `delete note -id CONTACT_ID_or_CONTACT_NAME -noteid NOTE_ID`
-    - For Meetings when in "Meetings" mode: `delete note -id MEETING_ID_or_MEETING_NAME -noteid NOTE_ID
+    - For Meetings when in "Meetings" mode: `delete note -id MEETING_ID_or_MEETING_NAME -noteid NOTE_ID`
 
 - **Examples**:
     - `delete note -id 5 -noteid 2`

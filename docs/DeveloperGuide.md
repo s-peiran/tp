@@ -384,14 +384,14 @@ giving users the ability to edit previous notes, but that is outside the scope o
 ### Implementation (Add Notes)
 
 A new `Note` class is created, which stores the contents of the note as a string. The `Contact`/`Meeting` model is then updated
-to include a new `notes` attribute of type `HashSet<Note>`.
+to include a new `notes` attribute of type `LinkedHashSet<Note>`.
 
 To distinguish between adding notes to contacts and meetings, 2 separate Command classes are created, namely 
 `AddNoteCommand` (for contacts) and `AddMeetingNoteCommand` (for meetings). These classes will then call 
 their respective parser classes, to get the arguments passed in by the user. The arguments include the
 index of the target contact/meeting and the note itself.
 
-When the respective commands are executed, Notenote will get the indexed contact/meeting object from
+When the respective commands are executed, NoteNote will get the indexed contact/meeting object from
 the Model's `FilteredContactList`/`FilteredMeetingList`. Internally, the model will duplicate the existing list of notes
 and append the additional note.
 
@@ -408,10 +408,14 @@ Note thus has a unique `noteID`.
 Once again, there are separate commands for deleting notes from contacts and from meetings. The relationship between the Command
 and respective Parser classes is similar to the one described for adding Notes.
 
-In terms of execution, a user will pass the `noteID` of the Note to be deleted as an argument. Notenote will then iterate through
-the HashSet, and when a Note's `noteID` matches the one specified by the user, will remove the Note from the HashSet accordingly.
+In terms of execution, a user will pass the `noteID` of the Note to be deleted as an argument. NoteNote will then iterate through
+the HashSet, and when a Note's `noteID` matches the one specified by the user, will remove the Note from the LinkedHashSet accordingly.
 
-The `Contact`/`Meeting` model will then be updated with the new HashSet of Notes.
+The `Contact`/`Meeting` model will then be updated with the new LinkedHashSet of Notes.
+
+Additionally, it is pertinent to note that the exact value of `noteID` is unimportant. In this implementation,
+it is used as a way to index Notes in the LinkedHashSet. As such, on opening and shutting down the app, the noteID may change --
+this is to be expected. However, the relative order of notes within each Contact/Meeting should be unchanged.
 
 ### Design Considerations
 
