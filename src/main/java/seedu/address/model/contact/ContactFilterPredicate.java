@@ -1,6 +1,5 @@
 package seedu.address.model.contact;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -32,19 +31,18 @@ public class ContactFilterPredicate implements Predicate<Contact> {
     @Override
     public boolean test(Contact contact) {
         boolean name = (nameKeywords.size() == 1 && nameKeywords.get(0).isEmpty()) || nameKeywords.stream()
-            .anyMatch(keyword -> Arrays.stream(contact.getName().fullName.split("\\s+")).anyMatch(word ->
-                word.equalsIgnoreCase(keyword)));
-        boolean email = emailAddress.equals("") || emailAddress.equals(contact.getEmail().value);
-        boolean phone = phoneNumber.equals("") || phoneNumber.equals(contact.getPhone().value);
+            .anyMatch(keyword -> contact.getName().fullName.toLowerCase().contains(keyword.toLowerCase()));
+        boolean email = emailAddress.isEmpty() || contact.getEmail().value.toLowerCase()
+            .contains(emailAddress.toLowerCase());
+        boolean phone = phoneNumber.isEmpty() || contact.getPhone().value.contains(phoneNumber);
         boolean address = (addressKeywords.size() == 1 && addressKeywords.get(0).isEmpty()) || addressKeywords.stream()
-            .anyMatch(keyword -> Arrays.stream(contact.getAddress().value.split("\\s+")).anyMatch(word ->
-                word.equalsIgnoreCase(keyword)));
+            .anyMatch(keyword -> contact.getAddress().value.toLowerCase().contains(keyword.toLowerCase()));
         boolean tag = (tagKeywords.size() == 1 && tagKeywords.get(0).isEmpty())
-            || tagKeywords.stream().anyMatch(keyword -> Arrays.stream(contact.getTagString().split("\\s+"))
-            .anyMatch(word -> word.equalsIgnoreCase(keyword)));
+            || tagKeywords.stream().anyMatch(keyword -> contact.getTagString().toLowerCase()
+                .contains(keyword.toLowerCase()));
         boolean note = (noteKeywords.size() == 1 && noteKeywords.get(0).isEmpty())
-            || noteKeywords.stream().anyMatch(keyword -> Arrays.stream(contact.getNoteString().split("\\s+"))
-            .anyMatch(word -> word.equalsIgnoreCase(keyword)));
+            || noteKeywords.stream().anyMatch(keyword -> contact.getNoteString().toLowerCase()
+                .contains(keyword.toLowerCase()));
         return name && email && phone && address && tag && note;
     }
 
