@@ -47,9 +47,9 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 - **What it does**: Adds a new contact to the list when in the "contacts" mode.
 
-- **Command Format**: `add -n CONTACT_NAME -p PHONE_NUMBER -e EMAIL_ADDRESS -a RESIDENTIAL_ADDRESS [-t TAGS]`
+- **Command Format**: `add n/CONTACT_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/RESIDENTIAL_ADDRESS [t/TAGS]`
 
-- **Example**: `add -n Sarah Woo -p 82775346 -e sarah.woo@gmail.com -a Blk227 Sims Drive`
+- **Example**: `add n/Sarah Woo p/82775346 e/sarah.woo@gmail.com a/Blk227 Sims Drive`
 
 - **Acceptable Values**:
     - CONTACT_NAME: String, at least 2 characters long.
@@ -59,7 +59,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
     - Failure:
         - If the CONTACT_NAME already exists: `This contact already exists in the address book`
         - If invalid command format: `Invalid command format!
-          add contact: Adds a contact to the address book. Parameters: -n NAME -p PHONE -e EMAIL -a ADDRESS [-tTAG]... Example: add contact -n John Doe -p 98765432 -e johnd@example.com -a 311, Clementi Ave 2, #02-25 -t friends -t owesMoney`
+          add contact: Adds a contact to the address book. Parameters: n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]... Example: add contact n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney`
 
 ---
 
@@ -67,9 +67,9 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 - **What it does**: Displays details of a specific contact when in the "contacts" mode.
 
-- **Command Format**: `view -[CONTACT_ID or CONTACT_NAME]`
+- **Command Format**: `view id/[CONTACT_ID]`
 
-- **Example**: `view -Sarah`
+- **Example**: `view id/1`
 
 - **Acceptable Values**:
     - CONTACT_ID: Non-negative integer.
@@ -80,8 +80,8 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
     - Failure:
         - If the CONTACT_ID or CONTACT_NAME does not exist: `Contact not found!`
         - If invalid command
-          format: `Invalid command format! view contact: View a contact to the address book. Parameters: -[CONTACT_ID or CONTACT_NAME]
-          Example: view contact -Sarah`
+          format: `Invalid command format! view contact: View a contact to the address book. Parameters: id/[CONTACT_ID]
+          Example: view contact id/1`
 
 ---
 
@@ -90,7 +90,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 - **What it does**: Shows all contacts in the list when in the "contacts" mode. All fields after list are optional
   arguments.
 
-- **Command Format**: `list -n [NAME] -p [PHONE] -e [EMAIL] -a [ADDRESS] -t [TAG] -c [NOTE]`
+- **Command Format**: `list n/[NAME] p/[PHONE] e/[EMAIL] a/[ADDRESS] t/[TAG] c/[NOTE]`
 
 - **Expected Outputs**:
     - Success: `%d contacts listed`
@@ -103,16 +103,16 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 - **What it does**: Edits an existing person in the address book.
 
-- **Command Format**: `edit -id INDEX -n CONTACT_NAME -p PHONE_NUMBER -e EMAIL_ADDRESS -a RESIDENTIAL_ADDRESS [-t TAGS]`
+- **Command Format**: `edit id/INDEX n/CONTACT_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/RESIDENTIAL_ADDRESS [t/TAGS]`
 
-- **Example**: `edit -id 3 -p 90649923`
+- **Example**: `edit id/3 p/90649923`
  
 - **Expected Outputs**:
   - Success: `Edited Contact: Alex Yeoh; Phone: 90649923; Email: alex.yeoh@gmail.com; Address: Blk 30 Geylang Street 29; Tags: `
   - Failure:
       - If the MEETING_ID does not exist: `The contact index provided is invalid`
       - If invalid command format: `Invalid command format!
-        edit: Edits the details of the contact identified by the index number used in the displayed contact list. Existing values will be overwritten by the input values. Parameters: INDEX (must be a positive integer) [-nNAME] [-pPHONE] [-eEMAIL] [-aADDRESS] [-tTAG] [-cNOTE]... Example: edit 1 -p91234567 -ejohndoe@example.com`
+        edit: Edits the details of the contact identified by the index number used in the displayed contact list. Existing values will be overwritten by the input values. Parameters: INDEX (must be a positive integer) [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [c/NOTE]... Example: edit 1 p/91234567 -ejohndoe@example.com`
 
 ---
 
@@ -120,9 +120,9 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 - **What it does**: Removes a contact based on the given ID when in the "contacts" mode.
 
-- **Command Format**: `delete -id [CONTACT_ID]`
+- **Command Format**: `delete id/[CONTACT_ID]`
 
-- **Example**: `delete -id 3`
+- **Example**: `delete id/3`
 
 - **Acceptable Values**:
     - CONTACT_ID: Non-negative integer.
@@ -141,9 +141,9 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 - **What it does**: Organizes a new meeting with optional notes and contacts when in the "meetings" mode.
 
-- **Command Format**: `add -title MEETING_NAME -time DD/MM/YYYY HH:MM -place LOCATION[-desc DESCRIPTION]`
+- **Command Format**: `add title/MEETING_NAME time/DD/MM/YYYY HH:MM place/OCATION [desc/DESCRIPTION]`
 
-- **Example**: `add -title Project Discussion -time 03/10/2023 15:00 -place Terrace -desc Discussing milestones`
+- **Example**: `add title/Project Discussion time/03/10/2023 15:00 place/Terrace desc/Discussing milestones`
 
 - **Acceptable Values**:
     - MEETING_NAME: String, at least 2 characters long.
@@ -162,7 +162,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 - **What it does**: Displays details of a specific meeting when in the "meetings" mode.
 
-- **Command Format**: `view -[MEETING_ID or MEETING_NAME]`
+- **Command Format**: `view id/[MEETING_ID]`
 
 - **Example**: `view Project Discussion`
 
@@ -182,7 +182,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 - **What it does**: Shows a list of all meetings when in the "meetings" mode. All arguments after `list` are optional
   arguments.
 
-- **Command Format**: `list -title [TITLE] -time [TIME] -place [PLACE] -desc [DESCRIPTION] -m [NOTE]`
+- **Command Format**: `list title/[TITLE] time/[TIME] place/[PLACE] desc/[DESCRIPTION] m/[NOTE]`
 
 - **Expected Outputs**:
     - Success: `%d Meetings Listed!`
@@ -216,9 +216,9 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 - **What it does** Edits the details of an existing meeting in the address book.
 
-- **Command Format**: `edit -MEETING_ID -title MEETING_NAME -time DD/MM/YYYY HH:MM -place LOCATION[-desc DESCRIPTION]`
+- **Command Format**: `edit id/MEETING_ID title/MEETING_NAME time/DD/MM/YYYY HH:MM place/LOCATION [desc/DESCRIPTION]`
 
-- **Example**: `edit -id 1 -title Strategy Planning -time 03/10/2023 16:00 -place u-town -desc Discuss prodcut strategy`
+- **Example**: `edit id/1 title/Strategy Planning time/03/10/2023 16:00 place/u-town desc/Discuss prodcut strategy`
 
 - **Acceptable Values**:
     - MEETING_ID: Non-negative integer.
@@ -228,7 +228,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
     - Failure:
         - If the MEETING_ID does not exist: `The meeting index provided is invalid`
         - If invalid command format: `Invalid command format!
-          edit: Edits the details of the meeting identified by the index number used in the displayed meeting list. Existing values will be overwritten by the input values. Parameters: INDEX (must be a positive integer) [-titleTITLE] [-timeTIME] [-placePLACE] [-descDESCRIPTION]... Example: edit 1 -placeZoom -descDiscuss Project Details`
+          edit: Edits the details of the meeting identified by the index number used in the displayed meeting list. Existing values will be overwritten by the input values. Parameters: INDEX (must be a positive integer) [title/TITLE] [time/TIME] [place/PLACE] [desc/DESCRIPTION]... Example: edit id/1 place/Zoom desc/Discuss Project Details`
 
 ---
 
@@ -236,9 +236,9 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 - **What it does**: Adds a contact to an existing meeting as a participant when in the "meetings" mode.
 
-- **Command Format**: `add contact -n CONTACT_NAME -title MEETING_NAME`
+- **Command Format**: `addcontact n/CONTACT_NAME title/MEETING_NAME`
 
-- **Example**: `add contact -n Sarah Woo -title Project Discussion`
+- **Example**: `addcontact n/Sarah Woo title/Project Discussion`
 
 - **Acceptable Values**:
     - MEETING_NAME: String, at least 2 characters long. Not case sensitive.
@@ -250,7 +250,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
         - If the MEETING_NAME does not exist: `Meeting not found`
         - If the CONTACT_NAME does not exist: `Contact not found`
         - If invalid command format: `Invalid command format!
-          add contact to meeting: Adds a contact to an existing meeting. Parameters: -n CONTACT_NAME -title MEETING_NAME Example: add contact to meeting -n Sarah Woo -title Project Discussion`
+          add contact to meeting: Adds a contact to an existing meeting. Parameters: n/CONTACT_NAME title/MEETING_NAME Example: addcontact n/Sarah Woo title/Project Discussion`
 
 ---
 
@@ -258,9 +258,9 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 - **What it does**: Removes a contact from an existing meeting when in the "meetings" mode.
 
-- **Command Format**: `delete contact -n CONTACT_NAME -title MEETING_NAME`
+- **Command Format**: `deletecontact n/CONTACT_NAME title/MEETING_NAME`
 
-- **Example**: `delete contact -n Sarah Woo -title Project Discussion`
+- **Example**: `deletecontact n/Sarah Woo title/Project Discussion`
 
 - **Acceptable Values**:
     - MEETING_NAME: String, at least 2 characters long. Not case sensitive.
@@ -273,7 +273,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
         - If the CONTACT_NAME does not exist or isn't a part of the specified
           meeting: `Contact not found or not part of the meeting`
         - If invalid command format: `Invalid command format!
-          delete contact from meeting: Removes a contact from an existing meeting. Parameters: -n CONTACT_NAME -title MEETING_NAME Example: delete contact from meeting -n Sarah Woo -title Project Discussion`
+          deletecontact : Removes a contact from an existing meeting. Parameters: n/CONTACT_NAME title/MEETING_NAME Example: deletecontact n/Sarah Woo title/Project Discussion`
 
 ---
 
@@ -284,12 +284,12 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 - **What it does**: Associates notes with a specific contact or meeting
 
 - **Command Format**:
-    - For Contacts when in "contacts" mode: `add note -id CONTACT_ID_or_CONTACT_NAME -c NOTES`
-    - For Meetings when in "Meetings" mode: `add note -id MEETING_ID_or_MEETING_NAME -m NOTES`
+    - For Contacts when in "contacts" mode: `addnote id/CONTACT_ID_or_CONTACT_NAME c/NOTES`
+    - For Meetings when in "Meetings" mode: `addnote id/MEETING_ID_or_MEETING_NAME m/NOTES`
 
 - **Examples**:
-    - `add note -id 5 -note Has a dog named Benny`
-    - `add note -id Project Discussion -note Agenda: Discuss Q2 results`
+    - `addnote id/ 5 c/ Has a dog named Benny`
+    - `addnote id/ Project Discussion m/ Agenda: Discuss Q2 results`
 
 - **Acceptable Values**:
     - CONTACT_ID: Non-negative integer.
@@ -308,19 +308,19 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
         - If the NOTES aren't provided:  `Please provide the note content`
         - If the NOTES already exists for a given contact/meeting: `Error: duplicate notes`
         - If invalid command format: `Invalid command format!
-          add note to contact: Add notes to contact Parameters: -id CONTACT_ID_or_CONTACT_NAME -note NOTES Example: add note to contact -id 5 -note Has a dog named Benny`
+          addnote: Add notes to contact Parameters: id/CONTACT_ID_or_CONTACT_NAME c/NOTES Example: addnote id/5 c/ Has a dog named Benny`
 
 ### Delete Notes from a Contact or Meeting
 
 - **What it does**: Removes specified notes from a contact or meeting.
 
 - **Command Format**:
-    - For Contacts when in "contacts" mode: `delete note -id CONTACT_ID_or_CONTACT_NAME -noteid NOTE_ID`
-    - For Meetings when in "Meetings" mode: `delete note -id MEETING_ID_or_MEETING_NAME -noteid NOTE_ID`
+    - For Contacts when in "contacts" mode: `delete note id/CONTACT_ID_or_CONTACT_NAME noteid/NOTE_ID`
+    - For Meetings when in "Meetings" mode: `delete note id/MEETING_ID_or_MEETING_NAME noteid/NOTE_ID`
 
 - **Examples**:
-    - `delete note -id 5 -index 2`
-    - `delete note -id Project Discussion -index 1`
+    - `deletenote id/5 index noteid/2`
+    - `deletenote id/Project Discussion noteid/ 1`
 
 - **Acceptable Values**:
     - CONTACT_ID: Non-negative integer.
@@ -338,8 +338,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
         - If the MEETING_ID or MEETING_NAME does not exist: `Meeting not found`
         - If no note exists for the specified note index in the contact or meeting: `No note found`
         - If invalid command format: `Invalid command format!
-          delete note from contact: Remove notes from contact Parameters: -id CONTACT_ID_or_CONTACT_NAME -index INDEX Example: delete note from contact -id 5 -index 1`
-
+          deletenote: Remove notes from contact Parameters: id/CONTACT_ID_or_CONTACT_NAME index/INDEX Example: deletenote id/5 noteid/1`
 ---
 
 ## Miscellaneous:
