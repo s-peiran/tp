@@ -3,11 +3,13 @@ package seedu.address.logic.parser;
 import static java.lang.Integer.parseInt;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_NOTEID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_ID;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteMeetingNoteCommand;
+import seedu.address.logic.commands.DeleteNoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -34,6 +36,11 @@ public class DeleteMeetingNoteCommandParser implements Parser<DeleteMeetingNoteC
         } catch (Exception e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteMeetingNoteCommand.MESSAGE_USAGE), e);
+        }
+
+        if (noteID <= 0) {
+            throw new ParseException(String.format(MESSAGE_INVALID_NOTEID,
+                    DeleteMeetingNoteCommand.MESSAGE_USAGE));
         }
 
         return new DeleteMeetingNoteCommand(index, noteID);
