@@ -22,4 +22,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_NOTE = new Prefix("-z");
     public static final Prefix PREFIX_NOTE_CONTACT = new Prefix("-c");
     public static final Prefix PREFIX_NOTE_MEETING = new Prefix("-m");
+    public static final Prefix PREFIX_NOTE_ID = new Prefix("-noteid");
 }

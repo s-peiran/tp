@@ -7,7 +7,9 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable; is always valid
  */
 public class Note {
+    public static int ID = 1;
     public final String note;
+    public final int noteID;
 
     /**
      * Constructs a {@code Note}.
@@ -17,11 +19,15 @@ public class Note {
     public Note(String note) {
         requireNonNull(note);
         this.note = note;
+        this.noteID = ID++;
     }
 
+    public int getNoteID() {
+        return noteID;
+    }
     @Override
     public String toString() {
-        return note;
+        return note + " #" + noteID;
     }
 
     @Override
