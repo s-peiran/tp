@@ -98,7 +98,7 @@
 <!--                  <Label fx:id="noteDetailHeader" text="Notes" styleClass="label-header" maxWidth="Infinity"/>-->
 <!--                  <StackPane fx:id="noteDetail" VBox.vgrow="ALWAYS" />-->
 <!--                </VBox>-->
-                <StackPane VBox.vgrow="ALWAYS" fx:id="noteDisplayPlaceholder" styleClass="pane-with-border" minWidth="250" maxHeight="Infinity" minHeight="500" />
+                <StackPane visible="false" managed="true" VBox.vgrow="ALWAYS" fx:id="noteDisplayPlaceholder" styleClass="pane-with-border" minWidth="250" maxHeight="Infinity" minHeight="500" />
               </VBox>
             </items>
           </SplitPane>

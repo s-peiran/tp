@@ -242,6 +242,8 @@ public class MainWindow extends UiPart<Stage> {
                 contactDetailPanelPlaceholder.setManaged(true);
                 meetingDetailPanelPlaceholder.setVisible(false);
                 meetingDetailPanelPlaceholder.setManaged(false);
+                noteDisplayPlaceholder.setVisible(true);
+                noteDisplayPlaceholder.setManaged(true);
             } else if (appState.isMeetingPresent()) {
                 Meeting displayedMeeting = appState.getMeeting();
                 meetingDetailPanel.setMeeting(displayedMeeting);
@@ -251,11 +253,15 @@ public class MainWindow extends UiPart<Stage> {
                 contactDetailPanelPlaceholder.setManaged(false);
                 meetingDetailPanelPlaceholder.setVisible(true);
                 meetingDetailPanelPlaceholder.setManaged(true);
+                noteDisplayPlaceholder.setVisible(true);
+                noteDisplayPlaceholder.setManaged(true);
             } else {
                 contactDetailPanelPlaceholder.setVisible(false);
                 contactDetailPanelPlaceholder.setManaged(true);
                 meetingDetailPanelPlaceholder.setVisible(false);
                 meetingDetailPanelPlaceholder.setManaged(false);
+                noteDisplayPlaceholder.setVisible(false);
+                noteDisplayPlaceholder.setManaged(false);
             }
 
             return commandResult;
