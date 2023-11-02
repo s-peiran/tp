@@ -2,8 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_CONTACT;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.NoSuchElementException;
 
@@ -24,6 +23,8 @@ public class AddNoteCommandParser implements Parser<AddNoteCommand> {
     public AddNoteCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_NOTE_CONTACT);
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_INDEX, PREFIX_NOTE_CONTACT);
 
         Index index;
         try {

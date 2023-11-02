@@ -24,6 +24,8 @@ public class DeleteMeetingNoteCommandParser implements Parser<DeleteMeetingNoteC
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_NOTE_ID);
 
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_INDEX, PREFIX_NOTE_ID);
+
         Index index;
         int noteID;
         try {
