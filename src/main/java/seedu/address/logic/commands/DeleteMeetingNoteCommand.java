@@ -23,7 +23,7 @@ import seedu.address.ui.AppState;
  */
 public class DeleteMeetingNoteCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete note";
+    public static final String COMMAND_WORD = "deletenote";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the note of the meeting identified "

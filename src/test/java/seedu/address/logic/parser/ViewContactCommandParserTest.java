@@ -23,9 +23,9 @@ public class ViewContactCommandParserTest {
     public void parse_validArgs_returnsViewMeetingCommand() {
         // no leading and trailing whitespaces
         ViewContactCommand expectedViewContactCommand = new ViewContactCommand(Index.fromOneBased(1));
-        assertParseSuccess(parser, " -id1", expectedViewContactCommand);
+        assertParseSuccess(parser, " " + CliSyntax.PREFIX_INDEX + "1", expectedViewContactCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " -id \n 1 \n", expectedViewContactCommand);
+        assertParseSuccess(parser, " " + CliSyntax.PREFIX_INDEX + " \n 1 \n", expectedViewContactCommand);
     }
 }
