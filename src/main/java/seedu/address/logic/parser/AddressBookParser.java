@@ -18,6 +18,8 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteContactCommand;
 import seedu.address.logic.commands.DeleteContactFromMeetingCommand;
 import seedu.address.logic.commands.DeleteMeetingCommand;
+import seedu.address.logic.commands.DeleteMeetingNoteCommand;
+import seedu.address.logic.commands.DeleteNoteCommand;
 import seedu.address.logic.commands.EditContactCommand;
 import seedu.address.logic.commands.EditMeetingCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -107,6 +109,9 @@ public class AddressBookParser {
             case AddNoteCommand.COMMAND_WORD:
                 return new AddNoteCommandParser().parse(arguments);
 
+            case DeleteNoteCommand.COMMAND_WORD:
+                return new DeleteNoteCommandParser().parse(arguments);
+
             default:
                 break;
             }
@@ -138,6 +143,9 @@ public class AddressBookParser {
 
             case AddMeetingNoteCommand.COMMAND_WORD:
                 return new AddMeetingNoteCommandParser().parse(arguments);
+
+            case DeleteMeetingNoteCommand.COMMAND_WORD:
+                return new DeleteMeetingNoteCommandParser().parse(arguments);
 
             default:
                 break;

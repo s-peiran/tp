@@ -90,7 +90,7 @@ public class Contact {
         StringBuilder sb = new StringBuilder();
         Set<Note> setNotes = getNotes();
         for (Note notes : setNotes) {
-            sb.append(notes.toString() + "\n");
+            sb.append(notes.toString() + " #" + notes.getNoteID() + "\n");
         }
         if (sb.length() > 0) {
             sb.setLength(sb.length() - 1);

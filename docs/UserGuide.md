@@ -289,8 +289,8 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
     - For Meetings when in "Meetings" mode: `add note -id MEETING_ID_or_MEETING_NAME -m NOTES`
 
 - **Examples**:
-    - `add note -id 5 -note Has a dog named Benny`
-    - `add note -id Project Discussion -note Agenda: Discuss Q2 results`
+    - `add note -id 5 -c Has a dog named Benny`
+    - `add note -id Project Discussion -m Agenda: Discuss Q2 results`
 
 - **Acceptable Values**:
     - CONTACT_ID: Non-negative integer.
@@ -315,19 +315,19 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 - **What it does**: Removes specified notes from a contact or meeting.
 
 - **Command Format**:
-    - For Contacts when in "contacts" mode: `delete note -id CONTACT_ID_or_CONTACT_NAME -index NOTE_INDEX`
-    - For Meetings when in "Meetings" mode: `delete note -id MEETING_ID_or_MEETING_NAME -index NOTE_INDEX`
+    - For Contacts when in "contacts" mode: `delete note -id CONTACT_ID_or_CONTACT_NAME -noteid NOTE_ID`
+    - For Meetings when in "Meetings" mode: `delete note -id MEETING_ID_or_MEETING_NAME -noteid NOTE_ID
 
 - **Examples**:
-    - `delete note -id 5 -index 2`
-    - `delete note -id Project Discussion -index 1`
+    - `delete note -id 5 -noteid 2`
+    - `delete note -id Project Discussion -noteid 1`
 
 - **Acceptable Values**:
     - CONTACT_ID: Non-negative integer.
     - CONTACT_NAME: String, at least 2 characters long. Not case sensitive.
     - MEETING_ID: Non-negative integer.
     - MEETING_NAME: String, at least 2 characters long. Not case sensitive.
-    - NOTE_INDEX: Non-negative integer. Index of the note as displayed in the notes list of a contact or meeting.
+    - NOTE_ID: Non-negative integer. Index of the note as displayed in the notes list of a contact or meeting, and is preceded by a "#".
 
 - **Expected Outputs**:
     - Success:
