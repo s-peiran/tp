@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
@@ -40,10 +41,15 @@ public class EditContactCommandParser implements Parser<EditContactCommand> {
 
         Index index;
         try {
+            if (Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()) == 0) {
+                throw new IndexOutOfBoundsException();
+            }
             index = Index.fromOneBased(Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()));
         } catch (NoSuchElementException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditContactCommand.MESSAGE_USAGE), pe);
+        } catch (IndexOutOfBoundsException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);

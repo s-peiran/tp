@@ -38,8 +38,7 @@ public class DeleteNoteCommandParser implements Parser<DeleteNoteCommand> {
         }
 
         if (noteID <= 0) {
-            throw new ParseException(String.format(MESSAGE_INVALID_NOTEID,
-                    DeleteNoteCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_NOTEID));
         }
 
         return new DeleteNoteCommand(index, noteID);
