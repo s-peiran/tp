@@ -3,7 +3,6 @@ package seedu.address.testutil;
 import static seedu.address.model.util.SampleDataUtil.getNoteSet;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
