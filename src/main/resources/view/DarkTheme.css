@@ -156,9 +156,6 @@
      -fx-border-top-width: 1px;
 }
 
-.notes-area {
-    -fx-background-color: derive(#1d1d1d, 50%);
-}
 .status-bar {
     -fx-background-color: derive(#1d1d1d, 30%);
 }
