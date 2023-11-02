@@ -25,14 +25,14 @@ public class DeleteMeetingNoteCommandParser implements Parser<DeleteMeetingNoteC
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_NOTE_ID);
 
         Index index;
+        int noteID;
         try {
             index = Index.fromOneBased(parseInt(argMultimap.getValue(PREFIX_INDEX).get()));
+            noteID = parseInt(argMultimap.getValue(PREFIX_NOTE_ID).orElse(""));
         } catch (Exception e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteMeetingNoteCommand.MESSAGE_USAGE), e);
         }
-
-        int noteID = parseInt(argMultimap.getValue(PREFIX_NOTE_ID).orElse(""));
 
         return new DeleteMeetingNoteCommand(index, noteID);
     }

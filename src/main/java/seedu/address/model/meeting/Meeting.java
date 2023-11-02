@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -25,7 +26,7 @@ public class Meeting {
     private Place place;
 
     private Description description;
-    private Set<Note> notes = new HashSet<>();
+    private Set<Note> notes = new LinkedHashSet<>();
     private ArrayList<Contact> contacts = new ArrayList<>();
 
     /**
@@ -78,7 +79,7 @@ public class Meeting {
     public String getNoteString() {
         StringBuilder sb = new StringBuilder();
         for (Note notes : notes) {
-            sb.append(notes.toString() + "\n");
+            sb.append(notes.toString() + " #" + notes.getNoteID() + "\n");
         }
         if (sb.length() > 0) {
             sb.setLength(sb.length() - 1);
