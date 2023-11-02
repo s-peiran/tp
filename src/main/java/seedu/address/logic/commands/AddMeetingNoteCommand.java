@@ -21,7 +21,7 @@ import seedu.address.ui.AppState;
  */
 public class AddMeetingNoteCommand extends Command {
 
-    public static final String COMMAND_WORD = "add note";
+    public static final String COMMAND_WORD = "note";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds note to the meeting identified "
