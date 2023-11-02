@@ -1,11 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PLACE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME_END;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME_START;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +23,10 @@ public class ListMeetingCommandParser implements Parser<ListMeetingCommand> {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_TIME_START, PREFIX_TIME_END, PREFIX_PLACE,
                 PREFIX_DESCRIPTION, PREFIX_NOTE);
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TITLE, PREFIX_TIME_START, PREFIX_TIME_END, PREFIX_PLACE,
+                PREFIX_DESCRIPTION, PREFIX_NOTE);
+
         String title = argMultimap.getValue(PREFIX_TITLE).orElse("").trim();
         List<String> titleKeywords = Arrays.asList(title.split("\\s+"));
         String timeStart = argMultimap.getValue(PREFIX_TIME_START).orElse("");

@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_ID;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteMeetingCommand;
@@ -22,6 +23,9 @@ public class DeleteMeetingCommandParser implements Parser<DeleteMeetingCommand> 
     public DeleteMeetingCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_INDEX);
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_INDEX);
+
         Index index;
         try {
             if (Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()) == 0) {

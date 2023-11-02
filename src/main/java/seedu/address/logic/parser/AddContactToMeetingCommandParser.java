@@ -2,8 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
+import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_ID;
 
 import seedu.address.logic.commands.AddContactToMeetingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -21,6 +21,8 @@ public class AddContactToMeetingCommandParser implements Parser<AddContactToMeet
     public AddContactToMeetingCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TITLE);
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_TITLE);
 
         String contactName = argMultimap.getValue(PREFIX_NAME).orElse("");
         String meetingTitle = argMultimap.getValue(PREFIX_TITLE).orElse("");
