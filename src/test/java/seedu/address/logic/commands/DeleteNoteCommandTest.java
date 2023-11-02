@@ -33,8 +33,8 @@ public class DeleteNoteCommandTest {
 
     @Test
     public void execute_deleteNoteUnfilteredList_success() {
-        Contact firstContact = model.getFilteredContactList().get(INDEX_THIRD.getZeroBased());
-        Contact editedContact = new ContactBuilder(firstContact).withNotes().build();
+        Contact thirdContact = model.getFilteredContactList().get(INDEX_THIRD.getZeroBased());
+        Contact editedContact = new ContactBuilder(thirdContact).withNotes().build();
 
         DeleteNoteCommand deleteNoteCommand = new DeleteNoteCommand(INDEX_THIRD, VALID_CONTACT_NOTEID);
 
@@ -42,7 +42,7 @@ public class DeleteNoteCommandTest {
                 Messages.formatContact(editedContact));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setContact(firstContact, editedContact);
+        expectedModel.setContact(thirdContact, editedContact);
 
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false);
 

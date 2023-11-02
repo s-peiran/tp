@@ -33,9 +33,12 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
   upon for example performing an `add` command in `contacts` mode will add a contact while using an `add` command in `meetings` mode will add a meeting.
   The following commands are affected by the mode of the application:
     1. `add`
-    2. `edit` 
-    3. `note`
-    4. `list`
+    2. `view`
+    3. `edit` 
+    4. `delete`
+    5. `addnote`
+    6. `deletenote`
+    7. `list`
 
 - **Command Format**: `mode`
 
@@ -99,7 +102,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 - **What it does**: Shows all contacts in the list when in the `contacts` mode. All fields after list are optional
   arguments.
 
-- **Command Format**: `list n/[NAME] p/[PHONE] e/[EMAIL] a/[ADDRESS] t/[TAG] c/[NOTE]`
+- **Command Format**: `list n/[NAME] p/[PHONE] e/[EMAIL] a/[ADDRESS] t/[TAG] note/[NOTE]`
 
 - **Expected Outputs**:
     - Success: `Listed all contacts.`
@@ -160,7 +163,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 - **What it does**: Creates a new meeting when in the `meetings` mode.
 
-- **Command Format**: `add m/MEETING_NAME time/TIME place/LOCATION [desc/DESCRIPTION]`
+- **Command Format**: `add m/MEETING_NAME t/TIME p/LOCATION [d/DESCRIPTION]`
 
 - **Example**: `add m/ Project Discussion t/ 03/10/2023 15:00 p/ Terrace d/ Discussing mileston`
 
@@ -206,10 +209,9 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### List All Meetings
 
-- **What it does**: Shows a list of all meetings when in the `meetings` mode. All arguments after `list` are optional
-  arguments.
+- **What it does**: Shows a list of all meetings when in the `meetings` mode. All arguments after `list` are optional arguments. Other commands which use index will be affected by the updated indexes shown on the GUI.
 
-- **Command Format**: `list title/[TITLE] time/[TIME] place/[PLACE] desc/[DESCRIPTION] m/[NOTE]`
+- **Command Format**: `list m/[TITLE] t/[TIME] p/[PLACE] d/[DESCRIPTION] note/[NOTE]`
 
 - **Expected Outputs**:
     - Success: `%d meetings Listed!`
@@ -247,6 +249,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
     - TIME: Follow the `DD/MM/YYYY HH:MM` format
     - LOCATION: String, alphanumeric values and at least 1 character long.
     - DESCRIPTION: String, any value.
+
 - **Expected Outputs**:
     - Success: "Edited Meeting [MEETING_NAME];Time:[TIME];Place:[LOCATION];Description:[DESCRIPTION]"
     - Failure:
@@ -278,8 +281,9 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
     - Failure:
         - If the MEETING_NAME does not exist: `The meeting specified is not created`
         - If the CONTACT_NAME does not exist: `The person specified is not created`
+        - If the CONTACT_NAME is already in the existing meeting: `This contact already exists in the meeting`
         - If invalid command format: `Invalid command format!
-          add contact to meeting: Adds a contact to an existing meeting. Parameters: n/CONTACT_NAME title/MEETING_NAME Example: addcontact n/Sarah Woo title/Project Discussion`
+          add contact to meeting: Adds a contact to an existing meeting. Parameters: n/CONTACT_NAME m/MEETING_NAME Example: addcontact n/Sarah Woo m/Project Discussion`
 
 ---
 
@@ -292,8 +296,8 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 - **Example**: `deletecontact n/Sarah Woo m/Project Discussion`
 
 - **Acceptable Values**:
-    - MEETING_NAME: String, at least 2 characters long. Not case sensitive.
-    - CONTACT_NAME: String, at least 2 characters long. Not case sensitive.
+    - MEETING_NAME: String, at least 2 characters long. Case sensitive.
+    - CONTACT_NAME: String, at least 2 characters long. Case sensitive.
 
 - **Expected Outputs**:
     - Success: "Removed contact '[CONTACT_NAME]' from Meeting '[MEETING_NAME]'."
@@ -302,7 +306,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
         - If the CONTACT_NAME does not exist or isn't a part of the specified
           meeting: `The person specified is not created`
         - If invalid command format: `Invalid command format!
-          deletecontact : Removes a contact from an existing meeting. Parameters: n/CONTACT_NAME title/MEETING_NAME Example: deletecontact n/Sarah Woo title/Project Discussion`
+          deletecontact : Removes a contact from an existing meeting. Parameters: n/CONTACT_NAME m/MEETING_NAME Example: deletecontact n/Sarah Woo m/Project Discussion`
 
 ---
 
@@ -313,7 +317,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 - **What it does**: Associates notes with a specific contact or meeting
 
 - **Command Format**:
-    - For Contacts when in "contacts" mode: `addnote id/CONTACT_ID note/NOTES`
+    - For Contacts when in "Contacts" mode: `addnote id/CONTACT_ID note/NOTES`
     - For Meetings when in "Meetings" mode: `addnote id/MEETING_ID note/NOTES`
 
 - **Examples**:
@@ -359,7 +363,8 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
     - Failure:
         - If the CONTACT_ID does not exist: `The contact index provided is invalid`
         - If the MEETING_ID does not exist: `The meeting index provided is invalid`
-        - If no note exists for the specified note index in the contact or meeting OR If invalid command format: `Invalid command format!
+        - If no note exists for the specified note index in the contact or meeting: `Failed to remove note from Meeting: {Meeting Details}`
+        - If invalid command format: `Invalid command format!
           deletenote: Remove notes from contact Parameters: id/CONTACT_ID_or_CONTACT_NAME index/INDEX Example: deletenote id/5 noteid/1`
 ---
 
@@ -372,4 +377,22 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 - **Command Format**: `help`
 
 - **Expected Outputs**:
-    - Success: Displays a pop-up window with a link to the user guide.
+    - Success: `Opened help window.` Displays a pop-up window with a link to the user guide.
+
+### Clear AddressBook
+
+- **What it does**: Clears all contacts and meetings from memory in the entire address book.
+
+- **Command Format**: `clear`
+
+- **Expected Outputs**:
+    - Success: `Address book has been cleared!`
+
+### Exit Command
+
+- **What it does**: Close the application window.
+
+- **Command Format**: `exit`
+
+- **Expected Outputs**:
+    - Success: The window is closed and the program stops running.

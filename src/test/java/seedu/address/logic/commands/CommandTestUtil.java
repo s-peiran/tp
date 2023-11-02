@@ -34,7 +34,7 @@ import seedu.address.testutil.EditMeetingDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final int VALID_CONTACT_NOTEID = 4;
+    public static final int VALID_CONTACT_NOTEID = 3;
     public static final int VALID_MEETING_NOTEID = 11;
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
