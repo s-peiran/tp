@@ -86,7 +86,7 @@ public class AddNoteCommand extends Command {
      */
     private String generateSuccessMessage(Contact contactToEdit) {
         String message = !note.note.isEmpty() ? MESSAGE_ADD_NOTE_SUCCESS : MESSAGE_DELETE_NOTE_SUCCESS;
-        return String.format(message, contactToEdit);
+        return String.format(message, Messages.formatContact(contactToEdit));
     }
 
     @Override
