@@ -61,6 +61,11 @@ public class AddNoteCommand extends Command {
         Contact contactToEdit = lastShownList.get(index.getZeroBased());
 
         Set<Note> mutableNotesList = new LinkedHashSet<>(contactToEdit.getNotes());
+
+        if (mutableNotesList.contains(note)) {
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_NOTES);
+        }
+
         mutableNotesList.add(note);
 
         Contact editedContact = new Contact(

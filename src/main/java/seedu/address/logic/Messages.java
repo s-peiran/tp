@@ -15,6 +15,7 @@ import seedu.address.model.meeting.Meeting;
 public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command: %1$s";
+    public static final String MESSAGE_DUPLICATE_NOTES = "Error: the note already exists.";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX = "The contact index provided is invalid";
     public static final String MESSAGE_INVALID_MEETING_DISPLAYED_INDEX = "The meeting index provided is invalid";
