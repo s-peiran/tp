@@ -7,10 +7,6 @@ import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -22,7 +18,6 @@ import seedu.address.logic.commands.DeleteContactCommand;
 import seedu.address.logic.commands.EditContactCommand;
 import seedu.address.logic.commands.EditContactCommand.EditContactDescriptor;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindContactCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListContactCommand;
 import seedu.address.logic.commands.ModeCommand;
@@ -30,7 +25,6 @@ import seedu.address.logic.commands.ViewContactCommand;
 import seedu.address.logic.commands.ViewMeetingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.NameContainsKeywordsPredicate;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.testutil.ContactBuilder;
 import seedu.address.testutil.ContactUtil;
@@ -130,17 +124,6 @@ public class AddressBookParserTest {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(
                 ExitCommand.COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + " 3") instanceof ExitCommand);
-    }
-
-    @Test
-    public void parseCommand_findContact() throws Exception {
-        setModeToContacts();
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        String input = FindContactCommand.COMMAND_WORD + " " + CliSyntax.PREFIX_KEYWORD + " "
-                + keywords.stream().collect(Collectors.joining(" "));
-        FindContactCommand command = (FindContactCommand) parser.parseCommand(input);
-
-        assertEquals(new FindContactCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

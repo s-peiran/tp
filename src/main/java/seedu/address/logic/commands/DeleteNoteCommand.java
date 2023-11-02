@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_CONTACT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_ID;
 
 import java.util.Iterator;
@@ -29,7 +29,7 @@ public class DeleteNoteCommand extends Command {
             + ": Deletes the note of the meeting identified "
             + "by the index number used in the last meeting listing. "
             + "Parameters: " + PREFIX_INDEX + " (must be a positive integer) "
-            + PREFIX_NOTE_CONTACT + " [NOTE]\n"
+            + PREFIX_NOTE + " [NOTE]\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + " 1 "
             + PREFIX_NOTE_ID + " 1.";
 
