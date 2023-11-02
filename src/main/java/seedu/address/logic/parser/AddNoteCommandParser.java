@@ -25,6 +25,8 @@ public class AddNoteCommandParser implements Parser<AddNoteCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_NOTE_CONTACT);
 
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_INDEX, PREFIX_NOTE_CONTACT);
+
         Index index;
         try {
             index = Index.fromOneBased(Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()));
@@ -33,6 +35,10 @@ public class AddNoteCommandParser implements Parser<AddNoteCommand> {
         }
 
         String note = argMultimap.getValue(PREFIX_NOTE_CONTACT).orElse("");
+
+        if (note.equals("")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNoteCommand.MESSAGE_USAGE));
+        }
 
         return new AddNoteCommand(index, new Note(note));
     }

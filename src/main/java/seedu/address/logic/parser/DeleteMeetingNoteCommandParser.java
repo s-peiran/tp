@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.lang.Integer.parseInt;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_NOTEID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_ID;
 
@@ -24,15 +25,22 @@ public class DeleteMeetingNoteCommandParser implements Parser<DeleteMeetingNoteC
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_NOTE_ID);
 
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_INDEX, PREFIX_NOTE_ID);
+
         Index index;
+        int noteID;
         try {
             index = Index.fromOneBased(parseInt(argMultimap.getValue(PREFIX_INDEX).get()));
+            noteID = parseInt(argMultimap.getValue(PREFIX_NOTE_ID).orElse(""));
         } catch (Exception e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteMeetingNoteCommand.MESSAGE_USAGE), e);
         }
 
-        int noteID = parseInt(argMultimap.getValue(PREFIX_NOTE_ID).orElse(""));
+        if (noteID <= 0) {
+            throw new ParseException(String.format(MESSAGE_INVALID_NOTEID,
+                    DeleteMeetingNoteCommand.MESSAGE_USAGE));
+        }
 
         return new DeleteMeetingNoteCommand(index, noteID);
     }

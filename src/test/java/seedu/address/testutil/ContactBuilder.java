@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import seedu.address.model.contact.Address;
@@ -39,7 +40,7 @@ public class ContactBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
-        notes = new HashSet<>();
+        notes = new LinkedHashSet<>();
     }
 
     /**
@@ -51,7 +52,7 @@ public class ContactBuilder {
         email = contactToCopy.getEmail();
         address = contactToCopy.getAddress();
         tags = new HashSet<>(contactToCopy.getTags());
-        notes = new HashSet<>(contactToCopy.getNotes());
+        notes = new LinkedHashSet<>(contactToCopy.getNotes());
     }
 
     /**

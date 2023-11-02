@@ -5,8 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_MEETING;
 
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -33,11 +33,12 @@ public class DeleteMeetingNoteCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + " 1 "
             + PREFIX_NOTE_ID + " 1.";
 
-    public static final String MESSAGE_ADD_NOTE_SUCCESS = "Added note to Meeting: %1$s";
+    public static final String MESSAGE_DELETE_NOTE_FAILURE = "Failed to remove note from Meeting: %1$s";
     public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Removed note from Meeting: %1$s";
 
     private final Index index;
     private final int noteID;
+    private boolean isSuccessful = false;
 
     /**
      * @param index of the person in the filtered person list to edit the note
@@ -60,16 +61,17 @@ public class DeleteMeetingNoteCommand extends Command {
 
         Meeting meetingToEdit = lastShownList.get(index.getZeroBased());
 
-        Set<Note> mutableNotesList = new HashSet<>(meetingToEdit.getNotes());
+        Set<Note> mutableNotesList = new LinkedHashSet<>(meetingToEdit.getNotes());
         Iterator<Note> iterator = mutableNotesList.iterator();
         while (iterator.hasNext()) {
             Note note = iterator.next();
             if (note.getNoteID() == noteID) {
                 iterator.remove();
+                isSuccessful = true;
             }
         }
 
-        HashSet<Note> newNoteSet = new HashSet<>();
+        LinkedHashSet<Note> newNoteSet = new LinkedHashSet<>();
         iterator = mutableNotesList.iterator();
         while (iterator.hasNext()) {
             newNoteSet.add(iterator.next());
@@ -94,7 +96,7 @@ public class DeleteMeetingNoteCommand extends Command {
      * {@code meetingToEdit}.
      */
     private String generateSuccessMessage(Meeting meetingToEdit) {
-        String message = MESSAGE_DELETE_NOTE_SUCCESS;
+        String message = isSuccessful ? MESSAGE_DELETE_NOTE_SUCCESS : MESSAGE_DELETE_NOTE_FAILURE;
         return String.format(message, meetingToEdit);
     }
 

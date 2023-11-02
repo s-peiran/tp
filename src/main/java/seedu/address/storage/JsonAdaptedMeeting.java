@@ -1,7 +1,7 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -115,7 +115,7 @@ class JsonAdaptedMeeting {
         }
         final Description modelDescription = new Description(description);
 
-        final Set<Note> modelNotes = new HashSet<>(meetingNotes);
+        final Set<Note> modelNotes = new LinkedHashSet<>(meetingNotes);
         final ArrayList<Contact> modelContacts = new ArrayList<>(contactList);
 
         return new Meeting(modelTitle, modelTime, modelPlace, modelDescription, modelNotes, modelContacts);

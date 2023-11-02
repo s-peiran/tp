@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import static seedu.address.model.util.SampleDataUtil.getNoteSet;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import seedu.address.model.contact.Contact;
@@ -45,7 +45,7 @@ public class MeetingBuilder {
         time = new Time(DEFAULT_TIME);
         place = new Place(DEFAULT_PLACE);
         description = new Description(DEFAULT_DESCRIPTION);
-        notes = new HashSet<Note>();
+        notes = new LinkedHashSet<Note>();
         contacts = new ArrayList<Contact>();
     }
 
@@ -57,7 +57,7 @@ public class MeetingBuilder {
         time = meetingToCopy.getTime();
         place = meetingToCopy.getPlace();
         description = meetingToCopy.getDescription();
-        notes = new HashSet<>(meetingToCopy.getNotes());
+        notes = new LinkedHashSet<>(meetingToCopy.getNotes());
         contacts = new ArrayList<>(meetingToCopy.getContacts());
     }
 

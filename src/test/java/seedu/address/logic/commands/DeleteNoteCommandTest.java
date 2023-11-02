@@ -49,7 +49,7 @@ public class DeleteNoteCommandTest {
     }
 
     @Test
-    public void execute_filteredList_success() {
+    public void execute_filteredList_failure() {
         showContactAtIndex(model, INDEX_FIRST);
 
         Contact firstContact = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
@@ -59,7 +59,7 @@ public class DeleteNoteCommandTest {
 
         DeleteNoteCommand deleteNoteCommand = new DeleteNoteCommand(INDEX_FIRST, VALID_CONTACT_NOTEID);
 
-        String expectedMessage = String.format(DeleteNoteCommand.MESSAGE_DELETE_NOTE_SUCCESS, editedContact);
+        String expectedMessage = String.format(DeleteNoteCommand.MESSAGE_DELETE_NOTE_FAILURE, editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(firstContact, editedContact);

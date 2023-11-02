@@ -4,7 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_MEETING;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -24,7 +24,7 @@ public class AddMeetingNoteCommand extends Command {
     public static final String COMMAND_WORD = "add note";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the note of the meeting identified "
+            + ": Adds note to the meeting identified "
             + "by the index number used in the last meeting listing. "
             + "Parameters: " + PREFIX_INDEX + " (must be a positive integer) "
             + PREFIX_NOTE_MEETING + " [NOTE]\n"
@@ -58,7 +58,12 @@ public class AddMeetingNoteCommand extends Command {
 
         Meeting meetingToEdit = lastShownList.get(index.getZeroBased());
 
-        Set<Note> mutableNotesList = new HashSet<>(meetingToEdit.getNotes());
+        Set<Note> mutableNotesList = new LinkedHashSet<>(meetingToEdit.getNotes());
+
+        if (mutableNotesList.contains(note)) {
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_NOTES);
+        }
+
         mutableNotesList.add(note);
 
         Meeting editedMeeting = new Meeting(

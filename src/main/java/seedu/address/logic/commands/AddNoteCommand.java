@@ -4,7 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_CONTACT;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -24,9 +24,8 @@ public class AddNoteCommand extends Command {
     public static final String COMMAND_WORD = "add note";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the note of the person identified "
-            + "by the index number used in the last contact listing. "
-            + "Existing note will be overwritten by the input.\n"
+            + ": Adds note to the contact identified "
+            + "by the index number used in the last contact listing.\n"
             + "Parameters: " + PREFIX_INDEX + " (must be a positive integer) "
             + PREFIX_NOTE_CONTACT + " [NOTE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -59,7 +58,12 @@ public class AddNoteCommand extends Command {
 
         Contact contactToEdit = lastShownList.get(index.getZeroBased());
 
-        Set<Note> mutableNotesList = new HashSet<>(contactToEdit.getNotes());
+        Set<Note> mutableNotesList = new LinkedHashSet<>(contactToEdit.getNotes());
+
+        if (mutableNotesList.contains(note)) {
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_NOTES);
+        }
+
         mutableNotesList.add(note);
 
         Contact editedContact = new Contact(
