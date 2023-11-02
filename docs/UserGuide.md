@@ -106,14 +106,13 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 - **Command Format**: `edit -id INDEX -n CONTACT_NAME -p PHONE_NUMBER -e EMAIL_ADDRESS -a RESIDENTIAL_ADDRESS [-t TAGS]`
 
 - **Example**: `edit -id 3 -p 90649923`
-
+ 
 - **Expected Outputs**:
-  -
-  Success: `Edited Contact: Alex Yeoh; Phone: 90649923; Email: alex.yeoh@gmail.com; Address: Blk 30 Geylang Street 29; Tags: `
-    - Failure:
-        - If the MEETING_ID does not exist: `The contact index provided is invalid`
-        - If invalid command format: `Invalid command format!
-          edit: Edits the details of the contact identified by the index number used in the displayed contact list. Existing values will be overwritten by the input values. Parameters: INDEX (must be a positive integer) [-nNAME] [-pPHONE] [-eEMAIL] [-aADDRESS] [-tTAG] [-cNOTE]... Example: edit 1 -p91234567 -ejohndoe@example.com`
+  - Success: `Edited Contact: Alex Yeoh; Phone: 90649923; Email: alex.yeoh@gmail.com; Address: Blk 30 Geylang Street 29; Tags: `
+  - Failure:
+      - If the MEETING_ID does not exist: `The contact index provided is invalid`
+      - If invalid command format: `Invalid command format!
+        edit: Edits the details of the contact identified by the index number used in the displayed contact list. Existing values will be overwritten by the input values. Parameters: INDEX (must be a positive integer) [-nNAME] [-pPHONE] [-eEMAIL] [-aADDRESS] [-tTAG] [-cNOTE]... Example: edit 1 -p91234567 -ejohndoe@example.com`
 
 ---
 
@@ -289,8 +288,8 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
     - For Meetings when in "Meetings" mode: `add note -id MEETING_ID_or_MEETING_NAME -m NOTES`
 
 - **Examples**:
-    - `add note -id 5 -c Has a dog named Benny`
-    - `add note -id Project Discussion -m Agenda: Discuss Q2 results`
+    - `add note -id 5 -note Has a dog named Benny`
+    - `add note -id Project Discussion -note Agenda: Discuss Q2 results`
 
 - **Acceptable Values**:
     - CONTACT_ID: Non-negative integer.
@@ -320,15 +319,15 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
     - For Meetings when in "Meetings" mode: `delete note -id MEETING_ID_or_MEETING_NAME -noteid NOTE_ID`
 
 - **Examples**:
-    - `delete note -id 5 -noteid 2`
-    - `delete note -id Project Discussion -noteid 1`
+    - `delete note -id 5 -index 2`
+    - `delete note -id Project Discussion -index 1`
 
 - **Acceptable Values**:
     - CONTACT_ID: Non-negative integer.
     - CONTACT_NAME: String, at least 2 characters long. Not case sensitive.
     - MEETING_ID: Non-negative integer.
     - MEETING_NAME: String, at least 2 characters long. Not case sensitive.
-    - NOTE_ID: Non-negative integer. Index of the note as displayed in the notes list of a contact or meeting, and is preceded by a "#".
+    - NOTE_INDEX: Non-negative integer. Index of the note as displayed in the notes list of a contact or meeting.
 
 - **Expected Outputs**:
     - Success:
