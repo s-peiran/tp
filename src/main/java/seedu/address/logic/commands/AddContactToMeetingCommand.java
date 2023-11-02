@@ -17,7 +17,7 @@ import seedu.address.ui.AppState;
  * Adds a contact to a meeting.
  */
 public class AddContactToMeetingCommand extends Command {
-    public static final String COMMAND_WORD = "add contact";
+    public static final String COMMAND_WORD = "addcontact";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds the participants to the meeting identified "

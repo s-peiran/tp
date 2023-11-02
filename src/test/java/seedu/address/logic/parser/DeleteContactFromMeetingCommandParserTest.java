@@ -21,8 +21,9 @@ class DeleteContactFromMeetingCommandParserTest {
         Contact validContact = new ContactBuilder().build();
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteContactFromMeetingCommand.MESSAGE_USAGE);
-        String userInput = String.format("delete contact -n %s -m %s", validContact.getNameString(),
-                validMeeting.getTitleString());
+        String userInput = DeleteContactFromMeetingCommand.COMMAND_WORD + " " + CliSyntax.PREFIX_NAME + " "
+                + validContact.getNameString() + CliSyntax.PREFIX_NOTE_MEETING + " " + validMeeting.getTitleString();
+
         assertParseFailure(parser, userInput, expectedMessage);
     }
 }
