@@ -108,14 +108,14 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 - **Command Format**: `edit id/INDEX n/CONTACT_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/RESIDENTIAL_ADDRESS [t/TAGS]`
 
 - **Example**: `edit id/3 p/90649923`
- 
+
 - **Expected Outputs**:
-  - Success: "Edited Contact: [Details of CONTACT]"
-  - Failure:
-      - If the CONTACT_ID does not exist: `The contact index provided is invalid`
-      - If no field to edit is specified: `At least one field to edit must be provided.`
-      - If invalid command format: `Invalid command format!
-        edit: Edits the details of the contact identified by the index number used in the displayed contact list. Existing values will be overwritten by the input values. Parameters: INDEX (must be a positive integer) [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [c/NOTE]... Example: edit 1 p/91234567 -ejohndoe@example.com`
+    - Success: "Edited Contact: [Details of CONTACT]"
+    - Failure:
+        - If the CONTACT_ID does not exist: `The contact index provided is invalid`
+        - If no field to edit is specified: `At least one field to edit must be provided.`
+        - If invalid command format: `Invalid command format!
+          edit: Edits the details of the contact identified by the index number used in the displayed contact list. Existing values will be overwritten by the input values. Parameters: INDEX (must be a positive integer) [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [c/NOTE]... Example: edit 1 p/91234567 -ejohndoe@example.com`
 
 ---
 
