@@ -5,7 +5,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 
 /**
- * A ui for the note area that is displayed at the beside the contact/meeting list.
+ * A UI for the note area that is displayed beside the contact/meeting list.
  */
 public class NoteDisplay extends UiPart<Region> {
 

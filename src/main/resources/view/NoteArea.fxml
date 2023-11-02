@@ -12,6 +12,6 @@
         <Insets top="10" right="10" bottom="10" left="10" />
     </padding>
     <Label text="Notes" styleClass="label-header" maxWidth="Infinity"/>
-    <TextArea fx:id="noteDisplay" editable="false" minWidth="250"
-              style="-fx-font-size: 13px;" />
+    <TextArea fx:id="noteDisplay" minWidth="250" VBox.vgrow="SOMETIMES"
+              style="-fx-font-size: 13px; -fx-background-color: white" />
 </VBox>
