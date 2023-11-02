@@ -39,7 +39,8 @@ public class AddNoteCommandTest {
 
         AddNoteCommand addNoteCommand = new AddNoteCommand(INDEX_FIRST, new Note(NOTE_STUB));
 
-        String expectedMessage = String.format(AddNoteCommand.MESSAGE_ADD_NOTE_SUCCESS, editedPerson);
+        String expectedMessage = String.format(AddNoteCommand.MESSAGE_ADD_NOTE_SUCCESS,
+                Messages.formatContact(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(firstPerson, editedPerson);
@@ -77,7 +78,8 @@ public class AddNoteCommandTest {
 
         AddNoteCommand addNoteCommand = new AddNoteCommand(INDEX_FIRST, new Note(NOTE_STUB));
 
-        String expectedMessage = String.format(AddNoteCommand.MESSAGE_ADD_NOTE_SUCCESS, editedPerson);
+        String expectedMessage = String.format(AddNoteCommand.MESSAGE_ADD_NOTE_SUCCESS,
+                Messages.formatContact(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(firstPerson, editedPerson);

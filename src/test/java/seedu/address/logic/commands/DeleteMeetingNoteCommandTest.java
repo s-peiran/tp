@@ -38,7 +38,8 @@ public class DeleteMeetingNoteCommandTest {
         DeleteMeetingNoteCommand deleteMeetingNoteCommand = new DeleteMeetingNoteCommand(INDEX_FIRST,
                 VALID_MEETING_NOTEID);
 
-        String expectedMessage = String.format(DeleteMeetingNoteCommand.MESSAGE_DELETE_NOTE_FAILURE, editedMeeting);
+        String expectedMessage = String.format(DeleteMeetingNoteCommand.MESSAGE_DELETE_NOTE_FAILURE,
+                Messages.formatMeeting(editedMeeting));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setMeeting(firstMeeting, editedMeeting);
@@ -60,7 +61,8 @@ public class DeleteMeetingNoteCommandTest {
         DeleteMeetingNoteCommand deleteMeetingNoteCommand = new DeleteMeetingNoteCommand(INDEX_FIRST,
                 VALID_MEETING_NOTEID);
 
-        String expectedMessage = String.format(DeleteMeetingNoteCommand.MESSAGE_DELETE_NOTE_FAILURE, editedMeeting);
+        String expectedMessage = String.format(DeleteMeetingNoteCommand.MESSAGE_DELETE_NOTE_FAILURE,
+                Messages.formatMeeting(editedMeeting));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setMeeting(firstMeeting, editedMeeting);

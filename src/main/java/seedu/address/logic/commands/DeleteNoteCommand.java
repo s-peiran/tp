@@ -98,7 +98,7 @@ public class DeleteNoteCommand extends Command {
      */
     private String generateSuccessMessage(Contact contactToEdit) {
         String message = isSuccessful ? MESSAGE_DELETE_NOTE_SUCCESS : MESSAGE_DELETE_NOTE_FAILURE;
-        return String.format(message, contactToEdit);
+        return String.format(message, Messages.formatContact(contactToEdit));
     }
 
     @Override

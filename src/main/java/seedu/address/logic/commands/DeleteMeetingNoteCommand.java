@@ -97,7 +97,7 @@ public class DeleteMeetingNoteCommand extends Command {
      */
     private String generateSuccessMessage(Meeting meetingToEdit) {
         String message = isSuccessful ? MESSAGE_DELETE_NOTE_SUCCESS : MESSAGE_DELETE_NOTE_FAILURE;
-        return String.format(message, meetingToEdit);
+        return String.format(message, Messages.formatMeeting(meetingToEdit));
     }
 
     @Override

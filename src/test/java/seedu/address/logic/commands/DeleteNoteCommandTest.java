@@ -38,7 +38,8 @@ public class DeleteNoteCommandTest {
 
         DeleteNoteCommand deleteNoteCommand = new DeleteNoteCommand(INDEX_THIRD, VALID_CONTACT_NOTEID);
 
-        String expectedMessage = String.format(DeleteNoteCommand.MESSAGE_DELETE_NOTE_SUCCESS, editedContact);
+        String expectedMessage = String.format(DeleteNoteCommand.MESSAGE_DELETE_NOTE_SUCCESS,
+                Messages.formatContact(editedContact));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(firstContact, editedContact);
@@ -59,7 +60,8 @@ public class DeleteNoteCommandTest {
 
         DeleteNoteCommand deleteNoteCommand = new DeleteNoteCommand(INDEX_FIRST, VALID_CONTACT_NOTEID);
 
-        String expectedMessage = String.format(DeleteNoteCommand.MESSAGE_DELETE_NOTE_FAILURE, editedContact);
+        String expectedMessage = String.format(DeleteNoteCommand.MESSAGE_DELETE_NOTE_FAILURE,
+                Messages.formatContact(editedContact));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(firstContact, editedContact);
