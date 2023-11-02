@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 
@@ -29,7 +30,12 @@ public class AddNoteCommandParser implements Parser<AddNoteCommand> {
 
         Index index;
         try {
+            if (Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()) == 0) {
+                throw new IndexOutOfBoundsException();
+            }
             index = Index.fromOneBased(Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()));
+        } catch (IndexOutOfBoundsException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX));
         } catch (NoSuchElementException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNoteCommand.MESSAGE_USAGE), ive);
         }
