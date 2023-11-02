@@ -73,7 +73,7 @@
               <!-- Details and Note Display on the Right Pane -->
               <VBox fx:id="detailsPlaceholder" styleClass="pane-with-border" minWidth="250" VBox.vgrow="ALWAYS">
                 <!-- Contacts Details Section -->
-                <VBox fx:id="contactDetailPanelPlaceholder" alignment="TOP_CENTER" visible="false" managed="true" VBox.vgrow="SOMETIMES" minHeight="10" maxHeight="200">
+                <VBox fx:id="contactDetailPanelPlaceholder" alignment="TOP_CENTER" visible="false" managed="true" VBox.vgrow="SOMETIMES" minHeight="180" maxHeight="200">
                   <padding>
                     <Insets top="10" right="10" bottom="10" left="10" />
                   </padding>
@@ -82,7 +82,7 @@
                 </VBox>
 
                 <!-- Meeting Details Section -->
-                <VBox fx:id="meetingDetailPanelPlaceholder" alignment="TOP_CENTER" visible="false" managed="false" VBox.vgrow="SOMETIMES" minHeight="10" maxHeight="200">
+                <VBox fx:id="meetingDetailPanelPlaceholder" alignment="TOP_CENTER" visible="false" managed="false" VBox.vgrow="SOMETIMES" minHeight="180" maxHeight="200">
                   <padding>
                     <Insets top="10" right="10" bottom="10" left="10" />
                   </padding>
