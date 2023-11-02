@@ -22,7 +22,7 @@ class DeleteContactFromMeetingCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteContactFromMeetingCommand.MESSAGE_USAGE);
         String userInput = DeleteContactFromMeetingCommand.COMMAND_WORD + " " + CliSyntax.PREFIX_NAME + " "
-                + validContact.getNameString() + CliSyntax.PREFIX_NOTE_MEETING + " " + validMeeting.getTitleString();
+                + validContact.getNameString() + CliSyntax.PREFIX_NOTE + " " + validMeeting.getTitleString();
 
         assertParseFailure(parser, userInput, expectedMessage);
     }

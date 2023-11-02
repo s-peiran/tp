@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_MEETING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PLACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
@@ -26,8 +25,7 @@ public class AddMeetingCommand extends Command {
             + PREFIX_TITLE + " TITLE "
             + PREFIX_TIME + " TIME "
             + PREFIX_PLACE + " PLACE "
-            + PREFIX_DESCRIPTION + " DESCRIPTION "
-            + PREFIX_NOTE_MEETING + " NOTE\n"
+            + PREFIX_DESCRIPTION + " DESCRIPTION\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TITLE + " Project Discussion "
             + PREFIX_TIME + " 03/10/2023 15:00 "

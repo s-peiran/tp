@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_MEETING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -21,15 +21,15 @@ import seedu.address.ui.AppState;
  */
 public class AddMeetingNoteCommand extends Command {
 
-    public static final String COMMAND_WORD = "add note";
+    public static final String COMMAND_WORD = "note";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds note to the meeting identified "
             + "by the index number used in the last meeting listing. "
             + "Parameters: " + PREFIX_INDEX + " (must be a positive integer) "
-            + PREFIX_NOTE_MEETING + " [NOTE]\n"
+            + PREFIX_NOTE + " [NOTE]\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + " 1 "
-            + PREFIX_NOTE_MEETING + " Likes to swim.";
+            + PREFIX_NOTE + " Likes to swim.";
 
     public static final String MESSAGE_ADD_NOTE_SUCCESS = "Added note to Meeting: %1$s";
     public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Removed note from Meeting: %1$s";
