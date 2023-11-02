@@ -24,6 +24,7 @@ import seedu.address.testutil.MeetingBuilder;
 
 public class AddMeetingCommandTest {
 
+
     @Test
     public void constructor_nullMeeting_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddMeetingCommand(null));
@@ -140,7 +141,7 @@ public class AddMeetingCommandTest {
 
         @Override
         public boolean hasMeeting(Meeting meeting) {
-            throw new AssertionError("This method should not be called.");
+            return false;
         }
 
         @Override
@@ -175,6 +176,16 @@ public class AddMeetingCommandTest {
 
         @Override
         public void updateFilteredMeetingList(Predicate<Meeting> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortContacts() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortMeetings() {
             throw new AssertionError("This method should not be called.");
         }
     }

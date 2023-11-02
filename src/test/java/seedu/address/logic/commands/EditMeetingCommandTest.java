@@ -45,6 +45,7 @@ public class EditMeetingCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setMeeting(model.getFilteredMeetingList().get(0), editedMeeting);
+        expectedModel.sortMeetings();
 
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false);
 
@@ -69,7 +70,7 @@ public class EditMeetingCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setMeeting(lastMeeting, editedMeeting);
-
+        expectedModel.sortMeetings();
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false);
 
         assertCommandSuccess(editMeetingCommand, model, expectedCommandResult, expectedModel);
