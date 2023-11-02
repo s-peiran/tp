@@ -38,8 +38,7 @@ public class DeleteMeetingNoteCommandParser implements Parser<DeleteMeetingNoteC
         }
 
         if (noteID <= 0) {
-            throw new ParseException(String.format(MESSAGE_INVALID_NOTEID,
-                    DeleteMeetingNoteCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_NOTEID));
         }
 
         return new DeleteMeetingNoteCommand(index, noteID);

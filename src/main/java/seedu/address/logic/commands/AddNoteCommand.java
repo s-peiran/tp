@@ -21,7 +21,7 @@ import seedu.address.ui.AppState;
  */
 public class AddNoteCommand extends Command {
 
-    public static final String COMMAND_WORD = "note";
+    public static final String COMMAND_WORD = "addnote";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds note to the contact identified "
@@ -86,7 +86,7 @@ public class AddNoteCommand extends Command {
      */
     private String generateSuccessMessage(Contact contactToEdit) {
         String message = !note.note.isEmpty() ? MESSAGE_ADD_NOTE_SUCCESS : MESSAGE_DELETE_NOTE_SUCCESS;
-        return String.format(message, contactToEdit);
+        return String.format(message, Messages.formatContact(contactToEdit));
     }
 
     @Override

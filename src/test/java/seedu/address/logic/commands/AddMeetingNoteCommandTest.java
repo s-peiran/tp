@@ -39,7 +39,8 @@ public class AddMeetingNoteCommandTest {
 
         AddMeetingNoteCommand addMeetingNoteCommand = new AddMeetingNoteCommand(INDEX_SECOND, new Note(NOTE_STUB));
 
-        String expectedMessage = String.format(AddMeetingNoteCommand.MESSAGE_ADD_NOTE_SUCCESS, editedMeeting);
+        String expectedMessage = String.format(AddMeetingNoteCommand.MESSAGE_ADD_NOTE_SUCCESS,
+                Messages.formatMeeting(editedMeeting));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setMeeting(firstMeeting, editedMeeting);
@@ -77,7 +78,8 @@ public class AddMeetingNoteCommandTest {
 
         AddMeetingNoteCommand addMeetingNoteCommand = new AddMeetingNoteCommand(INDEX_FIRST, new Note(NOTE_STUB));
 
-        String expectedMessage = String.format(AddMeetingNoteCommand.MESSAGE_ADD_NOTE_SUCCESS, editedMeeting);
+        String expectedMessage = String.format(AddMeetingNoteCommand.MESSAGE_ADD_NOTE_SUCCESS,
+                Messages.formatMeeting(editedMeeting));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setMeeting(firstMeeting, editedMeeting);

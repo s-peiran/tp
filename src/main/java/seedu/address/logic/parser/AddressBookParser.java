@@ -77,6 +77,9 @@ public class AddressBookParser {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
+
         default:
             break;
         }
@@ -95,9 +98,6 @@ public class AddressBookParser {
 
             case DeleteContactCommand.COMMAND_WORD:
                 return new DeleteContactCommandParser().parse(arguments);
-
-            case ClearCommand.COMMAND_WORD:
-                return new ClearCommand();
 
             case ListContactCommand.COMMAND_WORD:
                 return new ListContactCommandParser().parse(arguments);

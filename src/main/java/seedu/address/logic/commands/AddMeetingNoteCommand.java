@@ -21,7 +21,7 @@ import seedu.address.ui.AppState;
  */
 public class AddMeetingNoteCommand extends Command {
 
-    public static final String COMMAND_WORD = "note";
+    public static final String COMMAND_WORD = "addnote";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds note to the meeting identified "
@@ -86,7 +86,7 @@ public class AddMeetingNoteCommand extends Command {
      */
     private String generateSuccessMessage(Meeting meetingToEdit) {
         String message = !note.note.isEmpty() ? MESSAGE_ADD_NOTE_SUCCESS : MESSAGE_DELETE_NOTE_SUCCESS;
-        return String.format(message, meetingToEdit);
+        return String.format(message, Messages.formatMeeting(meetingToEdit));
     }
 
     @Override

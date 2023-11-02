@@ -28,6 +28,10 @@ public class ListMeetingCommandParser implements Parser<ListMeetingCommand> {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_TIME_START, PREFIX_TIME_END, PREFIX_PLACE,
                 PREFIX_DESCRIPTION, PREFIX_NOTE);
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TITLE, PREFIX_TIME_START, PREFIX_TIME_END, PREFIX_PLACE,
+                PREFIX_DESCRIPTION, PREFIX_NOTE);
+
         String title = argMultimap.getValue(PREFIX_TITLE).orElse("").trim();
         List<String> titleKeywords = Arrays.asList(title.split("\\s+"));
         String timeStart = argMultimap.getValue(PREFIX_TIME_START).orElse("");

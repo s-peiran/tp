@@ -29,6 +29,10 @@ public class ListContactCommandParser implements Parser<ListContactCommand> {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
                 PREFIX_ADDRESS, PREFIX_TAG, PREFIX_NOTE);
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+                PREFIX_ADDRESS, PREFIX_TAG, PREFIX_NOTE);
+
         String name = argMultimap.getValue(PREFIX_NAME).orElse("").trim();
         List<String> nameKeywords = Arrays.asList(name.split("\\s+"));
         String phone = argMultimap.getValue(PREFIX_PHONE).orElse("");
