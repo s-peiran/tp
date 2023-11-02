@@ -12,7 +12,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.meeting.Meeting;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.note.Note;
 import seedu.address.ui.AppState;
 
@@ -50,15 +50,15 @@ public class DeleteNoteCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        List<Meeting> lastShownList = model.getFilteredMeetingList();
+        List<Contact> lastShownList = model.getFilteredContactList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
         }
 
-        Meeting meetingToEdit = lastShownList.get(index.getZeroBased());
+        Contact contactToEdit = lastShownList.get(index.getZeroBased());
 
-        Set<Note> mutableNotesList = new HashSet<>(meetingToEdit.getNotes());
+        Set<Note> mutableNotesList = new HashSet<>(contactToEdit.getNotes());
         Iterator<Note> iterator = mutableNotesList.iterator();
         while (iterator.hasNext()) {
             Note note = iterator.next();
@@ -73,17 +73,17 @@ public class DeleteNoteCommand extends Command {
             newNoteSet.add(iterator.next());
         }
 
-        Meeting editedMeeting = new Meeting(
-                meetingToEdit.getTitle(), meetingToEdit.getTime(), meetingToEdit.getPlace(),
-                meetingToEdit.getDescription(), newNoteSet, meetingToEdit.getContacts());
+        Contact editedContact = new Contact(
+                contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
+                contactToEdit.getAddress(), contactToEdit.getTags(), newNoteSet);
 
-        model.setMeeting(meetingToEdit, editedMeeting);
-        model.updateFilteredMeetingList(Model.PREDICATE_SHOW_ALL_MEETINGS);
+        model.setContact(contactToEdit, editedContact);
+        model.updateFilteredContactList(Model.PREDICATE_SHOW_ALL_CONTACTS);
 
         AppState appState = AppState.getInstance();
-        appState.setMeeting(editedMeeting);
+        appState.setContact(editedContact);
 
-        return new CommandResult(generateSuccessMessage(editedMeeting), false, false);
+        return new CommandResult(generateSuccessMessage(editedContact), false, false);
     }
 
     /**
@@ -91,9 +91,9 @@ public class DeleteNoteCommand extends Command {
      * the note is added to or removed from
      * {@code meetingToEdit}.
      */
-    private String generateSuccessMessage(Meeting meetingToEdit) {
+    private String generateSuccessMessage(Contact contactToEdit) {
         String message = MESSAGE_DELETE_NOTE_SUCCESS;
-        return String.format(message, meetingToEdit);
+        return String.format(message, contactToEdit);
     }
 
     @Override

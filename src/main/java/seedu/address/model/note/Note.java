@@ -27,7 +27,7 @@ public class Note {
     }
     @Override
     public String toString() {
-        return note + " #" + noteID;
+        return note;
     }
 
     @Override

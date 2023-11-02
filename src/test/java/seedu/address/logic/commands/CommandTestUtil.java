@@ -34,6 +34,8 @@ import seedu.address.testutil.EditMeetingDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final int VALID_CONTACT_NOTEID = 4;
+    public static final int VALID_MEETING_NOTEID = 11;
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
@@ -44,6 +46,7 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_NOTE_AMY = "Likes apples";
     public static final String VALID_NOTE_BOB = "Knee injury";
+    public static final String VALID_NOTE_BENSON = "Hates tiramisu";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
