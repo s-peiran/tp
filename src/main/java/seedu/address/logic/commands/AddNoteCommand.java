@@ -24,9 +24,8 @@ public class AddNoteCommand extends Command {
     public static final String COMMAND_WORD = "add note";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the note of the person identified "
-            + "by the index number used in the last contact listing. "
-            + "Existing note will be overwritten by the input.\n"
+            + ": Adds note to the contact identified "
+            + "by the index number used in the last contact listing.\n"
             + "Parameters: " + PREFIX_INDEX + " (must be a positive integer) "
             + PREFIX_NOTE_CONTACT + " [NOTE]\n"
             + "Example: " + COMMAND_WORD + " 1 "

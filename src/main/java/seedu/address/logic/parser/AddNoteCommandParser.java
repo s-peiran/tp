@@ -36,6 +36,10 @@ public class AddNoteCommandParser implements Parser<AddNoteCommand> {
 
         String note = argMultimap.getValue(PREFIX_NOTE_CONTACT).orElse("");
 
+        if (note.equals("")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNoteCommand.MESSAGE_USAGE));
+        }
+
         return new AddNoteCommand(index, new Note(note));
     }
 }
