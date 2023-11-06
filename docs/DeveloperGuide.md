@@ -384,7 +384,7 @@ giving users the ability to edit previous notes, but that is outside the scope o
 ### Implementation (Add Notes)
 
 A new `Note` class is created, which stores the contents of the note as a string. The `Contact`/`Meeting` model is then updated
-to include a new `notes` attribute of type `LinkedHashSet<Note>`.
+to include a new `notes` attribute of type `ArrayList<Note>`.
 
 To distinguish between adding notes to contacts and meetings, 2 separate Command classes are created, namely 
 `AddNoteCommand` (for contacts) and `AddMeetingNoteCommand` (for meetings). These classes will then call 
@@ -401,21 +401,14 @@ updated as well.
 
 ### Implementation (Delete Notes)
 
-Within each `Note` class, there is a `noteID` field which is stored as an `int`. `noteID` is assigned based on the total number
-of notes in the system i.e. if there are 5 notes in the app now, the next note will have a `noteID` of 6. In this manner, each
-Note thus has a unique `noteID`.
-
 Once again, there are separate commands for deleting notes from contacts and from meetings. The relationship between the Command
 and respective Parser classes is similar to the one described for adding Notes.
 
-In terms of execution, a user will pass the `noteID` of the Note to be deleted as an argument. NoteNote will then iterate through
-the HashSet, and when a Note's `noteID` matches the one specified by the user, will remove the Note from the LinkedHashSet accordingly.
+In terms of execution, a user will pass the `noteID` of the Note to be deleted as an argument. The `noteID` is the index of the
+note, which starts from 1 for each `Contact`/`Meeting`. 
 
-The `Contact`/`Meeting` model will then be updated with the new LinkedHashSet of Notes.
-
-Additionally, it is pertinent to note that the exact value of `noteID` is unimportant. In this implementation,
-it is used as a way to index Notes in the LinkedHashSet. As such, on opening and shutting down the app, the noteID may change --
-this is to be expected. However, the relative order of notes within each Contact/Meeting should be unchanged.
+The `Contact`/`Meeting` model will then be updated with the new ArrayList of Notes. AppState is updated as well to ensure
+the GUI is refreshed.
 
 ### Design Considerations
 
