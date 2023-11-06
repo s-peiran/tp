@@ -25,6 +25,9 @@ public class DeleteContactCommandParser implements Parser<DeleteContactCommand> 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INDEX);
         Index index;
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_INDEX);
+
         try {
             if (Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()) == 0) {
                 throw new IndexOutOfBoundsException();

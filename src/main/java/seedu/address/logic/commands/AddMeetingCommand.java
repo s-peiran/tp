@@ -34,6 +34,8 @@ public class AddMeetingCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New meeting added: %1$s";
 
+    public static final String MESSAGE_DUPLICATE_MEETING = "This meeting already exists in the address book";
+
     private final Meeting toAdd;
 
     /**
@@ -47,7 +49,9 @@ public class AddMeetingCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
+        if (model.hasMeeting(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_MEETING);
+        }
         model.addMeeting(toAdd);
 
         AppState appState = AppState.getInstance();

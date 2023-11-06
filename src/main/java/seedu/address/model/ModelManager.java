@@ -156,12 +156,24 @@ public class ModelManager implements Model {
     public void updateFilteredContactList(Predicate<Contact> predicate) {
         requireNonNull(predicate);
         filteredContacts.setPredicate(predicate);
+        addressBook.sortContacts();
+    }
+
+    @Override
+    public void sortContacts() {
+        addressBook.sortContacts();
     }
 
     @Override
     public void updateFilteredMeetingList(Predicate<Meeting> predicate) {
         requireNonNull(predicate);
         filteredMeetings.setPredicate(predicate);
+        addressBook.sortMeetings();
+    }
+
+    @Override
+    public void sortMeetings() {
+        addressBook.sortMeetings();
     }
 
     @Override
@@ -177,8 +189,8 @@ public class ModelManager implements Model {
 
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
-            && userPrefs.equals(otherModelManager.userPrefs)
-            && filteredContacts.equals(otherModelManager.filteredContacts)
-            && filteredMeetings.equals(otherModelManager.filteredMeetings);
+                && userPrefs.equals(otherModelManager.userPrefs)
+                && filteredContacts.equals(otherModelManager.filteredContacts)
+                && filteredMeetings.equals(otherModelManager.filteredMeetings);
     }
 }

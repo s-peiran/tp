@@ -3,6 +3,7 @@ package seedu.address.model.contact;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import seedu.address.model.contact.exceptions.DuplicateContactException;
  * and updating of contacts uses Contact#isSameContact(Contact) for equality so as to ensure that
  * the contact being added or updated is unique in terms of identity in the UniqueContactList. However, the removal of
  * a contact uses Contact#equals(Object) so as to ensure that the contact with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Contact#isSameContact(Contact)
@@ -95,6 +96,10 @@ public class UniqueContactList implements Iterable<Contact> {
         }
 
         internalList.setAll(contacts);
+    }
+
+    public void sort() {
+        Collections.sort(internalList);
     }
 
     /**

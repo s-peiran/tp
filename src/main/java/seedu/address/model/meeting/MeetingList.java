@@ -3,6 +3,7 @@ package seedu.address.model.meeting;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -52,6 +53,14 @@ public class MeetingList implements Iterable<Meeting> {
         return internalList.stream().anyMatch(toCheck::equals);
     }
 
+    /**
+     * Checks if a given meeting has the same title as another meeting in the list
+     */
+    public boolean checkDuplicate(Meeting toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::isSameMeeting);
+    }
+
     @Override
     public Iterator<Meeting> iterator() {
         return internalList.iterator();
@@ -96,6 +105,11 @@ public class MeetingList implements Iterable<Meeting> {
 
         internalList.setAll(meetings);
     }
+
+    public void sort() {
+        Collections.sort(internalList);
+    }
+
 
     @Override
     public String toString() {

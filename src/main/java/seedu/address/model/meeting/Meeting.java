@@ -16,7 +16,7 @@ import seedu.address.model.note.Note;
  * Represents a Meeting in Notenote.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Meeting {
+public class Meeting implements Comparable<Meeting> {
 
     private Title title;
 
@@ -91,13 +91,26 @@ public class Meeting {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-            .add("title", title)
-            .add("time", time)
-            .add("place", place)
-            .add("description", description)
-            .add("notes", notes)
-            .add("contacts", contacts)
-            .toString();
+                .add("title", title)
+                .add("time", time)
+                .add("place", place)
+                .add("description", description)
+                .add("notes", notes)
+                .add("contacts", contacts)
+                .toString();
+    }
+
+    /**
+     * Returns true if both contacts have the same name.
+     * This defines a weaker notion of equality between two contacts.
+     */
+    public boolean isSameMeeting(Meeting otherMeeting) {
+        if (otherMeeting == this) {
+            return true;
+        }
+
+        return otherMeeting != null
+                && otherMeeting.getTitle().equals(getTitle());
     }
 
     @Override
@@ -113,11 +126,22 @@ public class Meeting {
 
         Meeting otherMeeting = (Meeting) other;
         return title.equals(otherMeeting.title)
-            && time.equals(otherMeeting.time)
-            && place.equals(otherMeeting.place)
-            && description.equals(otherMeeting.description)
-            && notes.equals(otherMeeting.notes)
-            && contacts.equals(otherMeeting.contacts);
+                && time.equals(otherMeeting.time)
+                && place.equals(otherMeeting.place)
+                && description.equals(otherMeeting.description)
+                && notes.equals(otherMeeting.notes)
+                && contacts.equals(otherMeeting.contacts);
+    }
+
+    @Override
+    public int compareTo(Meeting other) {
+        Time otherTime = other.time;
+        if (time.getValue().isBefore(otherTime.getValue())) {
+            return -1;
+        } else if (time.getValue().isAfter(otherTime.getValue())) {
+            return 1;
+        }
+        return 0;
     }
 
     @Override

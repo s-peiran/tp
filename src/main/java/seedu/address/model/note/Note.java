@@ -7,7 +7,7 @@ import static java.util.Objects.requireNonNull;
  * Guarantees: immutable; is always valid
  */
 public class Note {
-    private static int noteCount = 1;
+    private static int noteCount = 0;
     public final String note;
     public final int noteID;
 

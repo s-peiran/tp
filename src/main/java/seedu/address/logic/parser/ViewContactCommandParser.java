@@ -22,6 +22,9 @@ public class ViewContactCommandParser implements Parser<ViewContactCommand> {
      */
     public ViewContactCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_INDEX);
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_INDEX);
+
         Index index;
         try {
             if (Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()) == 0) {

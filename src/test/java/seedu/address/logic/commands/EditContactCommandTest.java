@@ -70,7 +70,7 @@ public class EditContactCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(lastContact, editedContact);
-
+        expectedModel.sortContacts();
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false);
 
         assertCommandSuccess(editContactCommand, model, expectedCommandResult, expectedModel);
@@ -106,7 +106,7 @@ public class EditContactCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(model.getFilteredContactList().get(0), editedContact);
-
+        expectedModel.sortContacts();
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false);
 
         assertCommandSuccess(editContactCommand, model, expectedCommandResult, expectedModel);

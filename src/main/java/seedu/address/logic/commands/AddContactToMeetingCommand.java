@@ -13,6 +13,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.ui.AppState;
 
+
 /**
  * Adds a contact to a meeting.
  */
@@ -31,6 +32,7 @@ public class AddContactToMeetingCommand extends Command {
     public static final String MESSAGE_ADD_CONTACT_SUCCESS = "Added contact '%s' to Meeting '%s'";
     public static final String MESSAGE_CONTACT_NOT_FOUND = "The person specified is not created";
     public static final String MESSAGE_MEETING_NOT_FOUND = "The meeting specified is not created";
+    public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in the meeting";
 
     private final String meetingTitle;
     private final String contactName;
@@ -75,6 +77,9 @@ public class AddContactToMeetingCommand extends Command {
             throw new CommandException(MESSAGE_MEETING_NOT_FOUND);
         }
         ArrayList<Contact> listOfContacts = new ArrayList<>(meetingToEdit.getContacts());
+        if (listOfContacts.stream().anyMatch(contact::isSameContact)) {
+            throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
+        }
         listOfContacts.add(contact);
 
         Meeting editedMeeting = new Meeting(
