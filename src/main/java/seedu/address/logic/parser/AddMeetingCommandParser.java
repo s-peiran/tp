@@ -45,7 +45,7 @@ public class AddMeetingCommandParser implements Parser<AddMeetingCommand> {
         Place place = ParserUtil.parsePlace(argMultimap.getValue(PREFIX_PLACE).get());
         Description description =
             ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        Set<Note> noteList = ParserUtil.parseNotes(argMultimap.getAllValues(PREFIX_NOTE));
+        ArrayList<Note> noteList = ParserUtil.parseNotes(argMultimap.getAllValues(PREFIX_NOTE));
         Meeting meeting = new Meeting(title, time, place, description, noteList, new ArrayList<>());
         return new AddMeetingCommand(meeting);
     }

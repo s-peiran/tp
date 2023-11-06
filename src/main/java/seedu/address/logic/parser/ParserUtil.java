@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -144,9 +145,9 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> notes} into a {@code Set<Note>}.
      */
-    public static Set<Note> parseNotes(Collection<String> notes) throws ParseException {
+    public static ArrayList<Note> parseNotes(Collection<String> notes) throws ParseException {
         requireNonNull(notes);
-        final Set<Note> noteSet = new LinkedHashSet<>();
+        final ArrayList<Note> noteSet = new ArrayList<>();
         for (String note : notes) {
             noteSet.add(parseNote(note));
         }

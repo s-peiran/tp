@@ -26,28 +26,26 @@ import seedu.address.model.tag.Tag;
  */
 public class SampleDataUtil {
 
-    private static final Set<Note> EMPTY_NOTE = getNoteSet("");
-
     public static Contact[] getSampleContacts() {
         return new Contact[]{
             new Contact(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"), getTagSet("friends"), new HashSet<Note>()),
+                new Address("Blk 30 Geylang Street 29, #06-40"), getTagSet("friends"), new ArrayList<>()),
             new Contact(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends"), new HashSet<Note>()),
+                getTagSet("colleagues", "friends"), new ArrayList<>()),
             new Contact(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"), getTagSet("neighbours"), new HashSet<Note>()),
+                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"), getTagSet("neighbours"), new ArrayList<>()),
             new Contact(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"), getTagSet("family"), new HashSet<Note>())
+                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"), getTagSet("family"), new ArrayList<>())
         };
     }
 
     public static Meeting[] getSampleMeetings() {
         return new Meeting[]{
             new Meeting(new Title("CS2103 Project"), new Time("01/01/2023 12:00"), new Place("COM3"),
-                new Description("Discuss v1.3 features"), new HashSet<Note>(), new ArrayList<Contact>()),
+                new Description("Discuss v1.3 features"), new ArrayList<>(), new ArrayList<Contact>()),
             new Meeting(new Title("CS1231 Meeting"), new Time("02/01/2023 14:00"), new Place("Microsoft Teams"),
-                new Description(""), new HashSet<Note>(), new ArrayList<Contact>())
+                new Description(""), new ArrayList<>(), new ArrayList<Contact>())
         };
     }
 

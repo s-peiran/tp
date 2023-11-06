@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -58,7 +59,7 @@ public class AddMeetingNoteCommand extends Command {
 
         Meeting meetingToEdit = lastShownList.get(index.getZeroBased());
 
-        Set<Note> mutableNotesList = new LinkedHashSet<>(meetingToEdit.getNotes());
+        ArrayList<Note> mutableNotesList = new ArrayList<>(meetingToEdit.getNotes());
 
         if (mutableNotesList.contains(note)) {
             throw new CommandException(Messages.MESSAGE_DUPLICATE_NOTES);

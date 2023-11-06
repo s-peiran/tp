@@ -4,7 +4,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -25,14 +24,14 @@ public class Meeting implements Comparable<Meeting> {
     private Place place;
 
     private Description description;
-    private Set<Note> notes = new LinkedHashSet<>();
+    private ArrayList<Note> notes = new ArrayList<>();
     private ArrayList<Contact> contacts = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
      */
     public Meeting(Title title, Time time, Place place, Description description,
-                   Set<Note> notes, ArrayList<Contact> contacts) {
+                   ArrayList<Note> notes, ArrayList<Contact> contacts) {
         requireAllNonNull(title, time, place, description, notes, contacts);
         this.title = title;
         this.time = time;
@@ -62,8 +61,8 @@ public class Meeting implements Comparable<Meeting> {
         return description;
     }
 
-    public Set<Note> getNotes() {
-        return Collections.unmodifiableSet(notes);
+    public ArrayList<Note> getNotes() {
+        return new ArrayList<>(Collections.unmodifiableList(notes));
     }
 
     public ArrayList<Contact> getContacts() {
@@ -77,8 +76,9 @@ public class Meeting implements Comparable<Meeting> {
      */
     public String getNoteString() {
         StringBuilder sb = new StringBuilder();
-        for (Note notes : notes) {
-            sb.append(notes.toString() + " #" + notes.getNoteID() + "\n");
+        for (int i = 0; i < notes.size(); i++) {
+            int index = i + 1;
+            sb.append(index + ". " + notes.get(i).toString() + "\n");
         }
         if (sb.length() > 0) {
             sb.setLength(sb.length() - 1);

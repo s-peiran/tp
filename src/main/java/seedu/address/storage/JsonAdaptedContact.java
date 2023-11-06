@@ -119,7 +119,7 @@ class JsonAdaptedContact {
 
         final Set<Tag> modelTags = new HashSet<>(contactTags);
 
-        final Set<Note> modelNotes = new LinkedHashSet<>(contactNotes);
+        final ArrayList<Note> modelNotes = new ArrayList<>(contactNotes);
 
         return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelNotes);
     }

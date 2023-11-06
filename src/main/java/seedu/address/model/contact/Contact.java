@@ -2,6 +2,8 @@ package seedu.address.model.contact;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -26,12 +28,12 @@ public class Contact implements Comparable<Contact> {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-    private final Set<Note> notes = new LinkedHashSet<>();
+    private final ArrayList<Note> notes = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Contact(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Note> notes) {
+    public Contact(Name name, Phone phone, Email email, Address address, Set<Tag> tags, ArrayList<Note> notes) {
         requireAllNonNull(name, phone, email, address, tags, notes);
         this.name = name;
         this.phone = phone;
@@ -83,15 +85,15 @@ public class Contact implements Comparable<Contact> {
         return sb.toString();
     }
 
-    public Set<Note> getNotes() {
-        return Collections.unmodifiableSet(notes);
+    public ArrayList<Note> getNotes() {
+        return new ArrayList<>(Collections.unmodifiableList(notes));
     }
 
     public String getNoteString() {
         StringBuilder sb = new StringBuilder();
-        Set<Note> setNotes = getNotes();
-        for (Note notes : setNotes) {
-            sb.append(notes.toString() + " #" + notes.getNoteID() + "\n");
+        for (int i = 0; i < notes.size(); i++) {
+            int index = i + 1;
+            sb.append(index + ". " + notes.get(i).toString() + "\n");
         }
         if (sb.length() > 0) {
             sb.setLength(sb.length() - 1);

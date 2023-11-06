@@ -115,7 +115,7 @@ class JsonAdaptedMeeting {
         }
         final Description modelDescription = new Description(description);
 
-        final Set<Note> modelNotes = new LinkedHashSet<>(meetingNotes);
+        final ArrayList<Note> modelNotes = new ArrayList<>(meetingNotes);
         final ArrayList<Contact> modelContacts = new ArrayList<>(contactList);
 
         return new Meeting(modelTitle, modelTime, modelPlace, modelDescription, modelNotes, modelContacts);
