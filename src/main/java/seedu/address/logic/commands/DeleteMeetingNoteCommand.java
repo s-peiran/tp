@@ -7,15 +7,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_ID;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.note.Note;
@@ -72,20 +68,6 @@ public class DeleteMeetingNoteCommand extends Command {
 
         mutableNotesList.remove(noteID - 1);
         isSuccessful = true;
-//        Iterator<Note> iterator = mutableNotesList.iterator();
-//        while (iterator.hasNext()) {
-//            Note note = iterator.next();
-//            if (note.getNoteID() == noteID) {
-//                iterator.remove();
-//                isSuccessful = true;
-//            }
-//        }
-//
-//        LinkedHashSet<Note> newNoteSet = new LinkedHashSet<>();
-//        iterator = mutableNotesList.iterator();
-//        while (iterator.hasNext()) {
-//            newNoteSet.add(iterator.next());
-//        }
 
         Meeting editedMeeting = new Meeting(
                 meetingToEdit.getTitle(), meetingToEdit.getTime(), meetingToEdit.getPlace(),

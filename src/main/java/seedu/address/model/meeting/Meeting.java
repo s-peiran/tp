@@ -4,8 +4,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.contact.Contact;
@@ -31,7 +31,7 @@ public class Meeting implements Comparable<Meeting> {
      * Every field must be present and not null.
      */
     public Meeting(Title title, Time time, Place place, Description description,
-                   ArrayList<Note> notes, ArrayList<Contact> contacts) {
+                   List<Note> notes, ArrayList<Contact> contacts) {
         requireAllNonNull(title, time, place, description, notes, contacts);
         this.title = title;
         this.time = time;

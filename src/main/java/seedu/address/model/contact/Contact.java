@@ -2,11 +2,10 @@ package seedu.address.model.contact;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -33,7 +32,7 @@ public class Contact implements Comparable<Contact> {
     /**
      * Every field must be present and not null.
      */
-    public Contact(Name name, Phone phone, Email email, Address address, Set<Tag> tags, ArrayList<Note> notes) {
+    public Contact(Name name, Phone phone, Email email, Address address, Set<Tag> tags, List<Note> notes) {
         requireAllNonNull(name, phone, email, address, tags, notes);
         this.name = name;
         this.phone = phone;

@@ -12,7 +12,6 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -237,7 +236,8 @@ public class EditContactCommand extends Command {
          * Returns {@code Optional#empty()} if {@code notes} is null.
          */
         public Optional<ArrayList<Note>> getNotes() {
-            return (notes != null) ? Optional.of(new ArrayList<>(Collections.unmodifiableList(notes))) : Optional.empty();
+            return (notes != null) ? Optional.of(new ArrayList<>(Collections.unmodifiableList(notes)))
+                    : Optional.empty();
         }
 
         @Override

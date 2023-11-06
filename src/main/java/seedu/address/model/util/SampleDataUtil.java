@@ -2,7 +2,7 @@ package seedu.address.model.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -72,9 +72,9 @@ public class SampleDataUtil {
     /**
      * Returns a note set containing the list of strings given.
      */
-    public static Set<Note> getNoteSet(String... strings) {
+    public static List<Note> getNoteList(String... strings) {
         return Arrays.stream(strings)
             .map(Note::new)
-            .collect(Collectors.toSet());
+            .collect(Collectors.toList());
     }
 }

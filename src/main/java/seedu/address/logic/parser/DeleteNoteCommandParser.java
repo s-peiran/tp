@@ -2,7 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.lang.Integer.parseInt;
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.Messages.*;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_NOTEID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_ID;
 

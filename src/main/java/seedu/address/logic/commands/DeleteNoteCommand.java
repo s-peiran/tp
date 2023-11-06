@@ -7,10 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_ID;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
@@ -72,21 +69,6 @@ public class DeleteNoteCommand extends Command {
 
         mutableNotesList.remove(noteID - 1);
         isSuccessful = true;
-//
-//        Iterator<Note> iterator = mutableNotesList.iterator();
-//        while (iterator.hasNext()) {
-//            Note note = iterator.next();
-//            if (note.getNoteID() == noteID) {
-//                iterator.remove();
-//                isSuccessful = true;
-//            }
-//        }
-//
-//        LinkedHashSet<Note> newNoteSet = new LinkedHashSet<>();
-//        iterator = mutableNotesList.iterator();
-//        while (iterator.hasNext()) {
-//            newNoteSet.add(iterator.next());
-//        }
 
         Contact editedContact = new Contact(
                 contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),

@@ -1,10 +1,9 @@
 package seedu.address.testutil;
 
-import static seedu.address.model.util.SampleDataUtil.getNoteSet;
+import static seedu.address.model.util.SampleDataUtil.getNoteList;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.List;
 
 import seedu.address.model.contact.Contact;
 import seedu.address.model.meeting.Description;
@@ -34,7 +33,7 @@ public class MeetingBuilder {
     private Place place;
 
     private Description description;
-    private Set<Note> notes;
+    private List<Note> notes;
     private ArrayList<Contact> contacts;
 
     /**
@@ -45,7 +44,7 @@ public class MeetingBuilder {
         time = new Time(DEFAULT_TIME);
         place = new Place(DEFAULT_PLACE);
         description = new Description(DEFAULT_DESCRIPTION);
-        notes = new LinkedHashSet<Note>();
+        notes = new ArrayList<Note>();
         contacts = new ArrayList<Contact>();
     }
 
@@ -57,7 +56,7 @@ public class MeetingBuilder {
         time = meetingToCopy.getTime();
         place = meetingToCopy.getPlace();
         description = meetingToCopy.getDescription();
-        notes = new LinkedHashSet<>(meetingToCopy.getNotes());
+        notes = new ArrayList<>(meetingToCopy.getNotes());
         contacts = new ArrayList<>(meetingToCopy.getContacts());
     }
 
@@ -97,7 +96,7 @@ public class MeetingBuilder {
      * Sets the {@code Notes} of the {@code Meeting} that we are building.
      */
     public MeetingBuilder withNotes(String... notes) {
-        this.notes = getNoteSet(notes);
+        this.notes = getNoteList(notes);
         return this;
     }
 

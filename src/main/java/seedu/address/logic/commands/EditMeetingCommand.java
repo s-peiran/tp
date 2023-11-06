@@ -10,11 +10,9 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEETINGS;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -216,7 +214,8 @@ public class EditMeetingCommand extends Command {
          * Returns {@code Optional#empty()} if {@code notes} is null.
          */
         public Optional<ArrayList<Note>> getNotes() {
-            return (notes != null) ? Optional.of(new ArrayList<>(Collections.unmodifiableList(notes))) : Optional.empty();
+            return (notes != null) ? Optional.of(new ArrayList<>(Collections.unmodifiableList(notes)))
+                    : Optional.empty();
         }
 
         public void setContacts(ArrayList<Contact> contacts) {

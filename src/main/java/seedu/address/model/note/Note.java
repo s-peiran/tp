@@ -19,9 +19,6 @@ public class Note {
         this.note = note;
     }
 
-//    public int getNoteID() {
-//        return noteID;
-//    }
     @Override
     public String toString() {
         return note;

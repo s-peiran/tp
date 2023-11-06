@@ -31,37 +31,14 @@ public class DeleteMeetingNoteCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_deleteNoteUnfilteredList_failure() {
-        Meeting firstMeeting = model.getFilteredMeetingList().get(INDEX_FIRST.getZeroBased());
+    public void execute_deleteNoteUnfilteredList_success() {
+        Meeting firstMeeting = model.getFilteredMeetingList().get(INDEX_SECOND.getZeroBased());
         Meeting editedMeeting = new MeetingBuilder(firstMeeting).withNotes().build();
 
-        DeleteMeetingNoteCommand deleteMeetingNoteCommand = new DeleteMeetingNoteCommand(INDEX_FIRST,
+        DeleteMeetingNoteCommand deleteMeetingNoteCommand = new DeleteMeetingNoteCommand(INDEX_SECOND,
                 VALID_MEETING_NOTEID);
 
-        String expectedMessage = String.format(DeleteMeetingNoteCommand.MESSAGE_DELETE_NOTE_FAILURE,
-                Messages.formatMeeting(editedMeeting));
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setMeeting(firstMeeting, editedMeeting);
-
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false);
-
-        assertCommandSuccess(deleteMeetingNoteCommand, model, expectedCommandResult, expectedModel);
-    }
-
-    @Test
-    public void execute_filteredList_failure() {
-        showMeetingAtIndex(model, INDEX_FIRST);
-
-        Meeting firstMeeting = model.getFilteredMeetingList().get(INDEX_FIRST.getZeroBased());
-        Meeting editedMeeting = new MeetingBuilder(model.getFilteredMeetingList()
-                .get(INDEX_FIRST.getZeroBased()))
-                .withNotes().build();
-
-        DeleteMeetingNoteCommand deleteMeetingNoteCommand = new DeleteMeetingNoteCommand(INDEX_FIRST,
-                VALID_MEETING_NOTEID);
-
-        String expectedMessage = String.format(DeleteMeetingNoteCommand.MESSAGE_DELETE_NOTE_FAILURE,
+        String expectedMessage = String.format(DeleteMeetingNoteCommand.MESSAGE_DELETE_NOTE_SUCCESS,
                 Messages.formatMeeting(editedMeeting));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
