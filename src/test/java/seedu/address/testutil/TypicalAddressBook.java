@@ -80,12 +80,14 @@ public class TypicalAddressBook {
         .withTime("01/01/2023 20:30")
         .withPlace("Discord")
         .withDescription("Project details")
+        .withNotes("Skeletal PPP")
         .build();
     public static final Meeting LAJ2101 = new MeetingBuilder()
         .withTitle("LAJ2101 Meeting")
         .withTime("01/01/2023 16:00")
         .withPlace("Classroom A")
         .withDescription("")
+        .withNotes("Skeletal PPP")
         .build();
     public static final Meeting GF = new MeetingBuilder()
         .withTitle("Date with Girlfriend")

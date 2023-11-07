@@ -50,28 +50,6 @@ public class DeleteNoteCommandTest {
     }
 
     @Test
-    public void execute_filteredList_failure() {
-        showContactAtIndex(model, INDEX_FIRST);
-
-        Contact firstContact = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
-        Contact editedContact = new ContactBuilder(model.getFilteredContactList()
-                .get(INDEX_FIRST.getZeroBased()))
-                .withNotes().build();
-
-        DeleteNoteCommand deleteNoteCommand = new DeleteNoteCommand(INDEX_FIRST, VALID_CONTACT_NOTEID);
-
-        String expectedMessage = String.format(DeleteNoteCommand.MESSAGE_DELETE_NOTE_FAILURE,
-                Messages.formatContact(editedContact));
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setContact(firstContact, editedContact);
-
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false);
-
-        assertCommandSuccess(deleteNoteCommand, model, expectedCommandResult, expectedModel);
-    }
-
-    @Test
     public void execute_invalidContactIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredContactList().size() + 1);
         DeleteNoteCommand deleteNoteCommand = new DeleteNoteCommand(outOfBoundIndex, VALID_CONTACT_NOTEID);

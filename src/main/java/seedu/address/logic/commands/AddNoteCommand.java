@@ -4,9 +4,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
@@ -58,7 +57,7 @@ public class AddNoteCommand extends Command {
 
         Contact contactToEdit = lastShownList.get(index.getZeroBased());
 
-        Set<Note> mutableNotesList = new LinkedHashSet<>(contactToEdit.getNotes());
+        ArrayList<Note> mutableNotesList = new ArrayList<>(contactToEdit.getNotes());
 
         if (mutableNotesList.contains(note)) {
             throw new CommandException(Messages.MESSAGE_DUPLICATE_NOTES);

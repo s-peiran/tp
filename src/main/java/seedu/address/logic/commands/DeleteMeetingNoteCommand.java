@@ -1,14 +1,13 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_NOTEID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_ID;
 
-import java.util.Iterator;
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
@@ -61,25 +60,18 @@ public class DeleteMeetingNoteCommand extends Command {
 
         Meeting meetingToEdit = lastShownList.get(index.getZeroBased());
 
-        Set<Note> mutableNotesList = new LinkedHashSet<>(meetingToEdit.getNotes());
-        Iterator<Note> iterator = mutableNotesList.iterator();
-        while (iterator.hasNext()) {
-            Note note = iterator.next();
-            if (note.getNoteID() == noteID) {
-                iterator.remove();
-                isSuccessful = true;
-            }
+        ArrayList<Note> mutableNotesList = new ArrayList<>(meetingToEdit.getNotes());
+
+        if (noteID > mutableNotesList.size()) {
+            throw new CommandException(String.format(MESSAGE_INVALID_NOTEID));
         }
 
-        LinkedHashSet<Note> newNoteSet = new LinkedHashSet<>();
-        iterator = mutableNotesList.iterator();
-        while (iterator.hasNext()) {
-            newNoteSet.add(iterator.next());
-        }
+        mutableNotesList.remove(noteID - 1);
+        isSuccessful = true;
 
         Meeting editedMeeting = new Meeting(
                 meetingToEdit.getTitle(), meetingToEdit.getTime(), meetingToEdit.getPlace(),
-                meetingToEdit.getDescription(), newNoteSet, meetingToEdit.getContacts());
+                meetingToEdit.getDescription(), mutableNotesList, meetingToEdit.getContacts());
 
         model.setMeeting(meetingToEdit, editedMeeting);
         model.updateFilteredMeetingList(Model.PREDICATE_SHOW_ALL_MEETINGS);

@@ -9,9 +9,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -109,7 +109,7 @@ public class EditContactCommand extends Command {
         Email updatedEmail = editContactDescriptor.getEmail().orElse(contactToEdit.getEmail());
         Address updatedAddress = editContactDescriptor.getAddress().orElse(contactToEdit.getAddress());
         Set<Tag> updatedTags = editContactDescriptor.getTags().orElse(contactToEdit.getTags());
-        Set<Note> updatedNotes = editContactDescriptor.getNotes().orElse(contactToEdit.getNotes());
+        ArrayList<Note> updatedNotes = editContactDescriptor.getNotes().orElse(contactToEdit.getNotes());
 
         return new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedNotes);
     }
@@ -148,7 +148,7 @@ public class EditContactCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
-        private Set<Note> notes;
+        private ArrayList<Note> notes;
 
         public EditContactDescriptor() {
         }
@@ -226,8 +226,8 @@ public class EditContactCommand extends Command {
          * Sets {@code notes} to this object's {@code notes}.
          * A defensive copy of {@code notes} is used internally.
          */
-        public void setNotes(Set<Note> notes) {
-            this.notes = (notes != null) ? new LinkedHashSet<>(notes) : null;
+        public void setNotes(ArrayList<Note> notes) {
+            this.notes = (notes != null) ? new ArrayList<>(notes) : null;
         }
 
         /**
@@ -235,8 +235,9 @@ public class EditContactCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code notes} is null.
          */
-        public Optional<Set<Note>> getNotes() {
-            return (notes != null) ? Optional.of(Collections.unmodifiableSet(notes)) : Optional.empty();
+        public Optional<ArrayList<Note>> getNotes() {
+            return (notes != null) ? Optional.of(new ArrayList<>(Collections.unmodifiableList(notes)))
+                    : Optional.empty();
         }
 
         @Override

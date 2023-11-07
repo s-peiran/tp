@@ -10,11 +10,9 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEETINGS;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -106,7 +104,7 @@ public class EditMeetingCommand extends Command {
         Time updatedTime = editMeetingDescriptor.getTime().orElse(meetingToEdit.getTime());
         Place updatedPlace = editMeetingDescriptor.getPlace().orElse(meetingToEdit.getPlace());
         Description updatedDescription = editMeetingDescriptor.getDescription().orElse(meetingToEdit.getDescription());
-        Set<Note> updatedNotes = editMeetingDescriptor.getNotes().orElse(meetingToEdit.getNotes());
+        ArrayList<Note> updatedNotes = editMeetingDescriptor.getNotes().orElse(meetingToEdit.getNotes());
         ArrayList<Contact> updatedContacts = editMeetingDescriptor.getContacts().orElse(meetingToEdit.getContacts());
         return new Meeting(updatedTitle, updatedTime, updatedPlace, updatedDescription, updatedNotes, updatedContacts);
     }
@@ -145,7 +143,7 @@ public class EditMeetingCommand extends Command {
         private Place place;
         private Description description;
 
-        private Set<Note> notes;
+        private ArrayList<Note> notes;
         private ArrayList<Contact> contacts;
 
         public EditMeetingDescriptor() {
@@ -206,8 +204,8 @@ public class EditMeetingCommand extends Command {
          * Sets {@code notes} to this object's {@code notes}.
          * A defensive copy of {@code notes} is used internally.
          */
-        public void setNotes(Set<Note> notes) {
-            this.notes = (notes != null) ? new LinkedHashSet<>(notes) : null;
+        public void setNotes(ArrayList<Note> notes) {
+            this.notes = notes;
         }
 
         /**
@@ -215,8 +213,9 @@ public class EditMeetingCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code notes} is null.
          */
-        public Optional<Set<Note>> getNotes() {
-            return (notes != null) ? Optional.of(Collections.unmodifiableSet(notes)) : Optional.empty();
+        public Optional<ArrayList<Note>> getNotes() {
+            return (notes != null) ? Optional.of(new ArrayList<>(Collections.unmodifiableList(notes)))
+                    : Optional.empty();
         }
 
         public void setContacts(ArrayList<Contact> contacts) {

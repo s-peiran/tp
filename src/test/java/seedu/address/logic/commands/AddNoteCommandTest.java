@@ -50,23 +50,6 @@ public class AddNoteCommandTest {
         assertCommandSuccess(addNoteCommand, model, expectedCommandResult, expectedModel);
     }
 
-    // Delete functionality has not been implemented yet
-    //    @Test
-    //    public void execute_deleteNoteUnfilteredList_success() {
-    //        Contact firstPerson = model.getFilteredContactList().get(INDEX_FIRST.getZeroBased());
-    //        Contact editedPerson = new ContactBuilder(firstPerson).withNotes("").build();
-    //
-    //        AddNoteCommand addNoteCommand = new AddNoteCommand(INDEX_FIRST,
-    //                new Note(editedPerson.getNotes().toString()));
-    //
-    //        String expectedMessage = String.format(AddNoteCommand.MESSAGE_ADD_NOTE_SUCCESS, editedPerson);
-    //
-    //        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-    //        expectedModel.setContact(firstPerson, editedPerson);
-    //
-    //        assertCommandSuccess(addNoteCommand, model, expectedMessage, expectedModel);
-    //    }
-
     @Test
     public void execute_filteredList_success() {
         showContactAtIndex(model, INDEX_FIRST);

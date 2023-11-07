@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 import seedu.address.logic.commands.AddMeetingCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -45,7 +44,7 @@ public class AddMeetingCommandParser implements Parser<AddMeetingCommand> {
         Place place = ParserUtil.parsePlace(argMultimap.getValue(PREFIX_PLACE).get());
         Description description =
             ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        Set<Note> noteList = ParserUtil.parseNotes(argMultimap.getAllValues(PREFIX_NOTE));
+        ArrayList<Note> noteList = ParserUtil.parseNotes(argMultimap.getAllValues(PREFIX_NOTE));
         Meeting meeting = new Meeting(title, time, place, description, noteList, new ArrayList<>());
         return new AddMeetingCommand(meeting);
     }
