@@ -22,7 +22,7 @@ public class DeleteContactCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, " " + CliSyntax.PREFIX_INDEX + " 1", new DeleteContactCommand(INDEX_FIRST));
+        assertParseSuccess(parser, " 1", new DeleteContactCommand(INDEX_FIRST));
     }
 
     @Test

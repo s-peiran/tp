@@ -15,6 +15,7 @@ import seedu.address.logic.commands.AddContactToMeetingCommand;
 import seedu.address.logic.commands.AddMeetingCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteContactCommand;
+import seedu.address.logic.commands.DeleteMeetingCommand;
 import seedu.address.logic.commands.EditContactCommand;
 import seedu.address.logic.commands.EditContactCommand.EditContactDescriptor;
 import seedu.address.logic.commands.ExitCommand;
@@ -103,8 +104,16 @@ public class AddressBookParserTest {
     public void parseCommand_deleteContact() throws Exception {
         setModeToContacts();
         DeleteContactCommand command = (DeleteContactCommand) parser.parseCommand(
-            DeleteContactCommand.COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + INDEX_FIRST.getOneBased());
+            DeleteContactCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
         assertEquals(new DeleteContactCommand(INDEX_FIRST), command);
+    }
+
+    @Test
+    public void parseCommand_deleteMeeting() throws Exception {
+        setModeToMeetings();
+        DeleteMeetingCommand command = (DeleteMeetingCommand) parser.parseCommand(
+            DeleteMeetingCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new DeleteMeetingCommand(INDEX_FIRST), command);
     }
 
     @Test

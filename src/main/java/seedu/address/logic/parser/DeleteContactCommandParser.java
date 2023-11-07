@@ -1,10 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
-
-import java.util.NoSuchElementException;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteContactCommand;
@@ -22,24 +18,12 @@ public class DeleteContactCommandParser implements Parser<DeleteContactCommand> 
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteContactCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_INDEX);
-        Index index;
-
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_INDEX);
-
         try {
-            if (Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()) == 0) {
-                throw new IndexOutOfBoundsException();
-            }
-            index = Index.fromOneBased(Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()));
-        } catch (NoSuchElementException e) {
+            Index index = ParserUtil.parseIndex(args);
+            return new DeleteContactCommand(index);
+        } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteContactCommand.MESSAGE_USAGE), e);
-        } catch (IndexOutOfBoundsException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteContactCommand.MESSAGE_USAGE), pe);
         }
-        return new DeleteContactCommand(index);
     }
-
 }
