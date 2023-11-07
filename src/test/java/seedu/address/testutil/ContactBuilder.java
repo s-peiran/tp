@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
@@ -22,13 +21,12 @@ public class ContactBuilder {
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_NOTE = "Some note";
 
     private Name name;
     private Phone phone;
     private Email email;
-    private Address address;
+
     private Set<Tag> tags;
     private List<Note> notes;
 
@@ -39,7 +37,6 @@ public class ContactBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
         notes = new ArrayList<>();
     }
@@ -51,7 +48,6 @@ public class ContactBuilder {
         name = contactToCopy.getName();
         phone = contactToCopy.getPhone();
         email = contactToCopy.getEmail();
-        address = contactToCopy.getAddress();
         tags = new HashSet<>(contactToCopy.getTags());
         notes = new ArrayList<>(contactToCopy.getNotes());
     }
@@ -69,14 +65,6 @@ public class ContactBuilder {
      */
     public ContactBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Address} of the {@code Contact} that we are building.
-     */
-    public ContactBuilder withAddress(String address) {
-        this.address = new Address(address);
         return this;
     }
 
@@ -104,7 +92,7 @@ public class ContactBuilder {
     }
 
     public Contact build() {
-        return new Contact(name, phone, email, address, tags, notes);
+        return new Contact(name, phone, email, tags, notes);
     }
 
 }

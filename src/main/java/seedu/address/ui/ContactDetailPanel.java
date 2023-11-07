@@ -22,9 +22,6 @@ public class ContactDetailPanel extends UiPart<Region> {
     private Label phone;
 
     @FXML
-    private Label address;
-
-    @FXML
     private Label email;
 
     @FXML
@@ -37,7 +34,6 @@ public class ContactDetailPanel extends UiPart<Region> {
     public void setContact(Contact contact) {
         name.setText(contact.getName().toString());
         phone.setText(contact.getPhone().toString());
-        address.setText(contact.getAddress().toString());
         email.setText(contact.getEmail().toString());
 
         tags.getChildren().clear();

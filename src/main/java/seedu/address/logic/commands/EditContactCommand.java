@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -23,7 +22,6 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
@@ -46,7 +44,6 @@ public class EditContactCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + " 1 "
             + PREFIX_PHONE + " 91234567 "
@@ -107,11 +104,10 @@ public class EditContactCommand extends Command {
         Name updatedName = editContactDescriptor.getName().orElse(contactToEdit.getName());
         Phone updatedPhone = editContactDescriptor.getPhone().orElse(contactToEdit.getPhone());
         Email updatedEmail = editContactDescriptor.getEmail().orElse(contactToEdit.getEmail());
-        Address updatedAddress = editContactDescriptor.getAddress().orElse(contactToEdit.getAddress());
         Set<Tag> updatedTags = editContactDescriptor.getTags().orElse(contactToEdit.getTags());
         ArrayList<Note> updatedNotes = editContactDescriptor.getNotes().orElse(contactToEdit.getNotes());
 
-        return new Contact(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedNotes);
+        return new Contact(updatedName, updatedPhone, updatedEmail, updatedTags, updatedNotes);
     }
 
     @Override
@@ -146,7 +142,6 @@ public class EditContactCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
-        private Address address;
         private Set<Tag> tags;
         private ArrayList<Note> notes;
 
@@ -161,7 +156,6 @@ public class EditContactCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setAddress(toCopy.address);
             setTags(toCopy.tags);
             setNotes(toCopy.notes);
         }
@@ -170,7 +164,7 @@ public class EditContactCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, tags);
         }
 
         public void setName(Name name) {
@@ -195,14 +189,6 @@ public class EditContactCommand extends Command {
 
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
         }
 
         /**
@@ -255,7 +241,6 @@ public class EditContactCommand extends Command {
             return Objects.equals(name, otherEditContactDescriptor.name)
                     && Objects.equals(phone, otherEditContactDescriptor.phone)
                     && Objects.equals(email, otherEditContactDescriptor.email)
-                    && Objects.equals(address, otherEditContactDescriptor.address)
                     && Objects.equals(tags, otherEditContactDescriptor.tags)
                     && Objects.equals(notes, otherEditContactDescriptor.notes);
         }
@@ -266,7 +251,6 @@ public class EditContactCommand extends Command {
                     .add("name", name)
                     .add("phone", phone)
                     .add("email", email)
-                    .add("address", address)
                     .add("tags", tags)
                     .add("notes", notes)
                     .toString();

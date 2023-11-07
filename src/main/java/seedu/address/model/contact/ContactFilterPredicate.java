@@ -10,7 +10,6 @@ public class ContactFilterPredicate implements Predicate<Contact> {
     private final List<String> nameKeywords;
     private final String phoneNumber;
     private final String emailAddress;
-    private final List<String> addressKeywords;
     private final List<String> tagKeywords;
     private final List<String> noteKeywords;
 
@@ -18,12 +17,10 @@ public class ContactFilterPredicate implements Predicate<Contact> {
      * Contructs the ContactFilterPredicate class
      */
     public ContactFilterPredicate(List<String> nameKeywords, String phoneNumber,
-                                  String emailAddress, List<String> addressKeywords,
-                                  List<String> tagKeywords, List<String> noteKeywords) {
+                                  String emailAddress, List<String> tagKeywords, List<String> noteKeywords) {
         this.nameKeywords = nameKeywords;
         this.phoneNumber = phoneNumber;
         this.emailAddress = emailAddress;
-        this.addressKeywords = addressKeywords;
         this.tagKeywords = tagKeywords;
         this.noteKeywords = noteKeywords;
     }
@@ -35,15 +32,13 @@ public class ContactFilterPredicate implements Predicate<Contact> {
         boolean email = emailAddress.isEmpty() || contact.getEmail().value.toLowerCase()
             .contains(emailAddress.toLowerCase());
         boolean phone = phoneNumber.isEmpty() || contact.getPhone().value.contains(phoneNumber);
-        boolean address = (addressKeywords.size() == 1 && addressKeywords.get(0).isEmpty()) || addressKeywords.stream()
-            .anyMatch(keyword -> contact.getAddress().value.toLowerCase().contains(keyword.toLowerCase()));
         boolean tag = (tagKeywords.size() == 1 && tagKeywords.get(0).isEmpty())
             || tagKeywords.stream().anyMatch(keyword -> contact.getTagString().toLowerCase()
                 .contains(keyword.toLowerCase()));
         boolean note = (noteKeywords.size() == 1 && noteKeywords.get(0).isEmpty())
             || noteKeywords.stream().anyMatch(keyword -> contact.getNoteString().toLowerCase()
                 .contains(keyword.toLowerCase()));
-        return name && email && phone && address && tag && note;
+        return name && email && phone && tag && note;
     }
 
     @Override
@@ -61,7 +56,6 @@ public class ContactFilterPredicate implements Predicate<Contact> {
         return nameKeywords.equals(otherContactFilterPredicate.nameKeywords)
             && phoneNumber.equals(otherContactFilterPredicate.phoneNumber)
             && emailAddress.equals(otherContactFilterPredicate.emailAddress)
-            && addressKeywords.equals(otherContactFilterPredicate.addressKeywords)
             && tagKeywords.equals(otherContactFilterPredicate.tagKeywords)
             && noteKeywords.equals(otherContactFilterPredicate.noteKeywords);
     }

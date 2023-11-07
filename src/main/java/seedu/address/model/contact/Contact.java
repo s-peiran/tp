@@ -25,19 +25,17 @@ public class Contact implements Comparable<Contact> {
     private final Email email;
 
     // Data fields
-    private final Address address;
     private final Set<Tag> tags = new HashSet<>();
     private final ArrayList<Note> notes = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Contact(Name name, Phone phone, Email email, Address address, Set<Tag> tags, List<Note> notes) {
-        requireAllNonNull(name, phone, email, address, tags, notes);
+    public Contact(Name name, Phone phone, Email email, Set<Tag> tags, List<Note> notes) {
+        requireAllNonNull(name, phone, email, tags, notes);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
         this.tags.addAll(tags);
         this.notes.addAll(notes);
     }
@@ -58,9 +56,6 @@ public class Contact implements Comparable<Contact> {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
-    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -134,7 +129,6 @@ public class Contact implements Comparable<Contact> {
         return name.equals(otherContact.name)
                 && phone.equals(otherContact.phone)
                 && email.equals(otherContact.email)
-                && address.equals(otherContact.address)
                 && tags.equals(otherContact.tags)
                 && notes.equals(otherContact.notes);
     }
@@ -148,7 +142,7 @@ public class Contact implements Comparable<Contact> {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, notes);
+        return Objects.hash(name, phone, email, tags, notes);
     }
 
     @Override
@@ -157,7 +151,6 @@ public class Contact implements Comparable<Contact> {
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)
-                .add("address", address)
                 .add("tags", tags)
                 .add("notes", notes)
                 .toString();

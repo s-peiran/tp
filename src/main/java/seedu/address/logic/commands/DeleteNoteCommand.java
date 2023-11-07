@@ -72,7 +72,7 @@ public class DeleteNoteCommand extends Command {
 
         Contact editedContact = new Contact(
                 contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
-                contactToEdit.getAddress(), contactToEdit.getTags(), mutableNotesList);
+                contactToEdit.getTags(), mutableNotesList);
 
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(Model.PREDICATE_SHOW_ALL_CONTACTS);
