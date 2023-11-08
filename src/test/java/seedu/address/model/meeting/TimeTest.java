@@ -31,6 +31,7 @@ public class TimeTest {
         assertFalse(Time.isValidTime("peter*")); // contains non-alphanumeric characters
         assertFalse(Time.isValidTime("35/10/1999 23:59")); // impossible date
         assertFalse(Time.isValidTime("05/10/1999 25:59")); // impossible time
+        assertFalse(Time.isValidTime("29/02/2023 23:59")); // impossible date leap year
 
         // valid time
         assertTrue(Time.isValidTime("05/10/1999 23:59"));
