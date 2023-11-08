@@ -36,6 +36,9 @@ public class DeleteMeetingNoteCommandParser implements Parser<DeleteMeetingNoteC
             }
             index = Index.fromOneBased(parseInt(argMultimap.getValue(PREFIX_INDEX).get()));
             noteID = parseInt(argMultimap.getValue(PREFIX_NOTE_ID).orElse(""));
+        } catch (NumberFormatException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteMeetingNoteCommand.MESSAGE_USAGE), e);
         } catch (IndexOutOfBoundsException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_MEETING_DISPLAYED_INDEX));
         } catch (Exception e) {

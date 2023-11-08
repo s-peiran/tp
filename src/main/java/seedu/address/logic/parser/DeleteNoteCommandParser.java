@@ -35,6 +35,8 @@ public class DeleteNoteCommandParser implements Parser<DeleteNoteCommand> {
             noteID = parseInt(argMultimap.getValue(PREFIX_NOTE_ID).orElse(""));
         } catch (IndexOutOfBoundsException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX));
+        } catch (NumberFormatException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteNoteCommand.MESSAGE_USAGE), e);
         } catch (Exception e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteNoteCommand.MESSAGE_USAGE), e);
