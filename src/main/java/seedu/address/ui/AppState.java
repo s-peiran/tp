@@ -99,7 +99,12 @@ public class AppState {
      * @param contact The contact to be viewed.
      */
     public void setContact(Contact contact) {
-        this.contactToView = Optional.of(contact);
+        if (contact != null) {
+            this.contactToView = Optional.of(contact);
+        } else {
+            this.contactToView = Optional.empty();
+        }
+
         this.meetingToView = Optional.empty();
     }
 
@@ -109,8 +114,13 @@ public class AppState {
      * @param meeting The meeting to be viewed.
      */
     public void setMeeting(Meeting meeting) {
+        if (meeting != null) {
+            this.meetingToView = Optional.of(meeting);
+        } else {
+            this.meetingToView = Optional.empty();
+        }
+
         this.contactToView = Optional.empty();
-        this.meetingToView = Optional.of(meeting);
     }
 
     /**

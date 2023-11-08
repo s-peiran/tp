@@ -30,9 +30,11 @@ public class ModeCommand extends Command {
         if (mode == ModeType.CONTACTS) {
             model.updateFilteredContactList(Model.PREDICATE_SHOW_ALL_CONTACTS);
             appState.setListType(ListType.CONTACTS);
+            appState.setContact(null);
             return new CommandResult(String.format(MESSAGE_SUCCESS, mode.toString()));
         } else {
             model.updateFilteredMeetingList(Model.PREDICATE_SHOW_ALL_MEETINGS);
+            appState.setMeeting(null);
             appState.setListType(ListType.MEETINGS);
             return new CommandResult(String.format(MESSAGE_SUCCESS, mode.toString()));
         }
