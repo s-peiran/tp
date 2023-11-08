@@ -51,14 +51,14 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### Create New Contact
 
-- **What it does**: Adds a new contact to the list when in the `contacts` mode.
+- **What it does**: Adds a new contact to the list when in the `contacts` mode. Users are considered the same if they have the same name (case-sensitive).
 
 - **Command Format**: `add n/CONTACT_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/RESIDENTIAL_ADDRESS [t/TAGS]`
 
 - **Example**: `add n/Sarah Woo p/82775346 e/sarah.woo@gmail.com a/Blk227 Sims Drive`
 
 - **Acceptable Values**:
-    - CONTACT_NAME: String, alphanumeric values and at least 2 characters long.
+    - CONTACT_NAME: String, alphanumeric values and at least 2 characters long. Case-sensitive.
     - PHONE_NUMBER: Integers, at least 3 digits long.
     - EMAIL_ADDRESS: String, any valid email address.
     - RESIDENTIAL_ADDRESS: String, any value.
@@ -120,7 +120,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 - 
 - **Acceptable Values**:
     - CONTACT_ID: Positive integer. Must be a value that exists in the contact list.
-    - CONTACT_NAME: String, alphanumeric values and at least 2 characters long.
+    - CONTACT_NAME: String, alphanumeric values and at least 2 characters long. Case-sensitive.
     - PHONE_NUMBER: Integers, at least 3 digits long.
     - EMAIL_ADDRESS: String, any valid email address.
     - RESIDENTIAL_ADDRESS: String, any value.
@@ -274,8 +274,8 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 - **Example**: `addcontact n/Sarah Woo m/Project Discussion`
 
 - **Acceptable Values**:
-    - MEETING_NAME: String, must exist in meeting list.
-    - CONTACT_NAME: String, must exist in contact list.
+    - MEETING_NAME: String, must exist in meeting list. Case-sensitive.
+    - CONTACT_NAME: String, must exist in contact list. Case-sensitive.
 
 - **Expected Outputs**:
     - Success: "Added contact '[CONTACT_NAME]' to Meeting '[MEETING_NAME]'."
