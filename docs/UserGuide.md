@@ -4,7 +4,7 @@ Notenote is a desktop meeting note-taking application that allows users to effic
 Notenote provide tools for organizing and categorizing contacts in a systematic and easy-to-navigate structure.
 
 ## Table of Contents
-
+- [Mode](#mode)
 - [Contact Management](#contact-management)
     - [Create New Contact](#create-new-contact)
     - [View a Contact](#view-a-contact)
@@ -73,15 +73,16 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
           Example: add n/ John Doe p/ 98765432 e/ johnd@example.com a/ 311, Clementi Ave 2, #02-25 t/ friends t/ owesMoney`
         - If multiple values specified for a parameter: `Multiple values specified for the following single-valued field(s): [Parameters]`
         - If unacceptable parameter values: Appropriate error message returned.
+
 ---
 
 ### View a Contact
 
 - **What it does**: Displays details of a specific contact when in the `contacts` mode.
 
-- **Command Format**: `view id/CONTACT_ID`
+- **Command Format**: `view CONTACT_ID`
 
-- **Example**: `view id/1`
+- **Example**: `view 1`
 
 - **Acceptable Values**:
     - CONTACT_ID: Positive integer. Must be a value that exists in the contact list.
@@ -92,8 +93,8 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
         - If the positive CONTACT_ID does not exist: `The contact index provided is invalid`
         - If invalid command format: `Invalid command format!
           view: Shows the details of the contact identified by its id in the displayed contact list.
-          Parameters: id/ CONTACT_ID (must be a positive integer)
-          Example: view id/ 1`
+          Parameters: CONTACT_ID (must be a positive integer)
+          Example: view 1`
 
 ---
 
@@ -102,7 +103,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 - **What it does**: Shows all contacts in the list when in the `contacts` mode. All fields after list are optional
   arguments.
 
-- **Command Format**: `list n/[NAME] p/[PHONE] e/[EMAIL] a/[ADDRESS] t/[TAG] note/[NOTE]`
+- **Command Format**: `list [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [note/NOTE]`
 
 - **Expected Outputs**:
     - Success: `Listed all contacts.`
@@ -114,7 +115,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 - **What it does**: Edits an existing person in the address book when in the `contacts` mode.
 
-- **Command Format**: `edit id/CONTACT_ID n/CONTACT_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/RESIDENTIAL_ADDRESS [t/TAGS]`
+- **Command Format**: `edit id/CONTACT_ID [n/CONTACT_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS] [a/RESIDENTIAL_ADDRESS] [t/TAGS]`
 
 - **Example**: `edit id/3 p/90649923`
 - 
@@ -133,15 +134,16 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
       - If the CONTACT_ID does not exist: `The contact index provided is invalid`
       - If multiple values specified for a parameter: `Multiple values specified for the following single-valued field(s): [Parameters]`
       - If unacceptable parameter values: Appropriate error message returned.
+    
 ---
 
 ### Delete a Contact
 
 - **What it does**: Removes a contact based on the given ID when in the `contacts` mode.
 
-- **Command Format**: `delete id/CONTACT_ID`
+- **Command Format**: `delete CONTACT_ID`
 
-- **Example**: `delete id/3`
+- **Example**: `delete 3`
 
 - **Acceptable Values**:
     - CONTACT_ID: Positive integer. Must be a value that exists in the contact list.
@@ -153,7 +155,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
         - If the command is invalid: `Invalid command format!
           delete: Deletes the contact identified by the index number used in the displayed contact list.
           Parameters: INDEX (must be a positive integer)
-          Example: delete id/ 1`
+          Example: delete 1`
 
 ---
 
@@ -163,7 +165,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 - **What it does**: Creates a new meeting when in the `meetings` mode.
 
-- **Command Format**: `add m/MEETING_NAME t/TIME p/LOCATION [d/DESCRIPTION]`
+- **Command Format**: `add m/MEETING_NAME t/TIME p/LOCATION d/DESCRIPTION`
 
 - **Example**: `add m/ Project Discussion t/ 03/10/2023 15:00 p/ Terrace d/ Discussing mileston`
 
@@ -189,9 +191,9 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 - **What it does**: Displays details of a specific meeting when in the `meetings` mode.
 
-- **Command Format**: `view id/MEETING_ID`
+- **Command Format**: `view MEETING_ID`
 
-- **Example**: `view id/1`
+- **Example**: `view 1`
 
 - **Acceptable Values**:
     - MEETING_ID: Positive integer. Must be a value that exists in the meeting list.
@@ -202,8 +204,8 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
         - If the MEETING_ID does not exist: `The meeting index provided is invalid`
         - If the command is invalid: `Invalid command format!
           view: Shows the details of the meeting identified by its id in the displayed meeting list.
-          Parameters: id/ INDEX (must be a positive integer)
-          Example: view id/ 1`
+          Parameters: INDEX (must be a positive integer)
+          Example: view 1`
 
 ---
 
@@ -211,7 +213,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 - **What it does**: Shows a list of all meetings when in the `meetings` mode. All arguments after `list` are optional arguments. Other commands which use index will be affected by the updated indexes shown on the GUI.
 
-- **Command Format**: `list m/[TITLE] t/[TIME] p/[PLACE] d/[DESCRIPTION] note/[NOTE]`
+- **Command Format**: `list [m/TITLE] [t/TIME] [p/PLACE] [d/DESCRIPTION] [note/NOTE]`
 
 - **Expected Outputs**:
     - Success: `%d meetings Listed!`
@@ -219,11 +221,11 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### Delete a Meeting
 
-- **What it does**: Cancels a meeting based on the given ID or name when in the "meetings" mode.
+- **What it does**: Cancels a meeting based on the given ID when in the "meetings" mode.
 
-- **Command Format**: `delete id/MEETING_ID`
+- **Command Format**: `delete MEETING_ID`
 
-- **Example**: `delete id/1`
+- **Example**: `delete 1`
 
 - **Acceptable Values**:
     - MEETING_ID: Positive integer. Must be a value that exists in the meeting list.
@@ -340,6 +342,8 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
         - If the NOTES aren't provided OR If invalid command format: `Invalid command format!
           addnote: Add notes to contact Parameters: id/CONTACT_ID_or_CONTACT_NAME note/NOTES Example: addnote id/5 note/ Has a dog named Benny`
 
+---
+
 ### Delete Notes from a Contact or Meeting
 
 - **What it does**: Removes specified notes from a contact or meeting.
@@ -379,6 +383,8 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 - **Expected Outputs**:
     - Success: `Opened help window.` Displays a pop-up window with a link to the user guide.
 
+---
+
 ### Clear AddressBook
 
 - **What it does**: Clears all contacts and meetings from memory in the entire address book.
@@ -387,6 +393,8 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 - **Expected Outputs**:
     - Success: `Address book has been cleared!`
+
+---
 
 ### Exit Command
 
