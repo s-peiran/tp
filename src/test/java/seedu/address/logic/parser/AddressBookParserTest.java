@@ -52,7 +52,7 @@ public class AddressBookParserTest {
     public void parseCommand_viewContact() throws Exception {
         setModeToContacts();
         ViewContactCommand expectedCommand = new ViewContactCommand(Index.fromOneBased(1));
-        String userInput = ViewContactCommand.COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + " 1";
+        String userInput = ViewContactCommand.COMMAND_WORD + " 1";
         ViewContactCommand actualCommand = (ViewContactCommand) parser.parseCommand(userInput);
         assertEquals(expectedCommand, actualCommand);
     }
@@ -75,7 +75,7 @@ public class AddressBookParserTest {
     public void parseCommand_viewMeeting() throws Exception {
         setModeToMeetings();
         ViewMeetingCommand expectedCommand = new ViewMeetingCommand(Index.fromOneBased(1));
-        String userInput = ViewMeetingCommand.COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + " 1";
+        String userInput = ViewMeetingCommand.COMMAND_WORD + " 1";
         ViewMeetingCommand actualCommand = (ViewMeetingCommand) parser.parseCommand(userInput);
         assertEquals(expectedCommand, actualCommand);
     }

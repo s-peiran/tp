@@ -1,10 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
-
-import java.util.NoSuchElementException;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ViewMeetingCommand;
@@ -23,22 +19,11 @@ public class ViewMeetingCommandParser implements Parser<ViewMeetingCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public ViewMeetingCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_INDEX);
-
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_INDEX);
-
-        Index index;
         try {
-            if (Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()) == 0) {
-                throw new IndexOutOfBoundsException();
-            }
-            index = Index.fromOneBased(Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()));
-        } catch (NoSuchElementException e) {
-            throw new ParseException(
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewMeetingCommand.MESSAGE_USAGE), e);
-        } catch (IndexOutOfBoundsException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_MEETING_DISPLAYED_INDEX));
+            Index index = ParserUtil.parseIndex(args);
+            return new ViewMeetingCommand(index);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_MEETING_DISPLAYED_INDEX), pe);
         }
-        return new ViewMeetingCommand(index);
     }
 }
