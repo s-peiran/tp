@@ -407,3 +407,4 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 ## Known Issues
 
 - Newly added contacts/meetings are not automatically selected without scrolling down when there are several contacts/meetings already existing. However when adding a new contact the result box is updated for visual feedback.
+- Some users reported that the scrollbar of the contact/meeting list disappears when the screen size is too small.
