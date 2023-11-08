@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditContactCommand.EditContactDescriptor;
-import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
@@ -35,7 +34,6 @@ public class EditContactDescriptorBuilder {
         descriptor.setName(contact.getName());
         descriptor.setPhone(contact.getPhone());
         descriptor.setEmail(contact.getEmail());
-        descriptor.setAddress(contact.getAddress());
         descriptor.setTags(contact.getTags());
     }
 
@@ -60,14 +58,6 @@ public class EditContactDescriptorBuilder {
      */
     public EditContactDescriptorBuilder withEmail(String email) {
         descriptor.setEmail(new Email(email));
-        return this;
-    }
-
-    /**
-     * Sets the {@code Address} of the {@code EditContactDescriptor} that we are building.
-     */
-    public EditContactDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
         return this;
     }
 

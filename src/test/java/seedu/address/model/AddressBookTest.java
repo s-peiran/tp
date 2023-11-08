@@ -3,7 +3,6 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAddressBook.ALICE;
@@ -49,8 +48,7 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateContacts_throwsDuplicateContactException() {
         // Two contacts with the same identity fields
-        Contact editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+        Contact editedAlice = new ContactBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         List<Contact> newContacts = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newContacts);
 
@@ -76,8 +74,7 @@ public class AddressBookTest {
     @Test
     public void hasContact_contactWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addContact(ALICE);
-        Contact editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+        Contact editedAlice = new ContactBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(addressBook.hasContact(editedAlice));
     }
 

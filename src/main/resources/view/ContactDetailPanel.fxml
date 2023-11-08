@@ -21,11 +21,6 @@
         <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
     </VBox>
 
-    <!-- Address -->
-    <VBox spacing="1">
-        <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-    </VBox>
-
     <!-- Email -->
     <VBox spacing="1">
         <Label fx:id="email" styleClass="cell_small_label" text="\$email" />

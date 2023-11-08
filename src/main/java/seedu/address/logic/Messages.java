@@ -47,8 +47,6 @@ public class Messages {
                 .append(contact.getPhone())
                 .append("; Email: ")
                 .append(contact.getEmail())
-                .append("; Address: ")
-                .append(contact.getAddress())
                 .append("; Tags: ");
         contact.getTags().forEach(builder::append);
         return builder.toString();
