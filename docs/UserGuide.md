@@ -23,7 +23,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
     - [Delete Notes from a Contact or Meeting](#delete-notes-from-a-contact-or-meeting)
 - [Miscellaneous](#miscellaneous)
     - [View List of Available Commands](#view-list-of-available-commands)
-
+- [Known Issues](#known-issues)
 ---
 
 ### Mode
@@ -51,14 +51,14 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 ### Create New Contact
 
-- **What it does**: Adds a new contact to the list when in the `contacts` mode.
+- **What it does**: Adds a new contact to the list when in the `contacts` mode. Users are considered the same if they have the same name (case-sensitive).
 
 - **Command Format**: `add n/CONTACT_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/RESIDENTIAL_ADDRESS [t/TAGS]`
 
 - **Example**: `add n/Sarah Woo p/82775346 e/sarah.woo@gmail.com a/Blk227 Sims Drive`
 
 - **Acceptable Values**:
-    - CONTACT_NAME: String, alphanumeric values and at least 2 characters long.
+    - CONTACT_NAME: String, alphanumeric values and at least 2 characters long. Case-sensitive.
     - PHONE_NUMBER: Integers, at least 3 digits long.
     - EMAIL_ADDRESS: String, any valid email address.
     - RESIDENTIAL_ADDRESS: String, any value.
@@ -101,13 +101,12 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 ### List All Contacts
 
 - **What it does**: Shows all contacts in the list when in the `contacts` mode. All fields after list are optional
-  arguments.
+  arguments. If no valid parameter provided, list all contacts.
 
 - **Command Format**: `list [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [note/NOTE]`
 
 - **Expected Outputs**:
     - Success: `Listed all contacts.`
-    - Failure: If no valid parameter provided, list all contacts.
 
 ---
 
@@ -121,7 +120,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 - 
 - **Acceptable Values**:
     - CONTACT_ID: Positive integer. Must be a value that exists in the contact list.
-    - CONTACT_NAME: String, alphanumeric values and at least 2 characters long.
+    - CONTACT_NAME: String, alphanumeric values and at least 2 characters long. Case-sensitive.
     - PHONE_NUMBER: Integers, at least 3 digits long.
     - EMAIL_ADDRESS: String, any valid email address.
     - RESIDENTIAL_ADDRESS: String, any value.
@@ -212,12 +211,11 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 ### List All Meetings
 
 - **What it does**: Shows a list of all meetings when in the `meetings` mode. All arguments after `list` are optional arguments. Other commands which use index will be affected by the updated indexes shown on the GUI.
-
+  If no valid parameter provided, list all meetings.
 - **Command Format**: `list [m/TITLE] [t/TIME] [p/PLACE] [d/DESCRIPTION] [note/NOTE]`
 
 - **Expected Outputs**:
     - Success: `%d meetings Listed!`
-    - Failure: If no valid parameter provided, list all meetings.
 
 ### Delete a Meeting
 
@@ -269,14 +267,15 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 ### Add Contact to Meeting
 
 - **What it does**: Adds a contact to an existing meeting as a participant when in the `meetings` mode.
+  No duplicate meetings are allowed and meetings are considered to be the same if they have the same name.
 
 - **Command Format**: `addcontact n/CONTACT_NAME m/MEETING_NAME`
 
 - **Example**: `addcontact n/Sarah Woo m/Project Discussion`
 
 - **Acceptable Values**:
-    - MEETING_NAME: String, must exist in meeting list.
-    - CONTACT_NAME: String, must exist in contact list.
+    - MEETING_NAME: String, must exist in meeting list. Case-sensitive.
+    - CONTACT_NAME: String, must exist in contact list. Case-sensitive.
 
 - **Expected Outputs**:
     - Success: "Added contact '[CONTACT_NAME]' to Meeting '[MEETING_NAME]'."
@@ -404,3 +403,8 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 - **Expected Outputs**:
     - Success: The window is closed and the program stops running.
+
+## Known Issues
+
+- Newly added contacts/meetings are not automatically selected without scrolling down when there are several contacts/meetings already existing. However when adding a new contact the result box is updated for visual feedback.
+- Some users reported that the scrollbar of the contact/meeting list disappears when the screen size is too small.
