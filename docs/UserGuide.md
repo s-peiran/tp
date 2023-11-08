@@ -23,7 +23,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
     - [Delete Notes from a Contact or Meeting](#delete-notes-from-a-contact-or-meeting)
 - [Miscellaneous](#miscellaneous)
     - [View List of Available Commands](#view-list-of-available-commands)
-
+- [Known Issues](#known-issues)
 ---
 
 ### Mode
@@ -403,3 +403,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 
 - **Expected Outputs**:
     - Success: The window is closed and the program stops running.
+
+## Known Issues
+
+- Newly added contacts/meetings are not automatically selected without scrolling down when there are several contacts/meetings already existing. However when adding a new contact the result box is updated for visual feedback.
