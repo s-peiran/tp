@@ -6,6 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 /**
  * Represents a Meeting's time in Notenote.
@@ -14,9 +15,10 @@ import java.time.format.DateTimeParseException;
 public class Time {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Time should match the exact format of dd/MM/yyyy HH:mm";
+        "Time should match the exact format of dd/MM/yyyy HH:mm and be a valid datetime";
 
-    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    public static final DateTimeFormatter FORMATTER =
+            DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm").withResolverStyle(ResolverStyle.STRICT);
 
     public final LocalDateTime value;
 
@@ -46,7 +48,7 @@ public class Time {
      */
     public static boolean isValidTime(String test) {
         try {
-            LocalDateTime.parse(test, FORMATTER);
+            LocalDateTime parsedDateTime = LocalDateTime.parse(test, FORMATTER);
             return true;
         } catch (DateTimeParseException e) {
             return false;
