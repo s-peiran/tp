@@ -101,13 +101,12 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 ### List All Contacts
 
 - **What it does**: Shows all contacts in the list when in the `contacts` mode. All fields after list are optional
-  arguments.
+  arguments. If no valid parameter provided, list all contacts.
 
 - **Command Format**: `list [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [note/NOTE]`
 
 - **Expected Outputs**:
     - Success: `Listed all contacts.`
-    - Failure: If no valid parameter provided, list all contacts.
 
 ---
 
@@ -212,12 +211,11 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 ### List All Meetings
 
 - **What it does**: Shows a list of all meetings when in the `meetings` mode. All arguments after `list` are optional arguments. Other commands which use index will be affected by the updated indexes shown on the GUI.
-
+  If no valid parameter provided, list all meetings.
 - **Command Format**: `list [m/TITLE] [t/TIME] [p/PLACE] [d/DESCRIPTION] [note/NOTE]`
 
 - **Expected Outputs**:
     - Success: `%d meetings Listed!`
-    - Failure: If no valid parameter provided, list all meetings.
 
 ### Delete a Meeting
 
@@ -269,6 +267,7 @@ Notenote provide tools for organizing and categorizing contacts in a systematic 
 ### Add Contact to Meeting
 
 - **What it does**: Adds a contact to an existing meeting as a participant when in the `meetings` mode.
+  No duplicate meetings are allowed and meetings are considered to be the same if they have the same name.
 
 - **Command Format**: `addcontact n/CONTACT_NAME m/MEETING_NAME`
 
