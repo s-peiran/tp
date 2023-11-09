@@ -9,26 +9,33 @@ Notenote is a desktop note-taking application that allows users to efficiently r
 
 Given below are my contributions to the project.
 
-* **New Feature**: To be added
+* **New Feature**: Add meeting command
+* **New Feature**: View command
+* **New Feature**: Mode command
+* **New Feature** UI updates
 
-* **New Feature**: To be added
 
-* **Code contributed**: [RepoSense link]()
+* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2324s1.github.io/tp-dashboard/?search=cs2103-w14-2&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code&since=2023-09-22&tabOpen=true&tabType=authorship&tabAuthor=chiayunrong&tabRepo=AY2324S1-CS2103-W14-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
 
 * **Project management**:
-    * To be added
-
+    * Divided work among team members to lower chances of merge conflicts when working in parallel
+    * Added GitHub PR templates for easier creation and reviewing of PRs
+    * Managed the team's issue tracker ensuring there was an appropriate number of issues and everyone had sufficient work to do
+    * Wrote action items after every weekly meeting for team members to work on
+ 
 * **Enhancements to existing features**:
-    * To be added
+    * Reverted parser changes
+    * Added unit tests throughout the application
+    * Actively fixed bugs
 
 * **Documentation**:
     * User Guide:
-        * To be added
+      * Added sections for new features that I had implemented
+      * Fixed errors throughout the entire UG
     * Developer Guide:
         * To be added
 
-* **Community**:
-    * To be added
-
-* **Tools**:
-    * To be added
+* Review PRS:
+    * [PR1](https://github.com/AY2324S1-CS2103-W14-2/tp/pull/89#discussion_r1357712476)
+    * [PR2](https://github.com/AY2324S1-CS2103-W14-2/tp/pull/120#discussion_r1372641446)
+    * [PR3](https://github.com/AY2324S1-CS2103-W14-2/tp/pull/89#discussion_r1357713995)
