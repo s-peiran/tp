@@ -2,16 +2,13 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 
@@ -34,31 +31,41 @@ public class EditContactCommandParser implements Parser<EditContactCommand> {
      */
     public EditContactCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_NAME, PREFIX_PHONE,
-                        PREFIX_EMAIL, PREFIX_TAG);
-
+        ArgumentMultimap argMultimap;
         Index index;
-        try {
-            if (Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()) == 0) {
-                throw new IndexOutOfBoundsException();
-            }
-            index = Index.fromOneBased(Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()));
-        } catch (NumberFormatException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditContactCommand.MESSAGE_USAGE), e);
-        } catch (NoSuchElementException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditContactCommand.MESSAGE_USAGE), pe);
-        } catch (IndexOutOfBoundsException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX));
+
+        String trimmedArgs = args.trim();
+        String[] splitArgs = trimmedArgs.split("\\s+");
+
+        if (splitArgs.length < 2) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditContactCommand.MESSAGE_USAGE));
         }
 
+        try {
+            // Check if the index is zero or not a number
+            int indexValue = Integer.parseInt(splitArgs[0]);
+            if (indexValue <= 0) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditContactCommand.MESSAGE_USAGE));
+            }
+            index = Index.fromOneBased(indexValue);
+        } catch (NumberFormatException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                EditContactCommand.MESSAGE_USAGE), e);
+        }
+
+        String argsWithoutIndex = " " + trimmedArgs.substring(splitArgs[0].length()).trim();
+        argMultimap = ArgumentTokenizer.tokenize(argsWithoutIndex, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TAG);
+
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL);
+        if (!argMultimap.isAnyPrefixPresent(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TAG)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditContactCommand.MESSAGE_USAGE));
+        }
 
         EditContactDescriptor editContactDescriptor = new EditContactDescriptor();
 
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            System.out.println(argMultimap.getValue(PREFIX_NAME));
             editContactDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {

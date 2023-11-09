@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PLACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
@@ -44,7 +43,7 @@ public class EditMeetingCommand extends Command {
         + "[" + PREFIX_TIME + " TIME] "
         + "[" + PREFIX_PLACE + " PLACE] "
         + "[" + PREFIX_DESCRIPTION + " DESCRIPTION]...\n"
-        + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + " 1 "
+        + "Example: " + COMMAND_WORD + " 1 "
         + PREFIX_PLACE + " Zoom "
         + PREFIX_DESCRIPTION + " Discuss Project Details";
 

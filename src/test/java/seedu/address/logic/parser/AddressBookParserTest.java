@@ -121,7 +121,7 @@ public class AddressBookParserTest {
         setModeToContacts();
         Contact contact = new ContactBuilder().build();
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder(contact).build();
-        String input = EditContactCommand.COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + INDEX_FIRST.getOneBased() + " "
+        String input = EditContactCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased() + " "
             + ContactUtil.getEditContactDescriptorDetails(descriptor);
         EditContactCommand command = (EditContactCommand) parser.parseCommand(input);
 
