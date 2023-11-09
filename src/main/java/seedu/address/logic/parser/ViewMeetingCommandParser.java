@@ -23,7 +23,8 @@ public class ViewMeetingCommandParser implements Parser<ViewMeetingCommand> {
             Index index = ParserUtil.parseIndex(args);
             return new ViewMeetingCommand(index);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewMeetingCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ViewMeetingCommand.MESSAGE_USAGE), pe);
         }
     }
 }

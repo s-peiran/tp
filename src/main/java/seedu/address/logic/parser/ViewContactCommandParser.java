@@ -23,7 +23,8 @@ public class ViewContactCommandParser implements Parser<ViewContactCommand> {
             Index index = ParserUtil.parseIndex(args);
             return new ViewContactCommand(index);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewContactCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ViewContactCommand.MESSAGE_USAGE), pe);
         }
     }
 }
