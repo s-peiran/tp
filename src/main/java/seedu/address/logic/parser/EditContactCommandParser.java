@@ -44,6 +44,9 @@ public class EditContactCommandParser implements Parser<EditContactCommand> {
                 throw new IndexOutOfBoundsException();
             }
             index = Index.fromOneBased(Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()));
+        } catch (NumberFormatException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditContactCommand.MESSAGE_USAGE), e);
         } catch (NoSuchElementException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditContactCommand.MESSAGE_USAGE), pe);

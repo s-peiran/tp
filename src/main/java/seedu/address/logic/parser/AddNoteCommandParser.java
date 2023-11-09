@@ -28,12 +28,19 @@ public class AddNoteCommandParser implements Parser<AddNoteCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_INDEX, PREFIX_NOTE);
 
+        if (!ArgumentMultimap.arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_NOTE)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNoteCommand.MESSAGE_USAGE));
+        }
+
         Index index;
         try {
             if (Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()) == 0) {
                 throw new IndexOutOfBoundsException();
             }
             index = Index.fromOneBased(Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()));
+        } catch (NumberFormatException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNoteCommand.MESSAGE_USAGE), e);
         } catch (IndexOutOfBoundsException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX));
         } catch (NoSuchElementException ive) {

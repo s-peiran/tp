@@ -34,6 +34,9 @@ public class AddMeetingNoteCommandParser implements Parser<AddMeetingNoteCommand
                 throw new IndexOutOfBoundsException();
             }
             index = Index.fromOneBased(Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()));
+        } catch (NumberFormatException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddMeetingNoteCommand.MESSAGE_USAGE), e);
         } catch (IndexOutOfBoundsException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_MEETING_DISPLAYED_INDEX));
         } catch (Exception e) {
