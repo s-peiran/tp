@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ViewMeetingCommand;
@@ -23,7 +23,7 @@ public class ViewMeetingCommandParser implements Parser<ViewMeetingCommand> {
             Index index = ParserUtil.parseIndex(args);
             return new ViewMeetingCommand(index);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_MEETING_DISPLAYED_INDEX), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewMeetingCommand.MESSAGE_USAGE));
         }
     }
 }
