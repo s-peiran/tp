@@ -34,7 +34,6 @@ Given below are my contributions to the project.
 
     * Updated the Model UML Class Diagram to incorporate meetings
     * Elaborated on how the Meeting, Contact and AddressBook classes interact
-    * 
 
 ### Contributions to team-based tasks
 
