@@ -2,14 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PLACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
-
-import java.util.NoSuchElementException;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditMeetingCommand;
@@ -29,27 +25,37 @@ public class EditMeetingCommandParser implements Parser<EditMeetingCommand> {
      */
     public EditMeetingCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_TITLE, PREFIX_TIME,
-                        PREFIX_PLACE, PREFIX_DESCRIPTION);
-
+        ArgumentMultimap argMultimap;
         Index index;
-        try {
-            if (Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()) == 0) {
-                throw new IndexOutOfBoundsException();
-            }
-            index = Index.fromOneBased(Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()));
-        } catch (NumberFormatException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditMeetingCommand.MESSAGE_USAGE), e);
-        } catch (NoSuchElementException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditMeetingCommand.MESSAGE_USAGE), pe);
-        } catch (IndexOutOfBoundsException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_MEETING_DISPLAYED_INDEX));
+
+        String trimmedArgs = args.trim();
+        String[] splitArgs = trimmedArgs.split("\\s+");
+
+        if (splitArgs.length < 2) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditMeetingCommand.MESSAGE_USAGE));
         }
 
+        try {
+            // Check if the index is zero or not a number
+            int indexValue = Integer.parseInt(splitArgs[0]);
+            if (indexValue <= 0) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditMeetingCommand.MESSAGE_USAGE));
+            }
+            index = Index.fromOneBased(indexValue);
+        } catch (NumberFormatException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                EditMeetingCommand.MESSAGE_USAGE), e);
+        }
+
+        String argsWithoutIndex = " " + trimmedArgs.substring(splitArgs[0].length()).trim();
+        argMultimap = ArgumentTokenizer.tokenize(argsWithoutIndex, PREFIX_TITLE, PREFIX_TIME,
+                        PREFIX_PLACE, PREFIX_DESCRIPTION);
+
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TITLE, PREFIX_TIME, PREFIX_PLACE, PREFIX_DESCRIPTION);
+        if (!argMultimap.isAnyPrefixPresent(PREFIX_TITLE, PREFIX_TIME, PREFIX_PLACE, PREFIX_DESCRIPTION)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditMeetingCommand.MESSAGE_USAGE));
+        }
 
         EditMeetingDescriptor editMeetingDescriptor = new EditMeetingDescriptor();
 

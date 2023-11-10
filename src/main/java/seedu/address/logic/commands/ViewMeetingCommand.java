@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class ViewMeetingCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Shows the details of the meeting identified by its id in the displayed meeting list.\n"
-            + "Parameters: " + PREFIX_INDEX + " INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_VIEW_MEETING_SUCCESS = "Showing Meeting: %1$s";

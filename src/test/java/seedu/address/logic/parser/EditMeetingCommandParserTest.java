@@ -51,7 +51,7 @@ public class EditMeetingCommandParserTest {
         assertParseFailure(parser, VALID_TITLE_ENG, MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, " " + CliSyntax.PREFIX_INDEX + " 1", EditMeetingCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, " 1", MESSAGE_INVALID_FORMAT);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -74,26 +74,26 @@ public class EditMeetingCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, " " + CliSyntax.PREFIX_INDEX + " 1" + INVALID_TITLE_DESC,
+        assertParseFailure(parser, " 1" + INVALID_TITLE_DESC,
                 Title.MESSAGE_CONSTRAINTS); // invalid title
-        assertParseFailure(parser, " " + CliSyntax.PREFIX_INDEX + " 1" + INVALID_TIME_DESC,
+        assertParseFailure(parser, " 1" + INVALID_TIME_DESC,
                 Time.MESSAGE_CONSTRAINTS); // invalid time
-        assertParseFailure(parser, " " + CliSyntax.PREFIX_INDEX + " 1" + INVALID_PLACE_DESC,
+        assertParseFailure(parser, " 1" + INVALID_PLACE_DESC,
                 Place.MESSAGE_CONSTRAINTS); // invalid place
 
         // invalid time followed by valid place
-        assertParseFailure(parser, " " + CliSyntax.PREFIX_INDEX + " 1" + INVALID_TIME_DESC
+        assertParseFailure(parser, " 1" + INVALID_TIME_DESC
                 + INVALID_PLACE_DESC, Time.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, " " + CliSyntax.PREFIX_INDEX + " 1" + INVALID_TITLE_DESC
+        assertParseFailure(parser, " 1" + INVALID_TITLE_DESC
                 + INVALID_TIME_DESC + VALID_PLACE_ENG + VALID_DESCRIPTION_ENG, Title.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND;
-        String userInput = " " + CliSyntax.PREFIX_INDEX + " " + targetIndex.getOneBased() + TIME_DESC_CHI
+        String userInput = " " + targetIndex.getOneBased() + TIME_DESC_CHI
                 + PLACE_DESC_ENG + DESCRIPTION_DESC_CHI + TITLE_DESC_ENG;
 
         EditMeetingDescriptor descriptor = new EditMeetingDescriptorBuilder().withTitle(VALID_TITLE_ENG)
@@ -108,25 +108,25 @@ public class EditMeetingCommandParserTest {
     public void parse_oneFieldSpecified_success() {
         // title
         Index targetIndex = INDEX_THIRD;
-        String userInput = " " + CliSyntax.PREFIX_INDEX + " " + targetIndex.getOneBased() + TITLE_DESC_ENG;
+        String userInput = " " + targetIndex.getOneBased() + TITLE_DESC_ENG;
         EditMeetingDescriptor descriptor = new EditMeetingDescriptorBuilder().withTitle(VALID_TITLE_ENG).build();
         EditMeetingCommand expectedCommand = new EditMeetingCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // time
-        userInput = " " + CliSyntax.PREFIX_INDEX + " " + targetIndex.getOneBased() + TIME_DESC_ENG;
+        userInput = " " + targetIndex.getOneBased() + TIME_DESC_ENG;
         descriptor = new EditMeetingDescriptorBuilder().withTime(VALID_TIME_ENG).build();
         expectedCommand = new EditMeetingCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // place
-        userInput = " " + CliSyntax.PREFIX_INDEX + " " + targetIndex.getOneBased() + PLACE_DESC_ENG;
+        userInput = " " + targetIndex.getOneBased() + PLACE_DESC_ENG;
         descriptor = new EditMeetingDescriptorBuilder().withPlace(VALID_PLACE_ENG).build();
         expectedCommand = new EditMeetingCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // description
-        userInput = " " + CliSyntax.PREFIX_INDEX + " " + targetIndex.getOneBased() + DESCRIPTION_DESC_ENG;
+        userInput = " " + targetIndex.getOneBased() + DESCRIPTION_DESC_ENG;
         descriptor = new EditMeetingDescriptorBuilder().withDescription(VALID_DESCRIPTION_ENG).build();
         expectedCommand = new EditMeetingCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -137,25 +137,25 @@ public class EditMeetingCommandParserTest {
 
         // valid followed by invalid
         Index targetIndex = INDEX_FIRST;
-        String userInput = " " + CliSyntax.PREFIX_INDEX + " " + targetIndex.getOneBased() + INVALID_TIME_DESC
+        String userInput = " " + targetIndex.getOneBased() + INVALID_TIME_DESC
                 + TIME_DESC_CHI;
 
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TIME));
 
         // invalid followed by valid
-        userInput = " " + CliSyntax.PREFIX_INDEX + " " + targetIndex.getOneBased() + TIME_DESC_CHI + INVALID_TIME_DESC;
+        userInput = " " + targetIndex.getOneBased() + TIME_DESC_CHI + INVALID_TIME_DESC;
 
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TIME));
 
         // mulltiple valid fields repeated
-        userInput = " " + CliSyntax.PREFIX_INDEX + " " + targetIndex.getOneBased() + TIME_DESC_CHI
+        userInput = " " + targetIndex.getOneBased() + TIME_DESC_CHI
                 + DESCRIPTION_DESC_CHI + TITLE_DESC_CHI + TIME_DESC_ENG + TITLE_DESC_ENG;
 
         assertParseFailure(parser, userInput,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TIME, PREFIX_TITLE));
 
         // multiple invalid values
-        userInput = " " + CliSyntax.PREFIX_INDEX + " " + targetIndex.getOneBased() + INVALID_TITLE_DESC
+        userInput = " " + targetIndex.getOneBased() + INVALID_TITLE_DESC
                 + INVALID_TITLE_DESC + INVALID_PLACE_DESC + INVALID_PLACE_DESC;
 
         assertParseFailure(parser, userInput,
