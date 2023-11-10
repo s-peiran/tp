@@ -2,7 +2,7 @@
 
 ## Project: NoteNote Meeting Management App
 
-Notenote is a command Line Interface tool that allows users to efficiently record notes for their contacts. It provides
+NoteNote is a command Line Interface tool that allows users to efficiently record notes for their contacts. It provides
 tools for organizing and categorizing contacts, ensuring a systematic and easy-to-navigate structure
 
 ## Summary of Contributions
