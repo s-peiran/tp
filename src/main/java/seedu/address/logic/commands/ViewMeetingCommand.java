@@ -9,7 +9,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.CliSyntax;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.ui.AppState;
@@ -24,7 +23,7 @@ public class ViewMeetingCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Shows the details of the meeting identified by its id in the displayed meeting list.\n"
             + "Parameters: " + PREFIX_INDEX + " INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + " 1";
+            + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_VIEW_MEETING_SUCCESS = "Showing Meeting: %1$s";
 

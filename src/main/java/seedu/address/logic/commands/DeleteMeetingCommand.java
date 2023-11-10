@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 
 import java.util.List;
 
@@ -22,9 +21,8 @@ public class DeleteMeetingCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Deletes the meeting identified by the index number used in the displayed meeting list.\n"
-        + "Parameters: "
-        + PREFIX_INDEX + " INDEX (must be a positive integer)\n"
-        + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + " 1";
+        + "Parameters: INDEX (must be a positive integer)\n"
+        + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_MEETING_SUCCESS = "Deleted Meeting: %1$s";
 
