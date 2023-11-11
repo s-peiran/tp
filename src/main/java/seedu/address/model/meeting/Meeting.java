@@ -88,16 +88,30 @@ public class Meeting implements Comparable<Meeting> {
         return sb.toString();
     }
 
+    /**
+     * Removes the contact from this meeting
+     *
+     * @param contact Contact to be removed
+     */
+    public void remove(Contact contact) {
+        /* for (Contact ctt : contacts) {
+            if (ctt.isSameContact(contact)) {
+                this.contacts.remove(ctt);
+            }
+        }*/
+        this.contacts.remove(contact);
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("title", title)
-                .add("time", time)
-                .add("place", place)
-                .add("description", description)
-                .add("notes", notes)
-                .add("contacts", contacts)
-                .toString();
+            .add("title", title)
+            .add("time", time)
+            .add("place", place)
+            .add("description", description)
+            .add("notes", notes)
+            .add("contacts", contacts)
+            .toString();
     }
 
     /**
@@ -110,7 +124,7 @@ public class Meeting implements Comparable<Meeting> {
         }
 
         return otherMeeting != null
-                && otherMeeting.getTitle().equals(getTitle());
+            && otherMeeting.getTitle().equals(getTitle());
     }
 
     @Override
@@ -126,11 +140,11 @@ public class Meeting implements Comparable<Meeting> {
 
         Meeting otherMeeting = (Meeting) other;
         return title.equals(otherMeeting.title)
-                && time.equals(otherMeeting.time)
-                && place.equals(otherMeeting.place)
-                && description.equals(otherMeeting.description)
-                && notes.equals(otherMeeting.notes)
-                && contacts.equals(otherMeeting.contacts);
+            && time.equals(otherMeeting.time)
+            && place.equals(otherMeeting.place)
+            && description.equals(otherMeeting.description)
+            && notes.equals(otherMeeting.notes)
+            && contacts.equals(otherMeeting.contacts);
     }
 
     @Override

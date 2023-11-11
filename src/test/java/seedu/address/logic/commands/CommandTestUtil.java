@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PLACE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -45,8 +44,6 @@ public class CommandTestUtil {
     public static final String VALID_NOTE_AMY = "Likes apples";
     public static final String VALID_NOTE_BOB = "Knee injury";
     public static final String VALID_NOTE_BENSON = "Hates tiramisu";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
 
     public static final String VALID_TITLE_ENG = "English";
     public static final String VALID_TITLE_CHI = "Chinese";
@@ -66,8 +63,6 @@ public class CommandTestUtil {
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
     public static final String TITLE_DESC_ENG = " " + PREFIX_TITLE + VALID_TITLE_ENG;
     public static final String TITLE_DESC_CHI = " " + PREFIX_TITLE + VALID_TITLE_CHI;
@@ -81,7 +76,6 @@ public class CommandTestUtil {
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + "French&"; // '&' not allowed in titles
     public static final String INVALID_TIME_DESC = " " + PREFIX_TIME + "1/1/2023 14:00"; // wrong date format
@@ -97,10 +91,9 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditContactDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withTags(VALID_TAG_FRIEND).build();
+                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
         DESC_BOB = new EditContactDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
         DESC_ENG = new EditMeetingDescriptorBuilder().withTitle(VALID_TITLE_ENG)
                 .withTime(VALID_TIME_ENG).withPlace(VALID_PLACE_ENG).withDescription(VALID_DESCRIPTION_ENG).build();
         DESC_CHI = new EditMeetingDescriptorBuilder().withTitle(VALID_TITLE_CHI)
@@ -113,7 +106,7 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-            Model expectedModel) {
+                                            Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
@@ -128,7 +121,7 @@ public class CommandTestUtil {
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
+                                            Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
@@ -139,7 +132,7 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            String expectedNote) {
+                                            String expectedNote) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         try {
             CommandResult result = command.execute(actualModel);
@@ -165,6 +158,7 @@ public class CommandTestUtil {
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredContactList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the contact at the given {@code targetIndex} in the
      * {@code model}'s address book.
