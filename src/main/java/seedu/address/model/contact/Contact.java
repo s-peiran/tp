@@ -71,7 +71,7 @@ public class Contact implements Comparable<Contact> {
     public static Contact editContactNotes(Contact contactToEdit, List<Note> updatedNotesList) {
         return new Contact(
             contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
-            contactToEdit.getTags(), updatedNotesList);
+                updatedNotesList, contactToEdit.getObservers());
     }
 
     public String getNoteString() {
