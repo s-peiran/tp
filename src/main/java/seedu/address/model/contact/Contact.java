@@ -4,14 +4,13 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.Model;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.note.Note;
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Contact in the address book.
@@ -25,19 +24,21 @@ public class Contact implements Comparable<Contact> {
     private final Email email;
 
     // Data fields
-    private final Set<Tag> tags = new HashSet<>();
     private final ArrayList<Note> notes = new ArrayList<>();
+
+    // Observer
+    private ArrayList<Meeting> observerList = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Contact(Name name, Phone phone, Email email, Set<Tag> tags, List<Note> notes) {
-        requireAllNonNull(name, phone, email, tags, notes);
+    public Contact(Name name, Phone phone, Email email, List<Note> notes, List<Meeting> observers) {
+        requireAllNonNull(name, phone, email, notes);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.tags.addAll(tags);
         this.notes.addAll(notes);
+        this.observerList.addAll(observers);
     }
 
     public Name getName() {
@@ -54,29 +55,6 @@ public class Contact implements Comparable<Contact> {
 
     public Email getEmail() {
         return email;
-    }
-
-
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
-
-    public String getTagString() {
-        StringBuilder sb = new StringBuilder();
-        Set<Tag> setTags = getTags();
-        for (Tag tags : setTags) {
-            sb.append(tags.toString() + " ");
-        }
-        if (sb.length() > 0) {
-            sb.setLength(sb.length() - 1);
-        } else {
-            return "";
-        }
-        return sb.toString();
     }
 
     public ArrayList<Note> getNotes() {
@@ -110,6 +88,30 @@ public class Contact implements Comparable<Contact> {
         return sb.toString();
     }
 
+    public ArrayList<Meeting> getObservers() {
+        return this.observerList;
+    }
+
+    /**
+     * Removes the contact from all the meeting that observes it if this contact has been deleted via
+     * DeleteContactCommand
+     */
+    public void notifyObservers(Model model) {
+        for (Meeting observer : observerList) {
+            observer.remove(this);
+            model.update(observer, this);
+        }
+    }
+
+    /**
+     * Add a meeting to the observerList
+     *
+     * @param meeting the meeting to be added to the observerList
+     */
+    public void addObserver(Meeting meeting) {
+        observerList.add(meeting);
+    }
+
     /**
      * Returns true if both contacts have the same name.
      * This defines a weaker notion of equality between two contacts.
@@ -120,7 +122,7 @@ public class Contact implements Comparable<Contact> {
         }
 
         return otherContact != null
-                && otherContact.getName().equals(getName());
+            && otherContact.getName().equals(getName());
     }
 
     /**
@@ -140,10 +142,9 @@ public class Contact implements Comparable<Contact> {
 
         Contact otherContact = (Contact) other;
         return name.equals(otherContact.name)
-                && phone.equals(otherContact.phone)
-                && email.equals(otherContact.email)
-                && tags.equals(otherContact.tags)
-                && notes.equals(otherContact.notes);
+            && phone.equals(otherContact.phone)
+            && email.equals(otherContact.email)
+            && notes.equals(otherContact.notes);
     }
 
     @Override
@@ -155,18 +156,17 @@ public class Contact implements Comparable<Contact> {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, tags, notes);
+        return Objects.hash(name, phone, email, notes);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("name", name)
-                .add("phone", phone)
-                .add("email", email)
-                .add("tags", tags)
-                .add("notes", notes)
-                .toString();
+            .add("name", name)
+            .add("phone", phone)
+            .add("email", email)
+            .add("notes", notes)
+            .toString();
     }
 
 }

@@ -1,10 +1,7 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.model.contact.Contact;
 
@@ -24,8 +21,8 @@ public class ContactDetailPanel extends UiPart<Region> {
     @FXML
     private Label email;
 
-    @FXML
-    private FlowPane tags;
+    /*@FXML
+    private FlowPane tags;*/
 
     public ContactDetailPanel() {
         super(FXML);
@@ -35,11 +32,6 @@ public class ContactDetailPanel extends UiPart<Region> {
         name.setText(contact.getName().toString());
         phone.setText(contact.getPhone().toString());
         email.setText(contact.getEmail().toString());
-
-        tags.getChildren().clear();
-        contact.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
 }

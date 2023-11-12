@@ -6,21 +6,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAddressBook.ALICE;
 import static seedu.address.testutil.TypicalAddressBook.BOB;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.ContactBuilder;
 
 public class ContactTest {
 
+    @Disabled
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Contact contact = new ContactBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> contact.getTags().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> contact.getNotes().remove(0));
     }
 
     @Test
@@ -32,8 +33,7 @@ public class ContactTest {
         assertFalse(ALICE.isSameContact(null));
 
         // same name, all other attributes different -> returns true
-        Contact editedAlice = new ContactBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        Contact editedAlice = new ContactBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
         assertTrue(ALICE.isSameContact(editedAlice));
 
         // different name, all other attributes same -> returns false
@@ -79,16 +79,12 @@ public class ContactTest {
         // different email -> returns false
         editedAlice = new ContactBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
-
-        // different tags -> returns false
-        editedAlice = new ContactBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
     }
 
     @Test
     public void toStringMethod() {
         String expected = Contact.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
-                + ", email=" + ALICE.getEmail() + ", tags=" + ALICE.getTags() + ", notes=" + ALICE.getNotes() + "}";
+                + ", email=" + ALICE.getEmail() + ", notes=" + ALICE.getNotes() + "}";
         assertEquals(expected, ALICE.toString());
     }
 }

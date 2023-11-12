@@ -38,7 +38,7 @@ public class AddMeetingCommandTest {
         CommandResult commandResult = new AddMeetingCommand(validMeeting).execute(modelStubEmpty);
 
         assertEquals(String.format(AddMeetingCommand.MESSAGE_SUCCESS, Messages.formatMeeting(validMeeting)),
-                commandResult.getFeedbackToUser());
+            commandResult.getFeedbackToUser());
         assertEquals(validMeeting, modelStubEmpty.getMeeting());
     }
 
@@ -186,6 +186,11 @@ public class AddMeetingCommandTest {
 
         @Override
         public void sortMeetings() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void update(Meeting meeting, Contact contact) {
             throw new AssertionError("This method should not be called.");
         }
     }

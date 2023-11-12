@@ -7,8 +7,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,67 +22,65 @@ import seedu.address.model.meeting.Meeting;
 public class TypicalAddressBook {
 
     public static final Contact ALICE = new ContactBuilder().withName("Alice Pauline")
-        .withEmail("alice@example.com")
-        .withPhone("94351253")
-        .withTags("friends")
-        .build();
+            .withEmail("alice@example.com")
+            .withPhone("94351253")
+            .build();
     public static final Contact BENSON = new ContactBuilder().withName("Benson Meier")
-        .withEmail("johnd@example.com").withPhone("98765432")
-        .withTags("owesMoney", "friends")
-        .withNotes("Likes chicken", "Hates tiramisu").build();
+            .withEmail("johnd@example.com").withPhone("98765432")
+            .withNotes("Likes chicken", "Hates tiramisu").build();
     public static final Contact CARL = new ContactBuilder().withName("Carl Kurz").withPhone("95352563")
-        .withEmail("heinz@example.com").withNotes("Enjoys rom-coms").build();
+            .withEmail("heinz@example.com").withNotes("Enjoys rom-coms").build();
     public static final Contact DANIEL = new ContactBuilder().withName("Daniel Meier").withPhone("87652533")
-        .withEmail("cornelia@example.com").withNotes("Hates football").build();
+            .withEmail("cornelia@example.com").withNotes("Hates football").build();
     public static final Contact ELLE = new ContactBuilder().withName("Elle Meyer").withPhone("9482224")
-        .withEmail("werner@example.com").withNotes("Keyboard geek").build();
+            .withEmail("werner@example.com").withNotes("Keyboard geek").build();
     public static final Contact FIONA = new ContactBuilder().withName("Fiona Kunz").withPhone("9482427")
-        .withEmail("lydia@example.com").withNotes("Gym rat").build();
+            .withEmail("lydia@example.com").withNotes("Gym rat").build();
     public static final Contact GEORGE = new ContactBuilder().withName("George Best").withPhone("9482442")
-        .withEmail("anna@example.com").withNotes("Likes bread").build();
+            .withEmail("anna@example.com").withNotes("Likes bread").build();
 
     // Manually added
     public static final Contact HOON = new ContactBuilder().withName("Hoon Meier").withPhone("8482424")
-        .withEmail("stefan@example.com").withNotes("Likes chicken").build();
+            .withEmail("stefan@example.com").withNotes("Likes chicken").build();
     public static final Contact IDA = new ContactBuilder().withName("Ida Mueller").withPhone("8482131")
-        .withEmail("hans@example.com").withNotes("Likes chicken").build();
+            .withEmail("hans@example.com").withNotes("Likes chicken").build();
 
     // Manually added - Contact's details found in {@code CommandTestUtil}
     public static final Contact AMY = new ContactBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-        .withEmail(VALID_EMAIL_AMY).withTags(VALID_TAG_FRIEND)
-        .withNotes(VALID_NOTE_AMY).build();
+            .withEmail(VALID_EMAIL_AMY)
+            .withNotes(VALID_NOTE_AMY).build();
     public static final Contact BOB = new ContactBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-        .withEmail(VALID_EMAIL_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
-        .build();
+            .withEmail(VALID_EMAIL_BOB)
+            .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     public static final Meeting CS2103 = new MeetingBuilder()
-        .withTitle("CS2103 Meeting")
-        .withTime("01/01/2023 00:00")
-        .withPlace("Zoom")
-        .withDescription("")
-        .build();
+            .withTitle("CS2103 Meeting")
+            .withTime("01/01/2023 00:00")
+            .withPlace("Zoom")
+            .withDescription("")
+            .build();
     public static final Meeting GES2001 = new MeetingBuilder()
-        .withTitle("GES2001 Meeting")
-        .withTime("01/01/2023 20:30")
-        .withPlace("Discord")
-        .withDescription("Project details")
-        .withNotes("Skeletal PPP")
-        .build();
+            .withTitle("GES2001 Meeting")
+            .withTime("01/01/2023 20:30")
+            .withPlace("Discord")
+            .withDescription("Project details")
+            .withNotes("Skeletal PPP")
+            .build();
     public static final Meeting LAJ2101 = new MeetingBuilder()
-        .withTitle("LAJ2101 Meeting")
-        .withTime("01/01/2023 16:00")
-        .withPlace("Classroom A")
-        .withDescription("")
-        .withNotes("Skeletal PPP")
-        .build();
+            .withTitle("LAJ2101 Meeting")
+            .withTime("01/01/2023 16:00")
+            .withPlace("Classroom A")
+            .withDescription("")
+            .withNotes("Skeletal PPP")
+            .build();
     public static final Meeting GF = new MeetingBuilder()
-        .withTitle("Date with Girlfriend")
-        .withTime("01/05/2023 18:00")
-        .withPlace("Sentosa")
-        .withDescription("Picnic with Sandwiches!")
-        .build();
+            .withTitle("Date with Girlfriend")
+            .withTime("01/05/2023 18:00")
+            .withPlace("Sentosa")
+            .withDescription("Picnic with Sandwiches!")
+            .build();
 
     private TypicalAddressBook() {
     } // prevents instantiation

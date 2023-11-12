@@ -9,6 +9,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
 import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
 
@@ -21,7 +22,7 @@ public class MeetingList implements Iterable<Meeting> {
     private final ObservableList<Meeting> internalList = FXCollections.observableArrayList();
 
     private final ObservableList<Meeting> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+        FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Adds a meeting to the list.
@@ -108,6 +109,20 @@ public class MeetingList implements Iterable<Meeting> {
 
     public void sort() {
         Collections.sort(internalList);
+    }
+
+    /**
+     * Removes the contact from the specified meeting
+     *
+     * @param meeting Meeting that contains the contact
+     * @param contact contact to be removed from the meeting
+     */
+    public void update(Meeting meeting, Contact contact) {
+        for (Meeting mtg : internalList) {
+            if (mtg.isSameMeeting(meeting)) {
+                mtg.remove(contact);
+            }
+        }
     }
 
 

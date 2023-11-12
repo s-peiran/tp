@@ -158,14 +158,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         meetings.remove(key);
     }
 
+    public void update(Meeting meeting, Contact contact) {
+        meetings.update(meeting, contact);
+    }
+
     //// util methods
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("contacts", contacts)
-                .add("meetings", meetings)
-                .toString();
+            .add("contacts", contacts)
+            .add("meetings", meetings)
+            .toString();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.ui.storage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import seedu.address.model.note.Note;
 /**
  * Jackson-friendly version of {@link Meeting}.
  */
-class JsonAdaptedMeeting {
+public class JsonAdaptedMeeting {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Meeting's %s field is missing!";
 
