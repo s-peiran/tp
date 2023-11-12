@@ -707,3 +707,9 @@ testers are expected to do more *exploratory* testing.
 * Background: The current way to select contacts is to use the view command and there are is no visual color feedback as to which contact is currently being displayed.
 * Issue: The contact cards in the contact list panel can be selected with a mouse which causes a blue highlight over the clicked contact which would be confusing as you can only view a contact through the CLI.
 * Enhancement: We plan to improve on this by disabling mouse clicks on the contact cards and also to have a visual color change on the respective contact card when viewing one.
+
+### Better way to handle duplicate contacts
+* Background: The current way to uniquely identify contacts is through their case-sensitive name.
+* Issue: There could be contacts with the same name which would be inconvenient for the user to workaround.
+* Enhancement: We plan to improve on this by making names not case-sensitive and also to uniquely identify them through other fields like phone number and email.
+
