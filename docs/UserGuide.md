@@ -10,7 +10,8 @@ title: User Guide
 
 # User Guide
 
-NoteNote is a desktop application designed for swift and systematic management of contact information and meeting details. It's tailored specifically for proficient typists and users who prefer the speed and flexibility of a Command Line Interface (CLI). 
+NoteNote is a desktop application designed for swift and systematic management of contact information and meeting details. It's tailored specifically for proficient typists
+and users who prefer the speed and flexibility of a Command Line Interface (CLI).
 
 With NoteNote, you can swiftly record notes, organize contacts, and schedule meetings—all through quick keyboard commands. The application streamlines the process of categorizing and retrieving contact and meeting information, making it an essential tool for anyone looking to optimize their note-taking and data management tasks through a powerful CLI.
 
@@ -136,7 +137,7 @@ Welcome to NoteNote! This step-by-step tutorial will guide you through the basic
 
 ![](./images/UGTutorial7.png)
 
-This concludes the basic tutorial for NoteNote. With these steps, you should be equipped to start organizing your contacts and meetings effectively. For further assistance, use the `help` command. 
+This concludes the basic tutorial for NoteNote. With these steps, you should be equipped to start organizing your contacts and meetings effectively. For further assistance, use the `help` command.
 
 Thank you for using NoteNote. Happy organizing!
 

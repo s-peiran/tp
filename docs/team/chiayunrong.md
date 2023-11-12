@@ -23,7 +23,7 @@ Given below are my contributions to the project.
     * Added GitHub PR templates for easier creation and reviewing of PRs
     * Managed the team's issue tracker ensuring there was an appropriate number of issues and everyone had sufficient work to do
     * Wrote action items after every weekly meeting for team members to work on
- 
+
 * **Enhancements to existing features**:
     * Reverted parser changes
     * Added unit tests throughout the application

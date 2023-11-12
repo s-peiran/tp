@@ -358,8 +358,8 @@ giving users the ability to edit previous notes, but that is outside the scope o
 A new `Note` class is created, which stores the contents of the note as a string. The `Contact`/`Meeting` model is then updated
 to include a new `notes` attribute of type `ArrayList<Note>`.
 
-To distinguish between adding notes to contacts and meetings, 2 separate Command classes are created, namely 
-`AddNoteCommand` (for contacts) and `AddMeetingNoteCommand` (for meetings). These classes will then call 
+To distinguish between adding notes to contacts and meetings, 2 separate Command classes are created, namely
+`AddNoteCommand` (for contacts) and `AddMeetingNoteCommand` (for meetings). These classes will then call
 their respective parser classes, to get the arguments passed in by the user. The arguments include the
 index of the target contact/meeting and the note itself.
 
@@ -377,7 +377,7 @@ Once again, there are separate commands for deleting notes from contacts and fro
 and respective Parser classes is similar to the one described for adding Notes.
 
 In terms of execution, a user will pass the `noteID` of the Note to be deleted as an argument. The `noteID` is the index of the
-note, which starts from 1 for each `Contact`/`Meeting`. 
+note, which starts from 1 for each `Contact`/`Meeting`.
 
 The `Contact`/`Meeting` model will then be updated with the new ArrayList of Notes. AppState is updated as well to ensure
 the GUI is refreshed.
@@ -593,7 +593,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2c. The contact(s) has/have already been added to the meeting.
 
   * 2c1. NoteNote shows an error message.
-  
+
     Use case ends.
 
 *{More to be added}*
