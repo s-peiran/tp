@@ -138,6 +138,10 @@ public class ModelManager implements Model {
         return addressBook.hasMeeting(meeting);
     }
 
+    public void update(Meeting meeting, Contact contact) {
+        addressBook.update(meeting, contact);
+    }
+
     /**
      * Returns an unmodifiable view of the list of {@code Contact} backed by the internal list of
      * {@code versionedAddressBook}
@@ -189,8 +193,8 @@ public class ModelManager implements Model {
 
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
-                && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredContacts.equals(otherModelManager.filteredContacts)
-                && filteredMeetings.equals(otherModelManager.filteredMeetings);
+            && userPrefs.equals(otherModelManager.userPrefs)
+            && filteredContacts.equals(otherModelManager.filteredContacts)
+            && filteredMeetings.equals(otherModelManager.filteredMeetings);
     }
 }

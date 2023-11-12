@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.testutil.TypicalAddressBook;
+import seedu.address.ui.storage.JsonSerializableAddressBook;
 
 public class JsonSerializableAddressBookTest {
 
@@ -24,7 +25,7 @@ public class JsonSerializableAddressBookTest {
     @Test
     public void toModelType_typicalAbFile_success() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_AB_FILE,
-                JsonSerializableAddressBook.class).get();
+            JsonSerializableAddressBook.class).get();
         AddressBook addressBookFromFile = dataFromFile.toModelType();
         AddressBook typicalAddressBook = TypicalAddressBook.getTypicalAddressBook();
         assertEquals(addressBookFromFile, typicalAddressBook);
@@ -33,24 +34,24 @@ public class JsonSerializableAddressBookTest {
     @Test
     public void toModelType_invalidContactFile_throwsIllegalValueException() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(INVALID_CONTACT_FILE,
-                JsonSerializableAddressBook.class).get();
+            JsonSerializableAddressBook.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
     @Test
     public void toModelType_duplicateContacts_throwsIllegalValueException() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_CONTACT_FILE,
-                JsonSerializableAddressBook.class).get();
+            JsonSerializableAddressBook.class).get();
         assertThrows(IllegalValueException.class, JsonSerializableAddressBook.MESSAGE_DUPLICATE_CONTACT,
-                dataFromFile::toModelType);
+            dataFromFile::toModelType);
     }
 
     @Test
     public void toModelType_duplicateMeetings_throwsIllegalValueException() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_MEETING_FILE,
-                JsonSerializableAddressBook.class).get();
+            JsonSerializableAddressBook.class).get();
         assertThrows(IllegalValueException.class, JsonSerializableAddressBook.MESSAGE_DUPLICATE_MEETING,
-                dataFromFile::toModelType);
+            dataFromFile::toModelType);
     }
 
 }

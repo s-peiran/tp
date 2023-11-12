@@ -15,6 +15,7 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.model.UserPrefs;
+import seedu.address.ui.storage.JsonUserPrefsStorage;
 
 public class JsonUserPrefsStorageTest {
 
@@ -45,8 +46,8 @@ public class JsonUserPrefsStorageTest {
 
     private Path addToTestDataPathIfNotNull(String userPrefsFileInTestDataFolder) {
         return userPrefsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER.resolve(userPrefsFileInTestDataFolder)
-                : null;
+            ? TEST_DATA_FOLDER.resolve(userPrefsFileInTestDataFolder)
+            : null;
     }
 
     @Test
@@ -93,7 +94,7 @@ public class JsonUserPrefsStorageTest {
     private void saveUserPrefs(UserPrefs userPrefs, String prefsFileInTestDataFolder) {
         try {
             new JsonUserPrefsStorage(addToTestDataPathIfNotNull(prefsFileInTestDataFolder))
-                    .saveUserPrefs(userPrefs);
+                .saveUserPrefs(userPrefs);
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file", ioe);
         }
