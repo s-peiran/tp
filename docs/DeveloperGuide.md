@@ -98,9 +98,9 @@ in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/
 The `UI` component,
 
 * executes user commands using the `Logic` component.
-* listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Contact` object residing in the `Model`.
+* listens for changes within the `AppState` singleton class. This is crucial for updating the application's state based on changes triggered by the `Logic` component's operations.
+* relies on the Model component for displaying `Contact` and `Meeting` objects. The Model is responsible for managing the in-memory representation of the addressbook data.
 
 ### Logic component
 
@@ -283,44 +283,33 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Command History and Auto-Complete Feature
+### Command History and Auto-Complete Feature
 
-#### Proposed Implementation
+#### Context
 
-The proposed command history and auto-complete mechanism is facilitated by `CommandHistory`. It extends `NoteNote` with a command history, stored internally as `commandList`. Additionally, it implements the following operations:
+The command history and auto-complete feature aims to enhance user experience by allowing users to quickly access previously executed commands and complete partial command inputs. This feature is especially useful for users who perform a series of similar commands consecutively, as it saves time and reduces the likelihood of input errors.
 
-* `CommandHistory#addCommand(String command)` - Adds the executed command to the command history.
-* `CommandHistory#getFilteredCommands(String input)` - Retrieves a list of commands from the command history that starts with the given input.
+By utilizing this command history and auto-complete feature, users can improve their efficiency when interacting with the application, significantly speeding up the workflow for repetitive command entry.
 
-These operations are exposed in the `Model` interface as `Model#addCommandHistory(String command)` and `Model#getFilteredCommandHistory(String input)` respectively.
+#### Implementation
 
-When the user presses the up or down arrow key, the `UI` will call `Model#getFilteredCommandHistory(String input)`, where `input` is the current text in the command input box. The retrieved list of commands will be displayed in the command input box, allowing the user to cycle through the commands by continuing to press the up or down arrow key.
+The `CommandBox` component is at the heart of this feature. It maintains a list of the user's command history and provides functionalities to navigate through this history using keyboard inputs.
 
-Given below is an example usage scenario and how the command history and auto-complete mechanism behaves at each step.
+1. **Storing Command History:** As users execute commands, these are stored in a `commandHistory` list in the `CommandBox`. Duplicate entries are prevented by removing the previous instance of the command before re-adding it, ensuring the most recent use is at the end of the list.
 
-Step 1. The user launches the application for the first time. The `CommandHistory` will be initialized as an empty list.
+2. **Navigation Through Command History:** The user can navigate through the command history by pressing the up or down arrow keys. The `navigateCommandHistory(int offset)` method updates the `currentHistoryPointer` and sets the text of the `commandTextField` to the command at the new history pointer index.
 
-Step 2. The user executes the command `add meeting -title Project Meeting -time 01/01/2023 12:00 -place Zoom`. The command calls `Model#addCommandHistory(String command)`, causing the executed command to be saved in the `commandList`.
-
-Step 3. The user then executes the command `add meeting -title Tutorial -time 01/01/2023 13:00 -place Discord`. This command is also saved in the `commandList`.
-
-Step 4. The user starts to type the command `add mee` and then presses the up or down arrow key. The `UI` will call `Model#getFilteredCommandHistory(String input)`, which retrieves the list of commands starting with `add mee` from the `commandList`. In this case, it will retrieve the two previous commands.
-
-Step 5. The user can then cycle through the two commands by pressing the up or down arrow key. The commands will be displayed in the command input box in reverse chronological order.
+3. **Auto-Completion Mechanism:** The auto-complete mechanism is triggered when the user starts typing a command and presses the up or down arrow key. The `getFilteredHistory()` method retrieves a list of commands that start with the current input, allowing the user to cycle through relevant commands only.
 
 #### Design Considerations:
 
-**Aspect: How the command history and auto-complete feature is implemented:**
+Alternative 1 (current choice): Store Commands as Strings and use pointers
+- **Pros:** Simple implementation with low overhead. Efficient in terms of memory and processing as it works with strings directly.
+- **Cons:** Limited functionality for more complex use cases. Does not allow for structured analysis or manipulation of command components.
 
-* **Alternative 1: Store Commands as Strings**
-    * Implementation: Save each command as a string in a list. When the user presses the up or down arrow key, retrieve the commands that start with the current input.
-    * Pros: Simple to implement; easy to retrieve commands.
-    * Cons: May include unnecessary information if the command has multiple parameters.
-
-* **Alternative 2: Store Commands as Objects**
-    * Implementation: Save each command as an object that includes the command type and its parameters. Implement a method to convert the command object to a string for display. When the user presses the up or down arrow key, retrieve the command objects that match the current input and convert them to strings for display.
-    * Pros: Allows for more flexible retrieval and display of commands; can easily extend functionality in the future.
-    * Cons: More complex implementation; requires additional processing to convert command objects to strings for display.
+Alternative 2: Store Commands as Objects
+- **Pros:** Offers greater flexibility for future enhancements, such as argument analysis and command editing. Facilitates complex command manipulations and extensions.
+- **Cons:** More complex implementation. Requires additional memory and processing to manage command objects instead of simple strings. Also, not as intuitive since you do not saved failed commands.
 
 ### Mode feature
 
@@ -354,7 +343,6 @@ Alternative 2: Implement the mode command with arguments e.g `mode -type CONTACT
 * Pros: Easily extensible by developers, can just add a new enum for a new ModeType.
 * Cons: More troublesome to implement. Harder to use for the users.
 
-<<<<<<< HEAD
 ### Note Feature
 
 #### Context
@@ -700,3 +688,8 @@ testers are expected to do more *exploratory* testing.
 * Background: The current way of displaying user feedback is as follows: `New contact added: John Daaoe; Phone: 98765432; Email: johnd@example.com`
 * Issue: This is a little hard to read for the user.
 * Enhancement: We plan to display the output in multiple lines when necessary instead of using separators like `;`
+
+### Standardise command format for indexes
+* Background: The CRUD commands for contacts and meetings do not use the id prefix `id/` while the notes commands do. This is because our app was built incrementally.
+* Issue: Might confuse new users, as it is hard to get used to.
+* Enhancement: We plan to get rid of the id prefix, as well as the note id prefix for consistency.
