@@ -702,3 +702,8 @@ testers are expected to do more *exploratory* testing.
 * Background: The current way to add contacts to a meeting is to go into the meetings mode and add contacts to a specific meeting using their name.
 * Issue: Users would have to remember the contact's name exactly in order to add them into the meeting. If the user does not remember, the user would need to switch back to the contact mode to see the contact's name before switching back into the meetings mode which can be troublesome.
 * Enhancement: We plan on adding another panel such that users can see both their contacts and meetings at the same time which would avoid the trouble of switching between modes.
+
+### Better way to select contacts
+* Background: The current way to select contacts is to use the view command and there are is no visual color feedback as to which contact is currently being displayed.
+* Issue: The contact cards in the contact list panel can be selected with a mouse which causes a blue highlight over the clicked contact which would be confusing as you can only view a contact through the CLI.
+* Enhancement: We plan to improve on this by disabling mouse clicks on the contact cards and also to have a visual color change on the respective contact card when viewing one.
