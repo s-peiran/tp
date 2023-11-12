@@ -86,8 +86,7 @@ in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ContactListPanel`
-, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ContactListPanel`, `MeetingListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures
 the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that
@@ -105,8 +104,7 @@ The `UI` component,
 
 ### Logic component
 
-**
-API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -144,8 +142,7 @@ How the parsing works:
 
 ### Model component
 
-**
-API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="450" />
 
@@ -154,7 +151,7 @@ The `Model` component,
 
 * stores the address book data i.e., all `Contact` objects (which are contained in a `UniqueContactList` object).
 * stores the currently 'selected' `Contact` objects (e.g., results of a search query) as a separate _filtered_ list
-  which is exposed to outsiders as an unmodifiable `ObservableList<Contact>` that can be 'observed' e.g. the UI can be
+  which is exposed to outsiders as an unmodifiable `ObservableList<Contact>`/`ObservableList<Meeting>` that can be 'observed' e.g. the UI can be
   bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as
   a `ReadOnlyUserPref` objects.
@@ -163,7 +160,7 @@ The `Model` component,
 
 <img src="images/ModelMeeting.png" width="450" />
 
-* The AddressBook data contains all the `Meeting` objects contained in a `MeetingList` object.
+* The AddressBook data contains all the `Meeting` objects contained in a `UniqueMeetingList` object.
 * stores the currently 'selected' `Meeting` objects as a separate _filtered_ list
   which is exposed to outsiders as an unmodifiable `ObservableList<Meeting>` that can be 'observed' e.g. the UI can be
   bound to this list so that the UI automatically updates when the data in the list change.
@@ -179,8 +176,7 @@ The `Model` component,
 
 ### Storage component
 
-**
-API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
 <img src="images/StorageClassDiagram.png" width="550" />
 
@@ -371,7 +367,7 @@ Alternative 2: Implement the mode command with arguments e.g `mode -type CONTACT
 * Pros: Easily extensible by developers, can just add a new enum for a new ModeType.
 * Cons: More troublesome to implement. Harder to use for the users.
 
-### [Proposed] Note Feature
+### Note Feature
 
 #### Context
 
@@ -412,8 +408,8 @@ the GUI is refreshed.
 
 ### Design Considerations
 
-* **Alternative 1: store `notes` attribute in `Contact` model as `Set<Note>`**
-  * Pros: Simpler to implement (similar to `Tag` implementation).
+* **Alternative 1:** store `notes` attribute in `Contact` model as `Set<Note>`
+  * Pros: Simpler to implement (similar to existing `Tag` implementation).
   * Cons: Notes will appear in an arbitrary order, rather than chronologically.
 
 ### \[Proposed\] Data archiving
@@ -439,17 +435,17 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts and meetings
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* Has a need to manage a significant number of contacts and meetings
+* Prefer desktop apps over other types
+* Can type fast
+* Prefers typing to mouse interactions
+* Is reasonably comfortable using CLI apps
 
 **Value proposition**:
 
 * Allow users to manage their meeting minutes based on their contacts
 
-* manage contacts faster than a typical mouse/GUI driven app
+* Manage contacts faster than a typical mouse/GUI driven app
 
 ### User stories
 
@@ -559,9 +555,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User selects a meeting and updates it with notes/comments/remarks.
-2. The meeting is updated with the given notes/comments/remarks.
-3. NoteNote displays the meeting with the updated notes/comments/remarks.
+1. User selects a meeting and updates it with notes.
+2. The meeting is updated with the given notes.
+3. NoteNote displays the meeting with the updated notes.
 
     Use case ends.
 
@@ -574,11 +570,35 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**UC05 - Add additional contacts to a meeting**
+**UC05 - Delete notes from meetings**
 
 **MSS**
 
-1. User <ins>creates a meeting (UC01) .</ins>
+1. User selects a meeting to view.
+2. User selects a note to delete.
+3. NoteNote displays the updated meeting without the deleted note.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. The specified meeting does not exist in NoteNote.
+
+    * 1a1. NoteNote shows an error message.
+    * 1a2. User acknowledges the error message.
+
+      Use case ends.
+* 2a. The specified note does not exist in NoteNote.
+  * 2a1. NoteNote shows an error message.
+  * 2a2. User acknowledges the error message.
+
+    Use case ends.
+
+**UC06 - Add additional contacts to a meeting**
+
+**MSS**
+
+1. User <ins>creates a meeting (UC01).</ins>
 2. User requests to add contacts to the meeting.
 3. NoteNote displays the details of the meeting with the newly added contact.
 
@@ -599,6 +619,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2b2. User requests to add contacts with existing contact(s)/meeting.
 
       Use case resumes at step 3.
+* 2c. The contact(s) has/have already been added to the meeting.
+
+  * 2c1. NoteNote shows an error message.
+  
+    Use case ends.
 
 *{More to be added}*
 
@@ -649,11 +674,11 @@ testers are expected to do more *exploratory* testing.
 
     1. Prerequisites: List all contacts using the `list` command. Multiple contacts in the list.
 
-    1. Test case: `delete -id 1`<br>
+    1. Test case: `delete 1`<br>
        Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
        Timestamp in the status bar is updated.
 
-    1. Test case: `delete -id 0`<br>
+    1. Test case: `delete 0`<br>
        Expected: No contact is deleted. Error details shown in the status message. Status bar remains the same.
 
     1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>

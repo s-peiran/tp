@@ -89,6 +89,19 @@ public class Meeting implements Comparable<Meeting> {
     }
 
     /**
+     * Returns a new Meeting object with an updated list of notes
+     *
+     * @param meetingToEdit the existing Meeting object
+     * @param updatedNotesList new list of notes
+     * @return Meeting object with new notes list, while all other attributes remain the same
+     */
+    public static Meeting editMeetingNotes(Meeting meetingToEdit, List<Note> updatedNotesList) {
+        return new Meeting(
+            meetingToEdit.getTitle(), meetingToEdit.getTime(), meetingToEdit.getPlace(),
+            meetingToEdit.getDescription(), updatedNotesList, meetingToEdit.getContacts());
+    }
+
+    /**
      * Removes the contact from this meeting
      *
      * @param contact Contact to be removed

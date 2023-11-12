@@ -61,6 +61,19 @@ public class Contact implements Comparable<Contact> {
         return new ArrayList<>(Collections.unmodifiableList(notes));
     }
 
+    /**
+     * Returns a new Contact object with an updated list of notes
+     *
+     * @param contactToEdit the existing Contact object
+     * @param updatedNotesList new list of notes
+     * @return Contact object with new notes list, while all other attributes remain the same
+     */
+    public static Contact editContactNotes(Contact contactToEdit, List<Note> updatedNotesList) {
+        return new Contact(
+            contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
+                updatedNotesList, contactToEdit.getObservers());
+    }
+
     public String getNoteString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < notes.size(); i++) {

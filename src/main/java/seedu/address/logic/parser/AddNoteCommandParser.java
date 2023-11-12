@@ -35,10 +35,11 @@ public class AddNoteCommandParser implements Parser<AddNoteCommand> {
 
         Index index;
         try {
-            if (Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()) == 0) {
+            int contactIndex = Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get());
+            if (contactIndex == 0) {
                 throw new IndexOutOfBoundsException();
             }
-            index = Index.fromOneBased(Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()));
+            index = Index.fromOneBased(contactIndex);
         } catch (NumberFormatException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNoteCommand.MESSAGE_USAGE), e);
         } catch (IndexOutOfBoundsException e) {

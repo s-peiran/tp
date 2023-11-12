@@ -5,18 +5,11 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 AddressBook *-right-> "1" UniqueContactList
-AddressBook *-right-> "1" UniqueTagList
-UniqueTagList -[hidden]down- UniqueContactList
-UniqueTagList -[hidden]down- UniqueContactList
 
-UniqueTagList -right-> "*" Tag
 UniqueContactList -right-> Contact
-
-Contact -up-> "*" Tag
 
 Contact *--> Name
 Contact *--> Phone
 Contact *--> Email
-Contact *--> Address
 Contact *--> "*" Note
 @enduml

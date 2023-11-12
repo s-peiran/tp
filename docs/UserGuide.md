@@ -1,3 +1,13 @@
+---
+layout: page
+title: User Guide
+---
+
+* Table of Contents
+  {:toc}
+
+--------------------------------------------------------------------------------------------------------------------
+
 # User Guide
 
 NoteNote is a desktop meeting note-taking application that allows users to efficiently record notes for their contact. NoteNote provide tools for organizing and categorizing contacts in a systematic and easy-to-navigate structure.
