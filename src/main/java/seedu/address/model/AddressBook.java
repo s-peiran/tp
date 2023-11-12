@@ -10,7 +10,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.UniqueContactList;
 import seedu.address.model.meeting.Meeting;
-import seedu.address.model.meeting.MeetingList;
+import seedu.address.model.meeting.UniqueMeetingList;
 
 /**
  * Wraps all data at the address-book level
@@ -20,7 +20,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueContactList contacts;
 
-    private final MeetingList meetings;
+    private final UniqueMeetingList meetings;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -32,7 +32,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     {
         contacts = new UniqueContactList();
-        meetings = new MeetingList();
+        meetings = new UniqueMeetingList();
     }
 
     public AddressBook() {

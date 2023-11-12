@@ -149,30 +149,17 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the address book data i.e., all `Contact` objects (which are contained in a `UniqueContactList` object).
-* stores the currently 'selected' `Contact` objects (e.g., results of a search query) as a separate _filtered_ list
-  which is exposed to outsiders as an unmodifiable `ObservableList<Contact>`/`ObservableList<Meeting>` that can be 'observed' e.g. the UI can be
-  bound to this list so that the UI automatically updates when the data in the list change.
+* stores the address book data i.e., all `Contact` and `Meeting` objects (which are contained in a `UniqueContactList` and `UniqueMeetingList` object respectively).
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as
   a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they
   should make sense on their own without depending on other components)
 
-<img src="images/ModelMeeting.png" width="450" />
+<img src="images/ModelManagerClassDiagram.png" width="300" />
 
-* The AddressBook data contains all the `Meeting` objects contained in a `UniqueMeetingList` object.
-* stores the currently 'selected' `Meeting` objects as a separate _filtered_ list
-  which is exposed to outsiders as an unmodifiable `ObservableList<Meeting>` that can be 'observed' e.g. the UI can be
-  bound to this list so that the UI automatically updates when the data in the list change.
-* The `Meeting` object can store an infinite number of `Contact` object representing participants to the meeting.
-* Likewise the `Contact` Object can be removed from the `Meeting` Object.
-* The `Contact` object is identified by its name when adding it to `Meeting` object.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Contact` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Contact` needing their own `Tag` objects.<br>
-
-<img src="images/BetterModelClassDiagram.png" width="450" />
-
-</div>
+* stores the currently 'selected' `Contact` or `Meeting` objects (e.g., results of a search query) as a separate _filtered_ list
+which is exposed to outsiders as an unmodifiable `ObservableList<Contact>` or `ObservableList<Meeting>` respectively that can be 'observed' e.g. the UI can be
+bound to this list so that the UI automatically updates when the data in the list change.
 
 ### Storage component
 
@@ -335,7 +322,7 @@ Step 5. The user can then cycle through the two commands by pressing the up or d
     * Pros: Allows for more flexible retrieval and display of commands; can easily extend functionality in the future.
     * Cons: More complex implementation; requires additional processing to convert command objects to strings for display.
 
-### [Implemented] Mode feature
+### Mode feature
 
 #### Context
 
@@ -367,6 +354,7 @@ Alternative 2: Implement the mode command with arguments e.g `mode -type CONTACT
 * Pros: Easily extensible by developers, can just add a new enum for a new ModeType.
 * Cons: More troublesome to implement. Harder to use for the users.
 
+<<<<<<< HEAD
 ### Note Feature
 
 #### Context
@@ -411,11 +399,6 @@ the GUI is refreshed.
 * **Alternative 1:** store `notes` attribute in `Contact` model as `Set<Note>`
   * Pros: Simpler to implement (similar to existing `Tag` implementation).
   * Cons: Notes will appear in an arbitrary order, rather than chronologically.
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
 
 --------------------------------------------------------------------------------------------------------------------
 

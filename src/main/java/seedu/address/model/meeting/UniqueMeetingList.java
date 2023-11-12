@@ -18,7 +18,7 @@ import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
  * A list of meetings that does not allow nulls.
  * Supports a minimal set of list operations.
  */
-public class MeetingList implements Iterable<Meeting> {
+public class UniqueMeetingList implements Iterable<Meeting> {
     private final ObservableList<Meeting> internalList = FXCollections.observableArrayList();
 
     private final ObservableList<Meeting> internalUnmodifiableList =
@@ -138,11 +138,11 @@ public class MeetingList implements Iterable<Meeting> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof MeetingList)) {
+        if (!(other instanceof UniqueMeetingList)) {
             return false;
         }
 
-        MeetingList otherMeetingList = (MeetingList) other;
+        UniqueMeetingList otherMeetingList = (UniqueMeetingList) other;
         return internalList.equals(otherMeetingList.internalList);
     }
 

@@ -11,13 +11,13 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
 import seedu.address.testutil.MeetingBuilder;
 
-public class MeetingListTest {
+public class UniqueMeetingListTest {
 
-    private MeetingList meetingList;
+    private UniqueMeetingList meetingList;
 
     @BeforeEach
     public void init() {
-        meetingList = new MeetingList();
+        meetingList = new UniqueMeetingList();
     }
 
     @Test
