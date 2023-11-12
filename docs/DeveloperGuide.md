@@ -149,30 +149,17 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the address book data i.e., all `Contact` objects (which are contained in a `UniqueContactList` object).
-* stores the currently 'selected' `Contact` objects (e.g., results of a search query) as a separate _filtered_ list
-  which is exposed to outsiders as an unmodifiable `ObservableList<Contact>`/`ObservableList<Meeting>` that can be 'observed' e.g. the UI can be
-  bound to this list so that the UI automatically updates when the data in the list change.
+* stores the address book data i.e., all `Contact` and `Meeting` objects (which are contained in a `UniqueContactList` and `UniqueMeetingList` object respectively).
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as
   a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they
   should make sense on their own without depending on other components)
 
-<img src="images/ModelMeeting.png" width="450" />
+<img src="images/ModelManagerClassDiagram.png" width="300" />
 
-* The AddressBook data contains all the `Meeting` objects contained in a `UniqueMeetingList` object.
-* stores the currently 'selected' `Meeting` objects as a separate _filtered_ list
-  which is exposed to outsiders as an unmodifiable `ObservableList<Meeting>` that can be 'observed' e.g. the UI can be
-  bound to this list so that the UI automatically updates when the data in the list change.
-* The `Meeting` object can store an infinite number of `Contact` object representing participants to the meeting.
-* Likewise the `Contact` Object can be removed from the `Meeting` Object.
-* The `Contact` object is identified by its name when adding it to `Meeting` object.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Contact` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Contact` needing their own `Tag` objects.<br>
-
-<img src="images/BetterModelClassDiagram.png" width="450" />
-
-</div>
+* stores the currently 'selected' `Contact` or `Meeting` objects (e.g., results of a search query) as a separate _filtered_ list
+which is exposed to outsiders as an unmodifiable `ObservableList<Contact>` or `ObservableList<Meeting>` respectively that can be 'observed' e.g. the UI can be
+bound to this list so that the UI automatically updates when the data in the list change.
 
 ### Storage component
 
@@ -335,7 +322,7 @@ Step 5. The user can then cycle through the two commands by pressing the up or d
     * Pros: Allows for more flexible retrieval and display of commands; can easily extend functionality in the future.
     * Cons: More complex implementation; requires additional processing to convert command objects to strings for display.
 
-### [Implemented] Mode feature
+### Mode feature
 
 #### Context
 
@@ -367,6 +354,7 @@ Alternative 2: Implement the mode command with arguments e.g `mode -type CONTACT
 * Pros: Easily extensible by developers, can just add a new enum for a new ModeType.
 * Cons: More troublesome to implement. Harder to use for the users.
 
+<<<<<<< HEAD
 ### Note Feature
 
 #### Context
@@ -411,11 +399,6 @@ the GUI is refreshed.
 * **Alternative 1:** store `notes` attribute in `Contact` model as `Set<Note>`
   * Pros: Simpler to implement (similar to existing `Tag` implementation).
   * Cons: Notes will appear in an arbitrary order, rather than chronologically.
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -693,3 +676,27 @@ testers are expected to do more *exploratory* testing.
     1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Planned Enhancements**
+
+### Better way to add contacts to a meeting
+* Background: The current way to add contacts to a meeting is to go into the meetings mode and add contacts to a specific meeting using their name.
+* Issue: Users would have to remember the contact's name exactly in order to add them into the meeting. If the user does not remember, the user would need to switch back to the contact mode to see the contact's name before switching back into the meetings mode which can be troublesome.
+* Enhancement: We plan on adding another panel such that users can see both their contacts and meetings at the same time which would avoid the trouble of switching between modes.
+
+### Better way to select contacts
+* Background: The current way to select contacts is to use the view command and there are is no visual color feedback as to which contact is currently being displayed.
+* Issue: The contact cards in the contact list panel can be selected with a mouse which causes a blue highlight over the clicked contact which would be confusing as you can only view a contact through the CLI.
+* Enhancement: We plan to improve on this by disabling mouse clicks on the contact cards and also to have a visual color change on the respective contact card when viewing one.
+
+### Better way to handle duplicate contacts
+* Background: The current way to uniquely identify contacts is through their case-sensitive name.
+* Issue: There could be contacts with the same name which would be inconvenient for the user to workaround.
+* Enhancement: We plan to improve on this by making names not case-sensitive and also to uniquely identify them through other fields like phone number and email.
+
+### Better way to display user feedback in result box
+* Background: The current way of displaying user feedback is as follows: `New contact added: John Daaoe; Phone: 98765432; Email: johnd@example.com`
+* Issue: This is a little hard to read for the user.
+* Enhancement: We plan to display the output in multiple lines when necessary instead of using separators like `;`

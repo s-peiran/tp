@@ -3,7 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -26,6 +28,8 @@ public class ViewMeetingCommand extends Command {
 
     public static final String MESSAGE_VIEW_MEETING_SUCCESS = "Showing Meeting: %1$s";
 
+    private static final Logger logger = LogsCenter.getLogger(ViewMeetingCommand.class);
+
     private final Index targetIndex;
 
     public ViewMeetingCommand(Index targetIndex) {
@@ -46,7 +50,8 @@ public class ViewMeetingCommand extends Command {
         AppState appState = AppState.getInstance();
         appState.setMeeting(meetingToDisplay);
 
-        //todo: change display to note when it is implemented
+        logger.fine("Viewing meeting " + meetingToDisplay.toString());
+
         return new CommandResult(String.format(MESSAGE_VIEW_MEETING_SUCCESS,
                 Messages.formatMeeting(meetingToDisplay)));
     }

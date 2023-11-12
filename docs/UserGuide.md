@@ -238,12 +238,12 @@ NoteNote is a desktop meeting note-taking application that allows users to effic
 
 - **What it does** Edits the details of an existing meeting in the address book when in the `meetings` mode.
 
-- **Command Format**: `edit id/MEETING_ID [m/MEETING_NAME] [t/TIME] [p/LOCATION] [d/DESCRIPTION]`
+- **Command Format**: `edit MEETING_ID [m/MEETING_NAME] [t/TIME] [p/LOCATION] [d/DESCRIPTION]`
 
-- **Example**: `edit id/1 p/COM3`
+- **Example**: `edit 1 p/COM3`
 
 - **Acceptable Values**:
-    - MEETING_ID: Positive integer. Must be a value that exists in the meeting list.
+    - MEETING_ID: Positive integer. Must be a value that exists in the meeting list. Must be the first parameter in the command.
     - MEETING_NAME: String, alphanumeric values and at least 1 character long.
     - TIME: Follow the `DD/MM/YYYY HH:MM` format
     - LOCATION: String, alphanumeric values and at least 1 character long.

@@ -10,12 +10,13 @@ NoteNote is a desktop note-taking application that allows users to efficiently r
 Given below are my contributions to the project.
 
 * **New Feature**: Add meeting command
+  * Includes meeting model
+  * Includes meeting list
 * **New Feature**: View command
 * **New Feature**: Mode command
 * **New Feature** UI updates
 
-
-* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2324s1.github.io/tp-dashboard/?search=cs2103-w14-2&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code&since=2023-09-22&tabOpen=true&tabType=authorship&tabAuthor=chiayunrong&tabRepo=AY2324S1-CS2103-W14-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
+* **Code contributed**: [RepoSense link](https://nus-cs2103-ay2324s1.github.io/tp-dashboard/?search=chiayunrong&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code&since=2023-09-22&tabOpen=true&tabType=authorship&tabAuthor=chiayunrong&tabRepo=AY2324S1-CS2103-W14-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
 
 * **Project management**:
     * Divided work among team members to lower chances of merge conflicts when working in parallel
@@ -26,14 +27,18 @@ Given below are my contributions to the project.
 * **Enhancements to existing features**:
     * Reverted parser changes
     * Added unit tests throughout the application
-    * Actively fixed bugs
+    * Actively fixed functionality bugs
 
 * **Documentation**:
     * User Guide:
-      * Added sections for new features that I had implemented
+      * Added sections for new features that I implemented
       * Fixed errors throughout the entire UG
+      * Actively fixed feature flaw and documentation bugs from PED
     * Developer Guide:
-        * To be added
+        * Added 4 enhancements in the Planned Enhancements section
+        * Added implementation of Mode command
+        * Added usecase
+        * Arranged and filtered user stories
 
 * Review PRS:
     * [PR1](https://github.com/AY2324S1-CS2103-W14-2/tp/pull/89#discussion_r1357712476)

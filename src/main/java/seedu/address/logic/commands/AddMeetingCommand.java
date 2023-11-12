@@ -6,6 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PLACE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -36,6 +39,8 @@ public class AddMeetingCommand extends Command {
 
     public static final String MESSAGE_DUPLICATE_MEETING = "This meeting already exists in the address book";
 
+    private static final Logger logger = LogsCenter.getLogger(AddMeetingCommand.class);
+
     private final Meeting toAdd;
 
     /**
@@ -50,13 +55,14 @@ public class AddMeetingCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (model.hasMeeting(toAdd)) {
+            logger.warning("Duplicate meeting detected.");
             throw new CommandException(MESSAGE_DUPLICATE_MEETING);
         }
         model.addMeeting(toAdd);
 
         AppState appState = AppState.getInstance();
         appState.setMeeting(toAdd);
-
+        logger.fine("Creating new meeting.");
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.formatMeeting(toAdd)));
     }
 

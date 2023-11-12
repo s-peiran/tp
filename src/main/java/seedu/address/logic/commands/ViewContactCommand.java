@@ -3,7 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -25,7 +27,10 @@ public class ViewContactCommand extends Command {
 
     public static final String MESSAGE_VIEW_CONTACT_SUCCESS = "Showing Contact Note: %1$s";
 
+    private static final Logger logger = LogsCenter.getLogger(ViewContactCommand.class);
+
     private final Index targetIndex;
+
 
     public ViewContactCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
@@ -44,6 +49,8 @@ public class ViewContactCommand extends Command {
 
         AppState appState = AppState.getInstance();
         appState.setContact(contactToDisplay);
+
+        logger.fine("Viewing contact " + contactToDisplay.toString());
 
         return new CommandResult(String.format(MESSAGE_VIEW_CONTACT_SUCCESS,
             Messages.formatContact(contactToDisplay)));
