@@ -44,3 +44,4 @@ Given below are my contributions to the project.
   * Assisted with reviewing PRs to ensure on-time milestone resolution
   * Assisted with tracking project deadlines and ensuring timely completion
   * Actively stress-tested the product and fixed bugs
+  
