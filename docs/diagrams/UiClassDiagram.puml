@@ -11,10 +11,15 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
+Class ContactDetailPanel
 Class ContactListPanel
-Class ContactCard
+Class ContactListCard
 Class StatusBarFooter
 Class CommandBox
+Class MeetingDetailPanel
+Class MeetingListPanel
+Class MeetingListCard
+Class NoteArea
 }
 
 package Model <<Rectangle>> {
@@ -35,19 +40,24 @@ MainWindow *-down-> "1" ResultDisplay
 MainWindow *-down-> "1" ContactListPanel
 MainWindow *-down-> "1" StatusBarFooter
 MainWindow --> "0..1" HelpWindow
+MainWindow --> "0..1" MeetingListPanel
+MainWindow --> "0..1" NoteArea
 
-ContactListPanel -down-> "*" ContactCard
+ContactListPanel -down-> "*" ContactListCard
+MeetingListPanel -down-> "*" MeetingListCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 ContactListPanel --|> UiPart
-ContactCard --|> UiPart
+ContactListCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow --|> UiPart
 
-ContactCard ..> Model
+ContactListCard ..> Model
+MeetingListCard ..> Model
+NoteArea ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 

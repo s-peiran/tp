@@ -14,11 +14,9 @@ Class UserPrefs
 
 Class UniqueContactList
 Class Contact
-Class Address
 Class Email
 Class Name
 Class Phone
-Class Tag
 Class Note
 
 
