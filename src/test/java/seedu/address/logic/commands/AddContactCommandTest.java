@@ -41,7 +41,7 @@ public class AddContactCommandTest {
         CommandResult commandResult = new AddContactCommand(validContact).execute(modelStub);
 
         assertEquals(String.format(AddContactCommand.MESSAGE_SUCCESS, Messages.formatContact(validContact)),
-                commandResult.getFeedbackToUser());
+            commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validContact), modelStub.contactsAdded);
     }
 
@@ -52,7 +52,7 @@ public class AddContactCommandTest {
         ModelStub modelStub = new ModelStubWithContact(validContact);
 
         assertThrows(CommandException.class, AddContactCommand.MESSAGE_DUPLICATE_CONTACT, () ->
-                addCommand.execute(modelStub));
+            addCommand.execute(modelStub));
     }
 
     @Test
@@ -197,6 +197,11 @@ public class AddContactCommandTest {
 
         @Override
         public void sortMeetings() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void update(Meeting meeting, Contact contact) {
             throw new AssertionError("This method should not be called.");
         }
     }

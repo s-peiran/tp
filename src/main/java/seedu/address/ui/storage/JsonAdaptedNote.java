@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.ui.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -9,7 +9,7 @@ import seedu.address.model.note.Note;
 /**
  * Jackson-friendly version of {@link Note}.
  */
-class JsonAdaptedNote {
+public class JsonAdaptedNote {
 
     private final String note;
 

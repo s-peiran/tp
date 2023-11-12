@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.ui.storage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import seedu.address.model.meeting.Meeting;
  * An Immutable AddressBook that is serializable to JSON format.
  */
 @JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+public class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_CONTACT = "Contacts list contains duplicate contact(s).";
     public static final String MESSAGE_DUPLICATE_MEETING = "Meetings list contains duplicate meeting(s).";

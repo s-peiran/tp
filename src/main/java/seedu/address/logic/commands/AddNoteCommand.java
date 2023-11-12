@@ -23,12 +23,12 @@ public class AddNoteCommand extends Command {
     public static final String COMMAND_WORD = "addnote";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds note to the contact identified "
-            + "by the index number used in the last contact listing.\n"
-            + "Parameters: " + PREFIX_INDEX + " (must be a positive integer) "
-            + PREFIX_NOTE + " [NOTE]\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + " 1 "
-            + PREFIX_NOTE + " Likes to swim.";
+        + ": Adds note to the contact identified "
+        + "by the index number used in the last contact listing.\n"
+        + "Parameters: " + PREFIX_INDEX + " (must be a positive integer) "
+        + PREFIX_NOTE + " [NOTE]\n"
+        + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + " 1 "
+        + PREFIX_NOTE + " Likes to swim.";
 
     public static final String MESSAGE_ADD_NOTE_SUCCESS = "Added note to Person: %1$s";
     public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Removed note from Person: %1$s";
@@ -66,8 +66,8 @@ public class AddNoteCommand extends Command {
         mutableNotesList.add(note);
 
         Contact editedContact = new Contact(
-                contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
-                contactToEdit.getTags(), mutableNotesList);
+            contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
+            mutableNotesList, contactToEdit.getObservers());
 
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(Model.PREDICATE_SHOW_ALL_CONTACTS);
@@ -103,6 +103,6 @@ public class AddNoteCommand extends Command {
         // state check
         AddNoteCommand e = (AddNoteCommand) other;
         return index.equals(e.index)
-                && note.equals(e.note);
+            && note.equals(e.note);
     }
 }

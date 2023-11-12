@@ -20,9 +20,9 @@ public class DeleteContactCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the contact identified by the index number used in the displayed contact list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+        + ": Deletes the contact identified by the index number used in the displayed contact list.\n"
+        + "Parameters: INDEX (must be a positive integer)\n"
+        + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_CONTACT_SUCCESS = "Deleted Contact: %1$s";
 
@@ -43,12 +43,12 @@ public class DeleteContactCommand extends Command {
 
         Contact contactToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteContact(contactToDelete);
-
+        contactToDelete.notifyObservers(model);
         AppState appState = AppState.getInstance();
         appState.deleteContact(contactToDelete);
 
         return new CommandResult(String.format(MESSAGE_DELETE_CONTACT_SUCCESS,
-                Messages.formatContact(contactToDelete)));
+            Messages.formatContact(contactToDelete)));
     }
 
     @Override
@@ -69,7 +69,7 @@ public class DeleteContactCommand extends Command {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("targetIndex", targetIndex)
-                .toString();
+            .add("targetIndex", targetIndex)
+            .toString();
     }
 }

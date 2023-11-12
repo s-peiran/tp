@@ -25,12 +25,12 @@ public class DeleteNoteCommand extends Command {
     public static final String COMMAND_WORD = "deletenote";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the note of the meeting identified "
-            + "by the index number used in the last meeting listing. "
-            + "Parameters: " + PREFIX_INDEX + " (must be a positive integer) "
-            + PREFIX_NOTE + " [NOTE]\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + " 1 "
-            + PREFIX_NOTE_ID + " 1.";
+        + ": Deletes the note of the meeting identified "
+        + "by the index number used in the last meeting listing. "
+        + "Parameters: " + PREFIX_INDEX + " (must be a positive integer) "
+        + PREFIX_NOTE + " [NOTE]\n"
+        + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + " 1 "
+        + PREFIX_NOTE_ID + " 1.";
 
 
     public static final String MESSAGE_DELETE_NOTE_FAILURE = "Failed to remove note from Contact: %1$s";
@@ -41,7 +41,7 @@ public class DeleteNoteCommand extends Command {
     private boolean isSuccessful = false;
 
     /**
-     * @param index of the person in the filtered person list to edit the note
+     * @param index  of the person in the filtered person list to edit the note
      * @param noteID of the note to be deleted
      */
     public DeleteNoteCommand(Index index, int noteID) {
@@ -71,8 +71,8 @@ public class DeleteNoteCommand extends Command {
         isSuccessful = true;
 
         Contact editedContact = new Contact(
-                contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
-                contactToEdit.getTags(), mutableNotesList);
+            contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
+            mutableNotesList, contactToEdit.getObservers());
 
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(Model.PREDICATE_SHOW_ALL_CONTACTS);
@@ -108,6 +108,6 @@ public class DeleteNoteCommand extends Command {
         // state check
         DeleteNoteCommand e = (DeleteNoteCommand) other;
         return index.equals(e.index)
-                && noteID == e.noteID;
+            && noteID == e.noteID;
     }
 }

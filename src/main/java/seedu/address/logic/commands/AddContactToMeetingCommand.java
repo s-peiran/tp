@@ -21,13 +21,13 @@ public class AddContactToMeetingCommand extends Command {
     public static final String COMMAND_WORD = "addcontact";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds the participants to the meeting identified "
-            + "by the name of the contact. "
-            + "Parameters: " + PREFIX_NAME
-            + " [CONTACT NAME] "
-            + PREFIX_TITLE + " [MEETING NAME]\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME
-            + " Sarah Woo " + PREFIX_TITLE + " Project Discussion";
+        + ": Adds the participants to the meeting identified "
+        + "by the name of the contact. "
+        + "Parameters: " + PREFIX_NAME
+        + " [CONTACT NAME] "
+        + PREFIX_TITLE + " [MEETING NAME]\n"
+        + "Example: " + COMMAND_WORD + " " + PREFIX_NAME
+        + " Sarah Woo " + PREFIX_TITLE + " Project Discussion";
 
     public static final String MESSAGE_ADD_CONTACT_SUCCESS = "Added contact '%s' to Meeting '%s'";
     public static final String MESSAGE_CONTACT_NOT_FOUND = "The person specified is not created";
@@ -76,6 +76,14 @@ public class AddContactToMeetingCommand extends Command {
         if (!meetingFound) {
             throw new CommandException(MESSAGE_MEETING_NOT_FOUND);
         }
+
+        // Register Observers
+        ArrayList<Meeting> observerList = new ArrayList<>(contact.getObservers());
+        if (!observerList.contains(meetingToEdit)) {
+            observerList.add(meetingToEdit);
+        }
+        contact.addObserver(meetingToEdit);
+
         ArrayList<Contact> listOfContacts = new ArrayList<>(meetingToEdit.getContacts());
         if (listOfContacts.stream().anyMatch(contact::isSameContact)) {
             throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
@@ -83,8 +91,8 @@ public class AddContactToMeetingCommand extends Command {
         listOfContacts.add(contact);
 
         Meeting editedMeeting = new Meeting(
-                meetingToEdit.getTitle(), meetingToEdit.getTime(), meetingToEdit.getPlace(),
-                meetingToEdit.getDescription(), meetingToEdit.getNotes(), listOfContacts);
+            meetingToEdit.getTitle(), meetingToEdit.getTime(), meetingToEdit.getPlace(),
+            meetingToEdit.getDescription(), meetingToEdit.getNotes(), listOfContacts);
 
         model.setMeeting(meetingToEdit, editedMeeting);
         model.updateFilteredMeetingList(Model.PREDICATE_SHOW_ALL_MEETINGS);
@@ -93,7 +101,7 @@ public class AddContactToMeetingCommand extends Command {
         appState.setMeeting(editedMeeting);
 
         return new CommandResult(String.format(MESSAGE_ADD_CONTACT_SUCCESS,
-                contactName, meetingTitle), false, false);
+            contactName, meetingTitle), false, false);
     }
 
     public String getContactName() {

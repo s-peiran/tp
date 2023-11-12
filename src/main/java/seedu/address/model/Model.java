@@ -109,6 +109,14 @@ public interface Model {
     void addMeeting(Meeting meeting);
 
     /**
+     * Removes the contact from the meeting in AddressBook
+     *
+     * @param meeting meeting that contains the contact
+     * @param contact contact to be removed
+     */
+    void update(Meeting meeting, Contact contact);
+
+    /**
      * Replaces the given meeting {@code target} with {@code editedMeeting}.
      * {@code target} must exist in the address book.
      * The meeting identity of {@code editedMeeting} must not be the same as another existing meeting
