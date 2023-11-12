@@ -713,3 +713,7 @@ testers are expected to do more *exploratory* testing.
 * Issue: There could be contacts with the same name which would be inconvenient for the user to workaround.
 * Enhancement: We plan to improve on this by making names not case-sensitive and also to uniquely identify them through other fields like phone number and email.
 
+### Better way to display user feedback in result box
+* Background: The current way of displaying user feedback is as follows: `New contact added: John Daaoe; Phone: 98765432; Email: johnd@example.com`
+* Issue: This is a little hard to read for the user.
+* Enhancement: We plan to display the output in multiple lines when necessary instead of using separators like `;`
