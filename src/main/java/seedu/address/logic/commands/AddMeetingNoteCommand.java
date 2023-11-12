@@ -6,10 +6,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.note.Note;
@@ -32,13 +35,14 @@ public class AddMeetingNoteCommand extends Command {
 
     public static final String MESSAGE_ADD_NOTE_SUCCESS = "Added note to Meeting: %1$s";
     public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Removed note from Meeting: %1$s";
+    private static final Logger logger = LogsCenter.getLogger(AddMeetingNoteCommand.class);
 
     private final Index index;
     private final Note note;
 
     /**
-     * @param index of the person in the filtered person list to edit the note
-     * @param note  of the person to be updated to
+     * @param index of the contact in the filtered contact list to edit the note
+     * @param note  of the contact to be updated to
      */
     public AddMeetingNoteCommand(Index index, Note note) {
         requireAllNonNull(index, note);
@@ -52,6 +56,7 @@ public class AddMeetingNoteCommand extends Command {
         List<Meeting> lastShownList = model.getFilteredMeetingList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
+            logger.warning("The index is out of bounds: " + index.getZeroBased());
             throw new CommandException(Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX);
         }
 
@@ -60,14 +65,14 @@ public class AddMeetingNoteCommand extends Command {
         ArrayList<Note> mutableNotesList = new ArrayList<>(meetingToEdit.getNotes());
 
         if (mutableNotesList.contains(note)) {
+            logger.warning("The note already exists: " + note);
             throw new CommandException(Messages.MESSAGE_DUPLICATE_NOTES);
         }
 
         mutableNotesList.add(note);
 
-        Meeting editedMeeting = new Meeting(
-                meetingToEdit.getTitle(), meetingToEdit.getTime(), meetingToEdit.getPlace(),
-                meetingToEdit.getDescription(), mutableNotesList, meetingToEdit.getContacts());
+        Meeting editedMeeting = Meeting.editMeetingNotes(meetingToEdit, mutableNotesList);
+        logger.fine("The meeting has been updated with a new list of notes: " + mutableNotesList);
 
         model.setMeeting(meetingToEdit, editedMeeting);
         model.updateFilteredMeetingList(Model.PREDICATE_SHOW_ALL_MEETINGS);

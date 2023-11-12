@@ -8,7 +8,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_ID;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -35,7 +37,7 @@ public class DeleteNoteCommand extends Command {
 
     public static final String MESSAGE_DELETE_NOTE_FAILURE = "Failed to remove note from Contact: %1$s";
     public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Removed note from Contact: %1$s";
-
+    private static final Logger logger = LogsCenter.getLogger(DeleteNoteCommand.class);
     private final Index index;
     private final int noteID;
     private boolean isSuccessful = false;
@@ -56,6 +58,7 @@ public class DeleteNoteCommand extends Command {
         List<Contact> lastShownList = model.getFilteredContactList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
+            logger.warning("The index is out of bounds: " + index.getZeroBased());
             throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
         }
 
@@ -64,15 +67,14 @@ public class DeleteNoteCommand extends Command {
         ArrayList<Note> mutableNotesList = new ArrayList<>(contactToEdit.getNotes());
 
         if (noteID > mutableNotesList.size()) {
+            logger.warning("The note ID is out of bounds: " + noteID);
             throw new CommandException(String.format(MESSAGE_INVALID_NOTEID));
         }
 
         mutableNotesList.remove(noteID - 1);
         isSuccessful = true;
 
-        Contact editedContact = new Contact(
-                contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
-                contactToEdit.getTags(), mutableNotesList);
+        Contact editedContact = Contact.editContactNotes(contactToEdit, mutableNotesList);
 
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(Model.PREDICATE_SHOW_ALL_CONTACTS);

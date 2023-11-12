@@ -30,10 +30,11 @@ public class AddMeetingNoteCommandParser implements Parser<AddMeetingNoteCommand
 
         Index index;
         try {
-            if (Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()) == 0) {
+            int meetingIndex = Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get());
+            if (meetingIndex == 0) {
                 throw new IndexOutOfBoundsException();
             }
-            index = Index.fromOneBased(Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()));
+            index = Index.fromOneBased(meetingIndex);
         } catch (NumberFormatException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddMeetingNoteCommand.MESSAGE_USAGE), e);

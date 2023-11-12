@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.note.Note;
 import seedu.address.model.tag.Tag;
 
@@ -81,6 +82,19 @@ public class Contact implements Comparable<Contact> {
 
     public ArrayList<Note> getNotes() {
         return new ArrayList<>(Collections.unmodifiableList(notes));
+    }
+
+    /**
+     * Returns a new Contact object with an updated list of notes
+     *
+     * @param contactToEdit the existing Contact object
+     * @param updatedNotesList new list of notes
+     * @return Contact object with new notes list, while all other attributes remain the same
+     */
+    public static Contact editContactNotes (Contact contactToEdit, List<Note> updatedNotesList) {
+        return new Contact(
+            contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
+            contactToEdit.getTags(), updatedNotesList);
     }
 
     public String getNoteString() {

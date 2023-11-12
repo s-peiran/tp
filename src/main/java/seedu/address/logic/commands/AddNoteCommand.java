@@ -6,7 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -32,7 +34,7 @@ public class AddNoteCommand extends Command {
 
     public static final String MESSAGE_ADD_NOTE_SUCCESS = "Added note to Person: %1$s";
     public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Removed note from Person: %1$s";
-
+    private static final Logger logger = LogsCenter.getLogger(AddNoteCommand.class);
     private final Index index;
     private final Note note;
 
@@ -52,6 +54,7 @@ public class AddNoteCommand extends Command {
         List<Contact> lastShownList = model.getFilteredContactList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
+            logger.warning("The index is out of bounds: " + index.getZeroBased());
             throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
         }
 
@@ -65,9 +68,7 @@ public class AddNoteCommand extends Command {
 
         mutableNotesList.add(note);
 
-        Contact editedContact = new Contact(
-                contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
-                contactToEdit.getTags(), mutableNotesList);
+        Contact editedContact = Contact.editContactNotes(contactToEdit, mutableNotesList);
 
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(Model.PREDICATE_SHOW_ALL_CONTACTS);

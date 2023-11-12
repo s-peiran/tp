@@ -8,7 +8,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_ID;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -34,7 +36,7 @@ public class DeleteMeetingNoteCommand extends Command {
 
     public static final String MESSAGE_DELETE_NOTE_FAILURE = "Failed to remove note from Meeting: %1$s";
     public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Removed note from Meeting: %1$s";
-
+    private static final Logger logger = LogsCenter.getLogger(DeleteMeetingNoteCommand.class);
     private final Index index;
     private final int noteID;
     private boolean isSuccessful = false;
@@ -55,6 +57,7 @@ public class DeleteMeetingNoteCommand extends Command {
         List<Meeting> lastShownList = model.getFilteredMeetingList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
+            logger.warning("The index is out of bounds: " + index.getZeroBased());
             throw new CommandException(Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX);
         }
 
@@ -63,15 +66,14 @@ public class DeleteMeetingNoteCommand extends Command {
         ArrayList<Note> mutableNotesList = new ArrayList<>(meetingToEdit.getNotes());
 
         if (noteID > mutableNotesList.size()) {
+            logger.warning("The note ID is out of bounds: " + noteID);
             throw new CommandException(String.format(MESSAGE_INVALID_NOTEID));
         }
 
         mutableNotesList.remove(noteID - 1);
         isSuccessful = true;
 
-        Meeting editedMeeting = new Meeting(
-                meetingToEdit.getTitle(), meetingToEdit.getTime(), meetingToEdit.getPlace(),
-                meetingToEdit.getDescription(), mutableNotesList, meetingToEdit.getContacts());
+        Meeting editedMeeting = Meeting.editMeetingNotes(meetingToEdit, mutableNotesList);
 
         model.setMeeting(meetingToEdit, editedMeeting);
         model.updateFilteredMeetingList(Model.PREDICATE_SHOW_ALL_MEETINGS);

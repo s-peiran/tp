@@ -31,10 +31,11 @@ public class DeleteMeetingNoteCommandParser implements Parser<DeleteMeetingNoteC
         Index index;
         int noteID;
         try {
-            if (Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get()) == 0) {
+            int meetingIndex = Integer.parseInt(argMultimap.getValue(PREFIX_INDEX).get());
+            if (meetingIndex == 0) {
                 throw new IndexOutOfBoundsException();
             }
-            index = Index.fromOneBased(parseInt(argMultimap.getValue(PREFIX_INDEX).get()));
+            index = Index.fromOneBased(meetingIndex);
             noteID = parseInt(argMultimap.getValue(PREFIX_NOTE_ID).orElse(""));
         } catch (NumberFormatException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
