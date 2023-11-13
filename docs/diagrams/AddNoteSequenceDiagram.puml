@@ -1,0 +1,46 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AddNoteCommandParser" as AddNoteCommandParser LOGIC_COLOR
+participant ":AddNoteCommand" as AddNoteCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Ui UI_COLOR_T1
+participant ":AppState" as AppState UI_COLOR
+end box
+
+[-> LogicManager : execute("addnote id/1 note/Hello world!")
+activate LogicManager
+
+
+LogicManager -> AddressBookParser : parseCommand("addnote id/1 note/Hello world!")
+activate AddressBookParser
+
+create AddNoteCommandParser
+AddressBookParser -> AddNoteCommandParser : AddNoteCommandParser()
+AddressBookParser -> AddNoteCommandParser : parse("id/1 note/Hello world!")
+activate AddNoteCommandParser
+create AddNoteCommand
+AddNoteCommandParser -> AddNoteCommand : AddNoteCommand(1, "Hello world!")
+AddNoteCommandParser --> AddressBookParser
+
+AddressBookParser --> LogicManager
+
+LogicManager -> AddNoteCommand : execute()
+activate AddNoteCommand
+
+AddNoteCommand -> AppState : setContact(editedContact)
+activate AppState
+
+AppState --> AddNoteCommand
+AddNoteCommand --> LogicManager
+deactivate AddNoteCommandParser
+
+deactivate AddNoteCommand
+
+@enduml

@@ -255,13 +255,17 @@ To improve upon this, a mode feature was implemented so that users can be either
 
 ### Implementation
 
-Firstly, in order to keep track of the current mode the application is running in, the Model interface and the ModelManager implementation had to be modified to keep track of what is now known as ModeType, which is an Enum and as of now can only be `CONTACTS` or `MEETINGS`. The general commands such as exit, help and mode itself does not need a ModeType because such commands can be run while in any ModeType. Additionally, the default ModeType when initializing a ModelManager is `CONTACTS` for no particular reason.
+Firstly, in order to keep track of the current mode the application is running in, an AppState singleton class was added to keep track of what is now known as ModeType, an Enum which can only be `CONTACTS` or `MEETINGS`. The general commands such as exit, help and mode itself does not need a ModeType because such commands can be run while in any ModeType. Additionally, the default ModeType when initializing a ModelManager is `CONTACTS` for no particular reason.
 
-Secondly, the Mode command itself is implemented where upon executing the command, the model will update its `FilteredContactList` or `FilteredMeetingList` to show the user the entire contact or meeting list respectively.
+Secondly, the Mode command itself is implemented where upon executing the command, the model will update AppState which will in turn update its `FilteredContactList` or `FilteredMeetingList` to show the user the entire contact or meeting list respectively.
 
 Thirdly, all affected commands had to have their formats changed to suit the new style of running under a certain context.
 
 Lastly, the AddressBookParser had to be modified to accomodate the new modes and command formats.
+
+Below is a sequence diagram showing how the running ModeType of the application is changed.
+
+![ModeSequenceDiagram](images/ModeSequenceDiagram.png)
 
 ### Design considerations:
 
@@ -309,22 +313,44 @@ The full implementation of the feature will include creating, reading, and delet
 
 ### Implementation (Add Notes)
 
-A new `Note` class is created, which stores the contents of the note as a string. The `Contact`/`Meeting` model is then updated to include a new `notes` attribute of type `ArrayList<Note>`.
+A new `Note` class was created, which stores the contents of the note as a string. The `Contact`/`Meeting` model was then updated
+to include a new `notes` attribute of type `ArrayList<Note>`.
 
 To distinguish between adding notes to contacts and meetings, 2 separate Command classes are created, namely
-`AddNoteCommand` (for contacts) and `AddMeetingNoteCommand` (for meetings). These classes will then call their respective parser classes, to get the arguments passed in by the user. The arguments include the index of the target contact/meeting and the note itself.
+`AddNoteCommand` (for contacts) and `AddMeetingNoteCommand` (for meetings). For brevity, this documentation is written in the
+context of Contacts. However, rest assured that the implementation is the same for Meetings.
 
-When the respective commands are executed, NoteNote will get the indexed contact/meeting object from the Model's `FilteredContactList`/`FilteredMeetingList`. Internally, the model will duplicate the existing list of notes and append the additional note.
+The `AddNoteCommand` will call its respective parser class, `AddNoteCommandParser`, to get the arguments passed in by the user. The arguments include the index of the target contact using the `id/` prefix, 
+and the note itself with the `note/` prefix.
 
-Then, a new `Contact`/`Meeting` will be created with identical attributes as the original, with the exception of the updated `notes` list. The model is then updated with this new `Contact`/`Meeting`, and the filtered list is updated as well.
+Before execution, NoteNote will check that the supplied arguments are valid. The conditions of a valid index and note can be found in the User Guide.
+NoteNote will also check for the presence of duplicate notes, in which case an exception will be thrown.
+
+When the command is executed, NoteNote will get the indexed Contact object from
+the Model's `FilteredContactList`. Internally, the model will duplicate the existing list of notes
+and append the additional note.
+
+Then, a new `Contact` object will be created with identical attributes as the original, besides the
+updated `notes` list. This is object is called `editedContact`, and the model is then updated with this. The AppState is then refreshed to
+ensure the latest list of notes are being displayed.
+
+Below is a simplified, high-level sequence diagram that illustrates what happens when the command `addnote 1 note/Hello world!` is executed in `CONTACTS` mode, given that
+there is at least one contact added.
+
+![AddNoteSequenceDiagram](images/AddNoteSequenceDiagram.png)
 
 ### Implementation (Delete Notes)
 
-Once again, there are separate commands for deleting notes from contacts and from meetings. The relationship between the Command and respective Parser classes is similar to the one described for adding Notes.
+Behind the scenes, the implementation of deleting notes is largely similar to that of adding notes. There are separate commands classes and parser classes for deleting notes from contacts and from meetings.
+Once again, this section zooms in on the context of Contacts, but the implementation details are the same for Meetings.
 
-In terms of execution, a user will pass the `noteID` of the Note to be deleted as an argument. The `noteID` is the index of the note, which starts from 1 for each `Contact`/`Meeting`.
+In terms of execution, a user will pass the index of the note to be deleted as an argument, as well as the index of the Contact.
 
-The `Contact`/`Meeting` model will then be updated with the new ArrayList of Notes. AppState is updated as well to ensure the GUI is refreshed.
+The current list of notes from the target contact is then retrieved. Using `ArrayList`'s `remove()` method, the target note is then deleted from this list.
+
+Once again, a new `Contact` object is then created, with the same attributes as the original one besides the new
+list of notes. The model will then be updated with this new `Contact` object. AppState is updated as well to ensure
+the GUI is refreshed.
 
 ### Design Considerations
 
@@ -663,8 +689,6 @@ testers are expected to do more *exploratory* testing.
 
     1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
-
-### Launch and shutdown
 
 ### Clear address book
 
