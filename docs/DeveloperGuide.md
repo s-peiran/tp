@@ -632,33 +632,297 @@ testers are expected to do more *exploratory* testing.
     1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+### Launch and shutdown
+
+### Clear address book
+1. Clear all contacts and meetings from the address book
+    1. Test case: `clear`
+
+       Expected: All contacts and meetings should be cleared from the address book. Contact/Meeting list and contact/meeting details panel should be blank.
+
+### Add a contact
+1. Add a contact to the contact list
+   1. Prerequisites: Switch to the `contacts` mode if not already so using the `mode` command
+
+   1. Test case: `add n/Sarah Woo p/82775346 e/sarah.woo@gmail.com`
+   
+      Expected: Sarah Woo is added into the contact list. Details of the newly added contact shown in the result box. Contact details panel shows details of new contact.
+   
+   1. Test case: `add n/Sarah Woo% p/82775346 e/sarah.woo@gmail.com`
+
+      Expected: Sarah Woo% is not added into the contact list. Error message due to invalid name shown in the result box. Contact details panel unchanged.
+
+### View a contact
+1. View an existing contact's details
+    1. Prerequisites: Switch to the `contacts` mode if not already so using the `mode` command. 
+
+    1. Test case: `view 1`
+
+       Ensure that at **least 1** contact is in the list.
+
+       Expected: Contact details of the contact with index 1 is shown on the detail panel on the bottom right.
+
+    1. Test case: `view 0`
+
+       Expected: Detail panel does not change. Error message due to invalid command format
+
+    1. Test case: `view 2`
+   
+       Ensure that **less than 2** contacts are in the contact list.
+   
+       Expected: Detail panel does not change. Error message due to invalid index.
+
+### List contacts
+1. List contacts based on given parameter(s)
+    1. Prerequisites: Switch to the `contacts` mode if not already so using the `mode` command. 
+   
+       Run the following commands: 
+
+       1. `clear`
+       2. `add n/Sarah Woo p/82775346 e/sarah.woo@gmail.com`
+       3. `add n/David Woo p/82775346 e/david.woo@gmail.com`
+       4. `add n/Carl Woo p/821345 e/carl.woo@gmail.com`
+
+    1. Test case: `list`
+
+       Expected: All 3 contacts should appear in the contact list. Result box shows 3 contacts listed.
+
+    1. Test case: `list p/82775346`
+
+       Expected: Only Sarah and David should appear in the contact list. Result box shows 2 contacts listed.
+
+    1. Test case: `list asdfasdgasdgas`
+
+       Expected: All 3 contacts should appear in the contact list. Result box shows 3 contacts listed.
+
+### Edit a contact
+1. Edit an existing contact's details
+    1. Prerequisites: Switch to the `contacts` mode if not already so using the `mode` command.
+
+    1. Test case: `edit 1 p/90649923`
+
+       Ensure that at **least 1** contact is in the list.
+
+       Expected: Contact detail of contact with index 1 phone number changed to `90649923`. Contact details of the contact with index 1 is shown on the detail panel on the bottom right.
+
+    1. Test case: `edit 0 p/90649923`
+
+       Expected: Detail panel does not change. Error message due to invalid command format
+
+    1. Other incorrect edit commands to try: `edit 1 n/asdf!@#$`, `edit x ...` (where x is larger than the list size)<br>
+       Expected: Similar to previous with appropriate error messages.
 
 ### Deleting a contact
 
 1. Deleting a contact while all contacts are being shown
 
-    1. Prerequisites: List all contacts using the `list` command. Multiple contacts in the list.
+    1. Prerequisites: Switch to the `contacts` mode if not already so using the `mode` command. List all contacts using the `list` command. Multiple contacts in the list.
 
-    1. Test case: `delete 1`<br>
+    1. Test case: `delete 1`
+   
        Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
-       Timestamp in the status bar is updated.
 
-    1. Test case: `delete 0`<br>
+    1. Test case: `delete 0`
+   
        Expected: No contact is deleted. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
+    1. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size)<br>
+       Expected: Similar to previous with appropriate error messages.
 
-1. _{ more test cases …​ }_
+### Add a meeting
+1. Add a meeting to the meeting list
+    1. Prerequisites: Switch to the `meetings` mode if not already so using the `mode` command
 
+    1. Test case: `add m/ Project Discussion t/ 03/10/2023 15:00 p/ Terrace d/ Discussing milestone`
+
+       Expected: Project Discussion is added into the meeting list. Details of the newly added meeting shown in the result box. Meeting details panel shows details of the new meeting.
+
+    1. Test case: `add m/ Project Discussion% t/ 03/10/2023 15:00 p/ Terrace d/ Discussing milestone`
+
+       Expected: Project Discussion% is not added into the contact list. Error message due to invalid title shown in the result box. Meeting details panel unchanged.
+
+### View a meeting
+1. View an existing meeting's details
+    1. Prerequisites: Switch to the `meetings` mode if not already so using the `mode` command.
+
+    1. Test case: `view 1`
+
+       Ensure that at **least 1** meeting is in the list.
+
+       Expected: Meeting details of the meeting with index 1 is shown on the detail panel on the bottom right.
+
+    1. Test case: `view 0`
+
+       Expected: Detail panel does not change. Error message due to invalid command format
+
+    1. Test case: `view 2`
+
+       Ensure that **less than 2** meetings are in the contact list.
+
+       Expected: Detail panel does not change. Error message due to invalid index.
+
+### List meetings
+1. List contacts based on given parameter(s)
+    1. Prerequisites: Switch to the `meetings` mode if not already so using the `mode` command.
+
+       Run the following commands:
+
+        1. `clear`
+        2. `add m/ Project Discussion 1 t/ 03/10/2023 15:00 p/ Terrace d/ Discussing milestone`
+        3. `add m/ Project Discussion 2 t/ 03/10/2023 17:00 p/ Terrace d/ Discussing milestone`
+        4. `add m/ Project Discussion 3 t/ 03/10/2023 15:00 p/ Terrace d/ Discussing milestone`
+
+    1. Test case: `a`
+
+       Expected: 
+
+    1. Test case: `b`
+
+       Expected: 
+
+    1. Test case: `c`
+
+       Expected: 
+
+### Edit a meeting
+1. Edit an existing meeting's details
+    1. Prerequisites: Switch to the `meetings` mode if not already so using the `mode` command.
+
+    1. Test case: `edit 1 t/03/11/2023 15:00`
+
+       Ensure that at **least 1** meeting is in the list.
+
+       Expected: Meeting detail of contact with index 1 time changed to `03/11/2023 15:00`. Meeting details of the meeting with index 1 is shown on the detail panel on the bottom right.
+
+    1. Test case: `edit 0 t/03/11/2023 15:00`
+
+       Expected: Detail panel does not change. Error message due to invalid command format
+
+    1. Other incorrect edit commands to try: `edit 1 t/asdf!@#$`, `edit x ...` (where x is larger than the list size)<br>
+       Expected: Similar to previous with appropriate error messages.
+
+### Delete a meeting
+
+1. Deleting a meeting while all meetings are being shown
+
+    1. Prerequisites: Switch to the `meetings` mode if not already so using the `mode` command. List all meetings using the `list` command. Multiple meetings in the list.
+
+    1. Test case: `delete 1`
+
+       Expected: First meeting is deleted from the list. Details of the deleted meeting shown in the result box.
+
+    1. Test case: `delete 0`
+
+       Expected: No meeting is deleted. Error details shown in the result box.
+
+    1. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size)
+   
+       Expected: Similar to previous with appropriate error messages.
+
+### Add contact to meeting
+1. Add an existing contact to an existing meeting
+
+   1. Prerequisites: Start in the `contacts` mode.
+   
+      Run the following commands:
+        1. `clear`
+        2. `add n/ John Doe p/ 98765432 e/ johnd@example.com`
+        3. `mode`
+        4. `add m/ Project Discussion t/ 03/10/2023 15:00 p/ Terrace d/ Discussing milestone`
+
+   1. Test case: `addcontact n/John Doe m/Project Discussion`
+
+      Expected: John Doe is added to the contacts of the meeting. Details of the deleted meeting shown in the result box. Meeting details panel updatd with the new meeting details.
+
+   1. Test case: `addcontact n/Sarah m/Project Discussion`
+
+      Expected: No changes to the meeting. Error details shown in the result box.
+
+   1. Other incorrect delete commands to try: `addcontact n/XYZ m/ABC` (where XYR and/or ABC does not exist in the address book)
+
+      Expected: Similar to previous with appropriate error messages.
+
+### Delete contact from a meeting through meetings
+1. Delete an existing contact from an existing meeting
+
+    1. Prerequisites: Start in the `contacts` mode.
+
+       Run the following commands:
+        1. `clear`
+        2. `add n/ John Doe p/ 98765432 e/ johnd@example.com`
+        3. `mode`
+        4. `add m/ Project Discussion t/ 03/10/2023 15:00 p/ Terrace d/ Discussing milestone`
+        5. `addcontact n/John Doe m/Project Discussion`
+
+    1. Test case: `deletecontact n/John Doe m/Project Discussion`
+
+       Expected: John Doe is deleted from the contacts of the meeting. Details of the deleted meeting shown in the result box. Meeting details panel updatd with the new meeting details.
+
+    1. Test case: `deletecontact n/Sarah m/Project Discussion`
+
+       Expected: No changes to the meeting. Error details shown in the result box.
+
+    1. Other incorrect deletecontact commands to try: `deletecontact n/XYZ m/ABC` (where XYR and/or ABC does not exist in the address book)
+
+       Expected: Similar to previous with appropriate error messages.
+
+### Delete contact from a meeting through deleting contact
+1. Delete an existing contact from an existing meeting
+
+    1. Prerequisites: Start in the `contacts` mode.
+
+       Run the following commands:
+        1. `clear`
+        2. `add n/ John Doe p/ 98765432 e/ johnd@example.com`
+        3. `mode`
+        4. `add m/ Project Discussion t/ 03/10/2023 15:00 p/ Terrace d/ Discussing milestone`
+        5. `addcontact n/John Doe m/Project Discussion`
+
+    1. Test case: `delete 1` (while in the `contacts` mode)
+
+       Expected: John Doe is deleted from the contacts of the meeting.
+
+### Add notes to a meeting
+1. Add a note to an existing meeting
+
+    1. Prerequisites: Start in the `meetings` mode. Ensure there is at least 1 meeting in the meeting list.
+
+    1. Test case: `addnote id/1 note/Agenda: Discuss Q2 results`
+
+       Expected: Note is added into the meeting. Details of the deleted meeting shown in the result box. Meeting details panel updatd with the new meeting details.
+
+    1. Test case: `addnote id/0 note/Agenda: Discuss Q2 results`
+
+       Expected: No changes to the meeting. Error details shown in the result box.
+
+    1. Other incorrect addnote commands to try: duplicate notes
+
+       Expected: Similar to previous with appropriate error messages.
+
+### Delete notes from a meeting
+1. Delete a note from an existing meeting
+
+    1. Prerequisites: Start in the `meetings` mode. Ensure there is at least 1 meeting with at least 1 note in the meeting list.
+
+    1. Test case: `deletenote id/1 noteid/1`
+
+       Expected: Note is added into the meeting. Details of the deleted meeting shown in the result box. Meeting details panel updatd with the new meeting details.
+
+    1. Test case: `deletenote id/1 noteid/0`
+
+       Expected: No changes to the meeting. Error details shown in the result box.
+
+    1. Other incorrect delete commands to try: deletenote id/XYZ noteid/ABC (where XYZ and ABC are invalid values)
+
+       Expected: Similar to previous with appropriate error messages.
+   
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+    1. Test case: Navigate to ./data and modify the addressbook.json file to an invalid state
 
-1. _{ more test cases …​ }_
+       Expected: Empty address book when NoteNote launches. Any changes will override the corrupted save file when closing the application.
 
 --------------------------------------------------------------------------------------------------------------------
 
