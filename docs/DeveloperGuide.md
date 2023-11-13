@@ -255,11 +255,11 @@ Alternative 2: Store Commands as Objects
 
 At the time when this feature was implemented, the commands within the application were split into 3 broad categories: Commands for contacts, commands for meetings, and general commands.
 
-However, users had to specify each command in entirety without regard for which category the command belonged to. For example when adding a contact to a meeting, the user had to type `add contact to meeting -name ContactName -title MeetingName`.
+However, users had to specify each command in entirety without regard for which category the command belonged to. For example when adding a contact to a meeting, the user had to type `add contact to meeting n/ContactName m/MeetingName`.
 
 This format was too lengthy and it seemed highly likely that when a user is interacting with a specific category of commands, they would interact with it more often than the other categories. For example when a user adds a meeting, it more likely that the user follows up with adding contacts or notes to the meeting as compared to other functions of the application.
 
-To improve upon this, a mode feature was implemented so that users can be either in the `contact mode` or `meeting mode` and when a command is run it will automatically be translated into the respective contact or meeting command. So instead of typing `add contact to meeting`, the user could instead type `add contact` while running in the `meeting mode`.
+To improve upon this, a mode feature was implemented so that users can be either in the `contact mode` or `meeting mode` and when a command is run it will automatically be translated into the respective contact or meeting command. So instead of typing `add contact to meeting`, the user could instead type `addcontact` while running in the `meeting mode`.
 
 ### Implementation
 
@@ -350,7 +350,7 @@ Once again, a new `Contact` object is then created, with the same attributes as 
 
 ### Design Considerations
 
-* **Alternative 1:** store `notes` attribute in `Contact` model as `Set<Note>`
+* Alternative 1: store `notes` attribute in `Contact` model as `Set<Note>`
     * Pros: Simpler to implement (similar to existing `Tag` implementation).
     * Cons: Notes will appear in an arbitrary order, rather than chronologically.
 
@@ -513,7 +513,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to create a meeting specifying meeting name, notes, and contact(s).
+1. User requests to create a meeting.
 2. NoteNote creates the meeting card.
 3. NoteNote displays the newly created meeting card.
 
@@ -528,7 +528,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-* 1b. The specified contact(s) do/does not exist in NoteNote.
+* 1b. The meeting already exists in NoteNote.
 
     * 1b1. NoteNote shows an error message.
 
@@ -538,9 +538,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to delete a meeting specifying meeting index.
-2. NoteNote validates the provided index, retrieves the corresponding meeting, and deletes it.
-3. NoteNote confirms the deletion and updates the display.
+1. User requests to delete a meeting.
+2. NoteNote deletes the meeting.
+3. NoteNote updates the display.
 
    Use case ends.
 
@@ -558,9 +558,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to edit a meeting specifying meeting index and changes to be made (e.g., meeting title, time, etc.).
-2. NoteNote validates the provided index, retrieves the corresponding meeting, and applies the requested changes.
-3. NoteNote saves the changes and displays the updated meeting card.
+1. User requests to edit an attribute in a meeting.
+2. NoteNote applies the requested changes.
+3. NoteNote displays the updated meeting card.
 
    Use case ends.
 
@@ -578,7 +578,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User selects a meeting and updates it with notes.
+1. User requests to add notes to a meeting.
 2. The meeting is updated with the given notes.
 3. NoteNote displays the meeting with the updated notes.
 
@@ -586,34 +586,46 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 1a. The specified meeting(s) do/does not exist in NoteNote.
+* 1a. The request is in an improper format.
+  * 1a1. NoteNote shows an error message.
+  * 1a2. User requests to add notes to a meeting in the correct format.
 
-    * 1a1. NoteNote shows an error message.
-    * 1a2. User acknowledges the error message.
+    Use case resumes at step 2.
+* 1b. The specified meeting(s) do/does not exist in NoteNote.
 
+    * 1b1. NoteNote shows an error message.
+  
+      Use case ends.
+  
+* 1c. The note is invalid.
+    * 1c1. NoteNote shows an error message.
+  
       Use case ends.
 
 **UC05 - Delete notes from meetings**
 
 **MSS**
 
-1. User selects a meeting to view.
-2. User selects a note to delete.
+1. User requests to delete notes from a meeting.
+2. NoteNote deletes the specified note from the meeting.
 3. NoteNote displays the updated meeting without the deleted note.
 
    Use case ends.
 
 **Extensions**
 
-* 1a. The specified meeting does not exist in NoteNote.
+* 1a. The request is in an improper format.
+  * 1a1. NoteNote shows an error message.
+  * 1a2. User requests to delete notes from a meeting in the correct format.
 
-    * 1a1. NoteNote shows an error message.
-    * 1a2. User acknowledges the error message.
+    Use case resumes at step 2.
+* 1b. The specified meeting does not exist in NoteNote.
+
+    * 1b1. NoteNote shows an error message.
 
       Use case ends.
 * 2a. The specified note does not exist in NoteNote.
     * 2a1. NoteNote shows an error message.
-    * 2a2. User acknowledges the error message.
 
       Use case ends.
 
@@ -713,7 +725,7 @@ testers are expected to do more *exploratory* testing.
 
     1. Test case: `view 1`
 
-       Ensure that at **least 1** contact is in the list.
+       Ensure that **at least 1** contact is in the list.
 
        Expected: Contact details of the contact with index 1 is shown on the detail panel on the bottom right.
 
@@ -758,7 +770,7 @@ testers are expected to do more *exploratory* testing.
 
     1. Test case: `edit 1 p/90649923`
 
-       Ensure that at **least 1** contact is in the list.
+       Ensure that **at least 1** contact is in the list.
 
        Expected: Contact detail of contact with index 1 phone number changed to `90649923`. Contact details of the contact with index 1 is shown on the detail panel on the bottom right.
 
@@ -808,7 +820,7 @@ testers are expected to do more *exploratory* testing.
 
     1. Test case: `view 1`
 
-       Ensure that at **least 1** meeting is in the list.
+       Ensure that **at least 1** meeting is in the list.
 
        Expected: Meeting details of the meeting with index 1 is shown on the detail panel on the bottom right.
 
@@ -824,7 +836,7 @@ testers are expected to do more *exploratory* testing.
 
 ### List meetings
 
-1. List contacts based on given parameter(s)
+1. List meetings based on given parameter(s)
     1. Prerequisites: Switch to the `meetings` mode if not already so using the `mode` command.
 
        Run the following commands:
@@ -834,17 +846,17 @@ testers are expected to do more *exploratory* testing.
         3. `add m/ Project Discussion 2 t/ 03/10/2023 17:00 p/ Terrace d/ Discussing milestone`
         4. `add m/ Project Discussion 3 t/ 03/10/2023 15:00 p/ Terrace d/ Discussing milestone`
 
-    1. Test case: `a`
+    1. Test case: `list`
 
-       Expected:
+       Expected: All 3 meetings should appear in the meeting list. Result box shows 3 meetings listed.
 
-    1. Test case: `b`
+    1. Test case: `list ts/ 03/10/2023 17:00`
 
-       Expected:
+       Expected: Only Project Discussion 2 should appear in the meeting list. Result box shows 1 meeting listed.
 
-    1. Test case: `c`
+    1. Test case: `list adasdsa`
 
-       Expected:
+       Expected: All 3 meetings should appear in the meeting list. Result box shows 3 meetings listed.
 
 ### Edit a meeting
 
@@ -894,6 +906,7 @@ testers are expected to do more *exploratory* testing.
         1. `clear`
         2. `add n/ John Doe p/ 98765432 e/ johnd@example.com`
         3. `mode`
+       4. `clear`
         4. `add m/ Project Discussion t/ 03/10/2023 15:00 p/ Terrace d/ Discussing milestone`
 
     1. Test case: `addcontact n/John Doe m/Project Discussion`
@@ -918,12 +931,13 @@ testers are expected to do more *exploratory* testing.
         1. `clear`
         2. `add n/ John Doe p/ 98765432 e/ johnd@example.com`
         3. `mode`
+       4. `clear`
         4. `add m/ Project Discussion t/ 03/10/2023 15:00 p/ Terrace d/ Discussing milestone`
         5. `addcontact n/John Doe m/Project Discussion`
 
     1. Test case: `deletecontact n/John Doe m/Project Discussion`
 
-       Expected: John Doe is deleted from the contacts of the meeting. Details of the deleted meeting shown in the result box. Meeting details panel updatd with the new meeting details.
+       Expected: John Doe is deleted from the contacts of the meeting. Details of the deleted meeting shown in the result box. Meeting details panel updated with the new meeting details.
 
     1. Test case: `deletecontact n/Sarah m/Project Discussion`
 
