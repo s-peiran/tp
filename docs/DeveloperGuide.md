@@ -1,6 +1,11 @@
 ---
 layout: page title: Developer Guide
 ---
+## **Acknowledgements**
+* The original codebase for this brownfield project is derived from [AddressBook Level-3](https://se-education.org/addressbook-level3/).
+* The following libraries were used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson), [JUnit5](https://github.com/junit-team/junit5).
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
 
