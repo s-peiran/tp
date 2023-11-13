@@ -3,11 +3,6 @@ layout: page
 title: User Guide
 ---
 
-* Table of Contents
-  {:toc}
-
---------------------------------------------------------------------------------------------------------------------
-
 # User Guide
 
 NoteNote is a desktop application designed for swift and systematic management of contact information and meeting details. It's tailored specifically for proficient typists
@@ -27,6 +22,7 @@ In this User Guide, you'll find a detailed walkthrough of all the features that 
         - [`add` Create New Contact](#create-new-contact)
         - [`view` View a Contact](#view-a-contact)
         - [`list` List All Contacts](#list-all-contacts)
+        - [`edit` Edit a Contact](#editing-a-contact)
         - [`delete` Delete a Contact](#delete-a-contact)
     - [Meeting Management](#meeting-management)
         - [`add` Create a New Meeting](#create-a-new-meeting)
@@ -40,9 +36,11 @@ In this User Guide, you'll find a detailed walkthrough of all the features that 
         - [`addnote` Add Notes to a Contact or Meeting](#add-notes-to-a-contact-or-meeting)
         - [`deletenote` Delete Notes from a Contact or Meeting](#delete-notes-from-a-contact-or-meeting)
     - [Miscellaneous](#miscellaneous)
+        - [`↑`/`↓` Command History](#command-history)
         - [`help` Open User Guide](#get-help-from-user-guide)
         - [`clear` Clear AddressBook](#clear-addressbook)
         - [`exit` Exit Command](#exit-command)
+        - [Auto-Save Functionality](#auto-save-functionality)
 4. [Command Summary](#command-summary)
 5. [Acceptable Parameters](#acceptable-parameters)
 6. [FAQ](#frequently-asked-questions)
