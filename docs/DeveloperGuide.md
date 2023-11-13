@@ -229,13 +229,17 @@ To improve upon this, a mode feature was implemented so that users can be either
 
 ### Implementation
 
-Firstly, in order to keep track of the current mode the application is running in, the Model interface and the ModelManager implementation had to be modified to keep track of what is now known as ModeType, which is an Enum and as of now can only be `CONTACTS` or `MEETINGS`. The general commands such as exit, help and mode itself does not need a ModeType because such commands can be run while in any ModeType. Additionally, the default ModeType when initializing a ModelManager is `CONTACTS` for no particular reason.
+Firstly, in order to keep track of the current mode the application is running in, an AppState singleton class was added to keep track of what is now known as ModeType, an Enum which can only be `CONTACTS` or `MEETINGS`. The general commands such as exit, help and mode itself does not need a ModeType because such commands can be run while in any ModeType. Additionally, the default ModeType when initializing a ModelManager is `CONTACTS` for no particular reason.
 
-Secondly, the Mode command itself is implemented where upon executing the command, the model will update its `FilteredContactList` or `FilteredMeetingList` to show the user the entire contact or meeting list respectively.
+Secondly, the Mode command itself is implemented where upon executing the command, the model will update AppState which will in turn update its `FilteredContactList` or `FilteredMeetingList` to show the user the entire contact or meeting list respectively.
 
 Thirdly, all affected commands had to have their formats changed to suit the new style of running under a certain context.
 
 Lastly, the AddressBookParser had to be modified to accomodate the new modes and command formats.
+
+Below is a sequence diagram showing how the running ModeType of the application is changed.
+
+![ModeSequenceDiagram](images/ModeSequenceDiagram.png)
 
 ### Design considerations:
 
