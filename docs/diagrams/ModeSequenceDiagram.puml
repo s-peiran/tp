@@ -1,0 +1,40 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ModeCommand" as ModeCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Ui UI_COLOR_T1
+participant ":AppState" as AppState UI_COLOR
+end box
+
+[-> LogicManager : execute("mode")
+activate LogicManager
+
+
+LogicManager -> AddressBookParser : parseCommand("mode")
+activate AddressBookParser
+
+create ModeCommand
+AddressBookParser -> ModeCommand : ModeCommand()
+activate ModeCommand
+
+ModeCommand --> AddressBookParser
+
+AddressBookParser --> LogicManager
+
+LogicManager -> ModeCommand : execute()
+
+ModeCommand -> AppState : changeMode()
+activate AppState
+
+AppState --> ModeCommand
+ModeCommand -->LogicManager
+deactivate ModeCommand
+
+@enduml
