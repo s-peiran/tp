@@ -85,19 +85,19 @@ For a more detailed guide on how to use our application effectively to take note
 
 Welcome to NoteNote! This step-by-step tutorial will guide you through the basics of using our application to manage your contacts and meetings efficiently. Let's get started:
 
-1. **Launching the Application**
+**Launching the Application**
 
 - After installing NoteNote, locate the NoteNote.jar file in the folder you extracted it to.
 - Double-click on the file to open the application. You should see the main window with a user interface ready for your commands.
 
-2. **Exploring Modes**
+**Exploring Modes**
 
 - By default, NoteNote starts in `contacts` mode.
 - Type `mode` into the command box at the bottom of the window and hit *Enter*. This will switch you to `meetings` mode. Typing `mode` again will switch you back.
 
 ![](./images/UGTutorial1.png)
 
-3. **Adding Your First Contact**
+**Adding Your First Contact**
 
 - Ensure you're in contacts mode.
 - To add a contact, type `add n/John Doe p/12345678 e/john.doe@example.com` into the command box and press *Enter*.
@@ -105,7 +105,7 @@ Welcome to NoteNote! This step-by-step tutorial will guide you through the basic
 
 ![](./images/UGTutorial2.png)
 
-4. **Creating a Meeting**
+**Creating a Meeting**
 
 - Switch to meetings mode by typing `mode`.
 - Add a meeting with the command `add m/Team Meeting t/20/12/2023 14:00 p/Conference Room d/Quarterly Planning`.
@@ -113,28 +113,28 @@ Welcome to NoteNote! This step-by-step tutorial will guide you through the basic
 
 ![](./images/UGTutorial3.png)
 
-5. **Viewing and Editing Details**
+**Viewing and Editing Details**
 
 - To view the details of the first contact, make sure you're in contacts mode and type `view 1`.
 - To change the phone number of that contact, type `edit 1 p/98765432`.
 
 ![](./images/UGTutorial4.png)
 
-6. **Taking Notes**
+**Taking Notes**
 
 - Add a note to John Doe by typing `addnote id/5 note/Remember to ask about the project report`, assuming John Doe has an id of 5.
 - To add a note to your meeting, switch to meetings mode and type `addnote id/1 note/Bring financial reports`.
 
 ![](./images/UGTutorial5.png)
 
-7. **Deleting Entries**
+**Deleting Entries**
 
 - If you made a mistake or need to remove a contact, simply type `delete 1` while in the contacts mode.
 - Similarly, to delete a meeting, switch to meetings mode and enter `delete 1`.
 
 ![](./images/UGTutorial6.png)
 
-8. **Getting Help**
+**Getting Help**
 
 - At any point, if you need help, type in the `help` command, or press *F1*.
 - This will open a pop-up window that will lead you to this user guide.
