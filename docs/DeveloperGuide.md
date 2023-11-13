@@ -1,8 +1,10 @@
 ---
-layout: page
+layout: page 
 title: Developer Guide
 ---
+
 ## **Acknowledgements**
+
 * The original codebase for this brownfield project is derived from [AddressBook Level-3](https://se-education.org/addressbook-level3/).
 * The following libraries were used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson), [JUnit5](https://github.com/junit-team/junit5).
 
@@ -27,7 +29,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
     - [Command History and Auto-Complete Feature](#command-history-and-auto-complete-feature)
     - [Mode Feature](#mode-feature)
     - [Contain Contacts in Meeting Feature](#contain-contacts-in-meeting-feature)
-    - [Note Feature](#note-Feature)
+    - [Note Feature](#note-feature)
     - [Proposed-Undo/Redo Feature](#proposed-undoredo-feature)
 3. [Documentation links](#documentation-logging-testing-configuration-dev-ops)
 4. [Appendix: Requirements](#appendix-requirements)
