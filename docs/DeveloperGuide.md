@@ -201,6 +201,10 @@ The `CommandBox` component is at the heart of this feature. It maintains a list 
 
 3. **Auto-Completion Mechanism:** The auto-complete mechanism is triggered when the user starts typing a command and presses the up or down arrow key. The `getFilteredHistory()` method retrieves a list of commands that start with the current input, allowing the user to cycle through relevant commands only.
 
+The following activity diagram represents the sequence of actions that occur when the user navigates through the command history in the `CommandBox`:
+
+![CommandHistoryActivityDiagram](images/CommandHistoryActivityDiagram.png)
+
 #### Design Considerations:
 
 Alternative 1 (current choice): Store Commands as Strings and use pointers
