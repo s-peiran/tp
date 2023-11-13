@@ -17,7 +17,7 @@ Given below are my contributions to the project.
 
   * Notes feature
     * Led implementation of Notes feature, which is the core functionality of the product. This included planning its integration with the rest of the app as well as the development itself.
-    * **Commands** (dependent on the current Mode of the app)
+    * Commands (dependent on the current Mode of the app)
       * `addnote`: adds notes to contacts/meetings
       * `deletenote`: deletes notes from contacts/meetings
     * Ensured proper behaviour of notes, including but not limited to:
@@ -25,7 +25,7 @@ Given below are my contributions to the project.
       * Ensuring indexing auto-updates upon addition/deletion of note
   * GUI improvements
     * Improved styling for contact, meeting, and notes details, as well as messages in `resultDisplay`
-    * Ensured GUI remains readable and somewhat aesthetic with varying window sizes
+    * Ensured GUI remains usable and somewhat aesthetic with varying window sizes
 
 ### Contributions to the UG
 
@@ -35,13 +35,14 @@ Given below are my contributions to the project.
 
 ### Contributions to the DG
 
-* Documented details on the implementation of Notes feature, including the inner workings of the `addnote` and `deletenote` commands.
+* Documented details on the implementation of Notes feature, including the inner workings of the `addnote` and `deletenote` commands
+* Updated UML diagrams to reflect new classes and attributes introduced when implementing our product
+
 ### Contributions to team-based tasks
 
-* **Team-based Tasks**:
-  * Refactored `Person` class and other associated classes to `Contact`. This involved updating the UML diagrams as well.
-  * Created a nice logo and updated the product name in JavaFx
-  * Assisted with reviewing PRs to ensure on-time milestone resolution
-  * Assisted with tracking project deadlines and ensuring timely completion
-  * Actively stress-tested the product and fixed bugs
+* Refactored `Person` class and other associated classes to `Contact`, which involved updating the UML diagrams as well
+* Created a nice logo and updated the product name in JavaFx
+* Assisted with reviewing PRs to ensure on-time milestone resolution
+* Assisted with tracking project deadlines and ensuring timely completion
+* Actively stress-tested the product and fixed bugs
 
