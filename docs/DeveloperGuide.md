@@ -2,55 +2,56 @@
 layout: page title: Developer Guide
 ---
 
-## Table of Contents
-
-1. [Setting Up, Getting Started](#Setting-up,-getting-started)
-2. [Design](#Design)
-    - [Architecture](#Architecture)
-    - [UI Component](#UI-component)
-    - [Logic Component](#Logic-component)
-    - [Model Component](#Model-component)
-    - [Storage Component](#Storage-component)
-    - [Common Classes](#Common-classes)
-3. [Implementation](#Implementation)
-    - [Command History and Auto-Complete Feature](#Command-History-and-Auto-Complete-Feature)
-    - [Mode Feature](#Mode-feature)
-    - [Contain Contacts in Meeting Feature](#Contain-Contacts-in-Meeting-Feature)
-    - [Note Feature](#Note-Feature)
-    - [Proposed-Undo/Redo Feature](#\[Proposed\]-Undo/redo-feature)
-4. [Documentation links](#Documentation,-logging,-testing,-configuration,-dev-ops)
-5. [Appendix: Requirements](#Appendix:-Requirements)
-    - [Product Scope](#Product-scope)
-    - [User Stories](#User-stories)
-    - [Use Cases](#Use-cases)
-    - [Non-Functional Requirements](#Non-Functional-Requirements)
-    - [Glossary](#Glossary)
-6. [Appendix: Instructions For Manual Testing](#Appendix:-Instructions-for-manual-testing)
-    - [Launch and Shutdown](#Launch-and-shutdown)
-    - [Clear Address Book](#Clear-address-book)
-    - [Add a Contact](#Add-a-contact)
-    - [View a Contact](#View-a-contact)
-    - [List Contacts](#List-contacts)
-    - [Edit a Contact](#Edit-a-contact)
-    - [Deleting a Contact](#Deleting-a-contact)
-    - [Add a Meeting](#Add-a-meeting)
-    - [View a Meeting](#View-a-meeting)
-    - [List Meetings](#List-meetings)
-    - [Edit a Meeting](#Edit-a-meeting)
-    - [Delete a Meeting](#Delete-a-meeting)
-    - [Add contact to Meeting](#Add-contact-to-meeting)
-    - [Delete Contact From a Meeting Through Meetings](#Delete-contact-from-a-meeting-through-meetings)
-    - [Delete contact from a meeting through deleting contact](#Delete-contact-from-a-meeting-through-deleting-contact)
-    - [Add Notes to a Meeting](#Add-notes-to-a-meeting)
-    - [Delete Notes from a Meeting](#Delete-notes-from-a-meeting)
-    - [Saving Data](#Saving-data)
-7. [Planned Enhancements](#Planned-Enhancements)
-
 ## **Setting up, getting started**
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 --------------------------------------------------------------------------------------------------------------------
+
+## Table of Contents
+
+1. [Design](#design)
+    - [Architecture](#architecture)
+    - [UI Component](#ui-component)
+    - [Logic Component](#logic-component)
+    - [Model Component](#model-component)
+    - [Storage Component](#storage-component)
+    - [Common Classes](#common-classes)
+2. [Implementation](#implementation)
+    - [Command History and Auto-Complete Feature](#command-history-and-auto-complete-feature)
+    - [Mode Feature](#mode-feature)
+    - [Contain Contacts in Meeting Feature](#contain-contacts-in-meeting-feature)
+    - [Note Feature](#note-Feature)
+    - [Proposed-Undo/Redo Feature](#proposed-undoredo-feature)
+3. [Documentation links](#documentation-logging-testing-configuration-dev-ops)
+4. [Appendix: Requirements](#appendix-requirements)
+    - [Product Scope](#product-scope)
+    - [User Stories](#user-stories)
+    - [Use Cases](#use-cases)
+    - [Non-Functional Requirements](#non-functional-requirements)
+    - [Glossary](#glossary)
+5. [Appendix: Instructions For Manual Testing](#appendix-instructions-for-manual-testing)
+    - [Launch and Shutdown](#launch-and-shutdown)
+    - [Clear Address Book](#clear-address-book)
+    - [Add a Contact](#add-a-contact)
+    - [View a Contact](#view-a-contact)
+    - [List Contacts](#list-contacts)
+    - [Edit a Contact](#edit-a-contact)
+    - [Deleting a Contact](#deleting-a-contact)
+    - [Add a Meeting](#add-a-meeting)
+    - [View a Meeting](#view-a-meeting)
+    - [List Meetings](#list-meetings)
+    - [Edit a Meeting](#edit-a-meeting)
+    - [Delete a Meeting](#delete-a-meeting)
+    - [Add contact to Meeting](#add-contact-to-meeting)
+    - [Delete Contact From a Meeting Through Meetings](#delete-contact-from-a-meeting-through-meetings)
+    - [Delete contact from a meeting through deleting contact](#delete-contact-from-a-meeting-through-deleting-contact)
+    - [Add Notes to a Meeting](#add-notes-to-a-meeting)
+    - [Delete Notes from a Meeting](#delete-notes-from-a-meeting)
+    - [Saving Data](#saving-data)
+6. [Planned Enhancements](#planned-enhancements)
+
+---
 
 ## **Design**
 
@@ -284,7 +285,7 @@ Alternative 2: Implement the mode command with arguments e.g `mode -type CONTACT
 
 ### Implementation (Add Contact to Meeting)
 
-![ACTM](diagrams/AddContactToMeetingActivityDiagram.puml)
+![ACTM](images/AddContactToMeetingActivityDiagram.png)
 
 With a given MeetingTitle and Contact Name, we first check for whether the contact and meeting exists in addressBook. If either is not found, we throw an error as per the activity diagram.
 
@@ -294,7 +295,7 @@ We then add the contact to the contact list of the meeting.
 
 ### Implementation (Delete Contact From Meeting)
 
-![DCFM](diagrams/DeleteContactFromMeetingActivityDiagram.puml)
+![DCFM](images/DeleteContactFromMeetingActivityDiagram.png)
 
 With a given MeetingTitle and Contact Name, we first check for whether meeting exists in addressBook and whether the contact resides in the meeting. If either is not found, we throw an error as per the activity diagram.
 
@@ -312,44 +313,32 @@ The full implementation of the feature will include creating, reading, and delet
 
 ### Implementation (Add Notes)
 
-A new `Note` class was created, which stores the contents of the note as a string. The `Contact`/`Meeting` model was then updated
-to include a new `notes` attribute of type `ArrayList<Note>`.
+A new `Note` class was created, which stores the contents of the note as a string. The `Contact`/`Meeting` model was then updated to include a new `notes` attribute of type `ArrayList<Note>`.
 
 To distinguish between adding notes to contacts and meetings, 2 separate Command classes are created, namely
-`AddNoteCommand` (for contacts) and `AddMeetingNoteCommand` (for meetings). For brevity, this documentation is written in the
-context of Contacts. However, rest assured that the implementation is the same for Meetings.
+`AddNoteCommand` (for contacts) and `AddMeetingNoteCommand` (for meetings). For brevity, this documentation is written in the context of Contacts. However, rest assured that the implementation is the same for Meetings.
 
-The `AddNoteCommand` will call its respective parser class, `AddNoteCommandParser`, to get the arguments passed in by the user. The arguments include the index of the target contact using the `id/` prefix, 
-and the note itself with the `note/` prefix.
+The `AddNoteCommand` will call its respective parser class, `AddNoteCommandParser`, to get the arguments passed in by the user. The arguments include the index of the target contact using the `id/` prefix, and the note itself with the `note/` prefix.
 
-Before execution, NoteNote will check that the supplied arguments are valid. The conditions of a valid index and note can be found in the User Guide.
-NoteNote will also check for the presence of duplicate notes, in which case an exception will be thrown.
+Before execution, NoteNote will check that the supplied arguments are valid. The conditions of a valid index and note can be found in the User Guide. NoteNote will also check for the presence of duplicate notes, in which case an exception will be thrown.
 
-When the command is executed, NoteNote will get the indexed Contact object from
-the Model's `FilteredContactList`. Internally, the model will duplicate the existing list of notes
-and append the additional note.
+When the command is executed, NoteNote will get the indexed Contact object from the Model's `FilteredContactList`. Internally, the model will duplicate the existing list of notes and append the additional note.
 
-Then, a new `Contact` object will be created with identical attributes as the original, besides the
-updated `notes` list. This is object is called `editedContact`, and the model is then updated with this. The AppState is then refreshed to
-ensure the latest list of notes are being displayed.
+Then, a new `Contact` object will be created with identical attributes as the original, besides the updated `notes` list. This is object is called `editedContact`, and the model is then updated with this. The AppState is then refreshed to ensure the latest list of notes are being displayed.
 
-Below is a simplified, high-level sequence diagram that illustrates what happens when the command `addnote 1 note/Hello world!` is executed in `CONTACTS` mode, given that
-there is at least one contact added.
+Below is a simplified, high-level sequence diagram that illustrates what happens when the command `addnote 1 note/Hello world!` is executed in `CONTACTS` mode, given that there is at least one contact added.
 
 ![AddNoteSequenceDiagram](images/AddNoteSequenceDiagram.png)
 
 ### Implementation (Delete Notes)
 
-Behind the scenes, the implementation of deleting notes is largely similar to that of adding notes. There are separate commands classes and parser classes for deleting notes from contacts and from meetings.
-Once again, this section zooms in on the context of Contacts, but the implementation details are the same for Meetings.
+Behind the scenes, the implementation of deleting notes is largely similar to that of adding notes. There are separate commands classes and parser classes for deleting notes from contacts and from meetings. Once again, this section zooms in on the context of Contacts, but the implementation details are the same for Meetings.
 
 In terms of execution, a user will pass the index of the note to be deleted as an argument, as well as the index of the Contact.
 
 The current list of notes from the target contact is then retrieved. Using `ArrayList`'s `remove()` method, the target note is then deleted from this list.
 
-Once again, a new `Contact` object is then created, with the same attributes as the original one besides the new
-list of notes. The model will then be updated with this new `Contact` object. AppState is updated as well to ensure
-the GUI is refreshed.
+Once again, a new `Contact` object is then created, with the same attributes as the original one besides the new list of notes. The model will then be updated with this new `Contact` object. AppState is updated as well to ensure the GUI is refreshed.
 
 ### Design Considerations
 
