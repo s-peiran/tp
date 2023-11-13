@@ -30,7 +30,7 @@ public class ListMeetingCommandParser implements Parser<ListMeetingCommand> {
                 PREFIX_DESCRIPTION, PREFIX_NOTE);
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TITLE, PREFIX_TIME_START, PREFIX_TIME_END, PREFIX_PLACE,
-                PREFIX_DESCRIPTION, PREFIX_NOTE);
+            PREFIX_DESCRIPTION, PREFIX_NOTE);
 
         String title = argMultimap.getValue(PREFIX_TITLE).orElse("").trim();
         List<String> titleKeywords = Arrays.asList(title.split("\\s+"));
@@ -40,7 +40,7 @@ public class ListMeetingCommandParser implements Parser<ListMeetingCommand> {
         }
         String timeEnd = argMultimap.getValue(PREFIX_TIME_END).orElse("");
         if (!timeEnd.equals("")) { // check isValidTime
-            ParserUtil.parseTime(timeStart);
+            ParserUtil.parseTime(timeEnd);
         }
         String place = argMultimap.getValue(PREFIX_PLACE).orElse("").trim();
         List<String> placeKeywords = Arrays.asList(place.split("\\s+"));
