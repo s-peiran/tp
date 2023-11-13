@@ -64,14 +64,14 @@ public class Contact implements Comparable<Contact> {
     /**
      * Returns a new Contact object with an updated list of notes
      *
-     * @param contactToEdit the existing Contact object
+     * @param contactToEdit    the existing Contact object
      * @param updatedNotesList new list of notes
      * @return Contact object with new notes list, while all other attributes remain the same
      */
     public static Contact editContactNotes(Contact contactToEdit, List<Note> updatedNotesList) {
         return new Contact(
             contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
-                updatedNotesList, contactToEdit.getObservers());
+            updatedNotesList, contactToEdit.getObservers());
     }
 
     public String getNoteString() {

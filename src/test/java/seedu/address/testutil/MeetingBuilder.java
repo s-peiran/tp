@@ -100,6 +100,14 @@ public class MeetingBuilder {
         return this;
     }
 
+    /**
+     * Add the {@code Contact} to the {@code Meeting} that we are building.
+     */
+    public MeetingBuilder withContacts(Contact contact) {
+        this.contacts.add(contact);
+        return this;
+    }
+
     public Meeting build() {
         return new Meeting(title, time, place, description, notes, contacts);
     }
