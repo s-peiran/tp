@@ -1,5 +1,6 @@
 ---
-layout: page title: NoteNote
+layout: page
+title: NoteNote
 ---
 
 [![CI Status](https://github.com/AY2324S1-CS2103-W14-2/tp/workflows/Java%20CI/badge.svg)](https://github.com/AY2324S1-CS2103-W14-2/tp/actions)
@@ -7,7 +8,7 @@ layout: page title: NoteNote
 
 ![Ui](images/Ui.png)
 
-Download NoteNote [here](https://github.com/AY2324S1-CS2103-W14-2/tp/releases/tag/v1.3)!
+Download NoteNote [here](https://github.com/AY2324S1-CS2103-W14-2/tp/releases/tag/v1.4)!
 
 This is a desktop meeting note-taking application that allows users to efficiently record notes for their contact. NoteNote provide tools for organizing and categorizing contacts in a systematic and easy-to-navigate structure. Users interact with the application through a CLI, and it has a GUI created with JavaFX.
 
