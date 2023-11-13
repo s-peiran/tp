@@ -154,6 +154,7 @@ Thank you for using NoteNote. Happy organizing!
     6. `deletenote`
     7. `list`
 
+
 - **Command Format**: `mode`
 
 - **Expected Outputs**:
@@ -225,7 +226,7 @@ Thank you for using NoteNote. Happy organizing!
 - **Example**: `edit 3 p/90649923`
 
 - **Acceptable Values**:
-    - CONTACT_ID: Positive integer. Must be a value that exists in the contact list.
+    - CONTACT_ID: Positive integer. Must be a value that exists in the contact list. Must be the first parameter in the command.
     - CONTACT_NAME: String, alphanumeric values and at least 2 characters long. Case-sensitive.
     - PHONE_NUMBER: Integers, at least 3 digits long.
     - EMAIL_ADDRESS: String, any valid email address.
