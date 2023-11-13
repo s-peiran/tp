@@ -41,6 +41,8 @@ MainWindow *-down-> "1" ContactListPanel
 MainWindow *-down-> "1" StatusBarFooter
 MainWindow --> "0..1" HelpWindow
 MainWindow --> "0..1" MeetingListPanel
+MainWindow --> "0..1" ContactDetailPanel
+MainWindow --> "0..1" MeetingDetailPanel
 MainWindow --> "0..1" NoteArea
 
 ContactListPanel -down-> "*" ContactListCard

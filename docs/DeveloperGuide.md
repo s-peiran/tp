@@ -3,11 +3,6 @@ layout: page
 title: Developer Guide
 ---
 
-* Table of Contents
-  {:toc}
-
---------------------------------------------------------------------------------------------------------------------
-
 ## **Acknowledgements**
 
 * {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the
@@ -693,3 +688,8 @@ testers are expected to do more *exploratory* testing.
 * Background: The CRUD commands for contacts and meetings do not use the id prefix `id/` while the notes commands do. This is because our app was built incrementally.
 * Issue: Might confuse new users, as it is hard to get used to.
 * Enhancement: We plan to get rid of the id prefix, as well as the note id prefix for consistency.
+
+### Better support for handling invalid prefixes
+* Background: The `addnote` command does not detect invalid prefixes after the `note/` prefix.
+* Issue: For instance, `addnote id/1 note/Likes chicken d/Roasted chicken` will save a note `Likes chicken d/Roasted chicken`, even though the `d/` prefix may have been used unintentionally.
+* Enhancement: For now, we believe this is not a major bug. However, in the future we will add more support for detecting invalid prefixes across the various commands.
