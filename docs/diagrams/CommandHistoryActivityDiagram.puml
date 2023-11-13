@@ -1,0 +1,25 @@
+@startuml
+skin rose
+skinparam ActivityFontSize 15
+skinparam ArrowFontSize 12
+
+start
+:User presses up or down arrow key;
+
+if () then ([navigation not started])
+  :Store initial input;
+  :Flag navigation as started;
+else ([else])
+
+endif
+
+:Calculate new history pointer based on arrow key;
+if () then ([pointer within range])
+  :Retrieve command from history;
+  :Show command in text field;
+else ([else])
+  :Keep text field at initial input;
+endif
+
+stop
+@enduml

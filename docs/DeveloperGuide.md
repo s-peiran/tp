@@ -62,8 +62,7 @@ the command `delete 1`.
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding
-  API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class which follows the corresponding API `interface` mentioned in the previous point.
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using
 the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component
@@ -83,6 +82,10 @@ in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ContactListPanel`, `MeetingListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures
 the commonalities between classes that represent parts of the visible GUI.
+
+The UI also has an `AppState` class, which maintains the dynamic aspects of the UI, such as which mode the application is in, which panels are displayed, and the contacts or meetings to be displayed. This allows the UI to remain responsive and accurate to user interactions and command results.
+
+The `AppState` class is a singleton class, ensuring that the UI components are synchronized with the current state of the application. It is updated (if necessary) when commands are executed in the `Logic` class, and these updates are checked in the `MainWindow` class to display on the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that
 are in the `src/main/resources/view` folder. For example, the layout of
@@ -153,8 +156,7 @@ The `Model` component,
 <img src="images/ModelManagerClassDiagram.png" width="300" />
 
 * stores the currently 'selected' `Contact` or `Meeting` objects (e.g., results of a search query) as a separate _filtered_ list
-which is exposed to outsiders as an unmodifiable `ObservableList<Contact>` or `ObservableList<Meeting>` respectively that can be 'observed' e.g. the UI can be
-bound to this list so that the UI automatically updates when the data in the list change.
+which is exposed to outsiders as an unmodifiable `ObservableList<Contact>` or `ObservableList<Meeting>` respectively that can be 'observed' e.g. the UI can be bound to this list so that the UI can fetch this data into its `AppState` class when necessary, and reflect these changes on the GUI.
 
 ### Storage component
 
@@ -180,6 +182,115 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
+### Command History and Auto-Complete Feature
+
+#### Context
+
+The command history and auto-complete feature aims to enhance user experience by allowing users to quickly access previously executed commands and complete partial command inputs. This feature is especially useful for users who perform a series of similar commands consecutively, as it saves time and reduces the likelihood of input errors.
+
+By utilizing this command history and auto-complete feature, users can improve their efficiency when interacting with the application, significantly speeding up the workflow for repetitive command entry.
+
+#### Implementation
+
+The `CommandBox` component is at the heart of this feature. It maintains a list of the user's command history and provides functionalities to navigate through this history using keyboard inputs.
+
+1. **Storing Command History:** As users execute commands, these are stored in a `commandHistory` list in the `CommandBox`. Duplicate entries are prevented by removing the previous instance of the command before re-adding it, ensuring the most recent use is at the end of the list.
+
+2. **Navigation Through Command History:** The user can navigate through the command history by pressing the up or down arrow keys. The `navigateCommandHistory(int offset)` method updates the `currentHistoryPointer` and sets the text of the `commandTextField` to the command at the new history pointer index.
+
+3. **Auto-Completion Mechanism:** The auto-complete mechanism is triggered when the user starts typing a command and presses the up or down arrow key. The `getFilteredHistory()` method retrieves a list of commands that start with the current input, allowing the user to cycle through relevant commands only.
+
+The following activity diagram represents the sequence of actions that occur when the user navigates through the command history in the `CommandBox`:
+
+![CommandHistoryActivityDiagram](images/CommandHistoryActivityDiagram.png)
+
+#### Design Considerations:
+
+Alternative 1 (current choice): Store Commands as Strings and use pointers
+- **Pros:** Simple implementation with low overhead. Efficient in terms of memory and processing as it works with strings directly.
+- **Cons:** Limited functionality for more complex use cases. Does not allow for structured analysis or manipulation of command components.
+
+Alternative 2: Store Commands as Objects
+- **Pros:** Offers greater flexibility for future enhancements, such as argument analysis and command editing. Facilitates complex command manipulations and extensions.
+- **Cons:** More complex implementation. Requires additional memory and processing to manage command objects instead of simple strings. Also, not as intuitive since you do not saved failed commands.
+
+### Mode feature
+
+#### Context
+
+At the time when this feature was implemented, the commands within the application were split into 3 broad categories: Commands for contacts, commands for meetings, and general commands.
+
+However, users had to specify each command in entirety without regard for which category the command belonged to. For example when adding a contact to a meeting, the user had to type `add contact to meeting -name ContactName -title MeetingName`.
+
+This format was too lengthy and it seemed highly likely that when a user is interacting with a specific category of commands, they would interact with it more often than the other categories. For example when a user adds a meeting, it more likely that the user follows up with adding contacts or notes to the meeting as compared to other functions of the application.
+
+To improve upon this, a mode feature was implemented so that users can be either in the `contact mode` or `meeting mode` and when a command is run it will automatically be translated into the respective contact or meeting command. So instead of typing `add contact to meeting`, the user could instead type `add contact` while running in the `meeting mode`.
+
+### Implementation
+
+Firstly, in order to keep track of the current mode the application is running in, the Model interface and the ModelManager implementation had to be modified to keep track of what is now known as ModeType, which is an Enum and as of now can only be `CONTACTS` or `MEETINGS`. The general commands such as exit, help and mode itself does not need a ModeType because such commands can be run while in any ModeType. Additionally, the default ModeType when initializing a ModelManager is `CONTACTS` for no particular reason.
+
+Secondly, the Mode command itself is implemented where upon executing the command, the model will update its `FilteredContactList` or `FilteredMeetingList` to show the user the entire contact or meeting list respectively.
+
+Thirdly, all affected commands had to have their formats changed to suit the new style of running under a certain context.
+
+Lastly, the AddressBookParser had to be modified to accomodate the new modes and command formats.
+
+### Design considerations:
+
+Alternative 1 (current choice): Implement the mode command as a standalone without arguments
+* Pros: Easy to implement. User can easily toggle between `CONTACTS` and `MEETINGS` ModeType.
+* Cons: Less extensible by developers if in the future there are new ModeTypes.
+
+Alternative 2: Implement the mode command with arguments e.g `mode -type CONTACTS`
+* Pros: Easily extensible by developers, can just add a new enum for a new ModeType.
+* Cons: More troublesome to implement. Harder to use for the users.
+
+### Note Feature
+
+#### Context
+
+Note-taking is the fundamental feature behind our app. It is critical for our users to be able to efficiently record
+notes for contacts and meetings.
+
+The full implementation of the feature will include creating, reading, and deleting notes. A possible extension is
+giving users the ability to edit previous notes, but that is outside the scope of our project for now.
+
+### Implementation (Add Notes)
+
+A new `Note` class is created, which stores the contents of the note as a string. The `Contact`/`Meeting` model is then updated
+to include a new `notes` attribute of type `ArrayList<Note>`.
+
+To distinguish between adding notes to contacts and meetings, 2 separate Command classes are created, namely
+`AddNoteCommand` (for contacts) and `AddMeetingNoteCommand` (for meetings). These classes will then call
+their respective parser classes, to get the arguments passed in by the user. The arguments include the
+index of the target contact/meeting and the note itself.
+
+When the respective commands are executed, NoteNote will get the indexed contact/meeting object from
+the Model's `FilteredContactList`/`FilteredMeetingList`. Internally, the model will duplicate the existing list of notes
+and append the additional note.
+
+Then, a new `Contact`/`Meeting` will be created with identical attributes as the original, with the exception of the
+updated `notes` list. The model is then updated with this new `Contact`/`Meeting`, and the filtered list is
+updated as well.
+
+### Implementation (Delete Notes)
+
+Once again, there are separate commands for deleting notes from contacts and from meetings. The relationship between the Command
+and respective Parser classes is similar to the one described for adding Notes.
+
+In terms of execution, a user will pass the `noteID` of the Note to be deleted as an argument. The `noteID` is the index of the
+note, which starts from 1 for each `Contact`/`Meeting`.
+
+The `Contact`/`Meeting` model will then be updated with the new ArrayList of Notes. AppState is updated as well to ensure
+the GUI is refreshed.
+
+### Design Considerations
+
+* **Alternative 1:** store `notes` attribute in `Contact` model as `Set<Note>`
+  * Pros: Simpler to implement (similar to existing `Tag` implementation).
+  * Cons: Notes will appear in an arbitrary order, rather than chronologically.
 
 ### \[Proposed\] Undo/redo feature
 
@@ -277,111 +388,6 @@ The following activity diagram summarizes what happens when a user executes a ne
     * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
-
-### Command History and Auto-Complete Feature
-
-#### Context
-
-The command history and auto-complete feature aims to enhance user experience by allowing users to quickly access previously executed commands and complete partial command inputs. This feature is especially useful for users who perform a series of similar commands consecutively, as it saves time and reduces the likelihood of input errors.
-
-By utilizing this command history and auto-complete feature, users can improve their efficiency when interacting with the application, significantly speeding up the workflow for repetitive command entry.
-
-#### Implementation
-
-The `CommandBox` component is at the heart of this feature. It maintains a list of the user's command history and provides functionalities to navigate through this history using keyboard inputs.
-
-1. **Storing Command History:** As users execute commands, these are stored in a `commandHistory` list in the `CommandBox`. Duplicate entries are prevented by removing the previous instance of the command before re-adding it, ensuring the most recent use is at the end of the list.
-
-2. **Navigation Through Command History:** The user can navigate through the command history by pressing the up or down arrow keys. The `navigateCommandHistory(int offset)` method updates the `currentHistoryPointer` and sets the text of the `commandTextField` to the command at the new history pointer index.
-
-3. **Auto-Completion Mechanism:** The auto-complete mechanism is triggered when the user starts typing a command and presses the up or down arrow key. The `getFilteredHistory()` method retrieves a list of commands that start with the current input, allowing the user to cycle through relevant commands only.
-
-#### Design Considerations:
-
-Alternative 1 (current choice): Store Commands as Strings and use pointers
-- **Pros:** Simple implementation with low overhead. Efficient in terms of memory and processing as it works with strings directly.
-- **Cons:** Limited functionality for more complex use cases. Does not allow for structured analysis or manipulation of command components.
-
-Alternative 2: Store Commands as Objects
-- **Pros:** Offers greater flexibility for future enhancements, such as argument analysis and command editing. Facilitates complex command manipulations and extensions.
-- **Cons:** More complex implementation. Requires additional memory and processing to manage command objects instead of simple strings. Also, not as intuitive since you do not saved failed commands.
-
-### Mode feature
-
-#### Context
-
-At the time when this feature was implemented, the commands within the application were split into 3 broad categories: Commands for contacts, commands for meetings, and general commands.
-
-However, users had to specify each command in entirety without regard for which category the command belonged to. For example when adding a contact to a meeting, the user had to type `add contact to meeting -name ContactName -title MeetingName`.
-
-This format was too lengthy and it seemed highly likely that when a user is interacting with a specific category of commands, they would interact with it more often than the other categories. For example when a user adds a meeting, it more likely that the user follows up with adding contacts or notes to the meeting as compared to other functions of the application.
-
-To improve upon this, a mode feature was implemented so that users can be either in the `contact mode` or `meeting mode` and when a command is run it will automatically be translated into the respective contact or meeting command. So instead of typing `add contact to meeting`, the user could instead type `add contact` while running in the `meeting mode`.
-
-### Implementation
-
-Firstly, in order to keep track of the current mode the application is running in, the Model interface and the ModelManager implementation had to be modified to keep track of what is now known as ModeType, which is an Enum and as of now can only be `CONTACTS` or `MEETINGS`. The general commands such as exit, help and mode itself does not need a ModeType because such commands can be run while in any ModeType. Additionally, the default ModeType when initializing a ModelManager is `CONTACTS` for no particular reason.
-
-Secondly, the Mode command itself is implemented where upon executing the command, the model will update its `FilteredContactList` or `FilteredMeetingList` to show the user the entire contact or meeting list respectively.
-
-Thirdly, all affected commands had to have their formats changed to suit the new style of running under a certain context.
-
-Lastly, the AddressBookParser had to be modified to accomodate the new modes and command formats.
-
-### Design considerations:
-
-Alternative 1 (current choice): Implement the mode command as a standalone without arguments
-* Pros: Easy to implement. User can easily toggle between `CONTACTS` and `MEETINGS` ModeType.
-* Cons: Less extensible by developers if in the future there are new ModeTypes.
-
-Alternative 2: Implement the mode command with arguments e.g `mode -type CONTACTS`
-* Pros: Easily extensible by developers, can just add a new enum for a new ModeType.
-* Cons: More troublesome to implement. Harder to use for the users.
-
-### Note Feature
-
-#### Context
-
-Note-taking is the fundamental feature behind our app. It is critical for our users to be able to efficiently record
-notes for contacts and meetings.
-
-The full implementation of the feature will include creating, reading, and deleting notes. A possible extension is
-giving users the ability to edit previous notes, but that is outside the scope of our project for now.
-
-### Implementation (Add Notes)
-
-A new `Note` class is created, which stores the contents of the note as a string. The `Contact`/`Meeting` model is then updated
-to include a new `notes` attribute of type `ArrayList<Note>`.
-
-To distinguish between adding notes to contacts and meetings, 2 separate Command classes are created, namely
-`AddNoteCommand` (for contacts) and `AddMeetingNoteCommand` (for meetings). These classes will then call
-their respective parser classes, to get the arguments passed in by the user. The arguments include the
-index of the target contact/meeting and the note itself.
-
-When the respective commands are executed, NoteNote will get the indexed contact/meeting object from
-the Model's `FilteredContactList`/`FilteredMeetingList`. Internally, the model will duplicate the existing list of notes
-and append the additional note.
-
-Then, a new `Contact`/`Meeting` will be created with identical attributes as the original, with the exception of the
-updated `notes` list. The model is then updated with this new `Contact`/`Meeting`, and the filtered list is
-updated as well.
-
-### Implementation (Delete Notes)
-
-Once again, there are separate commands for deleting notes from contacts and from meetings. The relationship between the Command
-and respective Parser classes is similar to the one described for adding Notes.
-
-In terms of execution, a user will pass the `noteID` of the Note to be deleted as an argument. The `noteID` is the index of the
-note, which starts from 1 for each `Contact`/`Meeting`.
-
-The `Contact`/`Meeting` model will then be updated with the new ArrayList of Notes. AppState is updated as well to ensure
-the GUI is refreshed.
-
-### Design Considerations
-
-* **Alternative 1:** store `notes` attribute in `Contact` model as `Set<Note>`
-  * Pros: Simpler to implement (similar to existing `Tag` implementation).
-  * Cons: Notes will appear in an arbitrary order, rather than chronologically.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -632,33 +638,297 @@ testers are expected to do more *exploratory* testing.
     1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+### Launch and shutdown
+
+### Clear address book
+1. Clear all contacts and meetings from the address book
+    1. Test case: `clear`
+
+       Expected: All contacts and meetings should be cleared from the address book. Contact/Meeting list and contact/meeting details panel should be blank.
+
+### Add a contact
+1. Add a contact to the contact list
+   1. Prerequisites: Switch to the `contacts` mode if not already so using the `mode` command
+
+   1. Test case: `add n/Sarah Woo p/82775346 e/sarah.woo@gmail.com`
+   
+      Expected: Sarah Woo is added into the contact list. Details of the newly added contact shown in the result box. Contact details panel shows details of new contact.
+   
+   1. Test case: `add n/Sarah Woo% p/82775346 e/sarah.woo@gmail.com`
+
+      Expected: Sarah Woo% is not added into the contact list. Error message due to invalid name shown in the result box. Contact details panel unchanged.
+
+### View a contact
+1. View an existing contact's details
+    1. Prerequisites: Switch to the `contacts` mode if not already so using the `mode` command. 
+
+    1. Test case: `view 1`
+
+       Ensure that at **least 1** contact is in the list.
+
+       Expected: Contact details of the contact with index 1 is shown on the detail panel on the bottom right.
+
+    1. Test case: `view 0`
+
+       Expected: Detail panel does not change. Error message due to invalid command format
+
+    1. Test case: `view 2`
+   
+       Ensure that **less than 2** contacts are in the contact list.
+   
+       Expected: Detail panel does not change. Error message due to invalid index.
+
+### List contacts
+1. List contacts based on given parameter(s)
+    1. Prerequisites: Switch to the `contacts` mode if not already so using the `mode` command. 
+   
+       Run the following commands: 
+
+       1. `clear`
+       2. `add n/Sarah Woo p/82775346 e/sarah.woo@gmail.com`
+       3. `add n/David Woo p/82775346 e/david.woo@gmail.com`
+       4. `add n/Carl Woo p/821345 e/carl.woo@gmail.com`
+
+    1. Test case: `list`
+
+       Expected: All 3 contacts should appear in the contact list. Result box shows 3 contacts listed.
+
+    1. Test case: `list p/82775346`
+
+       Expected: Only Sarah and David should appear in the contact list. Result box shows 2 contacts listed.
+
+    1. Test case: `list asdfasdgasdgas`
+
+       Expected: All 3 contacts should appear in the contact list. Result box shows 3 contacts listed.
+
+### Edit a contact
+1. Edit an existing contact's details
+    1. Prerequisites: Switch to the `contacts` mode if not already so using the `mode` command.
+
+    1. Test case: `edit 1 p/90649923`
+
+       Ensure that at **least 1** contact is in the list.
+
+       Expected: Contact detail of contact with index 1 phone number changed to `90649923`. Contact details of the contact with index 1 is shown on the detail panel on the bottom right.
+
+    1. Test case: `edit 0 p/90649923`
+
+       Expected: Detail panel does not change. Error message due to invalid command format
+
+    1. Other incorrect edit commands to try: `edit 1 n/asdf!@#$`, `edit x ...` (where x is larger than the list size)<br>
+       Expected: Similar to previous with appropriate error messages.
 
 ### Deleting a contact
 
 1. Deleting a contact while all contacts are being shown
 
-    1. Prerequisites: List all contacts using the `list` command. Multiple contacts in the list.
+    1. Prerequisites: Switch to the `contacts` mode if not already so using the `mode` command. List all contacts using the `list` command. Multiple contacts in the list.
 
-    1. Test case: `delete 1`<br>
+    1. Test case: `delete 1`
+   
        Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
-       Timestamp in the status bar is updated.
 
-    1. Test case: `delete 0`<br>
+    1. Test case: `delete 0`
+   
        Expected: No contact is deleted. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-       Expected: Similar to previous.
+    1. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size)<br>
+       Expected: Similar to previous with appropriate error messages.
 
-1. _{ more test cases …​ }_
+### Add a meeting
+1. Add a meeting to the meeting list
+    1. Prerequisites: Switch to the `meetings` mode if not already so using the `mode` command
 
+    1. Test case: `add m/ Project Discussion t/ 03/10/2023 15:00 p/ Terrace d/ Discussing milestone`
+
+       Expected: Project Discussion is added into the meeting list. Details of the newly added meeting shown in the result box. Meeting details panel shows details of the new meeting.
+
+    1. Test case: `add m/ Project Discussion% t/ 03/10/2023 15:00 p/ Terrace d/ Discussing milestone`
+
+       Expected: Project Discussion% is not added into the contact list. Error message due to invalid title shown in the result box. Meeting details panel unchanged.
+
+### View a meeting
+1. View an existing meeting's details
+    1. Prerequisites: Switch to the `meetings` mode if not already so using the `mode` command.
+
+    1. Test case: `view 1`
+
+       Ensure that at **least 1** meeting is in the list.
+
+       Expected: Meeting details of the meeting with index 1 is shown on the detail panel on the bottom right.
+
+    1. Test case: `view 0`
+
+       Expected: Detail panel does not change. Error message due to invalid command format
+
+    1. Test case: `view 2`
+
+       Ensure that **less than 2** meetings are in the contact list.
+
+       Expected: Detail panel does not change. Error message due to invalid index.
+
+### List meetings
+1. List contacts based on given parameter(s)
+    1. Prerequisites: Switch to the `meetings` mode if not already so using the `mode` command.
+
+       Run the following commands:
+
+        1. `clear`
+        2. `add m/ Project Discussion 1 t/ 03/10/2023 15:00 p/ Terrace d/ Discussing milestone`
+        3. `add m/ Project Discussion 2 t/ 03/10/2023 17:00 p/ Terrace d/ Discussing milestone`
+        4. `add m/ Project Discussion 3 t/ 03/10/2023 15:00 p/ Terrace d/ Discussing milestone`
+
+    1. Test case: `a`
+
+       Expected: 
+
+    1. Test case: `b`
+
+       Expected: 
+
+    1. Test case: `c`
+
+       Expected: 
+
+### Edit a meeting
+1. Edit an existing meeting's details
+    1. Prerequisites: Switch to the `meetings` mode if not already so using the `mode` command.
+
+    1. Test case: `edit 1 t/03/11/2023 15:00`
+
+       Ensure that at **least 1** meeting is in the list.
+
+       Expected: Meeting detail of contact with index 1 time changed to `03/11/2023 15:00`. Meeting details of the meeting with index 1 is shown on the detail panel on the bottom right.
+
+    1. Test case: `edit 0 t/03/11/2023 15:00`
+
+       Expected: Detail panel does not change. Error message due to invalid command format
+
+    1. Other incorrect edit commands to try: `edit 1 t/asdf!@#$`, `edit x ...` (where x is larger than the list size)<br>
+       Expected: Similar to previous with appropriate error messages.
+
+### Delete a meeting
+
+1. Deleting a meeting while all meetings are being shown
+
+    1. Prerequisites: Switch to the `meetings` mode if not already so using the `mode` command. List all meetings using the `list` command. Multiple meetings in the list.
+
+    1. Test case: `delete 1`
+
+       Expected: First meeting is deleted from the list. Details of the deleted meeting shown in the result box.
+
+    1. Test case: `delete 0`
+
+       Expected: No meeting is deleted. Error details shown in the result box.
+
+    1. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size)
+   
+       Expected: Similar to previous with appropriate error messages.
+
+### Add contact to meeting
+1. Add an existing contact to an existing meeting
+
+   1. Prerequisites: Start in the `contacts` mode.
+   
+      Run the following commands:
+        1. `clear`
+        2. `add n/ John Doe p/ 98765432 e/ johnd@example.com`
+        3. `mode`
+        4. `add m/ Project Discussion t/ 03/10/2023 15:00 p/ Terrace d/ Discussing milestone`
+
+   1. Test case: `addcontact n/John Doe m/Project Discussion`
+
+      Expected: John Doe is added to the contacts of the meeting. Details of the deleted meeting shown in the result box. Meeting details panel updatd with the new meeting details.
+
+   1. Test case: `addcontact n/Sarah m/Project Discussion`
+
+      Expected: No changes to the meeting. Error details shown in the result box.
+
+   1. Other incorrect delete commands to try: `addcontact n/XYZ m/ABC` (where XYR and/or ABC does not exist in the address book)
+
+      Expected: Similar to previous with appropriate error messages.
+
+### Delete contact from a meeting through meetings
+1. Delete an existing contact from an existing meeting
+
+    1. Prerequisites: Start in the `contacts` mode.
+
+       Run the following commands:
+        1. `clear`
+        2. `add n/ John Doe p/ 98765432 e/ johnd@example.com`
+        3. `mode`
+        4. `add m/ Project Discussion t/ 03/10/2023 15:00 p/ Terrace d/ Discussing milestone`
+        5. `addcontact n/John Doe m/Project Discussion`
+
+    1. Test case: `deletecontact n/John Doe m/Project Discussion`
+
+       Expected: John Doe is deleted from the contacts of the meeting. Details of the deleted meeting shown in the result box. Meeting details panel updatd with the new meeting details.
+
+    1. Test case: `deletecontact n/Sarah m/Project Discussion`
+
+       Expected: No changes to the meeting. Error details shown in the result box.
+
+    1. Other incorrect deletecontact commands to try: `deletecontact n/XYZ m/ABC` (where XYR and/or ABC does not exist in the address book)
+
+       Expected: Similar to previous with appropriate error messages.
+
+### Delete contact from a meeting through deleting contact
+1. Delete an existing contact from an existing meeting
+
+    1. Prerequisites: Start in the `contacts` mode.
+
+       Run the following commands:
+        1. `clear`
+        2. `add n/ John Doe p/ 98765432 e/ johnd@example.com`
+        3. `mode`
+        4. `add m/ Project Discussion t/ 03/10/2023 15:00 p/ Terrace d/ Discussing milestone`
+        5. `addcontact n/John Doe m/Project Discussion`
+
+    1. Test case: `delete 1` (while in the `contacts` mode)
+
+       Expected: John Doe is deleted from the contacts of the meeting.
+
+### Add notes to a meeting
+1. Add a note to an existing meeting
+
+    1. Prerequisites: Start in the `meetings` mode. Ensure there is at least 1 meeting in the meeting list.
+
+    1. Test case: `addnote id/1 note/Agenda: Discuss Q2 results`
+
+       Expected: Note is added into the meeting. Details of the deleted meeting shown in the result box. Meeting details panel updatd with the new meeting details.
+
+    1. Test case: `addnote id/0 note/Agenda: Discuss Q2 results`
+
+       Expected: No changes to the meeting. Error details shown in the result box.
+
+    1. Other incorrect addnote commands to try: duplicate notes
+
+       Expected: Similar to previous with appropriate error messages.
+
+### Delete notes from a meeting
+1. Delete a note from an existing meeting
+
+    1. Prerequisites: Start in the `meetings` mode. Ensure there is at least 1 meeting with at least 1 note in the meeting list.
+
+    1. Test case: `deletenote id/1 noteid/1`
+
+       Expected: Note is added into the meeting. Details of the deleted meeting shown in the result box. Meeting details panel updatd with the new meeting details.
+
+    1. Test case: `deletenote id/1 noteid/0`
+
+       Expected: No changes to the meeting. Error details shown in the result box.
+
+    1. Other incorrect delete commands to try: deletenote id/XYZ noteid/ABC (where XYZ and ABC are invalid values)
+
+       Expected: Similar to previous with appropriate error messages.
+   
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+    1. Test case: Navigate to ./data and modify the addressbook.json file to an invalid state
 
-1. _{ more test cases …​ }_
+       Expected: Empty address book when NoteNote launches. Any changes will override the corrupted save file when closing the application.
 
 --------------------------------------------------------------------------------------------------------------------
 

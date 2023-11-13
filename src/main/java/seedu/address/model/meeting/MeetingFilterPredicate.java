@@ -38,15 +38,18 @@ public class MeetingFilterPredicate implements Predicate<Meeting> {
         boolean chrono = false;
         Time meetingTime = meeting.getTime();
         Supplier<Boolean> case2 = () -> LocalDateTime.parse(time.get(0), Time.FORMATTER)
-            .isBefore(meetingTime.getValue());
-        Supplier<Boolean> case3 = () -> LocalDateTime.parse(time.get(1), Time.FORMATTER)
-            .isAfter(meetingTime.getValue());
+            .isBefore(meetingTime.getValue()) || LocalDateTime.parse(time.get(0), Time.FORMATTER)
+            .isEqual(meetingTime.getValue());
+        Supplier<Boolean> case3 = () -> LocalDateTime.parse(time.get(1), Time.FORMATTER).isAfter(meetingTime.getValue())
+            || LocalDateTime.parse(time.get(1), Time.FORMATTER).isEqual(meetingTime.getValue());
         Supplier<Boolean> case4 = () -> {
             LocalDateTime startTime = LocalDateTime.parse(time.get(0), Time.FORMATTER);
             LocalDateTime endTime = LocalDateTime.parse(time.get(1), Time.FORMATTER);
-            return startTime.isBefore(meetingTime.getValue()) && endTime.isAfter(meetingTime.getValue());
+            return startTime.isBefore(meetingTime.getValue())
+                && endTime.isAfter(meetingTime.getValue()) || startTime.isEqual(meetingTime.getValue())
+                || endTime.isEqual(meetingTime.getValue());
         };
-        // use of supplier suggested by chatGPT. In original code the logic is nested in if-else statements
+        // use of supplier suggested by chatGPT. In initial code the logic is nested in if-else statements
         String timeStart = time.get(0);
         String timeEnd = time.get(1);
         if (timeStart.equals("") && timeEnd.equals("")) {
@@ -58,6 +61,7 @@ public class MeetingFilterPredicate implements Predicate<Meeting> {
         } else if (!timeStart.equals("") && !timeEnd.equals("")) {
             chrono = case4.get();
         }
+
         boolean place = (placeKeywords.size() == 1 && placeKeywords.get(0).isEmpty()) || placeKeywords.stream()
             .anyMatch(keyword -> meeting.getPlace().fullPlace.toLowerCase().contains(keyword.toLowerCase()));
         boolean description = (descriptionKeywords.size() == 1 && descriptionKeywords.get(0)

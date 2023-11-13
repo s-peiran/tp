@@ -192,9 +192,10 @@ public class ModelManager implements Model {
         }
 
         ModelManager otherModelManager = (ModelManager) other;
-        return addressBook.equals(otherModelManager.addressBook)
-            && userPrefs.equals(otherModelManager.userPrefs)
-            && filteredContacts.equals(otherModelManager.filteredContacts)
-            && filteredMeetings.equals(otherModelManager.filteredMeetings);
+        boolean addressBookCheck = addressBook.equals(otherModelManager.addressBook);
+        boolean userPrefsCheck = userPrefs.equals(otherModelManager.userPrefs);
+        boolean filteredContactsCheck = filteredContacts.equals(otherModelManager.filteredContacts);
+        boolean filteredMeetingsCheck = filteredMeetings.equals(otherModelManager.filteredMeetings);
+        return addressBookCheck && userPrefsCheck && filteredContactsCheck && filteredMeetingsCheck;
     }
 }
