@@ -654,8 +654,6 @@ testers are expected to do more *exploratory* testing.
     1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-### Launch and shutdown
-
 ### Clear address book
 1. Clear all contacts and meetings from the address book
     1. Test case: `clear`
