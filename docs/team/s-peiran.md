@@ -1,5 +1,6 @@
 ---
-layout: page title: She Peiran's Project Portfolio Page
+layout: page
+title: She Peiran's Project Portfolio Page
 ---
 
 ### Project: NoteNote
