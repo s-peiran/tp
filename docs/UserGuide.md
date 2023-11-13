@@ -1,12 +1,10 @@
 ---
-layout: page
-title: User Guide
+layout: page title: User Guide
 ---
 
 # User Guide
 
-NoteNote is a desktop application designed for swift and systematic management of contact information and meeting details. It's tailored specifically for proficient typists
-and users who prefer the speed and flexibility of a Command Line Interface (CLI).
+NoteNote is a desktop application designed for swift and systematic management of contact information and meeting details. It's tailored specifically for proficient typists and users who prefer the speed and flexibility of a Command Line Interface (CLI).
 
 With NoteNote, you can swiftly record notes, organize contacts, and schedule meetings—all through quick keyboard commands. The application streamlines the process of categorizing and retrieving contact and meeting information, making it an essential tool for anyone looking to optimize their note-taking and data management tasks through a powerful CLI.
 
@@ -52,28 +50,28 @@ In this User Guide, you'll find a detailed walkthrough of all the features that 
 ## Quick Start
 
 1. **Installation:**
-   - Ensure you have Java `11` or above installed on your Windows, Mac, or Linux machine.
-   - Download the latest version of `NoteNote.jar` from our [github repository](https://github.com/AY2324S1-CS2103-W14-2/tp). It should be under the *Releases*.
-   - Extract the package to a folder of your choice and double-click on `NoteNote.jar` to start the app.
-   - If the app cannot open because it is from an unknown publisher:
+    - Ensure you have Java `11` or above installed on your Windows, Mac, or Linux machine.
+    - Download the latest version of `NoteNote.jar` from our [github repository](https://github.com/AY2324S1-CS2103-W14-2/tp). It should be under the *Releases*.
+    - Extract the package to a folder of your choice and double-click on `NoteNote.jar` to start the app.
+    - If the app cannot open because it is from an unknown publisher:
         - Open your terminal and `cd` into the folder the jar is in.
         - Use the `java -jar NoteNote.jar` command to run the application.
 
 2. **Using the application:**
-   - When you start `NoteNote` for the first time, a default contact and meeting list will be created for you.
-   - The app will be set into `Contact` mode by default and you will see the following window:
+    - When you start `NoteNote` for the first time, a default contact and meeting list will be created for you.
+    - The app will be set into `Contact` mode by default and you will see the following window:
 
-    ![](./images/UGStartup.png)
+   ![](./images/UGStartup.png)
 
-   - All commands are executed by typing them into the command box and pressing *Enter*.
-   - To exit the application, either close the window, or type `exit` and press *Enter*.
+    - All commands are executed by typing them into the command box and pressing *Enter*.
+    - To exit the application, either close the window, or type `exit` and press *Enter*.
 
 3. **Saving the Data:**
-   - `NoteNote` automatically saves your data after each command that changes the data.
-   - There is no need to save manually; all your contacts, meetings, and notes are stored locally on your machine.
+    - `NoteNote` automatically saves your data after each command that changes the data.
+    - There is no need to save manually; all your contacts, meetings, and notes are stored locally on your machine.
 
 4. **Getting Help:**
-   - If you require assistance, use the `help` command to open a pop-up window leading you to this User Guide. You can do this by typing it, clicking on the *Help* button in the navigation bar, or pressing *F1*.
+    - If you require assistance, use the `help` command to open a pop-up window leading you to this User Guide. You can do this by typing it, clicking on the *Help* button in the navigation bar, or pressing *F1*.
 
 Begin by exploring these basic commands, and don't hesitate to consult the detailed sections of this guide for each feature. Happy note-taking!
 
@@ -88,16 +86,19 @@ For a more detailed guide on how to use our application effectively to take note
 Welcome to NoteNote! This step-by-step tutorial will guide you through the basics of using our application to manage your contacts and meetings efficiently. Let's get started:
 
 1. **Launching the Application**
+
 - After installing NoteNote, locate the NoteNote.jar file in the folder you extracted it to.
 - Double-click on the file to open the application. You should see the main window with a user interface ready for your commands.
 
 2. **Exploring Modes**
+
 - By default, NoteNote starts in `contacts` mode.
 - Type `mode` into the command box at the bottom of the window and hit *Enter*. This will switch you to `meetings` mode. Typing `mode` again will switch you back.
 
 ![](./images/UGTutorial1.png)
 
 3. **Adding Your First Contact**
+
 - Ensure you're in contacts mode.
 - To add a contact, type `add n/John Doe p/12345678 e/john.doe@example.com` into the command box and press *Enter*.
 - You'll see the new contact added to the list and a confirmation message in the result display box.
@@ -105,6 +106,7 @@ Welcome to NoteNote! This step-by-step tutorial will guide you through the basic
 ![](./images/UGTutorial2.png)
 
 4. **Creating a Meeting**
+
 - Switch to meetings mode by typing `mode`.
 - Add a meeting with the command `add m/Team Meeting t/20/12/2023 14:00 p/Conference Room d/Quarterly Planning`.
 - The new meeting will appear in your meetings list with the specified details.
@@ -112,24 +114,28 @@ Welcome to NoteNote! This step-by-step tutorial will guide you through the basic
 ![](./images/UGTutorial3.png)
 
 5. **Viewing and Editing Details**
+
 - To view the details of the first contact, make sure you're in contacts mode and type `view 1`.
 - To change the phone number of that contact, type `edit 1 p/98765432`.
 
 ![](./images/UGTutorial4.png)
 
 6. **Taking Notes**
+
 - Add a note to John Doe by typing `addnote id/5 note/Remember to ask about the project report`, assuming John Doe has an id of 5.
 - To add a note to your meeting, switch to meetings mode and type `addnote id/1 note/Bring financial reports`.
 
 ![](./images/UGTutorial5.png)
 
 7. **Deleting Entries**
+
 - If you made a mistake or need to remove a contact, simply type `delete 1` while in the contacts mode.
 - Similarly, to delete a meeting, switch to meetings mode and enter `delete 1`.
 
 ![](./images/UGTutorial6.png)
 
 8. **Getting Help**
+
 - At any point, if you need help, type in the `help` command, or press *F1*.
 - This will open a pop-up window that will lead you to this user guide.
 
@@ -213,6 +219,29 @@ Thank you for using NoteNote. Happy organizing!
 - **What it does**: Shows all contacts in the list when in the `contacts` mode. All fields after list are optional arguments. If no valid parameter provided, list all contacts.
 
 - **Command Format**: `list [n/NAME] [p/PHONE] [e/EMAIL] [note/NOTE]`
+
+- **List Filter**: Only show contacts that satisfy the given filter. Multiple fields can be specified at the same time and all the fields are optional arguments.
+    - Name filter `[m/Name]`: show the contacts which name matches the input keyword
+        - The order of the keywords does not matter. e.g. Hans Bo will match Bo Hans
+        - Keywords can be a partial word eg.`mee...`
+        - Keywords are not case-sensitive
+        - Contacts matching at least one keyword will be returned (i.e. space separated OR search). e.g. Engine Canteen will return Science Canteen, Engine Lounge
+
+    - Phone filter `[p/PHONE]`: show the contact which phone number matches the input keyword
+        - Keywords can be the partial phone number eg.`963...`
+        - Keywords are not case-sensitive
+
+    - Email filter `[d/EMAIL]`: show the contact which Email matches the input keyword
+        - Keywords can be the partial phone number eg.`963...`
+        - Keywords are not case-sensitive
+
+    - Notes filter `[note/NOTE]`" show the contact which notes matches the input keyword
+        - The order of the keywords does not matter. e.g. Hans Bo will match Bo Hans
+        - Keywords can be a partial word eg.`mee...`
+        - Keywords are not case-sensitive
+        - Contacts matching at least one keyword will be returned (i.e. space separated OR search). e.g. Engine Canteen will return Science Canteen, Engine Lounge
+
+    - **Important**: If there is a mix of valid and invalid inputs, the app will honour the valid inputs and ignore the invalid inpiuts, for a better user experience eg. `list n/Jack w/invalid inputs` - list will show contacts with names containing `jack` and ignore `w/invalid inputs`
 
 - **Expected Outputs**:
     - Success: `Listed all contacts.`
@@ -310,7 +339,37 @@ Thank you for using NoteNote. Happy organizing!
 ### List All Meetings
 
 - **What it does**: Shows a list of all meetings when in the `meetings` mode. All arguments after `list` are optional arguments. Other commands which use index will be affected by the updated indexes shown on the GUI. If no valid parameter provided, list all meetings.
-- **Command Format**: `list [m/TITLE] [t/TIME] [p/PLACE] [d/DESCRIPTION] [note/NOTE]`
+
+- **Command Format**: `list [m/TITLE] [ts/TIME START] [te/TIME END] [p/PLACE] [d/DESCRIPTION] [note/NOTE]`
+
+- **List Filter**: Only show meetings that satisfy the given filter. Multiple fields can be specified at the same time and all the fields are optional arguments.
+    - title filter `[m/Title]`: show the meetings which title matches the input keyword
+        - Behavior see details
+
+    - time filter `[ts/TIME START]` `[te/TIME END]`: show the meetings that occurs in between `TIME START` and `TIME END`
+        - time should be in the format DD/MM/YYYY HH:MM
+        - the results are inclusive of the input time
+        - If only `[ts/TIME START]` is provided, then all the meeting from the start time are shown
+        - If only `[te/TIME END]` is provided, then all the meeting up until the end time are shown
+
+    - place filter `[p/PLACE]`: show the meeting which place matches the input keyword
+        - Behavior see details
+
+    - description filter `[d/DESCRIPTION]`: show the meeting which description matches the input keyword
+        - Behavior see details
+
+    - notes filter `[note/NOTE]`" show the meeting which notes matches the input keyword
+
+    ```
+    - Details
+        * The order of the keywords does not matter. e.g. Hans Bo will match Bo Hans
+        * Keywords can be a partial word eg.`mee...`
+        * Keywords are not case-sensitive
+        * Meetings matching at least one keyword will be returned (i.e. space separated OR search). e.g. Engine Canteen will return Science Canteen, Engine Lounge
+    ```
+
+    - **Important**: If there is a mix of valid and invalid inputs, the app will honour the valid inputs and ignore the invalid inputs, for a better user experience eg. `list p/engin w/invalid inputs` - list will show meetings with places containing `engine` and ignore `w/invalid inputs`
+
 
 - **Expected Outputs**:
     - Success: `%d meetings Listed!`
@@ -374,9 +433,11 @@ Thank you for using NoteNote. Happy organizing!
     - Failure:
         - If the MEETING_NAME does not exist: `The meeting specified is not created`
         - If the CONTACT_NAME does not exist: `The person specified is not created`
-        - If the CONTACT_NAME is already in the existing meeting: `This contact already exists in the meeting`
+        - If the CONTACT_NAME is already in this meeting: `This contact already exists in the meeting`
         - If invalid command format: `Invalid command format!
-          add contact to meeting: Adds a contact to an existing meeting. Parameters: n/CONTACT_NAME m/MEETING_NAME Example: addcontact n/Sarah Woo m/Project Discussion`
+          addcontact: Adds the participants to the meeting identified by the name of the contact. Parameters: n/
+          [CONTACT NAME] m/ [MEETING NAME]
+          Example: addcontact n/ Sarah Woo m/ Project Discussion`
 
 ### Delete Contact from Meeting
 
@@ -396,7 +457,9 @@ Thank you for using NoteNote. Happy organizing!
         - If the MEETING_NAME does not exist: `The meeting specified is not created`
         - If the CONTACT_NAME does not exist or isn't a part of the specified meeting: `The person specified is not created`
         - If invalid command format: `Invalid command format!
-          deletecontact : Removes a contact from an existing meeting. Parameters: n/CONTACT_NAME m/MEETING_NAME Example: deletecontact n/Sarah Woo m/Project Discussion`
+          deletecontact: Removes the participants to the meeting identified by the name of the contact. Parameters: n/
+          [CONTACT NAME] m/ [MEETING NAME]
+          Example: deletecontact n/ Sarah Woo m/ Project Discussion`
 
 [Back to Top](#table-of-contents)
 

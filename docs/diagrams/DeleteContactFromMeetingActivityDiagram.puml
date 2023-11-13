@@ -1,0 +1,30 @@
+@startuml
+
+start
+
+if (Valid Inputs?) then (yes)
+if (Correct Command Name
+and Meeting Name?) then (yes)
+      :execute;
+      #PaleGreen: Success;
+else (no)
+  fork
+    :Meeting name
+    does not exist;
+    #lightcoral:"The meeting specified
+     is not created";
+  fork again
+    :Contact Name
+    does not Exist,
+    or isn't part of
+    this meeting;
+    #lightcoral: "The person specified
+    is not created";
+  end fork
+endif
+else (no)
+    :Throw Error;
+    #lightcoral:"Invalid command format!;
+endif
+stop
+@enduml

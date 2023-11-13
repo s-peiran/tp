@@ -25,11 +25,13 @@ Given below are my contributions to the project.
     * Documented the List order for contact and meetings
     * Add Glossary to UG
     * Updated UG on the sort behavior of contact list and meeting list
+    * Outlined how the list filter for contact and meetings work
 
 ### Contributions to the DG
 
-    * Updated the Model UML Class Diagram to incorporate meetings
+    * Add Table of Contents for DG
     * Elaborated on how the Meeting, Contact and AddressBook classes interact
+    * Add activity diagrams to elaborate how Add Contact To Meeting and Delete Contact From Meeting works
 
 ### Contributions to team-based tasks
 
