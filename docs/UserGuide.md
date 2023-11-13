@@ -10,32 +10,142 @@ title: User Guide
 
 # User Guide
 
-NoteNote is a desktop meeting note-taking application that allows users to efficiently record notes for their contact. NoteNote provide tools for organizing and categorizing contacts in a systematic and easy-to-navigate structure.
+NoteNote is a desktop application designed for swift and systematic management of contact information and meeting details. It's tailored specifically for proficient typists
+and users who prefer the speed and flexibility of a Command Line Interface (CLI).
+
+With NoteNote, you can swiftly record notes, organize contacts, and schedule meetings—all through quick keyboard commands. The application streamlines the process of categorizing and retrieving contact and meeting information, making it an essential tool for anyone looking to optimize their note-taking and data management tasks through a powerful CLI.
+
+In this User Guide, you'll find a detailed walkthrough of all the features that NoteNote offers. It's here to assist you in harnessing the full potential of the application, ensuring that your data management is as streamlined and effective as your typing.
 
 ## Table of Contents
 
-- [Mode](#mode)
-- [Contact Management](#contact-management)
-    - [Create New Contact](#create-new-contact)
-    - [View a Contact](#view-a-contact)
-    - [List All Contacts](#list-all-contacts)
-    - [Delete a Contact](#delete-a-contact)
-- [Meeting Management](#meeting-management)
-    - [Create a New Meeting](#create-a-new-meeting)
-    - [View a Meeting](#view-a-meeting)
-    - [List All Meetings](#list-all-meetings)
-    - [Delete a Meeting](#delete-a-meeting)
-    - [Edit a Meeting](#edit-a-meeting)
-    - [Add Contact to Meeting](#add-contact-to-meeting)
-    - [Delete Contact from Meeting](#delete-contact-from-meeting)
-- [Note-Taking](#note-taking)
-    - [Add Notes to a Contact or Meeting](#add-notes-to-a-contact-or-meeting)
-    - [Delete Notes from a Contact or Meeting](#delete-notes-from-a-contact-or-meeting)
-- [Miscellaneous](#miscellaneous)
-    - [View List of Available Commands](#view-list-of-available-commands)
-- [Known Issues](#known-issues)
+1. [Quick Start](#quick-start)
+2. [Tutorials for New Users](#tutorial-for-new-users)
+3. [Features](#features)
+    - [`mode` Switch Mode](#mode)
+    - [Contact Management](#contact-management)
+        - [`add` Create New Contact](#create-new-contact)
+        - [`view` View a Contact](#view-a-contact)
+        - [`list` List All Contacts](#list-all-contacts)
+        - [`delete` Delete a Contact](#delete-a-contact)
+    - [Meeting Management](#meeting-management)
+        - [`add` Create a New Meeting](#create-a-new-meeting)
+        - [`view` View a Meeting](#view-a-meeting)
+        - [`list` List All Meetings](#list-all-meetings)
+        - [`delete` Delete a Meeting](#delete-a-meeting)
+        - [`edit` Edit a Meeting](#edit-a-meeting)
+        - [`addcontact` Add Contact to Meeting](#add-contact-to-meeting)
+        - [`deletecontact` Delete Contact from Meeting](#delete-contact-from-meeting)
+    - [Note-Taking](#note-taking)
+        - [`addnote` Add Notes to a Contact or Meeting](#add-notes-to-a-contact-or-meeting)
+        - [`deletenote` Delete Notes from a Contact or Meeting](#delete-notes-from-a-contact-or-meeting)
+    - [Miscellaneous](#miscellaneous)
+        - [`help` Open User Guide](#get-help-from-user-guide)
+        - [`clear` Clear AddressBook](#clear-addressbook)
+        - [`exit` Exit Command](#exit-command)
+4. [Command Summary](#command-summary)
+5. [Acceptable Parameters](#acceptable-parameters)
+6. [FAQ](#frequently-asked-questions)
+7. [Known Issues](#known-issues)
+8. [Glossary](#glossary)
 
 ---
+
+## Quick Start
+
+1. **Installation:**
+   - Ensure you have Java `11` or above installed on your Windows, Mac, or Linux machine.
+   - Download the latest version of `NoteNote.jar` from our [github repository](https://github.com/AY2324S1-CS2103-W14-2/tp). It should be under the *Releases*.
+   - Extract the package to a folder of your choice and double-click on `NoteNote.jar` to start the app.
+   - If the app cannot open because it is from an unknown publisher:
+        - Open your terminal and `cd` into the folder the jar is in.
+        - Use the `java -jar NoteNote.jar` command to run the application.
+
+2. **Using the application:**
+   - When you start `NoteNote` for the first time, a default contact and meeting list will be created for you.
+   - The app will be set into `Contact` mode by default and you will see the following window:
+
+    ![](./images/UGStartup.png)
+
+   - All commands are executed by typing them into the command box and pressing *Enter*.
+   - To exit the application, either close the window, or type `exit` and press *Enter*.
+
+3. **Saving the Data:**
+   - `NoteNote` automatically saves your data after each command that changes the data.
+   - There is no need to save manually; all your contacts, meetings, and notes are stored locally on your machine.
+
+4. **Getting Help:**
+   - If you require assistance, use the `help` command to open a pop-up window leading you to this User Guide. You can do this by typing it, clicking on the *Help* button in the navigation bar, or pressing *F1*.
+
+Begin by exploring these basic commands, and don't hesitate to consult the detailed sections of this guide for each feature. Happy note-taking!
+
+For a more detailed guide on how to use our application effectively to take notes, please refer to our [tutorial for new users](#tutorial-for-new-users).
+
+[Back to Top](#table-of-contents)
+
+---
+
+## Tutorial for New Users
+
+Welcome to NoteNote! This step-by-step tutorial will guide you through the basics of using our application to manage your contacts and meetings efficiently. Let's get started:
+
+1. **Launching the Application**
+- After installing NoteNote, locate the NoteNote.jar file in the folder you extracted it to.
+- Double-click on the file to open the application. You should see the main window with a user interface ready for your commands.
+
+2. **Exploring Modes**
+- By default, NoteNote starts in `contacts` mode.
+- Type `mode` into the command box at the bottom of the window and hit *Enter*. This will switch you to `meetings` mode. Typing `mode` again will switch you back.
+
+![](./images/UGTutorial1.png)
+
+3. **Adding Your First Contact**
+- Ensure you're in contacts mode.
+- To add a contact, type `add n/John Doe p/12345678 e/john.doe@example.com` into the command box and press *Enter*.
+- You'll see the new contact added to the list and a confirmation message in the result display box.
+
+![](./images/UGTutorial2.png)
+
+4. **Creating a Meeting**
+- Switch to meetings mode by typing `mode`.
+- Add a meeting with the command `add m/Team Meeting t/20/12/2023 14:00 p/Conference Room d/Quarterly Planning`.
+- The new meeting will appear in your meetings list with the specified details.
+
+![](./images/UGTutorial3.png)
+
+5. **Viewing and Editing Details**
+- To view the details of the first contact, make sure you're in contacts mode and type `view 1`.
+- To change the phone number of that contact, type `edit 1 p/98765432`.
+
+![](./images/UGTutorial4.png)
+
+6. **Taking Notes**
+- Add a note to John Doe by typing `addnote id/5 note/Remember to ask about the project report`, assuming John Doe has an id of 5.
+- To add a note to your meeting, switch to meetings mode and type `addnote id/1 note/Bring financial reports`.
+
+![](./images/UGTutorial5.png)
+
+7. **Deleting Entries**
+- If you made a mistake or need to remove a contact, simply type `delete 1` while in the contacts mode.
+- Similarly, to delete a meeting, switch to meetings mode and enter `delete 1`.
+
+![](./images/UGTutorial6.png)
+
+8. **Getting Help**
+- At any point, if you need help, type in the `help` command, or press *F1*.
+- This will open a pop-up window that will lead you to this user guide.
+
+![](./images/UGTutorial7.png)
+
+This concludes the basic tutorial for NoteNote. With these steps, you should be equipped to start organizing your contacts and meetings effectively. For further assistance, use the `help` command.
+
+Thank you for using NoteNote. Happy organizing!
+
+[Back to Top](#table-of-contents)
+
+---
+
+## Features
 
 ### Mode
 
@@ -52,6 +162,8 @@ NoteNote is a desktop meeting note-taking application that allows users to effic
 
 - **Expected Outputs**:
     - “Application mode set: [CURRENT_MODE].”
+
+[Back to Top](#table-of-contents)
 
 ---
 
@@ -79,8 +191,6 @@ NoteNote is a desktop meeting note-taking application that allows users to effic
         - If multiple values specified for a parameter: `Multiple values specified for the following single-valued field(s): [Parameters]`
         - If unacceptable parameter values: Appropriate error message returned.
 
----
-
 ### View a Contact
 
 - **What it does**: Displays details of a specific contact when in the `contacts` mode.
@@ -100,8 +210,6 @@ NoteNote is a desktop meeting note-taking application that allows users to effic
           view: Shows the details of the contact identified by its id in the displayed contact list. Parameters: CONTACT_ID (must be a positive integer)
           Example: view 1`
 
----
-
 ### List All Contacts
 
 - **What it does**: Shows all contacts in the list when in the `contacts` mode. All fields after list are optional arguments. If no valid parameter provided, list all contacts.
@@ -112,16 +220,14 @@ NoteNote is a desktop meeting note-taking application that allows users to effic
     - Success: `Listed all contacts.`
     - Order of List: Lexicographical Order
 
----
-
 ### Editing A Contact
 
 - **What it does**: Edits an existing person in the address book when in the `contacts` mode.
 
-- **Command Format**: `edit id/CONTACT_ID [n/CONTACT_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS]`
+- **Command Format**: `edit CONTACT_ID [n/CONTACT_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS]`
 
-- **Example**: `edit id/3 p/90649923`
--
+- **Example**: `edit 3 p/90649923`
+
 - **Acceptable Values**:
     - CONTACT_ID: Positive integer. Must be a value that exists in the contact list.
     - CONTACT_NAME: String, alphanumeric values and at least 2 characters long. Case-sensitive.
@@ -135,8 +241,6 @@ NoteNote is a desktop meeting note-taking application that allows users to effic
         - If the CONTACT_ID does not exist: `The contact index provided is invalid`
         - If multiple values specified for a parameter: `Multiple values specified for the following single-valued field(s): [Parameters]`
         - If unacceptable parameter values: Appropriate error message returned.
-
----
 
 ### Delete a Contact
 
@@ -156,6 +260,8 @@ NoteNote is a desktop meeting note-taking application that allows users to effic
         - If the command is invalid: `Invalid command format!
           delete: Deletes the contact identified by the index number used in the displayed contact list. Parameters: INDEX (must be a positive integer)
           Example: delete 1`
+
+[Back to Top](#table-of-contents)
 
 ---
 
@@ -184,8 +290,6 @@ NoteNote is a desktop meeting note-taking application that allows users to effic
         - If multiple values specified for a parameter: `Multiple values specified for the following single-valued field(s): [Parameters]`
         - If unacceptable parameter values: Appropriate error message returned.
 
----
-
 ### View a Meeting
 
 - **What it does**: Displays details of a specific meeting when in the `meetings` mode.
@@ -204,8 +308,6 @@ NoteNote is a desktop meeting note-taking application that allows users to effic
         - If the command is invalid: `Invalid command format!
           view: Shows the details of the meeting identified by its id in the displayed meeting list. Parameters: INDEX (must be a positive integer)
           Example: view 1`
-
----
 
 ### List All Meetings
 
@@ -232,8 +334,6 @@ NoteNote is a desktop meeting note-taking application that allows users to effic
         - If the MEETING_ID does not exist: `The meeting index provided is invalid`
         - If the MEETING_ID is not provided OR If invalid command format: `Invalid command format`
 
----
-
 ### Edit A Meeting
 
 - **What it does** Edits the details of an existing meeting in the address book when in the `meetings` mode.
@@ -259,8 +359,6 @@ NoteNote is a desktop meeting note-taking application that allows users to effic
         - If multiple values specified for a parameter: `Multiple values specified for the following single-valued field(s): [Parameters]`
         - If unacceptable parameter values: Appropriate error message returned.
 
----
-
 ### Add Contact to Meeting
 
 - **What it does**: Adds a contact to an existing meeting as a participant when in the `meetings` mode. No duplicate meetings are allowed and meetings are considered to be the same if they have the same name.
@@ -282,8 +380,6 @@ NoteNote is a desktop meeting note-taking application that allows users to effic
         - If invalid command format: `Invalid command format!
           add contact to meeting: Adds a contact to an existing meeting. Parameters: n/CONTACT_NAME m/MEETING_NAME Example: addcontact n/Sarah Woo m/Project Discussion`
 
----
-
 ### Delete Contact from Meeting
 
 - **What it does**: Removes a contact from an existing meeting when in the `meetings` mode.
@@ -303,6 +399,8 @@ NoteNote is a desktop meeting note-taking application that allows users to effic
         - If the CONTACT_NAME does not exist or isn't a part of the specified meeting: `The person specified is not created`
         - If invalid command format: `Invalid command format!
           deletecontact : Removes a contact from an existing meeting. Parameters: n/CONTACT_NAME m/MEETING_NAME Example: deletecontact n/Sarah Woo m/Project Discussion`
+
+[Back to Top](#table-of-contents)
 
 ---
 
@@ -336,8 +434,6 @@ NoteNote is a desktop meeting note-taking application that allows users to effic
         - If the NOTES aren't provided OR If invalid command format: `Invalid command format!
           addnote: Add notes to contact Parameters: id/CONTACT_ID_or_CONTACT_NAME note/NOTES Example: addnote id/5 note/ Has a dog named Benny`
 
----
-
 ### Delete Notes from a Contact or Meeting
 
 - **What it does**: Removes specified notes from a contact or meeting.
@@ -365,20 +461,28 @@ NoteNote is a desktop meeting note-taking application that allows users to effic
         - If invalid command format: `Invalid command format!
           deletenote: Remove notes from contact Parameters: id/CONTACT_ID_or_CONTACT_NAME index/INDEX Example: deletenote id/5 noteid/1`
 
+[Back to Top](#table-of-contents)
+
 ---
 
 ## Miscellaneous:
 
-### View List of Available Commands
+### Command History
 
-- **What it does**: Displays a list of available commands for the user.
+- **What it does**: Allows you to navigate through your most recent commands using the keyboard.
+
+- **How to use**: Use the up (`↑`) and down (`↓`) arrow keys in the command box to cycle through your command history.
+
+- **Note**: You can type in the input, then use the arrow keys to autocomplete and navigate through input you have already entered in your command history.
+
+### Get Help from User Guide
+
+- **What it does**: Opens a pop-up window with a link to this user guide.
 
 - **Command Format**: `help`
 
 - **Expected Outputs**:
     - Success: `Opened help window.` Displays a pop-up window with a link to the user guide.
-
----
 
 ### Clear AddressBook
 
@@ -389,8 +493,6 @@ NoteNote is a desktop meeting note-taking application that allows users to effic
 - **Expected Outputs**:
     - Success: `Address book has been cleared!`
 
----
-
 ### Exit Command
 
 - **What it does**: Close the application window.
@@ -400,14 +502,100 @@ NoteNote is a desktop meeting note-taking application that allows users to effic
 - **Expected Outputs**:
     - Success: The window is closed and the program stops running.
 
+### Auto-Save Functionality
+
+- **What it does**: Automatically saves your data after each command that alters the data.
+
+- **Note**: There is no need for manual save commands; all changes are instantly and safely stored on your device.
+
+[Back to Top](#table-of-contents)
+
+---
+
+## Command Summary
+
+Below is a summary table of the commands for NoteNote, with example inputs:
+
+| Command | Format, Example |
+|---------|---------------------|
+| Mode | `mode` |
+| Add Contact | `add n/CONTACT_NAME p/PHONE_NUMBER e/EMAIL_ADDRESS`, e.g. `add n/Alice p/12345678 e/alice@example.com` |
+| Add Meeting | `add m/MEETING_NAME t/TIME p/LOCATION d/DESCRIPTION`, e.g. `add m/Project Kickoff t/25/12/2023 09:00 p/Main Office d/Initial project briefing` |
+| View Contact/Meeting | `view INDEX`, e.g. `view 1` |
+| Edit Contact | `edit CONTACT_ID [n/CONTACT_NAME] [p/PHONE_NUMBER] [e/EMAIL_ADDRESS]`, e.g. `edit 2 p/98765432 e/bob@example.com` |
+| Edit Meeting | `edit MEETING_ID [m/MEETING_NAME] [t/TIME] [p/LOCATION] [d/DESCRIPTION]`, e.g. `edit 1 t/26/12/2023 10:00` |
+| Delete Contact/Meeting | `delete INDEX`, e.g. `delete 3` |
+| Add Note to Contact/Meeting | `addnote id/ID note/NOTE`, e.g. `addnote id/4 note/Bring quarterly reports` |
+| Delete Note from Contact/Meeting | `deletenote id/ID noteid/NOTE_ID`, e.g. `deletenote id/4 noteid/2` |
+| Add Contact to Meeting | `addcontact n/CONTACT_NAME m/MEETING_NAME`, e.g. `addcontact n/Alex Yeoh m/CS2103 Meeting` |
+| Delete Contact from Meeting | `deletecontact n/CONTACT_NAME m/MEETING_NAME`, e.g. `deletecontact n/Bernice Yu m/CS2101 Meeting` |
+| List Contacts/Meetings | `list` |
+| Help | `help` |
+| Clear | `clear` |
+| Exit | `exit` |
+
+For a detailed explanation of each command, please refer to the detailed [sections](#features) of this guide.
+
+[Back to Top](#table-of-contents)
+
+---
+
+## Acceptable Parameters
+
+The following table outlines the acceptable input values for various parameters used across commands in NoteNote:
+
+| Parameter | Acceptable Values | Description |
+|-----------|-------------------|-------------|
+| `CONTACT_NAME` | Alphanumeric, at least 2 characters | The name of a contact, case-sensitive. |
+| `PHONE_NUMBER` | Numeric, at least 3 digits | A valid phone number without spaces or symbols. |
+| `EMAIL_ADDRESS` | Valid email format | Must contain an `@` symbol and domain. |
+| `MEETING_NAME` | Alphanumeric, at least 1 character | The title or name of a meeting. |
+| `TIME` | `DD/MM/YYYY HH:MM` format | Date and time for meetings. |
+| `LOCATION` | Alphanumeric, at least 1 character | The place where the meeting is held. |
+| `DESCRIPTION` | Any text | Additional details about a contact or meeting. |
+| `CONTACT_ID` | Positive integer | The unique identifier for a contact, must be within range of Contact indexes. |
+| `MEETING_ID` | Positive integer | The unique identifier for a meeting, must be within range of Meeting indexes. |
+| `NOTE_ID` | Positive integer | The unique identifier for a note within a contact or meeting, must be within range of note indexes within that contact or meeting. |
+| `NOTES` | Any text, at least 1 character | Note content to be associated with a contact or meeting. |
+| `INDEX` | Positive integer | Used in commands that refer to the list index of contacts or meetings, must be within range of Contact or Meeting indexes. |
+
+Please ensure to follow the acceptable input formats when entering commands to avoid errors. This table is a simplified guide; refer to the detailed command instructions for more information on how to use these parameters within specific commands.
+
+[Back to Top](#table-of-contents)
+
+---
+
+## Frequently Asked Questions
+
+**Q**: How do I transfer my data to another Computer?
+
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous NoteNote home folder.
+
+**Q**: What should I do if I find a bug or want to suggest a new feature?
+
+**A**: If you encounter any bugs or would like to suggest improvements, please head over to our [GitHub repository](https://github.com/AY2324S1-CS2103-W14-2/tp) and open a new issue. Your contributions are greatly appreciated and help make NoteNote better for everyone.
+
+[Back to Top](#table-of-contents)
+
+---
+
 ## Known Issues
 
 - Newly added contacts/meetings are not automatically selected without scrolling down when there are several contacts/meetings already existing. However when adding a new contact the result box is updated for visual feedback.
 - Some users reported that the scrollbar of the contact/meeting list disappears when the screen size is too small.
+- Lists are sorted alphabetically instead of order they were added in. This is intended, and will likely be optimised in the future by adding a sort command (allowing the user to decide alphabetically or chronologically).
+- The commands for contacts and meetings do not use the `id/` prefix, whereas the notes and adding of contacts to meetings commands do. We plan on standardising this in the future for user comfort.
+
+[Back to Top](#table-of-contents)
+
+---
 
 ## Glossary
 
 | Term                               | Definition                                                                                                                                           |
 | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Command Line Interface (CLI)**| A text-based interface used for entering commands directly. In NoteNote, the command box where you type commands is a form of CLI. |
 | **Compulsory Arguments**   | arguments in square brackets are optional arguments eg. `list [n/NAME] [p/PHONE] [e/EMAIL] [note/NOTE]` |
 | **Optional Arguments** | Arguments not in square brackets are compulsory arguments eg. `add n/Sarah Woo p/82775346 e/sarah.woo@gmail.com` |
+
+[Back to Top](#table-of-contents)

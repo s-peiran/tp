@@ -15,7 +15,7 @@ Given below are my contributions to the project.
 
 [Reposense Link](https://nus-cs2103-ay2324s1.github.io/tp-dashboard/?search=jonyeokj&breakdown=true)
 
-### Enhancement Implemented
+### Enhancements Implemented
 
 - **Storage Support for Meetings**: Developed the functionality to serialize the `Meeting` class instances to JSON and deserialize them back, ensuring persistent storage of meeting data across sessions.
 
@@ -30,14 +30,25 @@ Given below are my contributions to the project.
 
 ### Contributions to the UG
 
-- **Proofreading and Documentation**: Conducted thorough proofchecks of the User Guide to ensure accuracy and consistency, particularly after updates to the parser. This process was crucial to maintain the reliability of the documentation.
+- **Quick Start and Tutorial**: Authored the Quick Start guide and the tutorial for new users,
+providing clear and concise instructions to enhance the onboarding experience for first-time users
+of NoteNote.
 
-- **Error Documentation**: Identified and documented previously unreported or incorrectly reported errors.
+- **Command Summary and Acceptable Parameters**: Compiled the command summary and table of
+acceptable parameters, enabling users to quickly reference commands and their required inputs.
+
+- **Proofreading**: Conducted thorough proofchecks of the User Guide to ensure accuracy and
+consistency, particularly after updates to the parser. This process was crucial to maintain the
+reliability of the documentation.
 
 ### Contributions to the DG
 
-- **Feature Documentation**: Added documentation on how the command history feature was planned to be implemented, as well as alternatives that we explored as well. 
+- **Feature Documentation**: Crafted comprehensive documentation for the command history feature,including the rationale behind its implementation and the consideration of alternative solutions.
 
 ### Contributions to team-based tasks
 
-[TBC]
+- **Workflow Management**: Engineered the team's workflow, establishing agendas, and setting
+reminders for submissions to ensure project milestones were met in a timely manner.
+
+- **Team Coordination**: Facilitated team meetings and maintained the project timeline, ensuring
+that all team members were aligned with the project's goals and deadlines.
