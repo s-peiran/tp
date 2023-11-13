@@ -7,7 +7,6 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":AddNoteCommandParser" as AddNoteCommandParser LOGIC_COLOR
 participant ":AddNoteCommand" as AddNoteCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Ui UI_COLOR_T1
@@ -23,13 +22,26 @@ activate AddressBookParser
 
 create AddNoteCommandParser
 AddressBookParser -> AddNoteCommandParser : AddNoteCommandParser()
+activate AddNoteCommandParser
+
+AddNoteCommandParser --> AddressBookParser
+deactivate AddNoteCommandParser
+
 AddressBookParser -> AddNoteCommandParser : parse("id/1 note/Hello world!")
 activate AddNoteCommandParser
+
 create AddNoteCommand
 AddNoteCommandParser -> AddNoteCommand : AddNoteCommand(1, "Hello world!")
+activate AddNoteCommand
+
+AddNoteCommand --> AddNoteCommandParser
+deactivate AddNoteCommand
+
 AddNoteCommandParser --> AddressBookParser
+deactivate AddNoteCommandParser
 
 AddressBookParser --> LogicManager
+deactivate AddressBookParser
 
 LogicManager -> AddNoteCommand : execute()
 activate AddNoteCommand
@@ -38,9 +50,14 @@ AddNoteCommand -> AppState : setContact(editedContact)
 activate AppState
 
 AppState --> AddNoteCommand
+deactivate AppState
+
 AddNoteCommand --> LogicManager
 deactivate AddNoteCommandParser
 
 deactivate AddNoteCommand
+
+[<--LogicManager
+deactivate LogicManager
 
 @enduml
