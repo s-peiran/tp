@@ -3,8 +3,6 @@ layout: page
 title: User Guide
 ---
 
-# User Guide
-
 NoteNote is a desktop application designed for swift and systematic management of contact information and meeting details. It's tailored specifically for proficient typists
 and users who prefer the speed and flexibility of a Command Line Interface (CLI).
 
