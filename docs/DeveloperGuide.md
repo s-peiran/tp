@@ -1,5 +1,6 @@
 ---
-layout: page title: Developer Guide
+layout: page
+title: Developer Guide
 ---
 ## **Acknowledgements**
 * The original codebase for this brownfield project is derived from [AddressBook Level-3](https://se-education.org/addressbook-level3/).
