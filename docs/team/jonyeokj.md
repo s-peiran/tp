@@ -1,6 +1,5 @@
 ---
-layout: page
-title: Jonathan Yeo's Project Portfolio Page
+layout: page title: Jonathan Yeo's Project Portfolio Page
 ---
 
 ### Project: NoteNote
@@ -19,7 +18,7 @@ Given below are my contributions to the project.
 
 - **Storage Support for Meetings**: Developed the functionality to serialize the `Meeting` class instances to JSON and deserialize them back, ensuring persistent storage of meeting data across sessions.
 
-- **Implemented Commands**: Implemented a suite of commands to enhance meeting and contact management:
+- **Implemented Commands**: Implemented a suite of commands to enhance meeting and contact management, and added their equivalent tests:
     - `edit-meeting`: Allows users to modify details of existing meetings.
     - `delete-meeting`: Enables users to remove meetings that are no longer relevant.
     - `view-contact/meeting`: Provides a detailed view of a selected contact or meeting, facilitating better information access.
@@ -30,25 +29,18 @@ Given below are my contributions to the project.
 
 ### Contributions to the UG
 
-- **Quick Start and Tutorial**: Authored the Quick Start guide and the tutorial for new users,
-providing clear and concise instructions to enhance the onboarding experience for first-time users
-of NoteNote.
+- **Quick Start and Tutorial**: Authored the Quick Start guide and the tutorial for new users, providing clear and concise instructions to enhance the onboarding experience for first-time users of NoteNote.
 
-- **Command Summary and Acceptable Parameters**: Compiled the command summary and table of
-acceptable parameters, enabling users to quickly reference commands and their required inputs.
+- **Command Summary and Acceptable Parameters**: Compiled the command summary and table of acceptable parameters, enabling users to quickly reference commands and their required inputs.
 
-- **Proofreading**: Conducted thorough proofchecks of the User Guide to ensure accuracy and
-consistency, particularly after updates to the parser. This process was crucial to maintain the
-reliability of the documentation.
+- **Proofreading**: Conducted thorough proofchecks of the User Guide to ensure accuracy and consistency, particularly after updates to the parser. This process was crucial to maintain the reliability of the documentation.
 
 ### Contributions to the DG
 
-- **Feature Documentation**: Crafted comprehensive documentation for the command history feature,including the rationale behind its implementation and the consideration of alternative solutions.
+- **AppState Documentation**: Revised the architecture and UI component section to include the `AppState` class as well, describing its role as a singleton entity responsible for maintaining the dynamic state of the application. Additionally, documented the interaction between AppState and other main components.
+
+- **Command History Documentation**: Crafted comprehensive documentation for the command history feature, including the rationale behind its implementation and the consideration of alternative solutions.
 
 ### Contributions to team-based tasks
 
-- **Workflow Management**: Engineered the team's workflow, establishing agendas, and setting
-reminders for submissions to ensure project milestones were met in a timely manner.
-
-- **Team Coordination**: Facilitated team meetings and maintained the project timeline, ensuring
-that all team members were aligned with the project's goals and deadlines.
+- **Workflow Management**: Engineered the team's workflow, establishing agendas, and setting reminders for submissions to ensure project milestones were met in a timely manner.

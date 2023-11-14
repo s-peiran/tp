@@ -6,7 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
@@ -33,6 +35,8 @@ public class AddContactToMeetingCommand extends Command {
     public static final String MESSAGE_CONTACT_NOT_FOUND = "The person specified is not created";
     public static final String MESSAGE_MEETING_NOT_FOUND = "The meeting specified is not created";
     public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in the meeting";
+
+    private static final Logger logger = LogsCenter.getLogger(AddContactToMeetingCommand.class);
 
     private final String meetingTitle;
     private final String contactName;
@@ -63,6 +67,7 @@ public class AddContactToMeetingCommand extends Command {
             }
         }
         if (!contactFound) {
+            logger.warning("Contact does not exist in AddressBook");
             throw new CommandException(MESSAGE_CONTACT_NOT_FOUND);
         }
         boolean meetingFound = false;
@@ -74,21 +79,25 @@ public class AddContactToMeetingCommand extends Command {
             }
         }
         if (!meetingFound) {
+            logger.warning("Meeting does not exist in AddressBook");
             throw new CommandException(MESSAGE_MEETING_NOT_FOUND);
         }
 
-        // Register Observers
+        ArrayList<Contact> listOfContacts = new ArrayList<>(meetingToEdit.getContacts());
+        if (listOfContacts.stream().anyMatch(contact::isSameContact)) {
+            logger.warning("Participant already in this Meeting");
+            throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
+        }
+        listOfContacts.add(contact);
+
+        logger.fine("contact is added to the Meeting");
+
         ArrayList<Meeting> observerList = new ArrayList<>(contact.getObservers());
         if (!observerList.contains(meetingToEdit)) {
             observerList.add(meetingToEdit);
         }
         contact.addObserver(meetingToEdit);
-
-        ArrayList<Contact> listOfContacts = new ArrayList<>(meetingToEdit.getContacts());
-        if (listOfContacts.stream().anyMatch(contact::isSameContact)) {
-            throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
-        }
-        listOfContacts.add(contact);
+        logger.fine("Meeting is added as an observer to Contact");
 
         Meeting editedMeeting = new Meeting(
             meetingToEdit.getTitle(), meetingToEdit.getTime(), meetingToEdit.getPlace(),

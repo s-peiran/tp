@@ -1,6 +1,5 @@
 ---
-layout: page 
-title: She Peiran's Project Portfolio Page
+layout: page title: She Peiran's Project Portfolio Page
 ---
 
 ### Project: NoteNote
@@ -25,19 +24,18 @@ Given below are my contributions to the project.
 
 ### Contributions to the UG
 
-    * Documented the List order for contact and meetings
-    * Add Glossary to UG
-    * Updated UG on the sort behavior of contact list and meeting list
-    * Outlined how the list filter for contact and meetings work
+* Add Glossary to UG
+* Updated UG on the intrinsic sort behavior of contact list and meeting list
+* Outlined how the list filter for contacts and meetings work
 
 ### Contributions to the DG
 
-    * Add Table of Contents for DG
-    * Elaborated on how the Meeting, Contact and AddressBook classes interact
-    * Add activity diagrams to elaborate how Add Contact To Meeting and Delete Contact From Meeting works
+* Add Table of Contents for DG
+* Elaborated on how the Meeting, Contact and AddressBook classes interact
+* Add activity diagrams to elaborate how Add Contact To Meeting and Delete Contact From Meeting works
 
 ### Contributions to team-based tasks
 
-    * Setting up the GitHub team org/repo
-    * Setup .gitignore
-    * Maintained the Project Website
+* Setting up the GitHub team org/repo
+* Setup .gitignore
+* Maintained the Project Website
