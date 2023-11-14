@@ -1,5 +1,6 @@
 ---
-layout: page title: Jonathan Yeo's Project Portfolio Page
+layout: page 
+title: Jonathan Yeo's Project Portfolio Page
 ---
 
 ### Project: NoteNote
